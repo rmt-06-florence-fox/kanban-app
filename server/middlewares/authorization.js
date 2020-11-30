@@ -1,21 +1,21 @@
-const { Task } = require('../models')
+const { Task } = require("../models");
 
 module.exports = async (req, res, next) => {
   try {
     const find = await Task.findOne({
       where: {
-        id: +req.params.id
-      }
-    })
+        id: +req.params.id,
+      },
+    });
     if (find.UserId === req.loggedin.id) {
-      next()
+      next();
     } else {
       throw {
         status: 401,
-        message: "You're not privileged"
-      }
+        message: "You're not privileged",
+      };
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};

@@ -17,16 +17,16 @@ module.exports = async (req, res, next) => {
       } else {
         throw {
           status: 401,
-          message: "Login dulu dong"
-        }
+          message: "Login dulu dong",
+        };
       }
     } else {
       throw {
         status: 401,
-        message: "login dulu"
-      }
+        message: "login dulu",
+      };
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 };

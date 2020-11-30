@@ -1,9 +1,8 @@
-const { User } = require('../models')
-const { compare } = require('../helpers/passwordHandler.js')
-const { generateToken } = require('../helpers/tokenHandler.js')
+const { User } = require("../models");
+const { compare } = require("../helpers/passwordHandler.js");
+const { generateToken } = require("../helpers/tokenHandler.js");
 
 class UserC {
-
   //register
   static async register(req, res, next) {
     try {
@@ -15,46 +14,44 @@ class UserC {
       const data = await User.create(payload);
       res.status(201).json(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
-  
+
   //login
   static login(req, res, next) {
-    let unameOrEmail = {}
-    if (req.body.username) {
-      unameOrEmail = req.body.username
-    } else if (req.body.email) {
-      unameOrEmail = req.body.email
+    let whichObj = {};
+    if (req.body.email) {
+      whichObj.email = req.body.email;
+    } else if (req.body.username) {
+      whichObj.username = req.body.username;
     }
     User.findOne({
-      where: unameOrEmail
+      where: whichObj,
     })
       .then((data) => {
         if (!data) {
           throw {
             status: 401,
-            message: "Account not found!"
-          }
+            message: "Account not found!",
+          };
         } else if (compare(req.body.password, data.password)) {
           const access_token = generateToken({
             id: data.id,
-            email: data.email
-          })
-          res.status(200).json({
-            id: data.id,
             email: data.email,
-            access_token
-          })
+          });
+          res.status(200).json({ access_token });
         } else {
           throw {
             status: 401,
-            message: "Invalid email/password!"
-          }
+            message: "Invalid email/password",
+          };
         }
       })
-      .catch(next)
+      .catch((err) => {
+        next(err);
+      });
   }
 }
 
-module.exports = UserC
+module.exports = UserC;
