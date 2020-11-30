@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          message: "Title is required"
+          msg: "Title is required"
         }
       }
     },
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          message: "Description is required"
+          msg: "Description is required"
         }
       }
     },
@@ -37,10 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          message: "Point is required"
+          msg: "Point is required"
         },
         notNull: {
-          message: "Point is required"
+          msg: "Point is required"
         }
       }
     },
@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          message: "Assigned To is required"
+          msg: "Assigned To is required"
         }
       }
     },
@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          message: "Status is required"
+          msg: "Status is required"
         }
       }
     },
