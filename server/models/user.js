@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 var bcrypt = require('bcryptjs');
-require('dotenv').config()
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
