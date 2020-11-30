@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const { user, task } = require('../controllers/index')
 router.post('/login', )
 router.post('/register',)
 
