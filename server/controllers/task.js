@@ -11,11 +11,12 @@ class TaskController {
                 status: req.body.status,
                 UserId: +req.loggedInUser.id
             }
+            console.log(req.loggedInUser);
 
             let data = await Task.create(payload)
             res.status(201).json(data)
         } catch (error) {
-            
+            next(error)
         }
     }
 }

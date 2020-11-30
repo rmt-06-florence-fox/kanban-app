@@ -62,6 +62,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    UserId: {
+      type : DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "UserId is required"
+        },
+        notNull: {
+          msg: "UserId is required"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Task',
