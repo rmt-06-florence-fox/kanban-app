@@ -4,10 +4,12 @@
   "description": "kanban app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "sidsoeharto",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
