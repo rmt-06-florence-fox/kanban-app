@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV === "development") { // ---> ini taruh di app.js
+if(process.env.NODE_ENV === "development") {
     require("dotenv").config()
 }
 

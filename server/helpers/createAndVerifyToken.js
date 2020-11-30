@@ -1,5 +1,4 @@
 var jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 function createToken(payload) {
     return jwt.sign(payload, process.env.Secret)

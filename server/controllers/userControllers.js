@@ -1,6 +1,5 @@
 const { User } = require("../models/index")
 var bcrypt = require('bcryptjs');
-// require('dotenv').config()
 const { createToken } = require("../helpers/createAndVerifyToken")
 
 class ControllerUser {
