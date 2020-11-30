@@ -2,8 +2,8 @@ if(process.env.NODE_ENV === "development") { // ---> ini taruh di app.js
     require("dotenv").config()
 }
 
-const exress = require("express")
-const app = exress()
+const express = require("express")
+const app = express()
 const Port = 3000
 var cors = require('cors')
 const routes = require("./routes/index")

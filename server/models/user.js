@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.addHook("beforeCreate", (instance, options) => {
-    let hash = bcrypt.hashSync(instance.password, process.env.hash);
+    let hash = bcrypt.hashSync(instance.password, +process.env.hash);
     instance.password = hash
   })
   return User;
