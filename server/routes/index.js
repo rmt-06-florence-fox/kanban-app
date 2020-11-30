@@ -1,7 +1,12 @@
-const route = require('express').Router()
+const router = require('express').Router()
+const taskRoutes = require('./task')
+const userRoutes = require('./user')
 
-route.get('/', (req, res) => {
+router.use('/', userRoutes)
+router.use('/tasks', taskRoutes)
+
+router.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-module.exports = route
+module.exports = router
