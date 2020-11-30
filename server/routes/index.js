@@ -1,12 +1,23 @@
 const router = require("express").Router();
-const { user, task } = require('../controllers/index')
-router.post('/login', )
-router.post('/register',)
+const { user, task } = require('../controllers/index.js')
+const { authentication, authorization } = require('../middlewares/index.js')
 
-//authentication n authorization
-router.get('/tasks',)
-router.post('/tasks',)
-router.put('/tasks/:id',)
-router.delete('/tasks/:id',)
+//testing
+router.get('/', (req, res, next) => {
+  res.send('hello world!')
+})
+
+//user-utilities
+router.post('/login', user.login)
+router.post('/register', user.register)
+
+//authentication
+router.use(authentication)
+router.get('/tasks', task.create)
+router.post('/tasks', task.get)
+
+//authorization
+router.put('/tasks/:id', task.update)
+router.delete('/tasks/:id', task.delete)
   
 module.exports = router;
