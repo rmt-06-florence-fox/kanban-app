@@ -1,34 +1,40 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
+const { hash } = require("../helpers/passwordHandler");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Task)
+      User.hasMany(models.Task);
     }
-  };
-  User.init({
-    username: {
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        notEmpty: "username cannot be blank"
+  }
+  User.init(
+    {
+      username: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: "username cannot be blank",
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: "email cannot be blank",
+          isEmail: true,
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
       },
     },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        notEmpty: "email cannot be blank"
+    {
+      hooks: {
+        beforeCreate(instance, options) {
+          instance.password = hash(instance.password)
+        },
       },
-    },
-    password: {
-      type: DataTypes.STRING, 
+      sequelize,
+      modelName: "User",
     }
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  );
   return User;
 };
