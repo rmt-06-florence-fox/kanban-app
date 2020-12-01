@@ -12,7 +12,7 @@ router.post('/login', UserController.login)
 router.post('/register', UserController.register)
 router.post('/googleLogin', UserController.googleSignIn);
 
-// router.use(authentication)
+router.use(authentication)
 router.use('/tasks', taskRouter)
 router.use('/category', categoryRouter)
 
