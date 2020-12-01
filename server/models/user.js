@@ -27,7 +27,14 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    password: DataTypes.STRING
+    password: {
+      type : DataTypes.STRING,
+      validate : {
+        notEmpty : {
+          msg : 'Please Insert Your Password'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
