@@ -16,8 +16,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      type : DataTypes.STRING,
+      notNull : true
+    },
+    password: {
+      type : DataTypes.STRING,
+      notNull : true
+    }
   }, {
     hooks : {
       beforeCreate : (user, options) => {

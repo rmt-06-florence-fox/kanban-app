@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="787087558897-pqkrcgh6vhnhqbu30vefh8ifsifjf4na.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Kanban App</title>
+</head>
+<body>
+    <h1> Kanban App </h1>
+    <div id="login-page">
+    <h2> Login </h2>
+        <form id="f-signin">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="emailsignin" placeholder="Enter email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="passwordsignin" placeholder="Enter password" name="pswd">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+
+    <div id="register-page">
+        <h2> Register </h2>
+        <form id="f-signup">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="emailsignup" placeholder="Enter email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="passwordsignup" placeholder="Enter password" name="pswd">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>           
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+
+    <div id="main-page">
+
+        <div id="list">
+
+        </div>
+
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</body>
+</html>
