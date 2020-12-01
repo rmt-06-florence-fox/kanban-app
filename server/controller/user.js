@@ -1,5 +1,6 @@
 const { User } = require("../models/index.js")
 const comparePassword = require("../helpers/comparePassword")
+const generateToken = require("../helpers/generateToken.js")
 
 class UserController {
 
@@ -38,7 +39,13 @@ class UserController {
         }
         else {
           if(comparePassword(req.body.password, user.password)){
-            res.status(200).json("User logged in")
+            let access_token = generateToken(
+              {
+                id: user.id,
+                email: user.email
+              }
+            )
+            res.status(200).json({ access_token })
           }
           else {
             throw {

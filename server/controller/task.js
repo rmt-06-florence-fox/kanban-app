@@ -6,7 +6,7 @@ class TaskController {
     let newTask = {
       Title: req.body.title,
       due_date: req.body.due_date,
-      UserId: req.body.UserId,
+      UserId: req.loggedInUser.id,
       CategoryId: req.body.CategoryId
     }
     Task.create(newTask)
@@ -83,7 +83,7 @@ class TaskController {
     let updatedTask = {
       Title: req.body.title,
       due_date: req.body.due_date,
-      UserId: req.body.UserId,
+      UserId: req.loggedInUser.id,
       CategoryId: req.body.CategoryId
     }
 
@@ -137,6 +137,29 @@ class TaskController {
         console.log(err.message + " <<< ini dari controller task, fungsi updateCategory")
         next(err)
       })
+  }
+
+  static deleteTask(req, res, next){
+    Task.destroy({
+      where: {
+        id: +req.params.id
+      }
+    })
+    .then(user => {
+      if (user === 0){
+        throw {
+          status: 404,
+          message: "Error! Data not found"
+        }
+      }
+      else {
+        res.status(200).json({message: "Task is successfully deleted"})
+      }
+    })
+    .catch(err => {
+      console.log(err.message + " <<< ini dari controller task, fungsi deleteTask")
+      next(err)
+    })
   }
 }
 

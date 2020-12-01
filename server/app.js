@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const cors = require("cors")
 const errorHandler = require("./middlewares/errorhandlers")
+require("dotenv").config()
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
