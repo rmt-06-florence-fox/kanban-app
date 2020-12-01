@@ -1,19 +1,18 @@
 const { resolveInclude } = require('ejs')
 const express = require('express')
-const Controller = require('../controllers/todo')
+const TaskController = require('../controllers/TaskController')
 const authentication = require('../middlewares/authentication')
 const otorisesion = require('../middlewares/autorisesion')
 const router = express.Router()
 
 router.use(authentication)
-router.get('/quote',Controller.quote)
-router.post('/', Controller.postTodo) //add
-router.get('/',Controller.getTodo) //show all
-router.get('/:id', Controller.getTodoId)
+
+router.post('/', TaskController.addtask) //add
+router.get('/',TaskController.showtask) //show all
+router.get('/:id', TaskController.findIdtask)
 
 router.use('/:id',otorisesion)
-router.put('/:id', Controller.putTodoId) //updateall
-router.patch('/:id', Controller.patchTodo) //updateStat
-router.delete('/:id', Controller.deleteTodo)
+router.put('/:id', TaskController.edittask) //updateall
+router.delete('/:id', TaskController.deletetask)
 
 module.exports = router

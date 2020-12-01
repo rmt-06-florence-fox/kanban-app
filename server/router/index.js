@@ -1,12 +1,11 @@
 const express = require('express')
-const UserController =  require('../controllers/user')
-const routerTodos = require('./taskRouter')
+const UserController =  require('../controllers/UserController')
+const taskRouter = require('./taskRouter')
 const router = express.Router()
 
 
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
 router.post('/googleLogin', UserController.googleLogin)
-// router.get('/lyric',Controller.quote)
-router.use('/todos', routerTodos )
+router.use('/task', taskRouter )
 module.exports = router
