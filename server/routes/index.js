@@ -10,6 +10,6 @@ router.get('/', Controller.home);
 router.use('/tasks', taskRouter);
 router.post('/register', UserController.register);
 router.post('/login', UserController.login);
-//router.post('/googleLogin', UserController.googleLogin);
+router.post('/googleLogin', UserController.googleLogin);
 
 module.exports = router;

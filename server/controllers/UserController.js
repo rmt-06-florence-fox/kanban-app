@@ -1,8 +1,8 @@
 const { User } = require('../models/index.js');
 const bcrypt = require('bcryptjs');
 const { generateToken } = require('../helpers/jwt.js');
-// const {OAuth2Client} = require('google-auth-library');
-// const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 //const axios = require('axios');
 
 class UserController {
@@ -48,41 +48,41 @@ class UserController {
         })
     }
 
-    // static googleLogin(req, res, next) {
-    //     let payload
-    //     client.verifyIdToken({
-    //         idToken: req.body.googleToken,
-    //         audience: process.env.GOOGLE_CLIENT_ID
-    //     })
-    //     .then(ticket => {
-    //         payload = ticket.getPayload()
-    //         return User.findOne({
-    //             where: {
-    //                 email: payload.email
-    //             }
-    //         })
-    //     })
-    //     .then(user => {
-    //         if (user) {
-    //             return user
-    //         } else {
-    //             return User.create({
-    //                 email: payload.email,
-    //                 password: process.env.GOOGLE_PASSWORD
-    //             })
-    //         }
-    //     })
-    //     .then(user => {
-    //         const access_token = signToken({
-    //             email: user.email,
-    //             id: user.id
-    //         })
-    //         res.status(200).json({ access_token })
-    //     })
-    //     .catch(err => {
-    //         res.status(500).json(err)
-    //     })
-    // }
+    static googleLogin(req, res, next) {
+        let payload
+        client.verifyIdToken({
+            idToken: req.body.googleToken,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+        .then(ticket => {
+            payload = ticket.getPayload()
+            return User.findOne({
+                where: {
+                    email: payload.email
+                }
+            })
+        })
+        .then(user => {
+            if (user) {
+                return user
+            } else {
+                return User.create({
+                    email: payload.email,
+                    password: process.env.GOOGLE_PASSWORD
+                })
+            }
+        })
+        .then(user => {
+            const access_token = signToken({
+                email: user.email,
+                id: user.id
+            })
+            res.status(200).json({ access_token })
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+    }
 }
 
 module.exports = UserController;
