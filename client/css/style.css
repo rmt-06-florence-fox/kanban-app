@@ -1,0 +1,70 @@
+body {
+  font: 100% "Work Sans", sans-serif;
+  background-color: #3fb1a927;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #16697a;
+  color: white;
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-content .container-fluid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.item {
+  width: 20rem;
+  text-align: center;
+  padding: 10px 10px;
+  font-size: 20px;
+}
+
+.item-1 {
+  background-color: #6b7fa8;
+  color: white;
+}
+
+.item-2 {
+  background-color: #4b8863a2;
+  color: white;
+}
+
+.item-3 {
+  background-color: #e28400a6;
+  color: white;
+}
+
+.item-4 {
+  background-color: #af3838c0;
+  color: white;
+}
+
+.kbn-col {
+  margin: 25px 25px;
+}
+
+.card-content {
+  background-color: #fff76a;
+  height: 8rem;
+  padding: 10px 10px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2.5px 5px #b32d2d34;
+}
+
+.bg-card {
+  background-color: #4e6d7427;
+  padding: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */
