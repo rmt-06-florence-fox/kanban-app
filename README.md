@@ -81,3 +81,91 @@ _Response(500)_
 }
 ```
 
+### POST /tasks
+>create a task
+
+_Request Header_
+```
+access_token
+```
+_Request Body_
+```
+title : doing a
+category : backlog
+```
+_Response(201)_
+```
+{
+  "createdTask": {
+      "id": 1,
+      "title": "doing a",
+      "category": "backlog",
+      "UserId": 6,
+      "updatedAt": "2020-12-01T23:16:49.584Z",
+      "createdAt": "2020-12-01T23:16:49.584Z"
+  }
+
+}
+```
+_Response(400)_
+```
+[
+  {
+      "message": "can not be empty"
+  },
+  {
+      "message": "can not be empty"
+  }
+]
+```
+_Response(401)_
+```
+{
+    "message": "please login"
+}
+```
+_Response(500)_
+```
+{
+  access_token : "internal serve error"
+}
+```
+
+### GET /tasks
+>fetch all task
+
+_Request Header_
+```
+access_token
+```
+_Request Body_
+```
+none
+```
+_Response(200)_
+```
+[
+    {
+        "id": 1,
+        "title": "test postman",
+        "category": "backlog",
+        "UserId": 6,
+        "createdAt": "2020-12-01T23:16:49.584Z",
+        "updatedAt": "2020-12-01T23:16:49.584Z"
+    },
+    {
+        "id": 2,
+        "title": "test lagi",
+        "category": "doing",
+        "UserId": 6,
+        "createdAt": "2020-12-01T23:23:16.607Z",
+        "updatedAt": "2020-12-01T23:23:16.607Z"
+    }
+]
+```
+_Response(500)_
+```
+{
+  access_token : "internal serve error"
+}
+```

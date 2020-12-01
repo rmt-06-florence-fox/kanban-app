@@ -6,7 +6,6 @@ class Controller{
   static async login (req,res,next){
     try {
       const data = await User.findOne({where:{ email : req.body.email }})
-      // console.log(user);
       if(data && passHelper.comparePassword(req.body.password,data.password)){
         const access_token = jwtHelper.generateToken({email : data.email, id: data.id})
         console.log(access_token);
@@ -18,7 +17,6 @@ class Controller{
   }
 
   static async register (req,res,next){
-    
     try {
       const newUser = {
         email : req.body.email,
@@ -27,7 +25,31 @@ class Controller{
       console.log(newUser);
       const data = await User.create(newUser)
       console.log(data, 'sukses bang');
-      res.status(200).json({ id : data.id, email : data.email }) 
+      res.status(201).json({ id : data.id, email : data.email }) 
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async create (req, res, next){
+    const newTask = {
+      title : req.body.title,
+      category : req.body.category,
+      UserId : req.currentUser.id
+    }
+    try {
+      const createdTask = await Task.create(newTask)
+      res.status(201).json({createdTask})
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async findall(req, res, next){
+    // console.log('a');
+    try {
+      const tasks = await Task.findAll({})
+      res.status(200).json(tasks)
     } catch (error) {
       next(error)
     }
