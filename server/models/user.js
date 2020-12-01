@@ -11,36 +11,53 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.belongsToMany(models.Organization, {through: models.UserOrganization})
     }
   };
   User.init({
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Name is required!!'
+        },
+        notNull: {
+          args: true,
+          msg: 'Name is required!!'
+        }
+      }},
     email: {
-      type : DataTypes.STRING,
-      unique : true,
-      validate : {
-        isEmail : {
-          msg : 'email must be in email format'
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Email is required!!'
         },
-
-        notEmpty : {
-          msg : 'email cannot be empty'
+        notNull: {
+          args: true,
+          msg: 'Email is required!!'
+        },
+        isEmail: {
+          args: true,
+          msg: 'Format email is required!!'
         }
-
-      }
-    },
+      }},
     password: {
-      type : DataTypes.STRING,
-      validate : {
-        notEmpty : {
-          msg : 'password cannot be empty'
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Password is required!!'
         },
-        min : {
-          args : [[6]],
-          msg : 'passsword length must be more than 6 characters'
+        notNull: {
+          args: true,
+          msg: 'Password is required!!'
         }
-      }
-    
-    }
+      }}
   }, {
     sequelize,
     modelName: 'User',
