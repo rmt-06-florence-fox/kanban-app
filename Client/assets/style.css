@@ -5,8 +5,36 @@
   width: 420px;
 }
 .btn-submit{
-  background-color: #7d4760;
+  background-color: #b97394;
+  /* width: 100px; */
 }
 .img-regist{
   width: 350px;
+}
+.navbar{
+  background-color: #d68fb0;
+}
+.container-oauth{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.task-header{
+  background-color: #d68fb0;
+}
+.task-header-2{
+  background-color: #72093a96;
+}
+.container-overflow{
+  height: 500px;
+  overflow: scroll;
+  margin-bottom: 100px;
+  background-color: rgb(250, 234, 240);
+}
+.container-overflow .card{
+  margin-top: 10px;
+}
+.container-button-task{
+  display: flex;
+  justify-content: center;
 }
