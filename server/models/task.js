@@ -1,13 +1,9 @@
 'use strict';
-
-const { hashPass } = require("../helper/hashPassword")
-
 const {
   Model
 } = require('sequelize');
-const { use } = require("../Routes");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Task extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,40 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Task, {
+      Task.belongsTo(models.User, {
         foreignKey: "UserId",
-        sourceKey: "id"
+        targetKey: "id"
       })
     }
   };
-  User.init({
-    email: {
+  Task.init({
+    title: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg: "Email can't be empty"
-        },
-        isEmail: {
-          msg: "Email must be unique"
+          msg: "title can't be empty"
         }
       }
     },
-    password: {
+    category: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg: "Password can't be empty"
+          msg: "Category can't be empty"
         }
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
-    hooks: {
-      beforeCreate: (user, opt) => {
-        user.password = hashPass(user.password)
-      }
-    },
     sequelize,
-    modelName: 'User',
+    modelName: 'Task',
   });
-  return User;
+  return Task;
 };
