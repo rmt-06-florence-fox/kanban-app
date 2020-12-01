@@ -1,0 +1,20 @@
+body{
+  margin: 0;
+}
+
+/* navbar section */
+.navbar-container{
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(90deg, rgba(230,181,43,1) 24%, rgba(36,8,0,1) 100%);
+  min-height: 50px;
+  align-items: center;
+  padding: 5px;
+}
+
+/* 
+.navbar-icon-img{
+  width: 50px;
+} */
+
+
