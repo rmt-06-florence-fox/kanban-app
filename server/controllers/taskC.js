@@ -3,7 +3,13 @@ const { Task } = require('../models')
 class TaskC {
   //create
   static async create(req, res, next) {
-    
+    try {
+      const { title, category } = req.body
+      const data = await Task.create({ title, category })
+      res.status(201).json(data)
+    } catch (error) {
+      next(error)
+    }
   }
   //read
   static async get(req, res, next) {
