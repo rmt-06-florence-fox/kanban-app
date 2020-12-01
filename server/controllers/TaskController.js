@@ -5,6 +5,7 @@ class TaskController {
         const obj = {
             title: req.body.title,
             description: req.body.description,
+            category: req.body.category,
             due_date: req.body.due_date,
             UserId: req.loggedInUser.id
         }
@@ -46,7 +47,7 @@ class TaskController {
             const obj = {
                 title: req.body.title,
                 description: req.body.description,
-                status: req.body.status,
+                category: req.body.category,
                 due_date: req.body.due_date,
                 UserId: req.loggedInUser.id
             }
@@ -66,7 +67,7 @@ class TaskController {
         try {
             const id = Number(req.params.id);
             const obj = {
-                status: req.body.status,
+                category: req.body.category
             }
             const result = await Task.update(obj, {
                 where: {
