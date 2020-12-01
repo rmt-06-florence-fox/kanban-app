@@ -1,7 +1,7 @@
 const Jwt = require('../helpers/jwt')
 const { User } = require('../models/index')
 
-static function authentication (res, res, next) {
+async function authentication (req, res, next) {
     const { access_token } = req.headers
     try {
         if(!access_token) {
@@ -13,20 +13,22 @@ static function authentication (res, res, next) {
             const user = await User.findOne({
                 where: {
                     email: decoded.email,
-                    id: decoded.email
+                    id: decoded.id
                 }
             })
             if(!user) {
-                throw { error: 'Please login first', status: 401}
-            }
-            else {
+                throw {error: 'Please login first', status: 401}
+            }else {
                 req.loggedIn = decoded
+                console.log(req.loggedIn)
                 next()
             }
         }
-    }catch(error){
+    }
+    catch(error) {
         next(error)
     }
 }
+
 
 module.exports = authentication

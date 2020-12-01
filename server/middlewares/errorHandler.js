@@ -1,34 +1,37 @@
 function errorHandler (err, req, res, next) {
     let status = 500
-    let message = err.name || `Internal server error`
-
+    let message = err.name || `Internal server error!`
+  console.log(err)
+  console.log('kesini ya ')
     if(err.name === 'SequelizeValidationError') {
-        status = 401
-        let errors = []
-        for(let i = 0; i < err.errors.length; i++) {
-            errors.push(err.push[0].message) 
-        }
-        message = errors.join(', ')
-    }
+      status = 401
+      console.log(err)
+  
+      let errors = []
+      for (let i = 0; i < err.errors.length; i++) {
+        errors.push(err.errors[i].message)
+      }
+      message = errors.join(', ')
+    } 
     else if(err.error === 'wrong password/email') {
         status = 401
         message = 'wrong password/email'
-    } 
-    else if (err.name === 'SequelizeUniqueConstraintError') {
-        status = 400
-        message = 'Email is already registered'
     }
+    else if (err.name === 'SequelizeUniqueConstraintError') {
+      status = 400
+      message = 'Email is already taken!'
+    } 
     else if (err.message === 'Request failed with status code 404') {
-        status = 404
-        message = 'Task not found'
+      status = 404
+      message = 'Todo not found!'
     }
     else {
-        status = err.status || 500
-        message = err.message || 'Internl server error'
+      status = err.status || 500
+      message = err.message || 'Internal server error'
     }
     res.status(status).json({
         message
     })
-}
-
-module.exports = errorHandler
+  }
+  
+  module.exports = errorHandler
