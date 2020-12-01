@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     hooks:{
-      beforeCreate: (user,options)=>{
+      beforeCreate(user,options){
         user.password = passHelper.converPassword(user.password)
       }
     },

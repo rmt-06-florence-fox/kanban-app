@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs')
 
 class PassHelper{
   static converPassword(plain){
-    const salt = bcrypt.hashSync(process.env.SALT);
+    console.log(process.env.SALT);
+    const salt = bcrypt.genSaltSync(+process.env.SALT);
     return bcrypt.hashSync(plain,salt);
   }
 
