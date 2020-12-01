@@ -28,7 +28,6 @@
 .container-overflow{
   height: 500px;
   overflow: scroll;
-  margin-bottom: 100px;
   background-color: rgb(250, 234, 240);
 }
 .container-overflow .card{
@@ -37,4 +36,33 @@
 .container-button-task{
   display: flex;
   justify-content: center;
+}
+
+#main-page{
+  margin-bottom: 100px;
+}
+.task-bottom{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.btn-add{
+  width: 100%;
+  background-color: #e7bbd0;
+}
+.add-task{
+  width: 100%;
+  height: 70px;
+}
+.btn-add-task{
+  background-color: #b97394;
+  width: 50%;
+}
+.btn-cancel{
+  background-color: rgb(219, 214, 214);
+  width: 48%;
+}
+.edit-task{
+  width: 100%;
+  height: 70px;
 }
