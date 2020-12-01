@@ -6,10 +6,12 @@ async function authentication(req,res,next){
     const access_token = req.headers.access_token
 
     try {
+        console.log('=====try authen')
         const decode = await decodeToken(access_token)
+        console.log(decode)
         const user = await User.findOne({
             where : {
-                id : decodeToken.payload.id
+                id : decode.id
             }
         })
         if(user){

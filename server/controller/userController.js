@@ -26,15 +26,17 @@ class UserController {
 
         const email = req.body.email
         const password = req.body.password
-
+        console.log(email,password)
         try {
+            console.log('========== Login')
             const loginUser = await User.findOne({
                 where : {
                     email
                 }
             })
-
+            console.log(loginUser)
             if(loginUser){
+                console.log('===========get user')
                 if(comparePassword(password,loginUser.password)){
                     const access_token = getToken({
                         id : loginUser.id,
@@ -43,6 +45,11 @@ class UserController {
                     res.status(200).json({
                         access_token
                     })
+                }else {
+                    throw {
+                        code : 400,
+                        msg : 'wrong email/password'
+                    }
                 }
             }else {
                 throw {

@@ -3,18 +3,22 @@ const { Op } = require("sequelize");
 
 
 async function authorization(req,res,next){
-    const taskId  = req.params.taskId
+    console.log('=========author')
+    const taskId  = +req.params.id
     const userId = req.loginUser.id
-
+    console.log(taskId,userId)
     try {
-        const taskSearched = Task.findOne({
+        console.log('=============== try author')
+        const taskSearched = await Task.findOne({
             where :{
                 id : taskId
             }
         })
 
+        console.log(taskSearched)
         if(taskSearched){
-            const owner = Task.findOne({
+            console.log('======get task author')
+            const owner = await Task.findOne({
                 where : {
                     [Op.and] :[
                         {UserId : userId},
@@ -31,13 +35,14 @@ async function authorization(req,res,next){
                 }
             }
         }else {
+            console.log('======= eror 404 author')
             throw {
                 code : 404,
                 msg : 'Data not Found'
             }
         }
     } catch (error) {
-        
+        next(error)
     }
 }
 

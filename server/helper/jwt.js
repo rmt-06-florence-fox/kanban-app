@@ -5,9 +5,19 @@ function getToken(payload){
     return jwt.sign(payload, process.env.secret)
 }
 
-function decodeToken(token){
+async function decodeToken(token){
     console.log('============decode')
-    return jwt.verify(token,process.env.secret)
+    try {
+        console.log('try ============decode')
+
+        const decode = await jwt.verify(token,process.env.secret)
+        return decode
+    } catch (error) {
+        throw {
+            code : 400,
+            msg : 'please login'
+        }
+    }
 }
 
 module.exports = {
