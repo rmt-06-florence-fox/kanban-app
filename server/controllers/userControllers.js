@@ -10,7 +10,7 @@ class ControllerUser {
         }
         User.create(objUser)
             .then(data => {
-                res.status(201).json({ data: data })
+                res.status(201).json({ email: data.email, id: data.id })
             })
             .catch(err => {
                 res.status(500).json({ error: err })
