@@ -14,11 +14,34 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Email should not be empty"
+        },
+        notNull: {
+          msg: "Email should not be empty"
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Password should not be empty"
+        },
+        notNull: {
+          msg: "Password should not be empty"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
   });
+  
   return User;
 };
