@@ -1,0 +1,13 @@
+.category {
+  margin-top: 1em;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
+}
