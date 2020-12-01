@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="861795519447-404of13uh7tln557o6o3cba2qs3dmse7.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Kanban</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light sticky-top" id="navbar">
+        <button type="button" onclick="showMainPage()" class="navbar-brand rounded">
+            <img src="/images/navbar-logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""
+                loading="lazy">
+            Kanban
+        </button>
+        <button onclick="showMainPage()" type="button" class="btn btn-light" id="nav-home">Home</button>
+        <button type="button" class="btn btn-light ml-auto" id="btn-logout">Log out</button>
+    </nav>
+
+    <div class="sticky-top top-bar-container" id="top-bar-container">
+        <button type="button" class="btn btn-light ml-auto" id="btn-add-category">Add Category</button>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <div class="body-container ml-4 mr-4">
+        <div id="login-page">
+            <div class="register-login-content">
+                <div class="login-image-container">
+                    <img src="" alt="" width="">
+                </div>
+                <div class="form-container">
+                    <div class="login-form-title">
+                        <h1>Kanban</h1>
+                    </div>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="login-email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="login-password" name="password">
+                        </div>
+                        <div class="login-btn-container">
+                            <button type="submit" class="btn mb-2" id="login-login-btn">Log in</button>
+                            <button type="button" class="btn mt-2 mb-2" id="login-register-btn">Register</button>
+                            <p style="text-align:center;font-weight:500">or</p>
+                            <div class="g-signin2" data-width="246" data-longtitle="true" data-onsuccess="onSignIn"
+                                id="google-btn"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="register-page">
+            <div class="register-login-content" id="register-content">
+                <div class="register-image-container">
+                    <img src="" alt="" width="">
+                </div>
+                <div class="form-container">
+                    <div class="register-form-title">
+                        <h1>Kanban</h1>
+                    </div>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" id="register-first_name" placeholder="John"
+                                name="first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" id="register-last_name" placeholder="Doe"
+                                name="last_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="register-email" placeholder="johndoe@mail.com"
+                                name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="register-password"
+                                placeholder="minimum 6 characters" name="password">
+                        </div>
+                        <div class="register-btn-container">
+                            <button type="submit" class="btn mt-2" id="register-submit-btn">Register</button>
+                            <button type="button" class="btn mt-2" id="register-cancel-btn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-page">
+
+            <div class="container-fluid">
+                <div class="row flex-nowrap" id="board-content">
+
+                    <div class="main-uncompleted-container col-3 mr-1">
+                        <div class="main-uncompleted-header-container">
+                            <h3 class="main-uncompleted-header-title text-center">Backlog</h3>
+                            <div class="form-group">
+                                <label for="search-categories">Search by: </label>
+                                <select class="form-control" name="uncompleted-search-category"
+                                    id="uncompleted-search-category">
+                                    <option selected>Title</option>
+                                    <option>Description</option>
+                                    <option>Due Date</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border-light" type="text" id="uncompleted-search"
+                                    placeholder="search">
+                            </div>
+                        </div>
+
+                        <div id="main-uncompleted-content">
+
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                        </div>
+                    </div>
+
+                    <div class="main-completed-container col-3">
+                        <div class="main-completed-header-container">
+                            <h3 class="main-completed-header-title text-center">Product</h3>
+                            <div class="form-group">
+                                <label for="search-categories">Search by: </label>
+                                <select class="form-control" name="completed-search-category"
+                                    id="completed-search-category">
+                                    <option selected>Title</option>
+                                    <option>Description</option>
+                                    <option>Due Date</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border-light" type="text" id="completed-search"
+                                    placeholder="search">
+                            </div>
+                        </div>
+                        <div id="main-completed-content">
+
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                        </div>
+                    </div>
+
+                    <div class="main-expired-container col-3">
+                        <div class="main-expired-header-container">
+                            <h3 class="main-expired-header-title text-center">Development</h3>
+                            <div class="form-group">
+                                <label for="search-categories">Search by: </label>
+                                <select class="form-control" name="expired-search-categories"
+                                    id="expired-search-category">
+                                    <option selected>Title</option>
+                                    <option>Description</option>
+                                    <option>Due Date</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border-light" type="text" id="expired-search"
+                                    placeholder="search">
+                            </div>
+                        </div>
+                        <div id="main-expired-content">
+
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                        </div>
+                    </div>
+
+                    <div class="main-uncompleted-container col-3">
+                        <div class="main-uncompleted-header-container">
+                            <h3 class="main-uncompleted-header-title text-center">Done</h3>
+                            <div class="form-group">
+                                <label for="search-categories">Search by: </label>
+                                <select class="form-control" name="uncompleted-search-category"
+                                    id="uncompleted-search-category">
+                                    <option selected>Title</option>
+                                    <option>Description</option>
+                                    <option>Due Date</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border-light" type="text" id="uncompleted-search"
+                                    placeholder="search">
+                            </div>
+                        </div>
+
+                        <div id="main-uncompleted-content">
+
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="main-uncompleted-container col-3">
+                        <div class="main-uncompleted-header-container">
+                            <h3 class="main-uncompleted-header-title text-center">Deploy</h3>
+                            <div class="form-group">
+                                <label for="search-categories">Search by: </label>
+                                <select class="form-control" name="uncompleted-search-category"
+                                    id="uncompleted-search-category">
+                                    <option selected>Title</option>
+                                    <option>Description</option>
+                                    <option>Due Date</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border-light" type="text" id="uncompleted-search"
+                                    placeholder="search">
+                            </div>
+                        </div>
+
+                        <div id="main-uncompleted-content">
+
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="main-uncompleted-container col-3">
+                        <div class="main-uncompleted-header-container">
+                            <h3 class="main-uncompleted-header-title text-center">Review</h3>
+                            <div class="form-group">
+                                <label for="search-categories">Search by: </label>
+                                <select class="form-control" name="uncompleted-search-category"
+                                    id="uncompleted-search-category">
+                                    <option selected>Title</option>
+                                    <option>Description</option>
+                                    <option>Due Date</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border-light" type="text" id="uncompleted-search"
+                                    placeholder="search">
+                            </div>
+                        </div>
+
+                        <div id="main-uncompleted-content">
+
+                            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+
+                              <div class="card bg-light mb-3" style="max-width: 18rem;">
+                                <div class="card-header">Header</div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Light card title</h5>
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        
+
+
+
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</body>
+
+</html>
