@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const passHelper = require('../helpers/passhelper')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -15,9 +16,32 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        isEmail:{
+          args: true,
+          msg : "must be a valid email address"
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{
+        notEmpty:{
+          args : true,
+          msg : "can not be empty"
+        }
+      }
+    }
   }, {
+    hooks:{
+      beforeCreate: (user,options)=>{
+        user.password = passHelper.converPassword(user.password)
+      }
+    },
     sequelize,
     modelName: 'User',
   });
