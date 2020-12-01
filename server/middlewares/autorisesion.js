@@ -6,11 +6,12 @@ module.exports = async (req,res,next) => {
   try {
    
     const loggedUserId = req.loginUser.id
-    console.log(loggedUserId)
+    
     let id = +req.params.id
 
       let data = await Task.findOne({where: {id: id}})
-      console.log(data)
+      // console.log(data)
+      console.log(loggedUserId, `======` , data.UserId )
       if (data.UserId === loggedUserId) {
         next()
       }
@@ -23,6 +24,7 @@ module.exports = async (req,res,next) => {
     
   }
   catch(error){
+    console.log(error)
 
     next(error)
 

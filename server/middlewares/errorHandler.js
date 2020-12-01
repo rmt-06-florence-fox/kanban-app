@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
     res.status(400).json({message: `${arrErrors} required` })
     }
     else {
-      res.status(err.status).json({message: `Not Authorized`})
+      res.status(err.status).json(err.message)
     }
   }
   else {

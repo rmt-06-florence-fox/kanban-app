@@ -1,8 +1,8 @@
 const {User,Task,Category} = require('../models')
 
 class TaskController{
-  static async showtask(req,res){
-    
+  static async showtask(req,res,next){
+
     try{
       const tasks = await Task.findAll({
         attributes : {
@@ -11,20 +11,26 @@ class TaskController{
         order : [ [ 'updatedAt', 'ASC' ] ]
         ,
         include : [
-          { model : User,
+          { model : Category,
             attributes : ['name']
-            }
-        ]
+            },
+            { model : User,
+              attributes : ['name']
+              }
+          
+        ], 
+        
       })
-      res.status(200).json(data)
-      // res.send('ya')
+
+      
+      res.status(200).json(tasks)
     }
     catch(error) {
       next(error)
     }
 
   }
-  static async findIdtask(req,res){
+  static async findIdtask(req,res,next){
     const UserId = req.loginUser.id
 
     try{
@@ -37,11 +43,13 @@ class TaskController{
         include : [
           { model : User,
             attributes : ['name']
-            }
+            },
+            { model : Category,
+              attributes : ['name']
+              }
         ]
       })
-      res.status(200).json(data)
-      // res.send('ya')
+      res.status(200).json(tasks)
     }
     catch(error) {
       next(error)
@@ -49,25 +57,56 @@ class TaskController{
     
   }
   static async addtask(req,res){
-    const UserId = req.loginUser.id
-    const { description, CategoryId } = req.body
 
-    try {
-      const newTask = await Task.create({
-        description, UserId, CategoryId
-      })
+    console.log("masuk ad <<<<<<<<<<<<<")
 
-      res.status(200).json({
-        message : 'Task successfully added'
-      })
+     try {
+       let category = await Category.findAll()
+         let categoryName = category[0].name
+         console.log(categoryName)
+          const task = {
+            title: req.body.title,
+            category: categoryName,
+            CategoryId: req.body.CategoryId,
+            UserId: req.loginUser.id
+          }
+       let data = await Task.create(task)
+       res.status(201).json(data)
+     }
+     catch (error){
+       console.log(error)
+  
+        next(error)
+       
+     }
+ 
 
-    } catch (error) {
-      next(error)
-    }
-    
   }
 
-  static async edittask(req,res){
+  static async edittask(req,res,next){
+    let id= req.loginUser.id
+    console.log("masuk edit <<<<<<<<<<<<<")
+
+    try {
+      let category = await Category.findAll()
+        let categoryName = category[0].name
+        // console.log(categoryName)
+         const updateTask = {
+           title: req.body.title,
+           category: categoryName,
+           CategoryId: req.body.CategoryId,
+           UserId: req.loginUser.id
+         }
+      const data = await Task.update(updateTask,{
+        where: {id}, returning:true
+      })
+      res.status(200).json(data[1][0])
+
+    }
+    catch (error){
+      console.log(error)
+          // next(error)
+    }
     
   }
 
