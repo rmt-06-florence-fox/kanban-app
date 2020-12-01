@@ -1,4 +1,3 @@
-const { where } = require('sequelize/types')
 const { Task } = require('../models')
 
 class TaskC {
@@ -39,8 +38,8 @@ class TaskC {
   static async delete(req, res, next) {
     try {
       const id = +req.params.id;
-      const findData = await Task.findByPk({ id })
-      if (!findData) throw { status: 404, message: "Data not found!" }
+      const task = await Task.findByPk({ id })
+      if (!task) throw { status: 404, message: "Data not found!" }
       else const data = Task.destroy({ where: { id } })
       res.status(200).json({ data, message: "successfully deleted" })
     } catch (error) {
