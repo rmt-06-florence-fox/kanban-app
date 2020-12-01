@@ -9,7 +9,7 @@ class UserController {
       email: req.body.email,
       password: req.body.password
     }
-
+    
     User.create({
       payload
     })

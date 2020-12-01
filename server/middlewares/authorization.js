@@ -7,7 +7,7 @@ const authorization = (req, res, next) => {
   Task.findByPk(taskId)
   .then(task => {
     if(task.UserId !== userId) {
-      next({name: 'FORBIDDEN_ACCESS'})
+      next({name: 'ACCESS_DENIED'})
     } else {
       next()
     }
