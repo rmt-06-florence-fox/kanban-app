@@ -1,0 +1,71 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+$white: white;
+$blue: #3498db;
+$green: #2ecc71;
+$orange: #e67e22;
+$yellow: #8a6e00;
+$red: #e74c3c;
+$cyan: rgb(39, 177, 136);
+
+body {
+	font: 100% $font-stack;
+	color: $primary-color;
+}
+
+.custom-navbar {
+	background-color: $blue;
+	color: $white;
+	padding: 15px;
+	font: 100% $font-stack;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.title-nav-bar {
+	align-items: center;
+	height: 100%;
+	padding: 0px;
+}
+
+.log-out-btn:hover {
+	color: $red;
+	background-color: $primary-color;
+}
+
+.home-btn:hover {
+	color: $green;
+	background-color: $primary-color;
+}
+
+.content {
+	max-height: 500px;
+}
+
+.bg-cyan {
+	background-color: $cyan;
+}
+
+.bg-orange {
+	background-color: $orange;
+}
+
+.card-title {
+	text-decoration: underline;
+}
+
+.addButton {
+	margin-bottom: 10px;
+}
+
+#footer {
+	position: fixed;
+	padding: 10px 10px 10px 10px;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	color: rgba(51, 51, 51, 0.364);
+	text-align: center;
+}
