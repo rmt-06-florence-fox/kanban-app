@@ -1,10 +1,10 @@
-if(process.env.NODE_ENV === "development") {
-    require("dotenv").config()
-}
+// if(process.env.NODE_ENV === "development") {
+// }
 
+require("dotenv").config()
 const express = require("express")
 const app = express()
-const Port = process.env.PORT
+const Port = 3000 //process.env.PORT // jangan lupa ganti
 var cors = require('cors')
 const routes = require("./routes/index")
 

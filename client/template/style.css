@@ -1,0 +1,22 @@
+.navbar{
+    display: flex;
+
+}
+
+/* .kanban {
+    display: flex;
+    justify-content: space-around;
+} */
+
+/* .container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+} */
+
+.custom-layout {
+    display: flex;
+    justify-self: space-between;
+    padding: 10px;
+}
