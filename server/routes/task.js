@@ -1,3 +1,4 @@
+console.log('start in routing task');
 const express = require('express')
 const router = express.Router()
 const TaskController = require('../controllers/task')
@@ -11,3 +12,4 @@ router.put('/tasks/:id', TaskController.edit)
 router.delete('/tasks/:id', TaskController.delete)
 
 module.exports = router
+console.log('end in routing task');

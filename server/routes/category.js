@@ -1,3 +1,4 @@
+console.log('start in routing category');
 const express = require('express')
 const router = express.Router()
 const CategoryController = require('../controllers/category')
@@ -11,3 +12,4 @@ router.patch('/categories/:id', CategoryController.edit)
 router.delete('/categories/:id', CategoryController.delete)
 
 module.exports = router
+console.log('end in routing category');

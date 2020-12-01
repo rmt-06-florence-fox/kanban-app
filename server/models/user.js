@@ -1,24 +1,59 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+console.log('start in model user');
+const {hashPassword} = require('../helpers/bcrypt')
+const {Model} = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.belongsToMany(models.Category, {
+        through: models.Task
+      })
     }
   };
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          msg: "format email is required"
+        },
+        notEmpty: {
+          msg: 'Field email is required'
+        },
+        notEmpty: {
+          msg: 'Field email cannot be empty'
+        }
+        },
+        unique: {
+          msg: 'Email is already exists'
+        }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [4, 20],
+          msg: 'password required 4 - 20 characters'
+        },
+        notEmpty: {
+          msg: 'Field password is required'
+        },
+        notNull: {
+          msg: 'Field password cannot be empty'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
   });
+
+  User.addHook('beforeCreate', instance => {
+    instance.password = hashPassword(instance.password)
+  })
+
   return User;
 };
+console.log('end in model user');

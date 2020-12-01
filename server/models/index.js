@@ -1,5 +1,5 @@
 'use strict';
-
+console.log('start in model index');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -35,3 +35,4 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+console.log('end in model index');

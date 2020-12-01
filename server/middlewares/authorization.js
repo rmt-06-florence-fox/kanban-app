@@ -1,14 +1,15 @@
 const {Todo} = require('../models')
-
+const createError = require('http-errors')
+console.log('start in authorization.js');
 const authorization = async (req, res, next) => {
   const id = +req.params.id
   try {
     const todo = await Todo.findByPk(id)
 
     if (!todo) {
-      throw {msg: 'Todo not found', status: 404}
+      throw createError(404, 'Todo not found')
     } else if (todo.UserId !== req.loggedInUser.id) {
-      throw {msg: 'You are not authorized', status: 401}
+      throw createError(401, 'You are not authorized')
     } else {
       next()
     }
@@ -18,3 +19,4 @@ const authorization = async (req, res, next) => {
 }
 
 module.exports = authorization
+console.log('end in authorization.js');
