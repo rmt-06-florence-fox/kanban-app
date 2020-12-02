@@ -1,6 +1,8 @@
-const { User } = require("../models")
+const { User, Task, Category } = require("../models")
 const { comparePass } = require("../helpers/hash")
 const { generateToken } = require("../helpers/jwt")
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GID);
 
 class Controller {
     static async register(req, res, next) {
@@ -40,6 +42,130 @@ class Controller {
                     message: "invalid email or password"
                 }
             }
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async googleLogin(req, res, next) {
+        let payload;
+        client.verifyIdToken({
+            idToken: req.body.googleToken,
+            audience: process.env.GID
+        })
+        .then(ticket => {
+            payload = ticket.getPayload()
+            console.log(payload);
+            return User.findOne({
+                where: {
+                    email: payload.email
+                }
+            })
+                .then(user => {
+                    console.log("masuk1");
+                    if (user) {
+                        return user
+                    } else {
+                        return User.create({
+                            full_name: payload.name,
+                            email: payload.email,
+                            password: process.env.G_PASS
+                        })
+                    }
+                })
+                .then(user => {
+                    console.log("masuk2");
+                    const access_token = generateToken({ email: user.email, id: user.id, name: user.full_name })
+                    res.status(200).json({ access_token })
+                })
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+    //==================================to table task
+    static async newTask(req, res, next) { //create task - post
+        try {
+            const UserId = req.loggedInUser.id
+            const { title } = req.body
+            const input = { title, UserId }
+            const task = await Task.create(input, { returning: true })
+            res.status(201).json(task)
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async getAllTask(req, res, next) { //show all task - post
+        try {
+            const task = await Task.findAll({include: [User, Category]})
+            res.status(200).json(task)
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async updateTask(req, res, next) { // update task - put
+        try {
+            const { title, CategoryId } = req.body
+            const input = { title, CategoryId }
+            const task = await Task.update(input, { 
+                where: { 
+                    id: req.params.id 
+                }, 
+                returning: true 
+            })
+            res.status(200).json(task[1][0])
+        } catch (err) {
+            next(err)
+        }
+    }   
+    static async updateCategory(req, res, next) { // update category - patch
+        try {
+            const { CategoryId } = req.body
+            const input = { CategoryId }
+            const task = await Task.update(input, {
+                where: {
+                    id: req.params.id
+                },
+                returning: true
+            })
+            res.status(200).json(task[1][0])
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async deleteTask(req, res, next) { // delete task - delete
+        try {
+            const task = await Task.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).json({message: `task with id: ${+req.params.id}, success to deleted`})
+        } catch (err) {
+            next(err)
+        }
+    }
+    //==================================to table category
+    static async newCategory(req, res, next) { //create category - post
+        try {
+            const { categoryName } = req.body
+            const input = { categoryName }
+            const category = await Category.create(input, { returning: true })
+            res.status(201).json(category)
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async updateCategoryName(req, res, next) { //update category - put
+        try {
+            const { categoryName } = req.body
+            const input = { categoryName }
+            const category = await Category.update(input, { 
+                where: {
+                    id: req.params.id
+                },
+                returning: true 
+            })
+            res.status(200).json(category[1][0])
         } catch (err) {
             next(err)
         }

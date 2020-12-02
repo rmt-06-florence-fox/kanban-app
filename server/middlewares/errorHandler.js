@@ -5,6 +5,6 @@ module.exports = (err, req, res, next) => {
         const newErr = err.errors.map(el => el.message)
         res.status(400).json({ error: newErr })
     } else {
-        res.status(500).json({ error: err })
+        res.status(500).json({ error: err.message })
     }
 }
