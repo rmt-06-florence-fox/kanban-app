@@ -11,3 +11,15 @@
   justify-content: space-between;
   min-width: 100%;
 }
+
+#login-page {
+  margin-top: 5em;
+  padding: 2em 8em 2em 8em;
+  width: 40%;
+}
+
+#register-page {
+  margin-top: 5em;
+  padding: 2em 8em 2em 8em;
+  width: 40%;
+}
