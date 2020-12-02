@@ -15,6 +15,9 @@ class Helper {
         return jwt.sign(data, process.env.SEC_KEY);
     }
 
+    static degenToken (token) {
+        return jwt.verify(token, process.env.SEC_KEY);
+    }
     
 }
 
