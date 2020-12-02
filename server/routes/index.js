@@ -5,6 +5,7 @@ const authorize = require('../middlewear/authorize')
 
 route.post('/register', Controller.register)
 route.post('/login', Controller.login)
+route.post('/logingoogle', Controller.google)
 route.use(authentication)
 route.post('/task', Controller.createTask)
 route.get('/task', Controller.listTask)

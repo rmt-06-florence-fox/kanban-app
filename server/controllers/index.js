@@ -1,6 +1,8 @@
 const {User, Task} = require('../models')
 const {checkPassword} = require('../helpers/bcryptjs')
 const {generateToken} = require('../helpers/jwt')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client('787087558897-pkt5ddt6m0ldb46mgqs1noucosfcicd4.apps.googleusercontent.com');
 
 class Controller {
 
@@ -107,6 +109,35 @@ class Controller {
             next(err)
         }
     }
+
+    static async google(req, res, next){
+        try {
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: '787087558897-pkt5ddt6m0ldb46mgqs1noucosfcicd4.apps.googleusercontent.com',  
+            });
+            const payload = ticket.getPayload();
+            const findUser = await User.findOne({where : {email : payload.email}})
+            if(findUser){
+                let access_token = generateToken({id : findUser.id, email : findUser.email})
+                res.status(200).json({access_token})
+            } else {
+                let user = await User.create({
+                    email : payload.email,
+                    password : payload.email
+                })
+                let access_token = generateToken({
+                    id : user.id,
+                    email : user.email
+                })
+                res.status(200).json({access_token})
+
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
+    
 
 }
 
