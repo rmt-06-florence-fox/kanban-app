@@ -62,6 +62,52 @@ class UserController {
         }
 
     }
+
+    static async googleLogin(req,res,next){
+        try {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.google_token,
+                audience: process.env.google_oauth
+            });
+            const payload = ticket.getPayload();
+            const user = await User.findOne( {
+                where : {
+                    email : payload.email
+                }
+            })
+
+            if(user){
+                const access_token = getToken({
+                    id : loginUser.id,
+                    email : loginUser.email
+                })
+                console.log(user)
+                console.log('============Get Token Google User ===========')
+                console.log(access_token)
+                res.status(200).json(access_token)
+            }else {
+                const newUser = {
+                    name : payload.name,
+                    email : payload.email,
+                    password : process.env.google_password
+                }
+                const createUSer = await User.create(newUser)
+                console.log(createUSer)
+                const access_token = getToken({
+                    id : loginUser.id,
+                    email : loginUser.email
+                })
+                console.log('============Create Token Google User ===========')
+                console.log(access_token)
+                res.status(200).json(access_token)
+            }
+        } catch (error) {
+            next(error)
+        } 
+
+        
+    }
+    
 }
 
 module.exports  = UserController

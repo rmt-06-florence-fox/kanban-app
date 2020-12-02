@@ -66,8 +66,31 @@ new Vue({
         },
         logout(){
             localStorage.removeItem('access_token')
+            const auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+            loginForm()
             this.onPage = 'loginPage'
         },
+        onSignIn(googleUser) {
+            const google_token = googleUser.getAuthResponse().id_token;
+         //    console.log(google_token)
+            axios({
+                method : 'POST',
+                url : 'https://kanban-app-p2.herokuapp.com/googleLogin',
+                data : {
+                    google_token
+                }
+            }).then(resp =>{
+             console.log('goooooooooooooooooo')
+             console.log(resp)
+             localStorage.setItem('access_token',resp)
+             mainPage()
+            }).catch(err=>{
+             console.log(err)
+            })
+           },
         fethcData(){
             const access_token = localStorage.getItem('access_token')
             this.task = []
