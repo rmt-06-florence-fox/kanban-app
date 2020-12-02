@@ -24,11 +24,11 @@ body{
 
 /* ----login page---- */
 #login-page{
-    margin-top: 40%;
-    margin-bottom: 40%;
+    margin-top: 3%;
+    margin-bottom: 3%;
     margin-left: 40%;
     margin-right: 35%;
-    color: honeydew;    
+    color: honeydew;  
 }
 /* ----login form---- */
 #form-login{  
@@ -37,6 +37,7 @@ body{
     padding-left: 60px;
     padding-right: 50px;
     border-radius: 15px;
+    box-shadow: 4px 12px 12px 4px #999;
 }
 #login-email{
     border-radius: 15px
@@ -94,7 +95,8 @@ transform: translateY(4px);
 
 /* ----register page---- */
 #register-page{
-    margin-top: 40%;
+    
+    margin-top: 10%;
     margin-bottom: 40%;
     margin-left: 40%;
     margin-right: 35%;
@@ -160,9 +162,9 @@ transform: translateY(4px);
     background-color: rgba(212, 209, 209, 0.212);
 }
 .btn-done {
-    margin-left: 10%;
+    margin-left: 5%;
     display: inline-block;
-    padding: 6px 6px 6px 6px;
+    padding: 3px 3px 3px 3px;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -173,7 +175,7 @@ transform: translateY(4px);
     border: none;
     border-radius: 15px;
     box-shadow: 0 4px #999;
-    width: 30%;
+    width: 20%;
 }
 .btn-done:hover {
     background-color: #3e8e41
@@ -185,9 +187,9 @@ transform: translateY(4px);
 }
 
 .btn-delete {
-    margin-left: 10%;
+    margin-left: 5%;
     display: inline-block;
-    padding: 6px 6px 6px 6px;
+    padding: 3px 3px 3px 3px;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -198,7 +200,7 @@ transform: translateY(4px);
     border: none;
     border-radius: 15px;
     box-shadow: 0 4px #999;
-    width: 30%;
+    width: 20%;
 }
 .btn-delete:hover {
     background-color: #df1616
@@ -210,9 +212,30 @@ transform: translateY(4px);
 }
 
 
-
-
-
+.btn-back {
+    margin-left: 5%;
+    display: inline-block;
+    padding: 3px 3px 3px 3px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #aaaaaa;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px #999;
+    width: 20%;
+}
+.btn-back:hover {
+    background-color: #aaaaaa
+}
+.btn-back:active {
+background-color:#aaaaaa;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
 
 
 

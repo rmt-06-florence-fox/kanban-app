@@ -12,97 +12,102 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <!-- vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
     
-    <!-- navbar -->
-    <nav class="navbar navbar-light bg-success text-center">
+
+<div id="app">
+        <!-- navbar -->
+    <nav class="navbar navbar-light bg-success text-center" v-if="pageName == 'Main Page'">
         <a class="navbar-brand text-white" href="#">
             <img src="https://icons-for-free.com/iconfiles/png/512/job+office+postit+notes+icon-1320185948996973223.png" width="40" height="40" class="d-inline-block align-top" alt="" loading="lazy">
             Kanban App
         </a>
-        <button onclick="" id="logout-btn" class="bg-danger rounded">logout</button>
+        <button @click="logout" id="logout-btn" class="bg-danger rounded">logout</button>
     </nav>
 
     <!-- login-page -->
-<div id="login">
-    <img src="https://images.vexels.com/media/users/3/152639/isolated/preview/506b575739e90613428cdb399175e2c8-space-astronaut-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
-    <div id="login-page">
-        <form id="form-login" class="border bg-success">
-            <h2 style="text-align: center;">login</h2>
-            <label for="">email</label><br>
-            <input type="email" name="" id="login-email" required>
-            <br><br>
-            <label for="">password</label><br>
-            <input type="password" name="" id="login-password" required>
-            <br><br>
-            <button onsubmit="" id="login-btn">login</button>
-            <p style="padding-top: 20%;">dont have an account? <a href="" style="color: rgb(23, 26, 29);">register</a></p>   
-        </form>
+    <div id="login" v-if="pageName == 'Login Page'">
+        <img src="https://images.vexels.com/media/users/3/152639/isolated/preview/506b575739e90613428cdb399175e2c8-space-astronaut-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
+        <div id="login-page">
+            <form @submit.prevent="login" id="form-login" class="border bg-success" >
+                <h2 style="text-align: center;">login</h2>
+                <label for="">email</label><br>
+                <input v-model="user.email" type="email" placeholder="your email here" id="login-email" required>
+                <br><br>
+                <label for="">password</label><br>
+                <input v-model="user.password" type="password" placeholder="your password here" id="login-password" required>
+                <br><br>
+                <button id="login-btn" @click="logout">login</button>
+                <p style="padding-top: 20%;">dont have an account? <a href="" style="color: rgb(23, 26, 29);">register</a></p>   
+            </form>
+        </div>
     </div>
-</div>
     
 
     <!-- register-page -->
-<div id="register">
-    <img src="https://images.vexels.com/media/users/3/152641/isolated/preview/2b3d63661f0d7fe62c36168604985f26-space-cosmonaut-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
-    <div id="register-page">
-        <form id="form-register" class="border bg-success">
-            <h2 style="text-align: center;">register</h2>
-            <label for="">fullname</label><br>
-            <input type="text" name="" id="register-fullname" required>
-            <br><br>
-            <label for="">email</label><br>
-            <input type="email" name="" id="register-email" required>
-            <br><br>
-            <label for="">password</label><br>
-            <input type="password" name="" id="register-password" required>
-            <br><br>
-            <button onsubmit="" id="register-btn">register</button>
-            <p style="padding-top: 20%;">already have an account? <a href="" style="color: rgb(23, 26, 29);">login</a></p>   
-        </form>
+    <div id="register" v-if="pageName == 'Register Page'">
+            <img src="https://images.vexels.com/media/users/3/152641/isolated/preview/2b3d63661f0d7fe62c36168604985f26-space-cosmonaut-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
+            <div id="register-page">
+                <form id="form-register" class="border bg-success">
+                    <h2 style="text-align: center;">register</h2>
+                    <label for="">fullname</label><br>
+                    <input type="text" placeholder="your fullname here" id="register-fullname" required>
+                    <br><br>
+                    <label for="">email</label><br>
+                    <input type="email" placeholder="your email here" id="register-email" required>
+                    <br><br>
+                    <label for="">password</label><br>
+                    <input type="password" placeholder="your password here" id="register-password" required>
+                    <br><br>
+                    <button onsubmit="" id="register-btn">register</button>
+                    <p style="padding-top: 20%;">already have an account? <a href="" style="color: rgb(23, 26, 29);">login</a></p>   
+                </form>
+            </div>
     </div>
-</div>
     
 
     <!-- main-page -->
-    <div id="main-page">
+    <div id="main-page" v-if="pageName == 'Main Page'">
         <h1 style="text-align: center; ">List Activity :)</h1>
-        <div class="d-flex justify-content-around text-center mt-4">
-                
+        <div class="d-flex justify-content-around text-center mt-4">   
                 <div class="p-3 rounded" id="form-card-1">
                     <div class="p-2 mb-2 bg-success text-white rounded shadow">
-                        test1
+                        Back-Log
                     </div> 
-                    <div class="card border-success mb-3 shadow " style="max-width: 18rem;">
-                        <div class="card-header bg-transparent border-success ">Header</div>
+                    <div class="card border-success mb-3 shadow " style="max-width: 18rem;" v-for="(test, index) in todos" :key="index">
+                        <div class="card-header bg-transparent border-success ">{{test.todo}}</div>
                         <div class="card-body text-success">
-                        <h5 class="card-title">Success card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">{{test.name}}</h5>
+                            <p class="card-text">{{test.description}}</p>
                         </div>
                         <div class="card-footer bg-transparent border-success">
-                            <button class="btn-done" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">done</button>
-                            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">delete</button>
+                            <button class="btn-done" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">✓</button>
+                            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
                         </div>
                     </div>
                 </div>
                 <div class="p-3 rounded" id="form-card-2">
-                    <div class="p-2 mb-2 bg-success text-white rounded shadow">
-                        test2
+                    <div class="p-2 mb-2 bg-warning text-white rounded shadow">
+                        To-Do
                     </div>
-                    <div class="card border-secondary mb-3 shadow" style="max-width: 18rem;">
-                        <div class="card-header bg-transparent border-secondary ">Header</div>
-                        <div class="card-body text-secondary">
-                        <h5 class="card-title">Success card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="card border-warning mb-3 shadow" style="max-width: 18rem;">
+                        <div class="card-header bg-transparent border-warning ">Header</div>
+                        <div class="card-body text-warning">
+                            <h5 class="card-title">Success card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
-                        <div class="card-footer bg-transparent border-secondary">
-                        <button class="btn-done" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">done</button>
-                        <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">delete</button>
-                    </div>
+                        <div class="card-footer bg-transparent border-warning">
+                            <button class="btn-back" style="font-size: 15px; border-radius: 15px; border: none; outline: none;"><</button>
+                            <button class="btn-done" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">✓</button>
+                            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
+                        </div>
                     </div>
                 </div>
                 <div class="p-3 rounded" id="form-card-3">
-                    <div class="p-2 mb-2 bg-success text-white rounded shadow">
-                        test3
+                    <div class="p-2 mb-2 bg-danger text-white rounded shadow">
+                        Doing
                     </div>
                     <div class="card border-danger mb-3 shadow" style="max-width: 18rem;">
                         <div class="card-header bg-transparent border-danger ">Header</div>
@@ -111,14 +116,15 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
                         <div class="card-footer bg-transparent border-danger">
-                            <button class="btn-done" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">done</button>
-                            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">delete</button>
+                            <button class="btn-back" style="font-size: 15px; border-radius: 15px; border: none; outline: none;"><</button>
+                            <button class="btn-done" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">✓</button>
+                            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
                         </div>
                     </div>
                 </div>
                 <div class="p-3 rounded" id="form-card-4">
-                    <div class="p-2 mb-2 bg-success text-white rounded shadow">
-                        test4
+                    <div class="p-2 mb-2 bg-primary text-white rounded shadow">
+                        Done
                     </div>
                     <div class="card border-primary mb-3 shadow" style="max-width: 18rem;">
                         <div class="card-header bg-transparent border-primary ">Header</div>
@@ -126,14 +132,23 @@
                         <h5 class="card-title">primary card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         </div>
-                        <div class="card-footer bg-transparent border-primary">Footer</div>
+                        <div class="card-footer bg-transparent border-primary">
+                            <button class="btn-back" style="font-size: 15px; border-radius: 15px; border: none; outline: none;"><</button>
+                            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
+                        </div>
                     </div>
                 </div>
             </div>
     </div>
-    
-    
 
+</div>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- main js -->
+    <script src="main.js"></script>
+    
 
 </body>
 </html>
