@@ -30,7 +30,7 @@ class UserController{
                 res.status(401).json({message: 'invalid account'})
             } else if(bcrypt.compareSync(req.body.password, data.password)){
                 const access_token = Helper.generateToken({email: data.email, id: data.id})
-                console.log(access_token)
+                // console.log(access_token)
                 res.status(200).json({access_token})
             } else {
                 res.status(401).json({message: 'invalid email/password'})

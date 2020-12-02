@@ -1,0 +1,16 @@
+.nav-container{
+    display: flex;
+    justify-content: flex-end;
+    background-color: #1abc9c;
+    min-height: auto;
+    padding: 10px;
+}
+
+h1{
+    text-align: center;
+}
+
+.input-margin{
+    margin-left: 20px;
+    margin-right: 20px;
+}
