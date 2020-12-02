@@ -11,11 +11,19 @@ let app = new Vue ({
       email: null
     },
     categories: null,
-    tasks: null
+    tasks: null,
+    task: {
+      CategoryId: null,
+      name: null,
+      due_date: null
+    }
   },
   methods: {
     changePage(page){
       this.pageName = page
+    },
+    getCategory(id){
+      this.task.CategoryId = id
     },
     register(){
       axios({
@@ -97,7 +105,32 @@ let app = new Vue ({
           console.log(xhr)
         })
     },
-
+    addTask(){
+      axios({
+        url: `${basicUrl}tasks/`,
+        method: "post",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          title: this.task.name,
+          due_date: this.task.due_date,
+          CategoryId: this.task.CategoryId
+        }
+      })
+      .then(response => {
+        console.log(response)
+        this.getTasks()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        this.task.name = null
+        this.task.due_date = null
+        this.task.CategoryId = null
+      })
+    },
     logout(){
       localStorage.removeItem("access_token")
       this.pageName = "loginPage"

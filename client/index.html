@@ -139,34 +139,13 @@
       </div>
   
       <div class="row flex-container-kanban">
-        <!-- <div class="kanban-board">
-          <div class="card text-white text-center mb-2 board-title">
-            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog</h1>
-          </div>
-          <div class="card text-white board-body">  
-            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-              <div class="card text-white mt-3 board-items">
-                <div class="card-header">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4><strong>Task</strong></h4>
-                  <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;">Edit</button>
-                  <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;">Move</button>
-                </div>
-                <div class="card-body">
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-              </div>
-          </div>
-        </div> -->
         
         <div class="kanban-board" v-for="(category, index) in categories" :key="category.id">
+          <button type="button" class="btn mt-3 mb-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;" @click.prevent="getCategory(category.id)">Add Task</button>
           <div class="card text-white text-center mb-2 board-title">
             <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">{{category.name}}</h1>
           </div>
           <div class="card text-white board-body">
-            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
             <div class="card text-white mt-3 board-items" v-for="(task, index) in tasks" :key="task.id" v-if="task.categoryName === category.name">
               <div class="card-header">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-if="loggedIn.email === task.createdBy">
@@ -182,30 +161,34 @@
             </div>
           </div>
         </div>
-       
-        <!-- <div class="kanban-board">
-          <div class="card text-white text-center mb-2 board-title">
-            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 3</h1>
+      </div>
+
+      <!--ini untuk add form (modal)-->
+      <div class="modal fade" id="addForm">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" style="font-family: 'Russo One', sans-serif; color: #5ec0ca; font-size: xx-large;">Add Task</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form id="submit-login-form" class="mr-5 ml-5" @submit.prevent="addTask">
+                 <div class="form-group">
+                   Task Name
+                   <input type="text" class="form-control" id="task-name-add" placeholder="Enter task name" v-model="task.name">
+                 </div>
+                 <div class="form-group">
+                   Due Date
+                   <input type="date" class="form-control" id="task-due-date-add" v-model="task.due_date">
+                 </div>
+                 <button type="submit" class="btn btn-info" data-dismiss="modal">Add</button>
+               </form>
           </div>
-          <div class="card text-white board-body">
-            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-          </div>
-        </div> -->
-      
-        
-        <!-- <div class="kanban-board">
-          <div class="card text-white text-center mb-2 board-title">
-            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 4</h1>
-          </div>
-          <div class="card text-white board-body">
-            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-          </div>
-        </div> -->
+        </div>
       </div>
     </section>
-
-    
-  
   </div>
   
 

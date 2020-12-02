@@ -28,9 +28,11 @@
 }
 
 .kanban-board {
+
   width: 400px;
   margin: 10px;
   height: 50rem;
+
 }
 
 .board-title {
