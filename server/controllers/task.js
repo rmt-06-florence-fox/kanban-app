@@ -42,14 +42,22 @@ class TaskController {
       const task = await Task.update({title}, {where: {id}, returning: true})
 
       if (task[0] !== 1) throw createError (404, 'update title failed')
-      res.status(200).json({task: task[1]})
+      else res.status(200).json({task: task[1]})
     } catch (error) {
       next(error)
     }
   }
 
-  static delete (req, res, next) {
-    
+  static async delete (req, res, next) {
+    try {
+      const id = +req.params.id
+      const destroy = await Task.destroy({where: {id}, returning: true})
+
+      if (destroy == 1) res.status(200).json({message: 'task success to delete'})
+      else throw createError (404, 'delete task failed')
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
