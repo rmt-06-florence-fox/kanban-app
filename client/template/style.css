@@ -3,6 +3,20 @@
 
 }
 
+.background-page {
+    min-height: 450px;
+
+    margin: 0%;
+}
+
+.image-home {
+    padding: 0%;
+    margin: 0%;
+}
+
+.pading-1 {
+    padding: 0%;
+}
 /* .kanban {
     display: flex;
     justify-content: space-around;
