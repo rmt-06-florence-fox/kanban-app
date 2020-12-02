@@ -1,6 +1,8 @@
 const { User } = require('../models')
 const { comparePassword } = require('../helpers/bcryptjs')
 const { generateToken } = require('../helpers/jwt')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
 class UserController {
     static async register(req, res, next) {
@@ -37,7 +39,7 @@ class UserController {
                 }
             } else if (comparePassword(payload.password, user.password)) {
                 const access_token = generateToken({id:user.id, email:user.email})
-                res.status(200).json({access_token})
+                res.status(200).json({access_token, email: payload.email})
             } else {
                 throw {
                     status: 400,
@@ -50,7 +52,33 @@ class UserController {
     }
 
     static googleLogin(req, res, next) {
-        
+        try {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.google_token,
+                audience: process.env.CLIENT_ID
+            });
+
+            const payload = ticket.getPayload()
+            const userlogin = await User.findOne({
+                where: {
+                    email: payload.email
+                }
+            })
+
+            if (userlogin) {
+                const access_token = Token.getToken({id:userlogin.id, email:userlogin.email})
+                res.status(200).json({access_token, email: payload.email})
+            } else {
+                const createuser = await User.create({
+                    email: payload.email,
+                    password: process.env.GOOGLE_PASSWORD
+                })
+                const access_token = Token.getToken({id:createuser.id, email:createuser.email})
+                res.status(200).json({access_token, email: payload.email})
+            }
+        } catch (error) {
+            next(error)
+        }
     }
 }
 
