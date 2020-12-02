@@ -104,7 +104,6 @@ _Response(201)_
       "updatedAt": "2020-12-01T23:16:49.584Z",
       "createdAt": "2020-12-01T23:16:49.584Z"
   }
-
 }
 ```
 _Response(400)_
@@ -162,6 +161,79 @@ _Response(200)_
         "updatedAt": "2020-12-01T23:23:16.607Z"
     }
 ]
+```
+_Response(500)_
+```
+{
+  access_token : "internal serve error"
+}
+```
+
+### PUT /tasks/id
+>edit task
+
+_Request Header_
+```
+access_token
+```
+_Request Params_
+```
+id
+```
+_Request Body_
+```
+title : coba edit
+category : done
+```
+_Response(200)_
+```
+{
+    "id": 1,
+    "title": "coba edit",
+    "category": "done",
+    "UserId": 6,
+    "createdAt": "2020-12-01T23:16:49.584Z",
+    "updatedAt": "2020-12-01T23:57:03.492Z"
+}
+```
+_Response(400)_
+```
+[
+    {
+        "message": "can not be empty"
+    },
+    {
+        "message": "can not be empty"
+    }
+]
+```
+_Response(500)_
+```
+{
+  access_token : "internal serve error"
+}
+```
+
+### DELETE /tasks/id
+>fdelete a task
+
+_Request Header_
+```
+access_token
+```
+_Request Params_
+```
+id
+```
+_Request Body_
+```
+none
+```
+_Response(200)_
+```
+{
+  "message": "succesfully delete a task"
+}
 ```
 _Response(500)_
 ```

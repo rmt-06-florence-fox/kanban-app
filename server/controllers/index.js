@@ -46,10 +46,42 @@ class Controller{
   }
 
   static async findall(req, res, next){
-    // console.log('a');
     try {
       const tasks = await Task.findAll({})
       res.status(200).json(tasks)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async edit(req, res, next){
+    const id = +req.params.id
+    console.log(id);
+    const editTask = {
+      title : req.body.title,
+      category : req.body.category
+    }
+    try {
+      const editedTask = await Task.update(editTask, { where : { id }, returning : true })
+      if(editedTask[0] > 0){
+        res.status(200).json(editedTask[1][0])
+      }else{
+        throw { status : 404, message : "task not found"}
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async delete(req, res, next){
+    try {
+      const id = + req.params.id
+      const deletedTask = await Task.destroy({ where : { id }, returning : true })
+      if(deletedTask > 0){
+        res.status(200).json({ message : "succesfully delete a task"})
+      } else {
+        throw {status : 404 , message : "task not found"}
+      }
     } catch (error) {
       next(error)
     }
