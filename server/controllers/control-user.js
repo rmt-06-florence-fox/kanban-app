@@ -19,7 +19,8 @@ class ControllerUser {
                     const access_token = genToken ({
                         id: comingUser.id,
                         username: comingUser.username,
-                        email: comingUser.email
+                        email: comingUser.email,
+                        OrganizationId: comingUser.OrganizationId
                     })
                     res.status(201).json({access_token})
                 } else {

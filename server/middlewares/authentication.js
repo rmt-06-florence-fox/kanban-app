@@ -13,6 +13,7 @@ module.exports = async (req, res, next) => {
             
             if (user) {
                 req.loggedUser = userData
+                console.log(req.loggedUser)
                 next ()
             }
         } else {
