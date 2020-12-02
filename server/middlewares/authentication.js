@@ -3,7 +3,6 @@ const { User } = require("../models");
 
 async function authentication(request, response, next) {
     const token = request.headers.access_token;
-
     try {
         if(!token) {
             throw { name: 'AuthenticationFailed' }

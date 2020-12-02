@@ -1,4 +1,3 @@
-const { request } = require("express");
 const { Task } = require("../models");
 
 class taskController{
@@ -21,15 +20,17 @@ class taskController{
             category: request.body.category,
             UserId: userId
         }
+        console.log(newData);
         try {
             const data = await Task.create(newData);
+            console.log(data);
             const result = {
                 "id": data.id,
                 "title": data.title,
                 "category": data.category,
                 "UserId": data.UserId
             }
-            response.status(201).json(result);
+            response.status(201).json({result});
         } catch (error) {
             next(error);
         }
