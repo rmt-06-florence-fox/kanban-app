@@ -25,7 +25,12 @@ $max-height : 100%;
     list-style: none;
     height: $max-height;
     min-width: 240px;
+
+    .add-task:hover{
+        cursor: pointer;
+    }
 }
+
 .logo{
     font-family: 'Yellowtail', cursive;
     font-size: 30px;
