@@ -1,9 +1,9 @@
-const { Todo } = require("../models");
+const { Task } = require("../models");
 
 async function authorization(request, response, next) {
     try {
         const id = +request.params.id;
-        const data = await Todo.findByPk(id);
+        const data = await Task.findByPk(id);
         if(!data) {
             throw{ name: 'NotFound' }
         } else if(data.UserId === request.loggedInUser.id) {
