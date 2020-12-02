@@ -8,8 +8,8 @@ router.get('/', TaskController.show)
 router.post('/', TaskController.create)
 
 router.use('/:id', authorization)
-router.put('/:id', TaskController.edit)
 router.patch('/:id', TaskController.move)
+router.put('/:id', TaskController.edit)
 router.delete('/:id', TaskController.delete)
   
 module.exports = router

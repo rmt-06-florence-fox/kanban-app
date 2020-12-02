@@ -23,6 +23,7 @@ console.log("🚀 ~ file: errorHandler.js ~ line 2 ~ err", err)
     case "BadRequestError":
     case "ProxyAuthenticationRequiredError":
     case "NotFoundError":
+    case "UnauthorizedError":
       statusCode = err.statusCode
       message = err.message
       break;

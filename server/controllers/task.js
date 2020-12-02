@@ -39,8 +39,10 @@ class TaskController {
     try {
       const {title} = req.body
       const id = +req.params.id
-      const task = await Task.update({title}, {where: {id}})
-      res.status(200).json({task})
+      const task = await Task.update({title}, {where: {id}, returning: true})
+
+      if (task[0] !== 1) throw createError (404, 'update title failed')
+      res.status(200).json({task: task[1]})
     } catch (error) {
       next(error)
     }
