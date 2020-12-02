@@ -6,11 +6,11 @@ const errorHandler = (err, req, res, next) => {
   switch (err.name) {
     case "SequelizeValidationError":
       statusCode = 400;
-      let message = [];
+      let errors = [];
       err.errors.forEach(element => {
-        message.push(element.message)
+        errors.push(element.message)
       });
-      message.join(', ')
+      message = errors.join(', ')
       break;
     case "NOT_FOUND":
       statusCode = 404;
@@ -33,6 +33,8 @@ const errorHandler = (err, req, res, next) => {
       message = "Internal Server Error"
       break;
   }
+
+  console.log(message)
 
   res.status(statusCode).json(message)
 }

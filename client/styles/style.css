@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&family=Yellowtail&display=swap");
 body {
   margin: 0;
   padding: 0;
@@ -17,6 +18,10 @@ body .main-page {
 .login-page {
   height: 100vh;
   min-height: 500px;
+  font-family: "Source Sans Pro", sans-serif;
+  background-image: url("./images/city1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .login-page .card {
   margin: 0 auto;
@@ -25,11 +30,16 @@ body .main-page {
   /* Added */
   margin-bottom: 10px;
   /* Added */
+  box-shadow: black;
 }
 
 .register-page {
   height: 100vh;
   min-height: 500px;
+  font-family: "Source Sans Pro", sans-serif;
+  background-image: url("./images/city2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .register-page .card {
   margin: 0 auto;
@@ -53,7 +63,7 @@ body .main-page {
 }
 .custom-navbar .left-navbar .nav-item {
   height: 50px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
   padding: 5px;
 }
@@ -61,15 +71,22 @@ body .main-page {
   justify-self: center;
   justify-content: center;
 }
-.custom-navbar .center-navbar .logo h2 {
+.custom-navbar .center-navbar .logo {
   font-size: 2rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0.5rem;
   transition: color 150ms;
-  text-align: center;
-  white-space: nowrap;
   cursor: pointer;
+  font-family: "Yellowtail", cursive;
+}
+.custom-navbar .center-navbar .logo h2 {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+.custom-navbar .center-navbar .logo-icon {
+  padding-right: 0.1rem;
 }
 .custom-navbar .right-navbar {
   display: grid;
@@ -79,9 +96,13 @@ body .main-page {
   margin-right: 20px;
 }
 .custom-navbar .right-navbar .nav-item {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
   padding: 5px;
+}
+
+.container {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .task-lists {
@@ -112,7 +133,7 @@ body .main-page {
   max-height: calc(100vh - 11rem);
 }
 .task-list .card :hover {
-  background-color: #eee;
+  background-color: #eaeaea;
 }
 
 .task-list::-webkit-scrollbar {
@@ -154,6 +175,16 @@ body .main-page {
   cursor: pointer;
   transition: background-color 150ms;
   text-align: left;
+}
+
+.edit-icon :hover {
+  text-decoration: none;
+  background-color: #121212;
+}
+
+footer {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */

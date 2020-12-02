@@ -10,11 +10,12 @@ class UserController {
       password: req.body.password
     }
     
-    User.create({
-      payload
-    })
+    User.create(payload)
     .then(data => {
-      res.status(201).json(data)
+      res.status(201).json({
+        id: data.id, 
+        email: data.email
+      })
     })
     .catch(next)
   }
