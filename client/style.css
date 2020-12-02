@@ -48,7 +48,17 @@
 
 }
 
-#hallo {
+#backlog {
     height: 450px;
     overflow: scroll;
+}
+
+#head-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+#head-card a {
+    text-decoration: none;
+    color: white;
 }

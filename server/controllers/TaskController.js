@@ -1,8 +1,15 @@
-const { Task } = require("../models")
+const { Task, User } = require("../models")
 
 class TaskController {
     static getAllTask(req, res, next) {
-        Task.findAll()
+        Task.findAll(
+            {
+                include: {
+                    model: User,
+                    attributes: ["email"]
+                }
+            }
+        )
             .then(data => {
                 if (data.length === 0) {
                     res.status(404).json({msg: "DataNotFound"})
