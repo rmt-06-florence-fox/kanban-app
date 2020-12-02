@@ -4,12 +4,13 @@ const router = express.Router()
 const TaskController = require('../controllers/task')
 const authorization = require('../middlewares/authorization')
 
-router.get('/tasks', TaskController.show)
-router.post('/tasks', TaskController.create)
+router.get('/', TaskController.show)
+router.post('/', TaskController.create)
 
-router.use('tasks/:id', authorization)
-router.put('/tasks/:id', TaskController.edit)
-router.delete('/tasks/:id', TaskController.delete)
-
+router.use('/:id', authorization)
+router.put('/:id', TaskController.edit)
+router.patch('/:id', TaskController.move)
+router.delete('/:id', TaskController.delete)
+  
 module.exports = router
 console.log('end in routing task');
