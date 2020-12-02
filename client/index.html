@@ -14,184 +14,206 @@
   <title>Kanban App</title>
 </head>
 <body>
-  <section class="homepage">
+  <div id="app">
+    <section class="homepage">
 
-    <div id="login-page" class="row">
-      <div class="col-md-8">
-        <div id="demo" class="carousel slide" data-ride="carousel">
-
-          <!-- Indicators -->
-          <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
-          </ul>
-          
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="./assets/kanban-2.jpg" alt="Los Angeles" width="1200px" height="875px">
+      <div id="login-page" class="row" v-if="pageName === 'loginPage'">
+        <div class="col-md-8">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+  
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+            
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./assets/kanban-2.jpg" alt="Los Angeles" width="1200px" height="875px">
+              </div>
+              <div class="carousel-item">
+                <img src="https://www.elpando.com/img_solutions/project_management_system/pic7.jpg" alt="Chicago" width="1200px" height="875px">
+              </div>
+              <div class="carousel-item">
+                <img src="https://d3kqdc25i4tl0t.cloudfront.net/articles/content/497_449074_management.hero.jpg" alt="New York" width="1200px" height="875px">
+              </div>
             </div>
-            <div class="carousel-item">
-              <img src="https://www.elpando.com/img_solutions/project_management_system/pic7.jpg" alt="Chicago" width="1200px" height="875px">
-            </div>
-            <div class="carousel-item">
-              <img src="https://d3kqdc25i4tl0t.cloudfront.net/articles/content/497_449074_management.hero.jpg" alt="New York" width="1200px" height="875px">
-            </div>
+            
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
           </div>
           
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#demo" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#demo" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </a>
+          <!-- <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" style="width: 100%;"> -->
         </div>
-        
-        <!-- <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" style="width: 100%;"> -->
+        <div class="col-md-4">
+          <div class="text-center mt-5">
+            <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" style="width: auto;" class="mx-auto">
+            <h3 style="font-family: 'Russo One', sans-serif; color: #5ec0ca; font-size: xx-large;">Login</h3>
+           </div><br>
+              <form id="submit-login-form" class="mr-5 ml-5" @submit.prevent="login">
+                <div class="text-center">
+                  <span>Don't have account yet?<a href="#register-page" @click.prevent="changePage('registerPage')"> Register here</a></span>
+                </div><br>
+                <div class="form-group">
+                  <input type="email" class="form-control" id="email-login" placeholder="Enter email" v-model="userLogin.email">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="pwd-login" placeholder="Enter password" v-model="userLogin.password">
+                </div>
+                <button type="submit" class="btn btn-info">Login</button>
+              </form>
+        </div>
       </div>
-      <div class="col-md-4">
-        <div class="text-center mt-5">
-          <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" style="width: auto;" class="mx-auto">
-          <h3 style="font-family: 'Russo One', sans-serif; color: #5ec0ca; font-size: xx-large;">Login</h3>
-         </div><br>
-            <form id="submit-login-form" class="mr-5 ml-5">
-              <div class="text-center">
-                <span>Don't have account yet?<a href="#register-page"> Register here</a></span>
-              </div><br>
-              <div class="form-group">
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+  
+      <div id="register-page" class="row" v-if="pageName === 'registerPage'">
+        <div class="col-md-8">
+          <div id="demo" class="carousel slide" data-ride="carousel">
+  
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+            
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" alt="Los Angeles" width="1200px" height="875px">
               </div>
-              <div class="form-group">
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+              <div class="carousel-item">
+                <img src="https://www.elpando.com/img_solutions/project_management_system/pic7.jpg" alt="Chicago" width="1200px" height="875px">
               </div>
-              <button type="submit" class="btn btn-info">Login</button>
-            </form>
-      </div>
-    </div>
-
-    <div id="register-page" class="row">
-      <div class="col-md-8">
-        <div id="demo" class="carousel slide" data-ride="carousel">
-
-          <!-- Indicators -->
-          <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
-          </ul>
-          
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" alt="Los Angeles" width="1200px" height="875px">
+              <div class="carousel-item">
+                <img src="https://d3kqdc25i4tl0t.cloudfront.net/articles/content/497_449074_management.hero.jpg" alt="New York" width="1200px" height="875px">
+              </div>
             </div>
-            <div class="carousel-item">
-              <img src="https://www.elpando.com/img_solutions/project_management_system/pic7.jpg" alt="Chicago" width="1200px" height="875px">
-            </div>
-            <div class="carousel-item">
-              <img src="https://d3kqdc25i4tl0t.cloudfront.net/articles/content/497_449074_management.hero.jpg" alt="New York" width="1200px" height="875px">
-            </div>
+            
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
           </div>
           
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#demo" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#demo" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </a>
+          <!-- <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" style="width: 100%;"> -->
         </div>
+        <div class="col-md-4">
+          <div class="text-center mt-5">
+            <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" style="width: auto;" class="mx-auto">
+            <h3 style="font-family: 'Russo One', sans-serif; color: #5ec0ca; font-size: xx-large;">Register</h3>
+           </div><br>
+              <form id="submit-register-form" class="mr-5 ml-5">
+                <div class="text-center">
+                  <span>Already have an account?<a href="#login-page" @click.prevent="changePage('loginPage')"> Login here</a></span>
+                </div><br>
+                <div class="form-group">
+                  <input type="email" class="form-control" id="email-register" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="pwd-register" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn btn-info">Register</button>
+              </form>
+        </div>
+      </div>
+    </section>
+  
+    <section id="mainpage" v-if="pageName === 'mainPage'">
+      <div class="navbar navbar-light">
+        <div class="nav">
+          <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" alt="logo" width="50">
+        </div>
+        <div class="nav">
+          <button class="btn text-white" style="background-color: #5ec0ca;" @click.prevent="logout">Logout</button>
+        </div>
+      </div>
+  
+      <div class="row flex-container-kanban">
+        <!-- <div class="kanban-board">
+          <div class="card text-white text-center mb-2 board-title">
+            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog</h1>
+          </div>
+          <div class="card text-white board-body">  
+            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+              <div class="card text-white mt-3 board-items">
+                <div class="card-header">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4><strong>Task</strong></h4>
+                  <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;">Edit</button>
+                  <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;">Move</button>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+          </div>
+        </div> -->
         
-        <!-- <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" style="width: 100%;"> -->
-      </div>
-      <div class="col-md-4">
-        <div class="text-center mt-5">
-          <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" style="width: auto;" class="mx-auto">
-          <h3 style="font-family: 'Russo One', sans-serif; color: #5ec0ca; font-size: xx-large;">Register</h3>
-         </div><br>
-            <form id="submit-login-form" class="mr-5 ml-5">
-              <div class="text-center">
-                <span>Already have an account?<a href="#login-page"> Login here</a></span>
-              </div><br>
-              <div class="form-group">
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-              </div>
-              <button type="submit" class="btn btn-info">Register</button>
-            </form>
-      </div>
-    </div>
-  </section>
-
-  <section id="mainpage">
-    <div class="navbar navbar-light">
-      <div class="nav">
-        <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" alt="logo" width="50">
-      </div>
-      <div class="nav">
-        <button class="btn text-white" style="background-color: #5ec0ca;">Logout</button>
-      </div>
-    </div>
-
-    <div class="row flex-container-kanban">
-      <div class="kanban-board">
-        <div class="card text-white text-center mb-2 board-title">
-          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog</h1>
-        </div>
-        <div class="card text-white board-body">  
-          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-            <div class="card text-white mt-3 board-items">
+        <div class="kanban-board" v-for="(category, index) in categories" :key="category.id">
+          <div class="card text-white text-center mb-2 board-title">
+            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">{{category.name}}</h1>
+          </div>
+          <div class="card text-white board-body">
+            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+            <div class="card text-white mt-3 board-items" v-for="(task, index) in tasks" :key="task.id" v-if="task.categoryName === category.name">
               <div class="card-header">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <h4><strong>Task</strong></h4>
+                <p><strong>{{task.name}}</strong></p>
                 <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;">Edit</button>
                 <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;">Move</button>
               </div>
               <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p>Due Date: {{task.due_date}}</p>
               </div>
             </div>
+          </div>
         </div>
-      </div>
+       
+        <!-- <div class="kanban-board">
+          <div class="card text-white text-center mb-2 board-title">
+            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 3</h1>
+          </div>
+          <div class="card text-white board-body">
+            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+          </div>
+        </div> -->
       
-      <div class="kanban-board">
-        <div class="card text-white text-center mb-2 board-title">
-          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 2</h1>
-        </div>
-        <div class="card text-white board-body">
-          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-        </div>
+        
+        <!-- <div class="kanban-board">
+          <div class="card text-white text-center mb-2 board-title">
+            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 4</h1>
+          </div>
+          <div class="card text-white board-body">
+            <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+          </div>
+        </div> -->
       </div>
-     
-      <div class="kanban-board">
-        <div class="card text-white text-center mb-2 board-title">
-          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 3</h1>
-        </div>
-        <div class="card text-white board-body">
-          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-        </div>
-      </div>
-    
-      
-      <div class="kanban-board">
-        <div class="card text-white text-center mb-2 board-title">
-          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 4</h1>
-        </div>
-        <div class="card text-white board-body">
-          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
+    
+  
+  </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="main.js"></script>
 </body>
 </html>

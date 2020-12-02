@@ -1,6 +1,6 @@
 function errorHandler(err, req, res, next){
   if(err.status){
-    res.status(err.status).json({message: [err.message]})
+    res.status(err.status).json({message: err.message})
   }
   else if(err.name === "SequelizeUniqueConstraintError" || err.name === "SequelizeValidationError"){
     let errors = []

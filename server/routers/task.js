@@ -4,6 +4,7 @@ const TaskController = require("../controller/task")
 const authentication = require("../middlewares/authentication")
 
 router.use(authentication)
+router.get("/categories", TaskController.getCategories) //get all categories
 router.get("/", TaskController.showAllTasks) //get all tasks
 router.get("/:id", TaskController.showTaskById) //get task by id
 router.post("/", TaskController.addTask) //add task

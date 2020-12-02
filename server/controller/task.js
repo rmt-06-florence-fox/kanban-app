@@ -161,6 +161,17 @@ class TaskController {
       next(err)
     })
   }
+
+  static getCategories(req, res, next){
+    Category.findAll()
+      .then(categories => {
+        res.status(200).json(categories)
+      })
+      .catch(err => {
+        console.log(err.message + " <<< ini dari controller user, fungsi getCategories")
+        next(err)
+      })
+  }
 }
 
 module.exports = TaskController
