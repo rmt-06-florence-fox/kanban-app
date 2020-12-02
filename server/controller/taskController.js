@@ -1,5 +1,5 @@
 const e = require('express');
-const { Task } = require('../models');
+const { Task, User } = require('../models');
 
 class TaskController {
 	static create(req, res, next) {
@@ -20,6 +20,10 @@ class TaskController {
 	static getAllTasks(req, res, next) {
 		Task.findAll({
 			order: [['id', 'ASC']],
+			include: {
+				model: User,
+				attributes: ['email'],
+			},
 		})
 			.then((data) => {
 				res.status(200).json(data);
@@ -35,6 +39,10 @@ class TaskController {
 		Task.findOne({
 			where: {
 				id,
+			},
+			include: {
+				model: User,
+				attributes: ['email'],
 			},
 		})
 			.then((data) => {
