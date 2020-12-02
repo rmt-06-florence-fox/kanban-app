@@ -12,55 +12,73 @@
     <title>Kanban</title>
 </head>
 
-<body class="m-0 p-0 background-content">  
+<body class="m-0 p-0 background-content">
+
+<template id="body">
+<div v-if="page==='login'">
     <!-- login form -->
-    <div class="container-fluid text-white background-login d-flex justify-content-around">
-        <div class="d-flex flex-column justify-content-center">
+    <div class="container-fluid min-vh-100 text-white background-login row">
+        <div class="col d-flex flex-column justify-content-center">
             <h3>Welcome to kanban</h3>
             <h3>Do not have an account? <a class="text-white">register here</a></h3>
         </div>
-        <form class="needs-validation">
-            <div class="form-group">
-                <label for="email">Your Email</label>
-                <input type="email" class="form-control" name="email"  required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
 
-            <div class="form-group">
-                <label for="password">Your Password</label>
-                <input type="password" class="form-control" name="pasword"  required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-            <input type="submit" value="Login" class="btn-submit bolder font-weight-bolder"  style="background-color: #fbf6f0;">
-        </form>
-    </div>
-    
-    <!-- register form -->
-    <div class="container-fluid background-register d-flex justify-content-around text-white d-flex">
+        <div class="col d-flex flex-column justify-content-center">
+            <form class="needs-validation">
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="password">Your Password</label>
+                    <input type="password" class="form-control" name="pasword" required>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
 
-        <form class="needs-validation">
-            <div class="form-group">
-                <label for="email">Your Email</label>
-                <input type="email" class="form-control" name="email"  required>
-                <div class="invalid-feedback">Please fill out your email.</div>
-            </div>
-    
-            <div class="form-group">
-                <label for="password">Your Password</label>
-                <input type="password" class="form-control" name="pasword"  required>
-                <div class="invalid-feedback">Please fill out your password.</div>
-            </div>
-            <input type="submit" value="Register" class="btn-submit font-weight-bolder"  style="background-color: #fbf6f0;">
-        </form>
-
-        <div class="d-flex flex-column justify-content-center">
-            <h3>Welcome to kanban's register page</h3>
-            <h3>Have an account? <a class="text-white">login here</a></h3>
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Login" class="btn-submit font-weight-bolder" style="background-color: #fbf6f0;">
+                </div>
+            </form>
         </div>
     </div>
-    
-    <!-- main page -->
-<div>
+</div>
+
+
+<div v-else-if="page==='register'">
+    <!-- register form -->
+    <div class="container-fluid min-vh-100 text-white background-login row">
+
+        <form class="needs-validation d-flex flex-column justify-content-center col">
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" class="form-control" name="email" required>
+                <div class="invalid-feedback">Please fill out your email.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Your Password</label>
+                <input type="password" class="form-control" name="pasword" required>
+                <div class="invalid-feedback">Please fill out your password.</div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="Register" class="btn-submit font-weight-bolder" style="background-color: #fbf6f0;">
+            </div>
+        </form>
+
+        <div class="d-flex flex-column justify-content-center col">
+            <div class="d-flex justify-content-end">
+                <div>
+                    <h3>Welcome to kanban's register page</h3>
+                    <h3>Have an account? <a class="text-white">login here</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div v-else-if="page==='content'" class="min-vh-100">
     <header class="container-fluid bg-dark row mr-0 ml-0 sticky-top">
         <div class="text-white col-md-10 col-12 m-auto">
             <h1>KANBAN</h1>
@@ -68,53 +86,52 @@
         </div>
         <button class="btn-danger h-25 m-auto">LOG OUT</button>
     </header>
-    
-    <button class="mt-3 btn-primary" type="button" data-toggle="modal" data-target="#addform" style="margin-left:2rem;">add task</button>
-    
+
+    <button class="mt-3 btn-primary" type="button" data-toggle="modal" data-target="#addform"
+        style="margin-left:2rem;">add task</button>
+
     <div class="modal" id="addform">
         <div class="modal-dialog">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">add new task</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-    
+
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
+
                     <form id="add-form">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="" >
+                            <input type="text" class="form-control" name="">
                         </div>
                         <input type="submit" class="btn-primary">
                     </form>
 
                 </div>
-    
+
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
-    
+
             </div>
         </div>
     </div>
 
-   
-   
     <!-- main content goes here -->
 
     <div class="container-fluid d-flex mt-3 flex-column justify-content-center">
         <div class="container-fluid min-vh-100 row">
-            
+
             <div class="card col m-3 border-info p-0 overflow-auto" style="background-color: #f4ff61;">
                 <div class="card-header w-100 text-center mb-2 bg-dark text-white">
                     <h4>back log</h4>
                 </div>
                 <div class="card-body container-fluid p-1">
-                <!-- backlog goes here -->
+                    <!-- backlog goes here -->
                     <div class="card mb-2">
                         <div class="card-footer">
                             <div class="d-flex justify-content-end">
@@ -122,10 +139,10 @@
                                 <h4 class="material-icons mr-3">edit</h4>
                                 <h4 class="material-icons" style="color:red">delete_forever</h4>
                             </div>
-                            
+
                             <p>creator</p>
                         </div>
-                        
+
                         <h5>
                             <div class="card-header">what todo</div>
                         </h5>
@@ -147,15 +164,15 @@
                                 <h4 class="material-icons mr-3">edit</h4>
                                 <h4 class="material-icons" style="color:red">delete_forever</h4>
                             </div>
-                    
+
                             <p>creator</p>
                         </div>
-                    
+
                         <h5>
                             <div class="card-header">what todo</div>
                         </h5>
                     </div>
-            
+
                 </div>
             </div>
 
@@ -173,15 +190,15 @@
                                 <h4 class="material-icons mr-3">edit</h4>
                                 <h4 class="material-icons" style="color:red">delete_forever</h4>
                             </div>
-                    
+
                             <p>creator</p>
                         </div>
-                    
+
                         <h5>
                             <div class="card-header">what todo</div>
                         </h5>
                     </div>
-            
+
                 </div>
             </div>
 
@@ -200,21 +217,25 @@
                                 <h4 class="material-icons mr-3">edit</h4>
                                 <h4 class="material-icons" style="color:red">delete_forever</h4>
                             </div>
-                    
+
                             <p>creator</p>
                         </div>
                         <h5>
                             <div class="card-header">what todo</div>
                         </h5>
                     </div>
-            
+
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
-</div>
+</template>
 
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="./assets/scripts/manipulator.js"></script>
 </body>
 </html>
