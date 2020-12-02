@@ -2,14 +2,14 @@ const { Task } = require ("../models/index.js")
 
 module.exports = async (req, res, next) => {
     try {
-            const task = await Task.findOne ({
+           const task = await Task.findOne ({
                 where : {
                     id : req.params.id
                 }
             })
 
             if (!task) {
-                throw {
+               throw {
                     status : 401,
                     msg : "Task Not Found"
                 }
@@ -17,10 +17,10 @@ module.exports = async (req, res, next) => {
 
             if (task.UserId === req.dataUser.id) {
                 next()
-            }else {
+            } else {
                 throw {
                     status : 401,
-                    msg : "You are not authorize to access this To do"
+                    msg : "You are not authorize to access this Task"
                 }
             }
     } catch (error) {
