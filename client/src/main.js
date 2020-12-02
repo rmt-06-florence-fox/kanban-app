@@ -7,13 +7,17 @@ var app = new Vue({
     signup_name: '',
     signup_email: '',
     signup_password: '',
+    tasks: [],
+    tasks_lists: [],
     url: 'http://localhost:3000'
   },
   methods: {
+
     changePage(newPage) {
       console.log(newPage)
       this.page = newPage
     },
+
     signinUser() {
       const payload = {
         email: this.signin_email,
@@ -32,9 +36,14 @@ var app = new Vue({
       .then(data => {
         localStorage.setItem('access_token', data.data.access_token)
         this.changePage('main')
+        this.getAllTask()
       })
       .catch(err => {
         console.log(err)
+      })
+      .finally(_ => {
+        this.signin_email = ''
+        this.signin_password = ''
       })
     },
 
@@ -57,19 +66,57 @@ var app = new Vue({
         }
       })
       .then(data => {
-        console.log(data)
         this.changePage('login')
       })
       .catch(err => {
         console.log(err)
       })
+      .finally(_ => {
+        this.signup_name = ''
+        this.signup_email = ''
+        this.signup_password = ''
+      })
     },
+
     signUpForm() {
       this.changePage('register')
     },
+
     logOutUser() {
       localStorage.clear()
       this.changePage('login')
+    },
+
+    getAllTask() {
+      axios({
+        method: "GET",
+        url: this.url + '/tasks',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+      .then(data => {
+        console.log(data)
+        this.tasks = []
+        this.tasks_lists = []
+        data.forEach(el => {
+          this.tasks.push(el)
+        })
+        tasks.forEach(el => {
+          this.tasks_lists.push(tasks)
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  created: function() {
+    if(localStorage.getItem('access_token')) {
+      this.page = 'main'
+      this.getAllTask()
+    } else {
+      this.page = 'login'
     }
   }
 })

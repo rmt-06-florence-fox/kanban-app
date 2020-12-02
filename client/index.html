@@ -11,26 +11,10 @@
   </head>
   <body>
     <div id="app">
-        <!--NAVBAR-->
-      <nav class="custom-navbar sticky-top">
-        <div class="left-navbar">
-          <button class="nav-item btn"><i class="fa fa-home"></i></button>
-        </div>
-        <div class="center-navbar">
-          <div class="logo">
-            <h2><i class="fa fa-clipboard logo-icon"></i>Trolle</h2>
-          </div>
-        </div>
-        <div class="right-navbar">
-          <button class="nav-item btn"><i class="fa fa-info-circle"></i></button>
-          <button class="nav-item btn"><i class="fa fa-plus-circle"></i></button>
-          <button class="nav-item btn btn-danger my-2 my-sm-1" @click.prevent="logOutUser">Sign Out</button>
-        </div>
-      </nav>
-
+      
       <!--LOGIN PAGE-->
       <div class="login-page" v-if="page === 'login'">
-        <div class="card my-5 col-sm-4">
+        <div class="card col-sm-4">
           <article class="card-body">
             <h2 class="card-title text-center mb-4 mt-1">Sign In</h2>
             <hr>
@@ -66,7 +50,7 @@
 
       <!--REGISTER PAGE-->
       <div class="register-page" v-else-if="page === 'register'">
-        <div class="card my-5 col-sm-4">
+        <div class="card col-sm-4">
           <article class="card-body">
             <h2 class="card-title text-center mb-4 mt-1">Sign Up Account</h2>
             <hr>
@@ -106,8 +90,28 @@
           </article>
         </div>
       </div>
+
       <!--MAIN PAGE-->
+      
       <div class="main-page" v-else-if="page === 'main'">
+
+        <!--NAVBAR-->
+        <nav class="custom-navbar sticky-top">
+          <div class="left-navbar">
+            <button class="nav-item btn"><i class="fa fa-home"></i></button>
+          </div>
+          <div class="center-navbar">
+            <div class="logo">
+              <h2><i class="fa fa-clipboard logo-icon"></i>Trolle</h2>
+            </div>
+          </div>
+          <div class="right-navbar">
+            <button class="nav-item btn"><i class="fa fa-info-circle"></i></button>
+            <button class="nav-item btn"><i class="fa fa-plus-circle"></i></button>
+            <button class="nav-item btn btn-danger my-2 my-sm-1" @click.prevent="logOutUser">Sign Out</button>
+          </div>
+        </nav>
+
         <div class="task-lists container mt-5">
           <!---BACKLOG-->
           <div>
@@ -127,120 +131,94 @@
                   </a>
                 </div>
               </div>
+              <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
+            </div>
+          </div>
+          <!--TODO-->
+          <div>
+            <div class="task-list title">
+              <h4 id="task-list-title">Todo</h4>
+            </div>
+            <div class="task-list">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
+                  <a href="https://www.google.com/" class="edit-icon">
+                    <i class="fa fa-trash float-right"></i>
+                  </a>
+                  <h5 clss="card-title">Card title</h5>
                   <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <a href="https://www.google.com/" class="edit-icon">
+                    <i class="fa fa-edit float-right"></i>
+                  </a>
                 </div>
               </div>
-              <div class="card">
+              <div class="card add">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                </div>
-              </div>  
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                </div>
-              </div>  
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <input class="card-title form-control" placeholder="Insert Task Title">
+                  <input class="card-subtitle mb-2 text-muted form-control" placeholder="Insert Description">
+                  <button class="btn btn-primary">Add Task</button>
+                  <button class="btn btn-danger">Cancel</button>
                 </div>
               </div>
               <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
             </div>
           </div>
-          <!--TODO-->
-          <div class="task-list col-sm">
-            <h4 class="task-list title">Todo</h4>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              </div>
-            </div>
-            <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
-            <div class="card add">
-              <div class="card-body">
-                <input class="card-title form-control" placeholder="Insert Task Title">
-                <input class="card-subtitle mb-2 text-muted form-control" placeholder="Insert Description">
-                <button class="btn btn-primary">Add Task</button>
-                <button class="btn btn-danger">Cancel</button>
-              </div>
-            </div> 
-          </div>
           <!--DOING-->
-          <div class="task-list col-sm">
-            <h4 class="task-list title">Doing</h4>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              </div>
+          <div>
+            <div class="task-list title">
+              <h4 id="task-list-title">Doing</h4>
             </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <div class="task-list">
+              <div class="card">
+                <div class="card-body">
+                  <a href="https://www.google.com/" class="edit-icon">
+                    <i class="fa fa-trash float-right"></i>
+                  </a>
+                  <h5 clss="card-title">Card title</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <a href="https://www.google.com/" class="edit-icon">
+                    <i class="fa fa-edit float-right"></i>
+                  </a>
+                </div>
               </div>
+              <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
             </div>
-            <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
           </div>
           <!--DONE-->
-          <div class="task-list col-sm">
-            <h4 class="task-list title">Done</h4>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              </div>
+          <div>
+            <div class="task-list title">
+              <h4 id="task-list-title">Done</h4>
             </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <div class="task-list">
+              <div class="card">
+                <div class="card-body">
+                  <a href="https://www.google.com/" class="edit-icon">
+                    <i class="fa fa-trash float-right"></i>
+                  </a>
+                  <h5 clss="card-title">Card title</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                  <a href="https://www.google.com/" class="edit-icon">
+                    <i class="fa fa-edit float-right"></i>
+                  </a>
+                </div>
               </div>
+              <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
             </div>
-            <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
-          </div>
-          <div class="task-list col-sm">
-            <h4 class="task-list title">coba</h4>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              </div>
-            </div>
-            <button class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
           </div>
 
-          <button class="card add-list-btn btn"><span><i class="fa fa-plus"></i></span> Add a list</button>
+          <button class="card btn add-list-btn"><span><i class="fa fa-plus"></i></span> Add a list</button>
         </div>
 
       </div>
 
       <!--FOOTER-->
-      <footer class="page-footer font-small blue">
+      <footer class="footer mt-auto py-3 sticky">
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-          <a href="https://github.com/sidsoeharto"> sidsoeharto</a>
+        <div >
+          <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="https://github.com/sidsoeharto"> sidsoeharto</a>
+          </div>
         </div>
         <!-- Copyright -->
       
