@@ -1,23 +1,6 @@
-# kanban-app
 # **KANBAN APP**
 ___
 
-## **End Point**
-___
-* **URL**
-* **Method:**
-* **URL Params**
->**Required**
-
-* **Data Params**
-* **Success Response**
-- * **code:**
-- * **content:**
-* **Error Response**
-- * **code:**
-- * **content:**
- 
-* **Sample Call**
 
 ## **Register**
 ___
@@ -66,9 +49,6 @@ ___
 * - https://kanban-app-p2.herokuapp.com/register
 * **Method:**
 * - **POST**
-* **URL Params**
->**Required**
-
 * **Data Params**
 * > email = [string]
 password = [string]
@@ -85,3 +65,238 @@ password = [string]
 - * **content:**
  
 * **Sample Call**
+## **Get All Task**
+___
+* **URL**
+- * https://kanban-app-p2.herokuapp.com/task
+* **Method:**
+* - **GET**
+* **headers**
+>**Required**
+access_token = [string]
+
+* **Success Response**
+- * **code:200**
+- * **content:**
+```
+{
+    "task": [
+        {
+            "id": 1,
+            "title": "membuat crud Task pada server",
+            "Category": ongoing,
+            "createdAt": "2020-12-01T05:17:24.872Z",
+            "updatedAt": "2020-12-01T05:17:24.872Z",
+            "User": "coba@mail.com"
+        },
+        {
+            "id": 2,
+            "title": "membuat crud Task pada server",
+            "Category": "done",
+            "createdAt": "2020-12-01T05:17:47.413Z",
+            "updatedAt": "2020-12-01T05:17:47.413Z",
+            "User": "coba@mail.com"
+        }
+    ]
+}
+```
+* **Error Response**
+- * **code:401**
+- * **content:**
+```
+{
+    "message": "please login"
+}
+```
+- * **code:500**
+- * **content:**
+```
+{
+    "message": "internal server eror"
+}
+```
+## **Add New Task**
+___
+* **URL**
+* - https://kanban-app-p2.herokuapp.com/task
+* **Method:**
+* - **POST**
+* **headers**
+>**Required**
+access_token = [string]
+
+* **Success Response**
+- * **code:200**
+- * **content:**
+```
+{
+    "newTask": {
+        "id": 2,
+        "title": "membuat crud Task pada server",
+        "Category": "done",
+        "UserId": 1,
+        "updatedAt": "2020-12-01T05:17:47.413Z",
+        "createdAt": "2020-12-01T05:17:47.413Z"
+    }
+}
+```
+* **Error Response**
+- * **code:401**
+- * **content:**
+ ```
+ {
+    "message": "please login"
+}
+ ```
+ - * **code:500**
+- * **content:**
+ ```
+ {
+    "message": "internal server eror"
+}
+ ```
+## **Replace task**
+___
+* **URL**
+* - https://kanban-app-p2.herokuapp.com/task/:id
+* **Method:**
+* - **PUT**
+* **URL Params**
+* - **Required:**
+* - > id = [integer]
+* **Headers**
+* - **Required:**
+* - > access_token = [string]
+
+* **Data Params**
+* - **Required:**
+* - > title = [string]
+* - > category = [string]
+* **Success Response**
+- * **code:200**
+- * **content:**
+```
+{
+    "message": "Succes Edit Task"
+}
+```
+* **Error Response**
+- * **code:401**
+- * **content:**
+ ```
+{
+    "message": "Unauhtorize access"
+}
+```
+- * **code:404**
+- * **content:**
+ ```
+{
+    "message": "Data not found
+}
+```
+
+## **Modified Task**
+___
+* **URL**
+* - https://kanban-app-p2.herokuapp.com/task/:id
+* **Method:**
+* - **PATCH**
+* **URL Params**
+* - **Required:**
+* - > id = [integer]
+* **Headers**
+* - **Required:**
+* - > access_token = [string]
+
+* **Data Params**
+* - **Required:**
+* - > category = [string]
+* **Success Response**
+- * **code:200**
+- * **content:**
+```
+{
+    "message": "Succes Modified"
+}
+```
+* **Error Response**
+- * **code:401**
+- * **content:**
+ ```
+{
+    "message": "Unauhtorize access"
+}
+```
+- * **code:404**
+- * **content:**
+ ```
+{
+    "message": "Data not found
+}
+```
+- * **code:401**
+- * **content:**
+ ```
+{
+    "message": "Please Login"
+}
+```
+- * **code:500**
+- * **content:**
+ ```
+{
+    "message": "Internal Server error"
+}
+```
+ 
+ ## **Delete Task**
+___
+* **URL**
+* - https://kanban-app-p2.herokuapp.com/task/:id
+* **Method:**
+* - **Delete**
+* **URL Params**
+* - **Required:**
+* - > id = [integer]
+* **Headers**
+* - **Required:**
+* - > access_token = [string]
+
+* **Success Response**
+- * **code:200**
+- * **content:**
+```
+{
+    "message": "Succes delete task"
+}
+```
+* **Error Response**
+- * **code:401**
+- * **content:**
+ ```
+{
+    "message": "Unauhtorize access"
+}
+```
+- * **code:404**
+- * **content:**
+ ```
+{
+    "message": "Data not found
+}
+```
+- * **code:401**
+- * **content:**
+ ```
+{
+    "message": "Please Login"
+}
+```
+- * **code:500**
+- * **content:**
+ ```
+{
+    "message": "Internal Server error"
+}
+```
