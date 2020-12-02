@@ -54,6 +54,7 @@
           <div class="container-oauth">
             <div class="g-signin2 btn btn-google rounded" data-onsuccess="onSignIn"></div>
           </div>
+          <button type="button" @click="changePage('Register Page')"> Haven't account ? Click here !</button>
         </div>
         <div class="col-6">
           <div class="mb-5 mt-5">
@@ -67,18 +68,18 @@
       <div class="row justify-content-center mt-5">
         <div class="col-4 mt-5">
           <h1 class="mb-5 text-center"><b>Register</b></h1>
-          <form id="form-register">
+          <form id="form-register" @submit.prevent='regist'>
             <div class=" form-group mt-1">
               <label for="regist-username">Username</label>
-              <input type="text" class="form-control" id="regist-username" placeholder="Your username">
+              <input type="text" v-model="registUser.name" class="form-control" id="regist-username" placeholder="Your username">
             </div>
             <div class="form-group mt-1">
               <label for="regist-email">Email address</label>
-              <input type="email" class="form-control" id="regist-email" placeholder="Your email">
+              <input type="email" v-model="registUser.email" class="form-control" id="regist-email" placeholder="Your email">
             </div>
             <div class="form-group mt-1">
               <label for="register-password">Password</label>
-              <input type="password" class="form-control" id="register-password" placeholder="Password">
+              <input type="password" v-model="registUser.password" class="form-control" id="register-password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-submit btn-block">Sign Up</button>
           </form>
@@ -93,59 +94,27 @@
     </section>
   
     <section id="main-page" class="" v-if = "pageName === 'Home Page'">
+      <!-- <ul>
+        <li v-for='task in dataTask' >{{ task.title }}</li>
+      </ul> -->
       <div class="container mt-3">
         <div class="row">
           <!-- Backlog -->
           <div class="col-md-3 col-sm-6 mt-3">
             <div class="p-2 rounded task-header"><h5 class="text-center">Backlog</h5></div>
-              <!-- <ul>
-                <li v-for='task in dataTask'>{{ task.name }}</li>
-              </ul> -->
             <div class="p-1 container-overflow">
-              <div class="card" v-for="data in dataTask" :key="data.id">
+              <!-- Loop Backlog -->
+              <div class="card" v-for="data in filteredDataBacklog" :key="data.id">
                 <div class="card-body">
                   <h5 class="card-title">{{ data.title }}</h5>
-                  <!-- <p class="card-text"><i>Author: {{ data.User.name }}</i></p> -->
+                  <p class="card-text text-right"><i>Author: {{ data.User.name }}</i></p>
                 </div>
                 <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
+                  <button type="button" class="btn far fa-edit" @click.prevent="editData(data.id)"></button>
+                  <button type="button" class="btn far fa-trash-alt" @click.prevent="deleteData(data.id)"></button>
+                  <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchData(data.id)" ></button>
                 </div>
               </div>
-              <!-- <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div> -->
             </div>
             <div class="rounded task-bottom mb-2">
               <button type="button" class="btn btn-add fas fa-plus"><label class="ml-3">Add</label></button>
@@ -171,48 +140,16 @@
           <div class="col-md-3 col-sm-6 mt-3">
             <div class="p-2 rounded task-header-2"><h5 class="text-center">Todo</h5></div>
             <div class="p-1 container-overflow">
-              <div class="card">
+              <!-- Loop Todo -->
+              <div class="card" v-for="data in filteredDataTodo" :key="data.id">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <h5 class="card-title">{{ data.title }}</h5>
+                  <p class="card-text text-right"><i>Author: {{ data.User.name }}</i></p>
                 </div>
                 <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
+                  <button type="button" class="btn far fa-edit" @click.prevent="editData(data.id)"></button>
+                  <button type="button" class="btn far fa-trash-alt" @click.prevent="deleteData(data.id)"></button>
+                  <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchData(data.id)" ></button>
                 </div>
               </div>
             </div>
@@ -240,48 +177,16 @@
           <div class="col-md-3 col-sm-6 mt-3">
             <div class="p-2 rounded task-header"><h5 class="text-center">Doing</h5></div>
             <div class="p-1 container-overflow">
-              <div class="card">
+              <!-- Loop Doing -->
+              <div class="card" v-for="data in filteredDataDoing" :key="data.id">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <h5 class="card-title">{{ data.title }}</h5>
+                  <p class="card-text text-right"><i>Author: {{ data.User.name }}</i></p>
                 </div>
                 <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
+                  <button type="button" class="btn far fa-edit" @click.prevent="editData(data.id)"></button>
+                  <button type="button" class="btn far fa-trash-alt" @click.prevent="deleteData(data.id)"></button>
+                  <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchData(data.id)" ></button>
                 </div>
               </div>
             </div>
@@ -309,48 +214,16 @@
           <div class="col-md-3 col-sm-6 mt-3">
             <div class="p-2 rounded task-header-2"><h5 class="text-center">Done</h5></div>
             <div class="p-1 container-overflow">
-              <div class="card">
+              <!-- Loop Done -->
+              <div class="card" v-for="data in filteredDataDone" :key="data.id">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <h5 class="card-title">{{ data.title }}</h5>
+                  <p class="card-text text-right"><i>Author: {{ data.User.name }}</i></p>
                 </div>
                 <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-                <div class="card-footer container-button-task">
-                  <button type="button" class="btn far fa-edit"></button>
-                  <button type="button" class="btn far fa-trash-alt"></button>
-                  <button type="button" class="btn fas fa-arrows-alt"></button>
+                  <button type="button" class="btn far fa-edit" @click.prevent="editData(data.id)"></button>
+                  <button type="button" class="btn far fa-trash-alt" @click.prevent="deleteData(data.id)"></button>
+                  <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchData(data.id)" ></button>
                 </div>
               </div>
             </div>

@@ -9,6 +9,11 @@ var app = new Vue({
       email: '',
       password: ''
     },
+    registUser:{
+      name: '',
+      email: '',
+      password: ''
+    },
     dataTask: []
   },
   methods:{
@@ -22,6 +27,7 @@ var app = new Vue({
           // console.log(response);
           localStorage.setItem('access_token', response.data.access_token)
           this.pageName = 'Home Page'
+          this.fetchData()
         })
         .catch(err => console.log(err))
         .finally(_ => {
@@ -33,6 +39,27 @@ var app = new Vue({
       localStorage.removeItem('access_token')
       this.pageName = 'Login Page'
     },
+    changePage(page){
+      this.pageName = page
+    },
+    regist(){
+      // console.log(this.registUser);
+      axios({
+        url: baseURL + 'register',
+        method: 'POST',
+        data: this.registUser
+      })
+        .then(response =>{
+          console.log(response);
+          this.pageName = 'Login Page'
+        })
+        .catch(err => console.log(err))
+        .finally(_ => {
+          this.registUser.email = ''
+          this.registUser.name = ''
+          this.registUser.password = ''
+        })
+    },
     fetchData(){
       axios({
         url: baseURL + 'tasks',
@@ -41,11 +68,12 @@ var app = new Vue({
           access_token: localStorage.getItem('access_token')
         }
       })
-      .then(response => {
-        console.log(response.data);
-        this.dataTask.push(response.data)
-      })
-      .catch(err => console.log(err))
+        .then(response => {
+          console.log(response.data);
+          // this.dataTask.push(response.data)
+          response.data.forEach((e)=> this.dataTask.push(e))
+        })
+        .catch(err => console.log(err))
     }
   },
   created: function(){
@@ -56,8 +84,17 @@ var app = new Vue({
     }else this.pageName = 'Login Page'
   },
   computed:{
-    filteredData(category){
-      return this.dataTask.filter(e => e.category === category)
-    }
+    filteredDataBacklog: function(){
+      return this.dataTask.filter(e => e.category === 'backlog')
+    },
+    filteredDataDoing: function(){
+      return this.dataTask.filter(e => e.category === 'doing')
+    },
+    filteredDataTodo: function(){
+      return this.dataTask.filter(e => e.category === 'todo')
+    },
+    filteredDataDone: function(){
+      return this.dataTask.filter(e => e.category === 'done')
+    },
   }
 })
