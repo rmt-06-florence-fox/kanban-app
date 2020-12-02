@@ -2,14 +2,15 @@ console.log('start in routing category');
 const express = require('express')
 const router = express.Router()
 const CategoryController = require('../controllers/category')
-const authorization = require('../middlewares/authorization')
+// pending action
+const Authorization = require('../middlewares/authorization')
 
-router.get('/categories', CategoryController.show)
-router.post('/categories', CategoryController.create)
+router.get('/', CategoryController.show)
+router.post('/', CategoryController.create)
 
-router.use('/categories/:id', authorization)
-router.patch('/categories/:id', CategoryController.edit)
-router.delete('/categories/:id', CategoryController.delete)
+// router.use('/:id', Authorization.category) //! next time it is used, an error occurs because the insert / update violates the foreign key restriction
+router.patch('/:id', CategoryController.edit)
+router.delete('/:id', CategoryController.delete)
 
 module.exports = router
 console.log('end in routing category');

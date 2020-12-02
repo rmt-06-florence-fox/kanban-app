@@ -16,7 +16,7 @@ router.post('/googleLogin', UserController.googleSignIn);
 
 router.use(authentication)
 router.use('/tasks', taskRouter)
-router.use('/category', categoryRouter)
+router.use('/categories', categoryRouter)
 
 module.exports = router
 console.log('end in routing index');
