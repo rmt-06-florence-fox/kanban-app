@@ -16,165 +16,170 @@
 </head>
 
 <body>
-  <!-- Login Page -->
-  <div class="d-flex justify-content-center">
-    <img id="img-left" src="img/undraw_stepping_up_g6oo.svg" alt="">
-    <div id="login-page" class="container w-50 mt-5 ml-1">
-      <div class="card text-left shadow">
-        <div class="card-header" style="background-color: #0eaef8;">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-              <a onclick="register()" class="nav-link text-white" href="#">Register</a>
-            </li>
-          </ul>
+  <div id="app">
+
+
+    <!-- Login Page -->
+    <div v-if = "entryPage"  class="d-flex justify-content-center">
+      <img id="img-left" src="img/undraw_stepping_up_g6oo.svg" alt="">
+        <div v-if="pageName == 'login page'" class="container w-50 mt-5 ml-1">
+          <div class="card text-left shadow">
+            <div class="card-header" style="background-color: #0eaef8;">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a @click.prevent = "register" class="nav-link text-white" href="#">Register</a>
+                </li>
+              </ul>
+            </div>
+            <form @submit.prevent = "loginSubmit">
+              <div class="card-body">
+                <label for="email-login" class="card-title">Email</label>
+                <input v-model="userLogin.email" id="email-login" class="form-control" type="text" placeholder="Sleketemb@mail.com">
+                <label for="password-login" class="card-title mt-3">Password</label>
+                <input v-model="userLogin.password" id="password-login" class="form-control" type="password">
+    
+              </div>
+              <div class="row container ml-2 mb-3">
+                <button class="btn btn-lg text-white" style="background-color: #0eaef8;">Login</button>
+                <!-- google sign button -->
+              </div>
+            </form>
+    
+          </div>
+    
         </div>
-        <form>
-          <div class="card-body">
-            <label for="email-login" class="card-title">Email</label>
-            <input id="email-login" class="form-control" type="text" placeholder="Sleketemb@mail.com">
-            <label for="password-login" class="card-title mt-3">Password</label>
-            <input id="password-login" class="form-control" type="password">
 
+        <!-- register Page -->
+        <div v-else-if = "pageName == 'register page'" class="container w-50 mt-5 ml-1">
+          <div class="card text-left shadow">
+            <div class="card-header bg-primary">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a @click.prevent = "login" class="nav-link text-white" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Register</a>
+                </li>
+              </ul>
+            </div>
+            <p v-if= "error" class="ml-2 text-danger"> {{error}} </p>
+            <form @submit.prevent = "registSubmit">
+              <div  class="card-body">
+                <label for="email-login" class="card-title">Email</label>
+                <input v-model="userRegister.email" id="email-login" class="form-control" type="text" placeholder="Sleketemb@mail.com">
+                <label for="password-login" class="card-title mt-3">Password</label>
+                <input v-model="userRegister.password" id="password-login" class="form-control" type="password">
+    
+              </div>
+              <div class="row container ml-2 mb-3">
+                <button class="btn btn-lg btn-primary">Register</button>
+              </div>
+            </form>
+    
           </div>
-          <div class="row container ml-2 mb-3">
-            <a href="#" class="btn btn-lg text-white" style="background-color: #0eaef8;">Login</a>
-            <!-- google sign button -->
-          </div>
-        </form>
-
-      </div>
-
-    </div>
-
-    <!-- register Page -->
-    <div id="register-page" class="container w-50 mt-5 ml-1">
-      <div class="card text-left shadow">
-        <div class="card-header bg-primary">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <a onclick="login()" class="nav-link text-white" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Register</a>
-            </li>
-          </ul>
+    
         </div>
-        <form>
-          <div class="card-body">
-            <label for="email-login" class="card-title">Email</label>
-            <input id="email-login" class="form-control" type="text" placeholder="Sleketemb@mail.com">
-            <label for="password-login" class="card-title mt-3">Password</label>
-            <input id="password-login" class="form-control" type="password">
 
-          </div>
-          <div class="row container ml-2 mb-3">
-            <a href="#" class="btn btn-lg btn-primary">Register</a>
-            <!-- google sign button -->
-          </div>
-        </form>
-
-      </div>
-
+  
     </div>
-
+  
+    <!-- main page -->
+    <div v-if = "pageName == 'main page' "  class="main-page fixed-top">
+          <nav class="navbar navbar-light bg-light">
+              <a class="navbar-brand text-muted "> <img src="img/rsz_m-removebg-preview.png" id="logo" alt=""></a>
+              <button @click = "logout" class="btn my-2 my-sm-0 text-white" style="background-color: #0eaef8;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+          </nav>
+      </div>
+  
+    <div v-if = "pageName == 'main page' " class="d-flex justify-content-around mainBoard">
+        <div>
+          <h4 class="bg-dark text-white p-2 rounded font-weight-bold" style="width: 310px;">Back-Log</h4>
+            <div class="d-flex flex-column-reverse bd-highlight scrollbar scrollbar-primary " style="overflow-y: scroll; max-height: 300px; ">
+              <div class="card bg-light mb-3 shadow">
+                <div class="card-title">
+                  <div class="text-right">
+                    <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
+                    <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
+                  </div>
+                  <h6 class="ml-2">
+                    memancing keributan
+                  </h6>
+                  <hr>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
+                </div>
+  
+              </div>
+            </div>
+            <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
+      </div>
+        <div>
+          <h4 class="bg-warning text-dark p-2 rounded font-weight-bold" style="width: 310px;">To-Do</h4>
+            <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px " >
+              <div class="card bg-light mb-3 shadow">
+                <div class="card-title">
+                  <div class="text-right">
+                    <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
+                    <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
+                  </div>
+                  <h6 class="ml-2">
+                    memancing kedamaian
+                  </h6>
+                  <hr>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
+                </div>
+  
+              </div>
+            </div>
+            <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
+        </div>
+        <div>
+          <h4 class="bg-primary text-warning p-2 rounded font-weight-bold" style="width: 310px;">Doing</h4>
+            <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px " >
+              <div class="card bg-light mb-3 shadow">
+                <div class="card-title">
+                  <div class="text-right">
+                    <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
+                    <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
+                  </div>
+                  <h6 class="ml-2">
+                    memancing kemakmuran
+                  </h6>
+                  <hr>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
+                </div>
+  
+              </div>
+            </div>
+            <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
+        </div>
+        <div>
+          <h4 class="bg-danger p-2 text-white rounded font-weight-bold" style="width: 310px;">Done</h4>
+            <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px " >
+              <div class="card bg-light mb-3 shadow">
+                <div class="card-title">
+                  <div class="text-right">
+                    <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
+                    <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
+                  </div>
+                  <h6 class="ml-2">
+                    memancing kejayaan
+                  </h6>
+                  <hr>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
+                  <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
+        </div>
+      </div>
   </div>
-
-  <!-- main page -->
-  <!-- <div class="main-page fixed-top">
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand text-muted "> <img src="img/Untitled_design__1_-removebg-preview.png" id="logo" alt=""> <small>-Kanban App-</small></a>
-            <button onclick="logout()" class="btn btn-success my-2 my-sm-0"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
-        </nav>
-    </div> -->
-
-  <!-- <div class="d-flex justify-content-around mainBoard">
-      <div>
-        <h4 class="bg-dark text-white p-2 rounded font-weight-bold" style="width: 310px;">Back-Log</h4>
-          <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px; ">
-            <div class="card bg-light mb-3 shadow">
-              <div class="card-title">
-                <div class="text-right">
-                  <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
-                  <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
-                </div>
-                <h6 class="ml-2">
-                  memancing keributan
-                </h6>
-                <hr>
-                <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
-                <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
-              </div>
-
-            </div>
-          </div>
-          <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
-    </div>
-      <div>
-        <h4 class="bg-warning text-dark p-2 rounded font-weight-bold" style="width: 310px;">To-Do</h4>
-          <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px " >
-            <div class="card bg-light mb-3 shadow">
-              <div class="card-title">
-                <div class="text-right">
-                  <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
-                  <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
-                </div>
-                <h6 class="ml-2">
-                  memancing kedamaian
-                </h6>
-                <hr>
-                <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
-                <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
-              </div>
-
-            </div>
-          </div>
-          <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
-      </div>
-      <div>
-        <h4 class="bg-primary text-warning p-2 rounded font-weight-bold" style="width: 310px;">Doing</h4>
-          <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px " >
-            <div class="card bg-light mb-3 shadow">
-              <div class="card-title">
-                <div class="text-right">
-                  <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
-                  <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
-                </div>
-                <h6 class="ml-2">
-                  memancing kemakmuran
-                </h6>
-                <hr>
-                <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
-                <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
-              </div>
-
-            </div>
-          </div>
-          <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
-      </div>
-      <div>
-        <h4 class="bg-danger p-2 text-white rounded font-weight-bold" style="width: 310px;">Done</h4>
-          <div class="d-flex flex-column-reverse bd-highlight " style="overflow-y: scroll; max-height: 300px " >
-            <div class="card bg-light mb-3 shadow">
-              <div class="card-title">
-                <div class="text-right">
-                  <i class="fa fa-pencil p-1 edit" aria-hidden="true"></i>
-                  <i class="fa fa-trash p-1 destroy" aria-hidden="true"></i>
-                </div>
-                <h6 class="ml-2">
-                  memancing kejayaan
-                </h6>
-                <hr>
-                <p class="ml-2 text-muted" style="font-size: small;" >Owner :</p>
-                <p class="ml-2 text-muted" style="font-size: small;" >Created :</p>
-              </div>
-            </div>
-          </div>
-          <p class="text-center newTask"><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
-      </div>
-    </div> -->
 
 
 
@@ -185,32 +190,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
-    function register() {
-      $('#login-page').hide()
-      $('#register-page').show()
-
-    }
-    function login() {
-      $('#login-page').show()
-      $('#register-page').hide()
-
-    }
-    function logout() {
-      localStorage.clear();
-      showLogin()
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-
-    $(document).ready(() => {
-      login()
-    })
-  </script>
+  <script src="main.js"></script>
 </body>
 
 </html>
