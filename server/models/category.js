@@ -15,7 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Category.init({
-    title: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    }
   }, {
     sequelize,
     modelName: 'Category',

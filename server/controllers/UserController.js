@@ -1,6 +1,9 @@
 const {User} = require('../models/index')
 const {compare} = require('../helper/bcrypt')
 const {generateToken} = require('../helper/jwt')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENTIDGOOGLE);
+
 
 class UserController {
     static async register(req, res, next) {
@@ -42,6 +45,38 @@ class UserController {
             next(error)
             // res.status(500).json({message: `internal server error`})
         }
+    }
+    static googleLogin(req, res, next){
+        let payload
+        client.verifyIdToken({
+            idToken: req.body.googleToken,
+            audience: process.env.CLIENTIDGOOGLE
+        })
+        .then(ticket => {
+            payload = ticket.getPayload()
+            return User.findOne({
+                where: {
+                    email: payload.email
+                }
+            })
+        })
+        .then(data => {
+            if(data){
+                return data
+            } else {
+                return User.create({
+                    email: payload.email,
+                    password: process.env.PASSWORD
+                })
+            }
+        })
+        .then(user => {
+            const access_token = generateToken({id: user.id, email: user.email})
+            res.status(200).json({access_token})
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 }
 module.exports = UserController
