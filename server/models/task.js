@@ -22,5 +22,17 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Task',
   });
+
+  Task.beforeCreate((task, opt) => {
+    if (!task.title || task.title.trim() == '') {
+      task.title = 'Untitled'
+    }
+  })
+
+  Task.beforeUpdate((task, opt) => {
+    if (task.title.trim() == '') {
+      task.title = 'Untitled'
+    }
+  })
   return Task;
 };
