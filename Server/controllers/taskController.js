@@ -1,4 +1,4 @@
-const { Task } = require('../models')
+const { User, Task } = require('../models')
 
 class TaskController{
   static async createTask(req, res, next){
@@ -22,7 +22,9 @@ class TaskController{
   }
   static async getAllTask(req, res, next){
     try{
-      const data = await Task.findAll()
+      const data = await Task.findAll({
+        include: [ User ]
+      })
       res.status(200).json(data)
     }catch(err){
       next(err)
