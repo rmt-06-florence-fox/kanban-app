@@ -1,16 +1,10 @@
 const router = require ('express').Router()
 const user = require('./route-user')
+const task = require('./route-task')
 
 
-router.get('/', (req, res, next) => {
-    res.send('welcome')
-})
-
-
-router.post('/login')
-router.post('/register')
-
-router.use('/user', user)
+router.use('/', user)
+router.use('/task',task)
 
 
 module.exports = router
