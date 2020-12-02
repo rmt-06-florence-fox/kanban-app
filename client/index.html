@@ -23,15 +23,15 @@
                 <h5 class="card-title">login to continue</h5>
                 <form @submit.prevent >
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <label>Email address</label>
+                      <input v-model="userLoginData.email" type="email" class="form-control"  aria-describedby="emailHelp">
                       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
+                      <label >Password</label>
+                      <input v-model="userLoginData.password" type="password" class="form-control" >
                     </div>
-                    <button @click="changePage('kanbanPage')" type="submit" class="btn btn-primary container-fluid mb-3">login</button>
+                    <button @click="login()" type="submit" class="btn btn-primary container-fluid mb-3">login</button>
                     <small id="emailHelp" class="form-text text-muted">Dont have an account ? Please Register</small>
                     <button @click="changePage('registerPage')" type="submit" class="btn  btn-success container-fluid">Register</button>
                   </form>   
@@ -287,6 +287,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <!-- End Of Boostrap Script -->
 
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Axios -->
     <!-- Vue CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="./main.js"></script>

@@ -23,8 +23,8 @@ class UserController {
     }
 
     static async login(req,res,next){
-
-        const email = req.body.email
+        console.log(req.body)
+        const email = req.body.email    
         const password = req.body.password
         console.log(email,password)
         try {

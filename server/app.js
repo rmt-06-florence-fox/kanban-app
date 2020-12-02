@@ -10,7 +10,7 @@ const errorHandler = require('./midleware/erorHandler')
 console.log(process.env.NODE_ENV,'ini process')
 app.use(cors())
 app.use(express.urlencoded({extended:true}))
-
+app.use(express.json())
 app.use('/', route)
 
 app.use(errorHandler)
