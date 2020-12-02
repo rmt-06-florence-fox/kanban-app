@@ -21,6 +21,7 @@
 }
 .navbar-features .add-task:hover {
   cursor: pointer;
+  color: blue;
 }
 
 .logo {
