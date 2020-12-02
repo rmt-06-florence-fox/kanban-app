@@ -7,12 +7,12 @@ const router = express.Router()
 
 router.use(authentication)
 
-router.post('/', TaskController.addtask) //addv
-router.get('/',TaskController.showtask) //show allv
+router.post('/', TaskController.addtask)
+router.get('/',TaskController.showtask) 
 router.get('/:id', TaskController.findIdtask)
 
 router.use('/:id',otorisesion)
-router.put('/:id', TaskController.edittask) //updateall
+router.put('/:id', TaskController.edittask)
 router.delete('/:id', TaskController.deletetask)
 
 module.exports = router

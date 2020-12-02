@@ -1,6 +1,6 @@
 
 
-const {User,Todo} = require('../models')
+const {User} = require('../models')
 
 module.exports = (err, req, res, next) => {
   if(err){
