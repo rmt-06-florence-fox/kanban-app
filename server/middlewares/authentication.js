@@ -9,15 +9,11 @@ function authentication(req, res, next) {
         var decoded = verifyToken(acces_token)
         // console.log(decoded)
         if(!decoded) {
-            res.status(400).json({ message: "You must have account" })
+            throw {
+                status: 401,
+                message: { error: "You must have account" }
+            }
         }else {
-            // console.log(decoded) 
-            // {
-            //     name: 'Febrian Aditya',
-            //     email: 'febri@mail.com',
-            //     id: 1,
-            //     iat: 1606829737
-            //   }
             let name = decoded.name
             let email = decoded.email
             let id = decoded.id
@@ -26,19 +22,23 @@ function authentication(req, res, next) {
 
             User.findOne({
                 where: {
-                    email
+                    email,
+                    id
                 }
             })
                 .then(data => {
                     next()
                 })
                 .catch(err => {
-                    res.status(400).json({ message: "You must have account" })
+                    throw {
+                        status: 400,
+                        message: "You must have account"
+                    }
                 })
         }
     } 
     catch(err) {
-        res.status(500).json(err)
+        next(err)
     }
 }
 

@@ -3,7 +3,7 @@ var bcrypt = require('bcryptjs');
 const { createToken } = require("../helpers/createAndVerifyToken")
 
 class ControllerUser {
-    static registerUser(req, res) {
+    static registerUser(req, res, next) {
         let objUser = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -15,13 +15,12 @@ class ControllerUser {
                 res.status(201).json({ name: data.fullName(), email: data.email, id: data.id })
             })
             .catch(err => {
-                res.status(500).json({ error: err })
+                next(err)
             })
     }
 
-    static loginUser(req, res) {
+    static loginUser(req, res, next) {
         let email = req.body.email
-        // console.log(email)
         let password = req.body.password
 
         User.findOne({
@@ -36,11 +35,14 @@ class ControllerUser {
                     let acces_token = createToken({ name: data.fullName(), email: data.email, id: data.id })
                     res.status(200).json({acces_token: acces_token})
                 }else {
-                    res.status(400).json({ error: "Password/Email invalid"})
+                    throw {
+                        status: 400,
+                        message: "Password/Email invalid"
+                    }
                 }
             })
             .catch(err => {
-                res.status(500).json({ error: "Password/Email invalid"})
+                next(err)
             })
     }
 

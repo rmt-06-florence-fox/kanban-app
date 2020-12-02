@@ -9,6 +9,87 @@
 </head>
 <body>
 
+    <!-- Navbar Register Page -->
+    
+    <div class="custom-navbar">
+        <div>
+            <img src="./assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">
+            
+        </div>
+        <div>
+            <ul class="center-navbar">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Info</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="right-navbar">
+                <li class="btn btn-outline-primary"><a href="#">Login</a></li>
+                <li class="btn btn-info"><a href="#">Register</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <!-- Form Register -->
+    <div class="container mt-4">
+        <div class="col-6">
+
+        </div>
+        <div class="col-6">
+            <h2>Register</h2>
+            <div class="mt-3">
+                <form id="form-register">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">First name</label>
+                        <input type="text" class="form-control" id="firstName-register">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Last name</label>
+                        <input type="text" class="form-control" id="lastName-register">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail4">Email</label>
+                        <input type="email" class="form-control" id="email-register">
+                    </div>
+                    <div class="form-group">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="password-register">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Register</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+    <br> <br>
+
+    <!-- Form Login -->
+    <div class="container mt-4">
+        <div class="col-6">
+
+        </div>
+        <div class="col-6">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="password-email">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+    </div>
+
     <!-- Landing Page -->
     <div>
         <div class="row">
@@ -30,12 +111,13 @@
     </div>
 
     <!-- Kanban Page -->
-    <div class="container mt-4 custom-layout">
+    <!-- <div class="container mt-4 custom-layout">
         <div class="row kanban">
-            <div class="col-3 bg-primary">
+            <! Kalau mau responsif main in di col- nya, jadi nambahin lagi col di menit 1:15:00-->
+            <!-- <div class="col-3 bg-primary text-white">
                 <div class="Backlog">
                     <h3>Backlog</h3>
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
                         <div class="card-body">
                           <h5 class="card-title">Card title</h5>
                           <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -46,7 +128,7 @@
                       </div>
                 </div>
             </div>
-            <div class="col-3 bg-warning">
+            <div class="col-3 bg-warning ">
                 <div class="Product">
                     <h3>Product</h3>
                     <div class="card" style="width: 18rem;">
@@ -60,7 +142,7 @@
                       </div>
                 </div>
             </div>
-            <div class="col-3 bg-info">
+            <div class="col-3 bg-info text-white">
                 <div class="Development">
                     <h3>Development</h3>
                     <div class="card" style="width: 18rem;">
@@ -87,6 +169,68 @@
                         </div>
                       </div>
                 </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Kanban Page  -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="p-3 bg-primary text-white rounded">    
+                    Backlog
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="p-3 bg-warning rounded">
+                    Product
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="p-3 bg-info text-white rounded">
+                    Development
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="p-3 bg-success rounded">
+                    Done
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="card-link">Card link</a>
+                      <a href="#" class="card-link">Another link</a>
+                    </div>
+                  </div>
             </div>
         </div>
     </div>
