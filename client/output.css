@@ -50,10 +50,26 @@
 
 .login-container {
   display: flex;
-  /* background-color: red; */
-  min-height: 500px;
+  min-height: 800px;
   justify-content: center;
   align-items: center;
+  background-image: url("https://wallpaperaccess.com/full/1373048.jpg");
+  background-size: cover;
+}
+.login-container .card {
+  min-width: 50rem;
+  min-height: 30rem;
+}
+
+.add-container {
+  display: flex;
+  min-height: 800px;
+  justify-content: center;
+  align-items: center;
+}
+.add-container .card {
+  min-width: 50rem;
+  min-height: 30rem;
 }
 
 img {
