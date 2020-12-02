@@ -1,15 +1,14 @@
-const { User, Department } = require('../models')
+const { User, Department } = require("../models");
 // const { OAuth2Client } = require('google-auth-library');
 // const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const { checkPassword, generateToken } = require('../helpers');
+const { checkPassword, generateToken } = require("../helpers");
 
 class UserController {
-
   static async register(req, res) {
     try {
       let DepartmentId;
-      let depts = await Department.findAll()
-      depts.forEach(dept => {
+      let depts = await Department.findAll();
+      depts.forEach((dept) => {
         if (dept.name == req.body.department) DepartmentId = dept.id;
       });
 
@@ -17,14 +16,13 @@ class UserController {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        DepartmentId
-      }
-      let user = await User.create(newUser)
-      res.status(201).json({ id: user.id, email: user.email })
-    }
-    catch (err) {
-      let msg = err.errors[0].message
-      res.status(500).json(msg)
+        DepartmentId,
+      };
+      let user = await User.create(newUser);
+      res.status(201).json({ id: user.id, email: user.email });
+    } catch (err) {
+      let msg = err.errors[0].message;
+      res.status(500).json(msg);
     }
   }
 
@@ -32,24 +30,28 @@ class UserController {
     try {
       let input = {
         email: req.body.email,
-        password: req.body.password
-      }
+        password: req.body.password,
+      };
       let user = await User.findOne({
         where: { email: input.email },
-        include: Department 
-      })
-      console.log(user.DepartmentId)
+        include: Department,
+      });
+      console.log(user.DepartmentId);
       if (!user) {
-        res.status(404).json("User not found")
+        res.status(404).json("User not found");
       } else if (checkPassword(input.password, user.password)) {
-        const access_token = generateToken({ id: user.id, email: user.email, name: user.name, DepartmentId:user.DepartmentId })
-        res.status(200).json({ access_token, name: user.name })
+        const access_token = generateToken({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          DepartmentId: user.DepartmentId,
+        });
+        res.status(200).json({ access_token, name: user.name });
       } else {
-        res.status(400).json("Invalid Email/Password")
+        res.status(400).json("Invalid Email/Password");
       }
-    }
-    catch (err) {
-      res.status(500).json(err)
+    } catch (err) {
+      res.status(500).json(err);
     }
   }
 
@@ -91,4 +93,4 @@ class UserController {
   //   }
   // }
 }
-module.exports = UserController
+module.exports = UserController;
