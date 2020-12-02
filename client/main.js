@@ -17,7 +17,6 @@ var app = new Vue({
       this.pageName = pageName
     },
     async login(){
-      console.log(this.user);
       try {
         const response = await axios({
           url : "http://localhost:3000/login",
@@ -71,13 +70,30 @@ var app = new Vue({
           title : "Error",
           text : errors.join(', ')
         })
+      } finally{
+        this.registerUser.email = ""
+        this.registerUser.password = ""
       }
-
+    },
+    async fetchTask(){
+      try {
+        const tasks = await axios({
+          method : "get",
+          url : 'http://localhost:3000/tasks',
+          headers : {
+            access_token : localStorage.getItem('access_token')
+          }
+        })
+        console.log(tasks.data);
+      } catch (error) {
+        console.log(error.response);
+      }
     }
   },
   created(){
     if(localStorage.getItem('access_token')){
       this.pageName = 'Main Page'
+      this.fetchTask()
     }
   }
 })
