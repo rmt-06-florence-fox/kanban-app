@@ -4,6 +4,7 @@ const taskRouter = require('../routers/taskrouter')
 
 router.post('/login', controller.login)
 router.post('/register', controller.register)
+router.post('/googleLogin', controller.googleLogin)
 
 router.use('/tasks', taskRouter)
 

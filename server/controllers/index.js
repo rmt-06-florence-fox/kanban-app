@@ -1,6 +1,9 @@
 const { Task, User }= require('../models')
 const jwtHelper = require('../helpers/jwthelper')
 const passHelper = require('../helpers/passhelper')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 
 class Controller{
   static async login (req,res,next){
@@ -81,6 +84,31 @@ class Controller{
         res.status(200).json({ message : "succesfully delete a task"})
       } else {
         throw {status : 404 , message : "task not found"}
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  static async googleLogin(req, res, next){
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: provess.env.CLIENT_ID,
+      });
+      const payload = ticket
+
+      const user = await User.findOne({ where : {email : payload.email}})
+
+      if(!user){
+        const newGoogleUser = User.create({ email : payload.email , password : process.env.GOOGLE_USER_PASS })
+        const access_token = jwtHelper.generateToken({ id : newGoogleUser.id , email : newGoogleUser.email})
+
+        res.status(200).json({access_token})
+      }else{
+        const access_token = jwtHelper.generateToken({ id : user.id , email : user.email})
+
+        res.status(200).json({access_token})
       }
     } catch (error) {
       next(error)
