@@ -107,7 +107,7 @@
 
 * **URL**
 
-  `/user/googleLogin`
+  `/googleLogin`
 
 * **Method:**
 
