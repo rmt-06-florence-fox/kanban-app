@@ -1,0 +1,10 @@
+html,
+body {
+    height: 100%;
+    
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
