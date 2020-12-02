@@ -7,3 +7,8 @@
   background: rgb(238,174,202);
   background: linear-gradient(90deg, rgba(238,174,202,0.5189426112241772) 50%, rgba(148,187,233,1) 100%);
 }
+
+#mainP {
+  background: rgb(236,227,122);
+  background: linear-gradient(166deg, rgba(236,227,122,0.5189426112241772) 37%, rgba(106,221,158,1) 100%);
+}
