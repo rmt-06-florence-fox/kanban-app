@@ -3,10 +3,7 @@
   margin: 0%;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  align-content: center;
-  background-color: aquamarine;
+#loginP, #registerP {
+  background: rgb(238,174,202);
+  background: linear-gradient(90deg, rgba(238,174,202,0.5189426112241772) 50%, rgba(148,187,233,1) 100%);
 }
