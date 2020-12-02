@@ -15,7 +15,8 @@
 </head>
 <body>
 <div id="app">
-  <!-- style="max-width: 18rem;" -->
+
+
    <div v-if="onPage === 'loginPage'" id="login-page" class="login-container" >
         <div class="card bg-light mb-5" >
             <div class="card-header">Login</div>
@@ -24,15 +25,15 @@
                 <form @submit.prevent >
                     <div class="form-group">
                       <label>Email address</label>
-                      <input v-model="userLoginData.email" type="email" class="form-control"  aria-describedby="emailHelp">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                      <input v-model="userData.email" type="email" class="form-control"  aria-describedby="">
+                      <small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
                       <label >Password</label>
-                      <input v-model="userLoginData.password" type="password" class="form-control" >
+                      <input v-model="userData.password" type="password" class="form-control" >
                     </div>
                     <button @click="login()" type="submit" class="btn btn-primary container-fluid mb-3">login</button>
-                    <small id="emailHelp" class="form-text text-muted">Dont have an account ? Please Register</small>
+                    <small id="" class="form-text text-muted">Dont have an account ? Please Register</small>
                     <button @click="changePage('registerPage')" type="submit" class="btn  btn-success container-fluid">Register</button>
                   </form>   
             </div>
@@ -47,15 +48,15 @@
                 <h5 class="card-title">Register your account</h5>
                 <form v-on:submit.prevent>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                      <label for=>Email address</label>
+                      <input v-model="userData.email" type="email" class="form-control" id= aria-describedby="">
+                      <small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
+                      <label for=>Password</label>
+                      <input v-model="userData.password" type="password" class="form-control" id=>
                     </div>
-                    <button @click="changePage('kanbanPage')" type="submit" class="btn btn-primary container-fluid mb-3">Register</button>
+                    <button @click="registerNewUser()" type="submit" class="btn btn-primary container-fluid mb-3">Register</button>
                     <button @click="changePage('loginPage')" type="submit" class="btn  btn-danger container-fluid">cancel</button>
                   </form>   
             </div>
@@ -83,7 +84,7 @@
                               <p>CREATE</p>
                         </span>
                         
-                        <button @click="changePage('loginPage')" type="button" class="btn btn-danger">Logout</button>
+                        <button @click="logout()" type="button" class="btn btn-danger">Logout</button>
                     </div>
                     
                 </div>
@@ -98,16 +99,22 @@
                     <div class="card-body">
                     <form @submit.prevent>
                         <div class="form-group">
-                          <label for="exampleInputEmail1">Title</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                          <label for=>Title</label>
+                          <input v-model="newTask.title" placeholder="makan nasi" type="text" class="form-control" id= aria-describedby="">
 
                         </div>
                         <div class="form-group">
-                          <label for="exampleInputPassword1">Category</label>
-                          <input type="text" class="form-control" id="exampleInputPassword1">
+                            <label for="sel1"> Category (select one):</label>
+                            <select v-model="newTask.category" class="form-control" >
+                              <option >--select category--</option>
+                              <option value="backlog">backlog</option>
+                              <option value="todo">todo</option>
+                              <option value="doing">doing</option>
+                              <option value="done">done</option>
+                            </select>
                         </div>
 
-                        <button @click="changePage('kanbanPage')"  type="submit" class="btn btn-primary container-fluid mb-3">Add</button>
+                        <button @click="addTask()"  type="submit" class="btn btn-primary container-fluid mb-3">Add</button>
 
                         <button @click="changePage('kanbanPage')" type="submit" class="btn  btn-danger container-fluid">cancel</button>
                         
@@ -116,164 +123,107 @@
             </div>
         </div>
         <!-- End of add page -->
+
         <!-- Kanban Board -->
         <div v-if="onPage == 'kanbanPage'" class="container-fluid mt-5">
             <div class="row">
               <div class="col-sm ">
+
                   <div class="p-3 bg-primary text-white">
                       BackLog
                   </div>
-    
-                    <div class="card mt-3">
-                        <div class="card-header">
-                          Title
+
+                  <div v-for="(task,index) in backLogTask" :key="index" class="card mt-3">
+                    <div  class="card-header">
+                      <p v-if="!edit" >{{task.title}}</p>
+
+                        <input  @keyup.enter="edit=false"  v-model="newTitle" v-else-if="edit" :placeholder="task.title" type="text" >
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>{{task.User}}</li>
+                            <li>{{task.createdAt}}</li>
+                        </ul>
+                        <div>
+                            <a @click.prevent="edit=true" href="#"> <i  class="fa fa-pencil"></i></a>
+                            <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                            <a href="#"><i class="fa fa-arrows"></i></a>
                         </div>
-                        <div class="card-body">
-                            <ul>
-                                <li>by</li>
-                                <li>createdAt</li>
-                            </ul>
-                            <div>
-                                <a href="#"> <i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-trash-o"></i></a>
-                                <a href="#"><i class="fa fa-arrows"></i></a>
-                            </div>
-                        </div>
-                      </div>
-    
-                      <div class="card mt-3">
-                        <div class="card-header">
-                          Title
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li>by</li>
-                                <li>createdAt</li>
-                            </ul>
-                            <div class="edit-icon">
-                                <a href="#"> <i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-trash-o"></i></a>
-                                <a href="#"><i class="fa fa-arrows"></i></a>
-                            </div>
-                        </div>
-                      </div>
-    
-    
-                  
+                    </div>
+                </div>
               </div>
+
               <div class="col-sm ">
                   <div class="p-3 bg-danger text-white">
                     Todo
                   </div>
-                  <div class="card mt-3">
-                    <div class="card-header">
-                      Title
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>by</li>
-                            <li>createdAt</li>
-                        </ul>
-                        <div>
-                            <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-trash-o"></i></a>
-                            <a href="#"><i class="fa fa-arrows"></i></a>
-                        </div>
-                    </div>
+                  <div v-for="(task,index) in todoTask" :key="index">
+                    <div v-if="task.Category == 'todo'" class="card mt-3">
+                      <div  class="card-header">
+                        {{task.title}}
+                      </div>
+                      <div class="card-body">
+                          <ul>
+                              <li>{{task.User}}</li>
+                              <li>{{task.createdAt}}</li>
+                          </ul>
+                          <div>
+                              <a href="#"> <i class="fa fa-pencil"></i></a>
+                              <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                              <a href="#"><i class="fa fa-arrows"></i></a>
+                          </div>
+                      </div>
                   </div>
-    
-                  <div class="card mt-3">
-                    <div class="card-header">
-                      Title
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>by</li>
-                            <li>createdAt</li>
-                        </ul>
-                        <div>
-                            <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-trash-o"></i></a>
-                            <a href="#"><i class="fa fa-arrows"></i></a>
-                        </div>
-                    </div>
                   </div>
+
               </div>
+
               <div class="col-sm ">
                 <div class="p-3 bg-success text-white">
                     Doing
                 </div>
-                <div class="card mt-3">
-                    <div class="card-header">
-                      Title
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>by</li>
-                            <li>createdAt</li>
-                        </ul>
-                        <div>
-                            <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-trash-o"></i></a>
-                            <a href="#"><i class="fa fa-arrows"></i></a>
-                        </div>
-                    </div>
+                <div v-for="(task,index) in doingTask" :key="index" class="card mt-3">
+                  <h1>{{task[0]}}</h1>
+                  <div  class="card-header">
+                    {{task.title}}
                   </div>
-    
-                  <div class="card mt-3">
-                    <div class="card-header">
-                      Title
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>by</li>
-                            <li>createdAt</li>
-                        </ul>
-                        <div>
-                            <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-trash-o"></i></a>
-                            <a href="#"><i class="fa fa-arrows"></i></a>
-                        </div>
-                    </div>
+                  <div class="card-body">
+                      <ul>
+                          <li>{{task.User}}</li>
+                          <li>{{task.createdAt.split('T')[0]}}</li>
+                      </ul>
+                      <div>
+                          <a href="#"> <i class="fa fa-pencil"></i></a>
+                          <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                          <a href="#"><i class="fa fa-arrows"></i></a>
+                      </div>
                   </div>
+              </div>
               </div>
               <div class="col-sm ">
                 <div class="p-3 bg-success text-white">
                     Done
                 </div>
-                <div class="card mt-3">
-                    <div class="card-header">
-                      Title
+                <div v-for="(task,index) in doneTask" :key="index" class="card mt-3">
+
+                    <div  class="card-header">
+                      {{task.title}}
                     </div>
                     <div class="card-body">
                         <ul>
-                            <li>by</li>
-                            <li>createdAt</li>
+                            <li>by :<br>
+                              {{task.User}}</li>
+                            <li>create at : <br>
+                              {{task.createdAt.split('T')[0]}}</li>
                         </ul>
                         <div>
                             <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-trash-o"></i></a>
+                            <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
                             <a href="#"><i class="fa fa-arrows"></i></a>
                         </div>
                     </div>
-                  </div>
+                </div>
     
-                  <div class="card mt-3">
-                    <div class="card-header">
-                      Title
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>by</li>
-                            <li>createdAt</li>
-                        </ul>
-                        <div>
-                            <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-trash-o"></i></a>
-                            <a href="#"><i class="fa fa-arrows"></i></a>
-                        </div>
-                    </div>
-                  </div>
               </div>
             </div>
         </div>
