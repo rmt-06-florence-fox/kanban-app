@@ -24,6 +24,16 @@
   color: blue;
 }
 
+.edit-task {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}
+.edit-task button {
+  margin-left: 2px;
+}
+
 .logo {
   font-family: "Yellowtail", cursive;
   font-size: 30px;

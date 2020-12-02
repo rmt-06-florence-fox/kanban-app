@@ -12,7 +12,7 @@ new Vue({
             category : ""
         },
         task : [],
-        edit : false,
+        getIdEditTask : "",
         newTitle : ""
 
 
@@ -32,8 +32,8 @@ new Vue({
             .then(resp =>{
                 console.log(resp.data.access_token)
                 localStorage.setItem('access_token',resp.data.access_token)
+                
                 this.fethcData()
-                console.log(this.doingTask[0])
                 this.onPage = 'kanbanPage'
             })
             .catch(err =>{

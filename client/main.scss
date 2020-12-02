@@ -45,6 +45,13 @@ $max-height : 100%;
         color: blue;
     }
 }
+.edit-task{
+    @include flexCenter(); 
+    
+    button {
+        margin-left: 2px;
+    }
+}
 
 .logo{
     font-family: 'Yellowtail', cursive;

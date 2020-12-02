@@ -127,6 +127,7 @@
         <!-- Kanban Board -->
         <div v-if="onPage == 'kanbanPage'" class="container-fluid mt-5">
             <div class="row">
+              <!-- BackLog-->
               <div class="col-sm ">
 
                   <div class="p-3 bg-primary text-white">
@@ -135,9 +136,13 @@
 
                   <div v-for="(task,index) in backLogTask" :key="index" class="card mt-3">
                     <div  class="card-header">
-                      <p v-if="!edit" >{{task.title}}</p>
+                      <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
 
-                        <input  @keyup.enter="edit=false"  v-model="newTitle" v-else-if="edit" :placeholder="task.title" type="text" >
+                        <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                          <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                          <button class="btn btn-primary"> edit</button>
+                          <button class="btn btn-danger"> cancel</button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -145,91 +150,114 @@
                             <li>{{task.createdAt}}</li>
                         </ul>
                         <div>
-                            <a @click.prevent="edit=true" href="#"> <i  class="fa fa-pencil"></i></a>
+                            <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
                             <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
                             <a href="#"><i class="fa fa-arrows"></i></a>
                         </div>
                     </div>
                 </div>
               </div>
+              <!-- BackLog-->
 
+              <!-- TODO-->
               <div class="col-sm ">
-                  <div class="p-3 bg-danger text-white">
-                    Todo
-                  </div>
-                  <div v-for="(task,index) in todoTask" :key="index">
-                    <div v-if="task.Category == 'todo'" class="card mt-3">
-                      <div  class="card-header">
-                        {{task.title}}
-                      </div>
-                      <div class="card-body">
-                          <ul>
-                              <li>{{task.User}}</li>
-                              <li>{{task.createdAt}}</li>
-                          </ul>
-                          <div>
-                              <a href="#"> <i class="fa fa-pencil"></i></a>
-                              <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
-                              <a href="#"><i class="fa fa-arrows"></i></a>
-                          </div>
-                      </div>
-                  </div>
-                  </div>
-
-              </div>
-
-              <div class="col-sm ">
-                <div class="p-3 bg-success text-white">
-                    Doing
+                <div class="p-3 bg-primary text-white">
+                    TODO
                 </div>
-                <div v-for="(task,index) in doingTask" :key="index" class="card mt-3">
-                  <h1>{{task[0]}}</h1>
+                <div v-for="(task,index) in todoTask" :key="index" class="card mt-3">
                   <div  class="card-header">
-                    {{task.title}}
+                    <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                      <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                        <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                        <button class="btn btn-primary"> edit</button>
+                        <button class="btn btn-danger"> cancel</button>
+                      </div>
                   </div>
                   <div class="card-body">
                       <ul>
                           <li>{{task.User}}</li>
-                          <li>{{task.createdAt.split('T')[0]}}</li>
+                          <li>{{task.createdAt}}</li>
                       </ul>
                       <div>
-                          <a href="#"> <i class="fa fa-pencil"></i></a>
+                          <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
                           <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
                           <a href="#"><i class="fa fa-arrows"></i></a>
                       </div>
                   </div>
               </div>
               </div>
-              <div class="col-sm ">
-                <div class="p-3 bg-success text-white">
+              <!-- TODO-->
+
+              <!-- doing-->
+            <div class="col-sm ">
+
+              <div class="p-3 bg-primary text-white">
+                  doing
+              </div>
+
+              <div v-for="(task,index) in doingTask" :key="index" class="card mt-3">
+                <div  class="card-header">
+                  <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                    <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                      <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                      <button class="btn btn-primary"> edit</button>
+                      <button class="btn btn-danger"> cancel</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>{{task.User}}</li>
+                        <li>{{task.createdAt}}</li>
+                    </ul>
+                    <div>
+                        <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
+                        <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                        <a href="#"><i class="fa fa-arrows"></i></a>
+                    </div>
+                </div>
+            </div>
+            </div>
+              <!-- doing-->
+
+            <!-- done -->
+            <div class="col-sm ">
+
+                <div class="p-3 bg-primary text-white">
                     Done
                 </div>
-                <div v-for="(task,index) in doneTask" :key="index" class="card mt-3">
 
-                    <div  class="card-header">
-                      {{task.title}}
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li>by :<br>
-                              {{task.User}}</li>
-                            <li>create at : <br>
-                              {{task.createdAt.split('T')[0]}}</li>
-                        </ul>
-                        <div>
-                            <a href="#"> <i class="fa fa-pencil"></i></a>
-                            <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
-                            <a href="#"><i class="fa fa-arrows"></i></a>
-                        </div>
-                    </div>
-                </div>
-    
+                <div v-for="(task,index) in doneTask" :key="index" class="card mt-3">
+                  <div  class="card-header">
+                    <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                      <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                        <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                        <button class="btn btn-primary"> edit</button>
+                        <button class="btn btn-danger"> cancel</button>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <ul>
+                          <li>{{task.User}}</li>
+                          <li>{{task.createdAt}}</li>
+                      </ul>
+                      <div>
+                          <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
+                          <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                          <a href="#"><i class="fa fa-arrows"></i></a>
+                      </div>
+                  </div>
               </div>
             </div>
-        </div>
+            <!-- done -->
+
+        
         <!-- end of Kanban Board -->
+      </div>
     </div>
-    
+  </div>
 </div>
 
     <!--Boostrap Script  -->
