@@ -112,15 +112,15 @@
             <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" style="width: auto;" class="mx-auto">
             <h3 style="font-family: 'Russo One', sans-serif; color: #5ec0ca; font-size: xx-large;">Register</h3>
            </div><br>
-              <form id="submit-register-form" class="mr-5 ml-5">
+              <form id="submit-register-form" class="mr-5 ml-5" @submit.prevent="register">
                 <div class="text-center">
                   <span>Already have an account?<a href="#login-page" @click.prevent="changePage('loginPage')"> Login here</a></span>
                 </div><br>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="email-register" placeholder="Enter email">
+                  <input type="email" class="form-control" id="email-register" placeholder="Enter email" v-model="userLogin.email">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control" id="pwd-register" placeholder="Enter password">
+                  <input type="password" class="form-control" id="pwd-register" placeholder="Enter password" v-model="userLogin.password">
                 </div>
                 <button type="submit" class="btn btn-info">Register</button>
               </form>
@@ -169,15 +169,15 @@
             <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
             <div class="card text-white mt-3 board-items" v-for="(task, index) in tasks" :key="task.id" v-if="task.categoryName === category.name">
               <div class="card-header">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-if="loggedIn.email === task.createdBy">
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <p><strong>{{task.name}}</strong></p>
-                <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;">Edit</button>
-                <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;">Move</button>
+                <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;" v-if="loggedIn.email === task.createdBy">Edit</button>
+                <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;" v-if="loggedIn.email === task.createdBy">Move</button>
               </div>
               <div class="card-body">
-                <p>Due Date: {{task.due_date}}</p>
+                <p>Due Date: {{task.due_date}}<br>Created By: {{task.createdBy}}</p>
               </div>
             </div>
           </div>

@@ -7,6 +7,9 @@ let app = new Vue ({
       email: null,
       password: null
     },
+    loggedIn : {
+      email: null
+    },
     categories: null,
     tasks: null
   },
@@ -14,6 +17,29 @@ let app = new Vue ({
     changePage(page){
       this.pageName = page
     },
+    register(){
+      axios({
+        method: "post",
+        url: `${basicUrl}user/register`,
+        data: {
+          email: this.userLogin.email,
+          password: this.userLogin.password
+        }
+      })
+      .then(response => {
+        this.pageName = "loginPage"
+        console.log(response)
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(() => {
+        this.userLogin.email = ""
+        this.userLogin.password = ""
+      })
+    },
+
     login(){
       console.log(this.userLogin)
       axios({
@@ -26,11 +52,16 @@ let app = new Vue ({
       })
         .then(response => {
           localStorage.setItem("access_token", response.data.access_token)
+          this.loggedIn.email = this.userLogin.email
           this.getTasks()
           this.pageName = 'mainPage'
         })
         .catch(xhr => {
           console.log(xhr)
+        })
+        .finally(() => {
+          this.userLogin.email = ""
+          this.userLogin.password = ""
         })
     },
 
@@ -65,16 +96,20 @@ let app = new Vue ({
         .catch(xhr => {
           console.log(xhr)
         })
-        .finally(() => {
-          this.userLogin.email = ""
-          this.userLogin.password = ""
-        })
     },
 
     logout(){
       localStorage.removeItem("access_token")
       this.pageName = "loginPage"
     }
-  }
-
+  },
+  created: function (){
+    if (localStorage.getItem("access_token")){
+      this.getTasks()
+      this.pageName = "mainPage"
+    }
+    else {
+      this.pageName = "loginPage"
+    }
+  },
 })
