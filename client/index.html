@@ -14,30 +14,6 @@
   <title>Kanban App</title>
 </head>
 <body>
-  <!-- <section id="mainpage">
-    <div class="navbar">
-      <div class="nav">
-        <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" alt="logo" width="50">
-      </div>
-      <div class="nav">
-        <button class="btn btn-outline-dark">Logout</button>
-      </div>
-    </div>
-
-    <div class="upper mt-2 ml-2">
-      <button class="btn btn-primary calendar"><a>Calendar</a></button>
-      <button class="btn btn-primary kanban"><a>Kanban Board</a></button>
-    </div>
-  </section>
-
-  <section id="calendar-page">
-
-  </section>
-
-  <section id="kanban-page">
-    
-  </section> -->
-
   <section class="homepage">
 
     <div id="login-page" class="row">
@@ -54,7 +30,7 @@
           <!-- The slideshow -->
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="https://cdn.dribbble.com/users/3014280/screenshots/6043082/kanban-2.jpg" alt="Los Angeles" width="1200px" height="875px">
+              <img src="./assets/kanban-2.jpg" alt="Los Angeles" width="1200px" height="875px">
             </div>
             <div class="carousel-item">
               <img src="https://www.elpando.com/img_solutions/project_management_system/pic7.jpg" alt="Chicago" width="1200px" height="875px">
@@ -151,6 +127,68 @@
     </div>
   </section>
 
+  <section id="mainpage">
+    <div class="navbar navbar-light">
+      <div class="nav">
+        <img src="./assets/0b1424c1-f11c-46f7-a9c9-6bd21211dc5e_200x200.png" alt="logo" width="50">
+      </div>
+      <div class="nav">
+        <button class="btn text-white" style="background-color: #5ec0ca;">Logout</button>
+      </div>
+    </div>
+
+    <div class="row flex-container-kanban">
+      <div class="kanban-board">
+        <div class="card text-white text-center mb-2 board-title">
+          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog</h1>
+        </div>
+        <div class="card text-white board-body">  
+          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+            <div class="card text-white mt-3 board-items">
+              <div class="card-header">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4><strong>Task</strong></h4>
+                <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;">Edit</button>
+                <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;">Move</button>
+              </div>
+              <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+      
+      <div class="kanban-board">
+        <div class="card text-white text-center mb-2 board-title">
+          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 2</h1>
+        </div>
+        <div class="card text-white board-body">
+          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+        </div>
+      </div>
+     
+      <div class="kanban-board">
+        <div class="card text-white text-center mb-2 board-title">
+          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 3</h1>
+        </div>
+        <div class="card text-white board-body">
+          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+        </div>
+      </div>
+    
+      
+      <div class="kanban-board">
+        <div class="card text-white text-center mb-2 board-title">
+          <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">Backlog 4</h1>
+        </div>
+        <div class="card text-white board-body">
+          <button type="button" class="btn mt-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

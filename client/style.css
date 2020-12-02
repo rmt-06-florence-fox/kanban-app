@@ -6,7 +6,7 @@
 .navbar {
   display: flex;
   min-height: 60px;
-  background-color: #bbbfca;
+  background-color: lightgrey;
 }
 
 .nav {
@@ -20,3 +20,33 @@
   height: 600px;
 }
 
+.flex-container-kanban {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kanban-board {
+  width: 400px;
+  margin: 10px;
+  height: 50rem;
+}
+
+.board-title {
+  max-width: 25rem;
+  height: 4rem;
+  background-color: #5ec0ca;
+}
+
+.board-body {
+  max-width: 25rem;
+  height: 40rem;
+  overflow-y: scroll;
+  align-items: center;
+}
+
+.board-items {
+  background-color: #5ec0ca;
+  max-width: 22rem
+}
