@@ -19,9 +19,11 @@ class UserController {
   static async signin(req, res, next) {
     try {
       const verifyUser = await User.findOne({ where: { email: req.body.email } })
+      // console.log(verifyUser)
       if (!verifyUser) throw { status: 404, message: 'Invalid account' }
       else if (comparePwd(req.body.password, verifyUser.password)) {
         const access_token = generateToken({ id: verifyUser.id, email: verifyUser.email})
+        console.log(verifyUser)
         res.status(200).json({ access_token })
       }
       else throw { status: 400, message: 'Invalid email/password' }

@@ -1,18 +1,45 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
-  background-color: #212121;
+  background-color: rgba(27,40,54,1.00);
+}
+
+.btn {
+  color: #94b4a4 !important;
+  width: 95px;
+}
+
+.btn-signin:hover {
+  color: rgba(27,40,54,1.00) !important;
+  background-color: #4BB543;
+}
+
+.btn-signup:hover {
+  color: rgba(27,40,54,1.00) !important;
+  background-color: #45b3e0;
+}
+
+.btn-signout:hover {
+  color: rgba(27,40,54,1.00) !important;
+  background-color: #cd0a0a;
 }
 
 #logo-kanban {
-  max-width: 7%;
+  max-width: 8%;
 }
 
 .custom-navbar {
-  background-color: #303030;
-  color: whitesmoke;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #94b4a4;
+  color: black;
   padding: 5px;
   display: flex;
   justify-content: space-between;
+}
+
+.text-color {
+  color: #94b4a4;
 }
 
 .right-navbar {
@@ -27,8 +54,13 @@ body {
 
 .btn-color {
   align-items: flex-end;
-  background-color: #303030;
-  color: black;
+  background-color:  rgba(27,40,54,1.00);
+  border-style: none;
+}
+
+.btn-color-navbar {
+  background-color: rgba(27,40,54,1.00);
+  border-style: none;
 }
 
 .card {
@@ -36,6 +68,5 @@ body {
 }
 
 .custom-col {
-  max-height: 480px;
-  overflow: hidden scroll;
+  max-height: 425px;
 }
