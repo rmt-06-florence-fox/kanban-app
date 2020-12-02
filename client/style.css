@@ -1,0 +1,65 @@
+.reg-log {
+    display: flex;
+    margin-top: 10%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+}
+
+.main {
+    margin-bottom: 10%;
+}
+
+.register {
+    padding: 10px;
+}
+
+.img-reg {
+    position: relative;
+    width: 600px;
+}
+
+#btn-signUp {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signUpG {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signIn {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signInG {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signOut {
+    width: 70px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+
+
+#text-register {
+    text-decoration: underline;
+    text-align: center;
+    color: #05314e;
+}
+
+.form {
+    box-shadow: 0px 0px 5px #6C63FF;
+    border-radius: 20px
+}
+
+

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-light fixed-top" style="background-color: #8c8b9b4a;">
+        <div class="container">
+            <a class="navbar-brand">kanban-app</a>
+            <form class="form-inline">
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" id="btn-signOut">Sign Out</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container reg-log" id="register-page">
+        <div class="register image">
+            <img src="image/img-reg.svg" class="img-reg">
+        </div>
+        <div class="register form">
+            <form id="form-register">
+                <h6 id="text-register">kanban register <i class="fa fa-pencil" aria-hidden="true"></i></h6>
+                <div class="form-group">
+                    <small id="form-reg-name" class="form-text text-muted">Name</small>
+                    <input type="password" class="form-control form-control-sm" id="form-reg-name">
+                </div>
+                <div class="form-group">
+                    <small id="form-reg-email" class="form-text text-muted">Email Address</small>
+                    <input type="email" class="form-control form-control-sm" id="form-reg-email">
+                </div>
+                <div class="form-group">
+                    <small id="form-reg-password" class="form-text text-muted">Password</small>
+                    <input type="password" class="form-control form-control-sm" id="form-reg-password">
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary" id="btn-signUp"><i class="fa fa-sign-in"
+                            aria-hidden="true"></i> sign up</button>
+                    <small>or</small>
+                    <button type="submit" class="btn btn-primary" id="btn-signUpG">gogle signup</button>
+                </p>
+                <div align="center">
+                    <span><small class="form-text text-muted">do you have account ?</small></span>
+                    <a id="link-login"> SignIn</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container reg-log" id="login-page">
+        <div class="register image">
+            <img src="image/img-log.svg" class="img-reg">
+        </div>
+        <div class="register form">
+            <form id="form-register">
+                <h6 id="text-register">kanban sign in <i class="fa fa-pencil" aria-hidden="true"></i></h6>
+                <div class="form-group">
+                    <small id="form-reg-email" class="form-text text-muted">Email Address</small>
+                    <input type="email" class="form-control form-control-sm" id="form-reg-email">
+                </div>
+                <div class="form-group">
+                    <small id="form-reg-password" class="form-text text-muted">Password</small>
+                    <input type="password" class="form-control form-control-sm" id="form-reg-password">
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-primary" id="btn-signIn"><i class="fa fa-sign-in"
+                            aria-hidden="true"></i> sign in</button>
+                    <small>or</small>
+                    <button type="submit" class="btn btn-primary" id="btn-signInG">gogle signup</button>
+                </p>
+                <div align="center">
+                    <span><small class="form-text text-muted">don't have an account ?</small></span>
+                    <a id="link-login"> SignUp</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container main">
+        <div class="add" style="margin-bottom: 20px;">
+            <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-tasks" aria-hidden="true"></i> New Task</button>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card border-danger" style="max-width: 15,5rem;">
+                    <div class="card-header" style="background-color: rgba(255, 0, 0, 0.145); color: red;">
+                        backlog
+                    </div>
+                    <div class="card-body" id="todo-list">
+                        <!-- di isi fetch -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-warning" style="max-width: 15,5rem;">
+                    <div class="card-header" style="background-color: rgba(255, 255, 0, 0.09); color: rgb(118, 118, 5);">
+                        todo
+                    </div>
+                    <div class="card-body" id="todo-list">
+                        <!-- di isi fetch -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-primary" style="max-width: 15,5rem;">
+                    <div class="card-header" style="background-color: rgba(0, 0, 255, 0.111); color: blue;">
+                        doing
+                    </div>
+                    <div class="card-body" id="todo-list">
+                        <!-- di isi fetch -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-success" style="max-width: 15,5rem;">
+                    <div class="card-header" style="background-color: rgba(0, 128, 0, 0.111); color: green;">
+                        done
+                    </div>
+                    <div class="card-body" id="todo-list">
+                        <!-- di isi fetch -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+
+<!-- #6C63FF -->
