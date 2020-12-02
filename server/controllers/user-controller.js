@@ -20,7 +20,7 @@ class UserController {
             } else {
                 throw ({
                     status : 400,
-                    message : 'either your passoword or email is wrong'
+                    message : 'either your password or email is wrong'
                 })
             }
 
