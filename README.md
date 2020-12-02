@@ -469,9 +469,7 @@ _Response (500)_
 
 __Request Header_
 ```
-{
-  access_token: token
-}
+
 ```
 _Request Body_
 ```
@@ -507,13 +505,11 @@ _Response (500 - Bad Request)_
 
 __Request Header_
 ```
-{
-  access_token: token
-}
+
 ```
 _Request Body_
 ```
-_Response (201 - Created)_
+_Response (200)_
 ```
 [
     {
@@ -525,11 +521,93 @@ _Response (201 - Created)_
 ]
 
 ```
+
+_Response (500 - Bad Request)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
+### POST/category
+
+>Create new category
+
+__Request Header_
+```
+{
+  access_token: token
+}
+```
+_Request Body_
+```
+{
+  "title": "<title to get insert into>",
+}
+```
+_Response (201 - Created)_
+```
+    {
+        "id": 1,
+        "title": "backlog",
+        "createdAt": "2020-11-30T10:15:44.126Z",
+        "updatedAt": "2020-11-30T10:15:44.126Z"
+    }
+```
 _Response(400- bad request)_
 ```
 {
   "message": "Validation error: : Validation notEmpty on title failed"
 }
+```
+
+_Response (500 - Bad Request)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+### GET/category
+
+>GET category
+
+__Request Header_
+```
+{
+  access_token: token
+}
+```
+_Request Body_
+```
+_Response (200)_
+```
+[
+    {
+        "id": 1,
+        "title": "backlog",
+        "createdAt": "2020-11-30T10:15:44.126Z",
+        "updatedAt": "2020-11-30T10:15:44.126Z"
+    },
+    {
+        "id": 2,
+        "title": "todo",
+        "createdAt": "2020-11-30T10:15:44.126Z",
+        "updatedAt": "2020-11-30T10:15:44.126Z"
+    },
+    {
+        "id": 3,
+        "title": "doing",
+        "createdAt": "2020-11-30T10:15:44.126Z",
+        "updatedAt": "2020-11-30T10:15:44.126Z"
+    },
+    {
+        "id": 4,
+        "title": "done",
+        "createdAt": "2020-11-30T10:15:44.126Z",
+        "updatedAt": "2020-11-30T10:15:44.126Z"
+    }
+]
+
 ```
 
 _Response (500 - Bad Request)_

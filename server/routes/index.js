@@ -12,9 +12,9 @@ route.post('/register', UserController.register)
 route.post('/login', UserController.login)
 route.post('/googleLogin', UserController.googleLogin)
 route.use('/organization', organizationRoute)
+route.use('/category', categoryRoute)
 
 route.use(authentication)
-route.use('/category', categoryRoute)
 route.use('/task', taskRoute)
 
 

@@ -18,12 +18,15 @@ class TaskController {
     }
     static async getTask(req, res, next){
         try {
-            let data = await Task.findAll()
+            let data = await Task.findAll({
+                include: {
+                    model: Category
+                }
+            })
             res.status(200).json(data)
         } catch (error) {
             next(error)
         }
-
     }
 
     static async getTaskById(req, res, next){
