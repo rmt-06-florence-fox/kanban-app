@@ -86,11 +86,14 @@ var app = new Vue ({
             })
             .then((res) => {
               // handle success
-              console.log(res.data)
+              console.log(res.data.Categories[0])
 
               this.organization = res.data.name
               res.data.Categories.forEach(el => {
-                  this.categories.push(el.name)
+                  this.categories.push(el)
+              })
+              res.data.Categories.Tasks.forEach(el => {
+                  this.tasks.push(el)
               })
 
               // console.log(res.data[0].Organization.Categories)

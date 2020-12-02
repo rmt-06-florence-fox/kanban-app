@@ -1,4 +1,4 @@
-const { Task, Organization, Category } = require ('../models/index')
+const { Task, Organization, Category, User } = require ('../models/index')
 
 class ControllerOrganization {
     static async getOrg (req, res, next) {
@@ -10,7 +10,10 @@ class ControllerOrganization {
                 },
                 include: [{
                     model: Category,
-                    include: [Task]
+                    include: [{
+                        model:Task,
+                        include: User
+                    }]
                 }]
             })
             res.status(200).json(orgData)
