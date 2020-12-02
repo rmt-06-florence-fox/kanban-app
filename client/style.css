@@ -63,3 +63,8 @@
     justify-content: center;
     flex: row
 }
+
+div .loginpage {
+    align-items: center;
+    flex-flow: center;
+}
