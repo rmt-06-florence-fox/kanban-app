@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Task.belongsTo(models.UserOrganization)
+      Task.belongsTo(models.User)
       Task.belongsTo(models.Category)
     }
   };
@@ -31,11 +31,16 @@ module.exports = (sequelize, DataTypes) => {
       }},
     due_date: DataTypes.DATEONLY,
     status: DataTypes.STRING,
-    UserOrganizationId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Task',
   });
+
+  Task.beforeCreate((instance, option) => {
+    instance.status = 'pending'
+  })
+
   return Task;
 };

@@ -1,4 +1,4 @@
-const { compare } = require('bcryptjs')
+const { compare } = require('../helpers/bcrypt-pass')
 const { User, Organization, UserOrganization } = require('../models/index')
 const { getToken } = require('../helpers/jwt')
 
@@ -9,12 +9,10 @@ class UserController {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            nameOrganization: req.body.nameOrganization
+            organization: req.body.organization
         }
         try {
-            const user = await User.create({name: obj.name, email: obj.email, password: obj.password})
-            const organization = await Organization.create({name: nameOrganization})
-            const userOrg = await UserOrganization.create({UserId: user.id, OrganizationId: organization.id})
+            const user = await User.create(obj)
             res.status(201).json({message: 'Create Data Successful!!'})
         } catch (error) {
             next(error)
@@ -27,21 +25,38 @@ class UserController {
             password: req.body.password
         }
         try {
-            const data = await User.findOne({where: {email: obj.email}})
-            if (data) {
-                if (compare(obj.password, data.password)) {
-                    const access_token = getToken(data)
-                    res.status(200).json({access_token})
-                } else {
-                    throw {
-                        status: 401,
-                        message: 'Invalid Account!!'
-                    }
+            if (!obj.email && !obj.password) {
+                throw {
+                    status: 400,
+                    message: 'Email and Password are required!!'
+                }
+            } else if (!obj.email) {
+                throw {
+                    status: 400,
+                    message: 'Email is required!!'
+                }
+            } else if (!obj.password) {
+                throw {
+                    status: 400,
+                    message: 'Password is required!!'
                 }
             } else {
-                throw {
-                    status: 404,
-                    message: 'Data not found!!'
+                const data = await User.findOne({where: {email: obj.email}})
+                if (data) {
+                    if (compare(obj.password, data.password)) {
+                        const access_token = getToken(data)
+                        res.status(200).json({access_token})
+                    } else {
+                        throw {
+                            status: 401,
+                            message: 'Invalid Account!!'
+                        }
+                    }
+                } else {
+                    throw {
+                        status: 404,
+                        message: 'Invalid Account!!'
+                    }
                 }
             }
         } catch (error) {

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsToMany(models.Organization, {through: models.UserOrganization})
+      User.hasMany(models.Task)
     }
   };
   User.init({
@@ -58,7 +58,8 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'Password is required!!'
         }
-      }}
+      }},
+    organization: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
