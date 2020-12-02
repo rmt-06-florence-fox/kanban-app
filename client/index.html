@@ -8,32 +8,32 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
     />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
 
   <body>
-    
-  <section class="hero is-fullheight">
-    <div class="hero-head">
-    <!-- navbar -->
-    <nav id="navbar" class="hero hero-head navbar is-fixed-top has-shadow">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="../"
-            ><img
-              src="https://cdn150.picsart.com/upscale-236338758032212.png?type=webp&to=min&r=640"
-              alt="kanban! help you organize your task!"
-          /></a>
-        </div>
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>logout</strong>
-              </a>
+    <section class="hero is-fullheight">
+      <div class="hero-head">
+        <!-- navbar -->
+        <nav id="navbar" class="hero hero-head navbar is-fixed-top has-shadow">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="../"
+                ><img
+                  src="https://cdn150.picsart.com/upscale-236338758032212.png?type=webp&to=min&r=640"
+                  alt="kanban! help you organize your task!"
+              /></a>
             </div>
-          </div>
-        </div>
-        <!-- <div class="navbar-menu" id="navMenu">
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button is-primary">
+                    <strong>logout</strong>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="navbar-menu" id="navMenu">
           <div class="navbar-end">
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">Menu</a>
@@ -45,13 +45,13 @@
             </div>
           </div>
         </div> -->
+          </div>
+        </nav>
+        <!-- end navbar -->
       </div>
-    </nav>
-    <!-- end navbar -->
-    </div>
 
-    <!-- login -->
-    <!-- <section class="hero-body">
+      <!-- login -->
+      <!-- <section class="hero-body">
       <div class="hero-body">
         <div class="container has-text-centered">
           <div class="column is-4 is-offset-4">
@@ -100,199 +100,98 @@
         </div>
       </div>
     </section> -->
-    <!-- end login -->
+      <!-- end login -->
 
-    
-    <section class="hero body">
-    <!-- card container -->
-      <div class="container has-text-centered">
-        <div
-          class="columns is-multiline is-centered cards-container"
-          id="sectioncontainer"
-        >
-          <!-- backlog -->
-          <div class="column is-3">
-            <article class="message is-dark">
-              <div class="message-header">
-                <p>Backlog</p>
-                <button class="delete" aria-label="delete"></button>
-              </div>
-              <div class="message-body">
-                <div class="board-item">
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <!-- card -->
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <div class="card">
-                    <header class="card-header">
-                      <p class="card-header-title">
-                        Makan
-                      </p>
-                      <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                          <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    </header>
-                    <div class="card-content">
-                      <div class="content">
-                        Ke pasar
-                        <br>
-                        <time datetime="2021-1-1">11:09 PM - 1 Jan 2021</time>
-                      </div>
-                    </div>
-                    <footer class="card-footer">
-                      <a href="#" class="card-footer-item">◀</a>
-                      <a href="#" class="card-footer-item">▶</a>
-                    </footer>
-                  </div>
-                  <!-- end card -->
-                </div>
-              </div>
-            </article>
-          </div>
-          <!-- todo -->
-          <div class="column is-3">
-            <article class="message is-link">
-              <div class="message-header">
-                <p>Ongoing</p>
-                <button class="delete" aria-label="delete"></button>
-              </div>
-              <div class="message-body">
-                <div class="board-item">
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <!-- card -->
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <div class="card">
-                    <header class="card-header">
-                      <p class="card-header-title">
-                        Makan
-                      </p>
-                      <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                          <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    </header>
-                    <div class="card-content">
-                      <div class="content">
-                        Pergi ke warung
-                        <br>
-                        <time datetime="2021-1-1">11:09 PM - 1 Jan 2021</time>
-                      </div>
-                    </div>
-                    <footer class="card-footer">
-                      <a href="#" class="card-footer-item">◀</a>
-                      <a href="#" class="card-footer-item">▶</a>
-                    </footer>
-                  </div>
-                  <!-- end card -->
-                </div>
-              </div>
-            </article>
-          </div>
-          <!-- ongoing -->
-          <div class="column is-3">
-            <article class="message is-primary">
-              <div class="message-header">
-                <p>Ongoing</p>
-                <button class="delete" aria-label="delete"></button>
-              </div>
-              <div class="message-body">
-                <div class="board-item">
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <!-- card -->
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <div class="card">
-                    <header class="card-header">
-                      <p class="card-header-title">
-                        Makan
-                      </p>
-                      <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                          <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    </header>
-                    <div class="card-content">
-                      <div class="content">
-                        
-                        <br>
-                        <time datetime="2021-1-1">11:09 PM - 1 Jan 2021</time>
-                      </div>
-                    </div>
-                    <footer class="card-footer">
-                      <a href="#" class="card-footer-item">◀</a>
-                      <a href="#" class="card-footer-item">▶</a>
-                    </footer>
-                  </div>
-                  <!-- end card -->
-                </div>
-              </div>
-            </article>
-          </div>
-          <!-- done -->
-          <div class="column is-3">
-            <article class="message is-success is-narrow">
-              <div class="message-header">
-                <p>Done</p>
-                <button class="delete" aria-label="delete"></button>
-              </div>
-              <div class="message-body">
-                <div class="board-item">
-                  <!-- card -->
-                  <!-- <div class="board-item-content"><span>Task-item</span></div> -->
-                  <div class="card">
-                    <header class="card-header">
-                      <p class="card-header-title">
-                        Makan
-                      </p>
-                      <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                          <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    </header>
-                    <div class="card-content">
-                      <div class="content">
-                        Pergi ke warung
-                        <br>
-                        <time datetime="2021-1-1">11:09 PM - 1 Jan 2021</time>
-                      </div>
-                    </div>
-                    <footer class="card-footer">
-                      <a href="#" class="card-footer-item">◀</a>
-                      <a href="#" class="card-footer-item">▶</a>
-                    </footer>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- footer -->
-    <div class="hero-foot">
-      <footer>
-        <div class="box cta">
-          <div class="columns is-mobile is-centered">
-            <div class="field is-grouped is-grouped-multiline">
-              <div class="control">
+      <div id="board" class="hero-body mt-4">
+        <!-- card container -->
+        <!-- <div class="container has-text-centered"> -->
+          <!-- <input type="text" v-model="newTaskName" placeholder="what will u do" />
+          <input type="text" v-model="newTaskAssignee" placeholder="who?" />
+          <input type="number" v-model="newTaskDuration"/>
+          <button v-on:click="addTask">Add</button> -->
+
+          <hr />
+          <div class="container card-container">
+            <div class="columns">
+              
+              <div class="column status-1 mx-3">
                 <div class="tags has-addons">
-                  <a
-                    class="tag is-link"
-                    href="https://icanq.github.io/"
-                    >icanq</a
-                  ><span class="tag is-light">Ichsan Natawijaya</span>
+                  <span class="tag">Backlog</span>
+                  <span class="tag is-dark">{{ tasksBacklog.length }}</span>
                 </div>
+
+                <task-card
+                  :task="task"
+                  v-for="task in tasksBacklog"
+                  :key="task.name"
+                ></task-card>
+              </div>
+
+              <div class="column status-2 mx-3">
+                <div class="tags has-addons">
+                  <span class="tag">Todo</span>
+                  <span class="tag is-dark">{{ tasksTodo.length }}</span>
+                </div>
+
+                <task-card
+                  :task="task"
+                  v-for="task in tasksTodo"
+                  :key="task.name"
+                ></task-card>
+              </div>
+
+              <div class="column status-3 mx-3">
+                <div class="tags has-addons">
+                  <span class="tag">Ongoing</span>
+                  <span class="tag is-dark">{{ tasksOngoing.length }}</span>
+                </div>
+
+                <task-card
+                  :task="task"
+                  v-for="task in tasksOngoing"
+                  :key="task.name"
+                ></task-card>
+              </div>
+
+              <div class="column status-4 mx-3">
+                <div class="tags has-addons">
+                  <span class="tag">Completed</span>
+                  <span class="tag is-dark">{{ tasksCompleted.length }}</span>
+                </div>
+
+                <task-card
+                  :task="task"
+                  v-for="task in tasksCompleted"
+                  :key="task.name"
+                ></task-card>
               </div>
             </div>
           </div>
         </div>
-      </footer>
-    </div>
-    <!-- end footer -->
-  </section>
-    <script src="../js/bulma.js"></script>
+      </div>
+      <!-- footer -->
+      <div class="hero-foot">
+        <!-- <footer> -->
+          <div class="box cta">
+            <div class="columns is-mobile is-centered">
+              <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                  <div class="tags has-addons">
+                    <a class="tag is-link" href="https://icanq.github.io/"
+                      >icanq</a
+                    ><span class="tag is-light"
+                      >＼(((￣(￣(￣▽￣)￣)￣)))／</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- </footer> -->
+      </div>
+      <!-- end footer -->
+    </section>
+    <script src="https://unpkg.com/vue@2.5.2/dist/vue.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
