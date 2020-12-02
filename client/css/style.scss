@@ -29,6 +29,7 @@ body {
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
+        margin-top: 2rem;
     }
 }
 
@@ -66,4 +67,20 @@ $colors: $color-1,$color-2,$color-3,$color-4;
 .bg-card{
     background-color: $bg-kbn;
     padding: 10px;
+}
+
+.register-page, .login-page, .add-task-page, .edit-task-page{
+    .container{
+        margin-top: 10rem;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        background-color: $bg-color;
+        padding: 5rem;
+    }
+}
+
+.btn-form{
+    background-color: $primary-color;
+    color: white;
 }
