@@ -6,7 +6,10 @@
       @loginUserData="login"
     ></login-form-component>
     <register-form-component v-else-if="currentPage == 'register page'" @registUser="register"></register-form-component>  
-    <kanban-board-component v-else-if="currentPage == 'kanban page'"></kanban-board-component>
+    <kanban-board-component v-else-if="currentPage == 'kanban page'" 
+      :categories="categories"
+      :tasks="tasks"
+    ></kanban-board-component>
   </div>
 </template>
 
@@ -26,8 +29,29 @@ export default {
   name : "App",
   data(){
     return {
-      name : "tio",
-      currentPage : "login page"
+      currentPage : "login page",
+      categories : [
+        {
+          id : 1,
+          name : 'backlog',
+          color : 'bg-primary'
+        },
+        {
+          id : 2,
+          name : 'todo',
+          color : 'bg-secondary'
+        },
+        {
+          id : 3,
+          name : 'doing',
+          color : 'bg-warning'
+        },{
+          id : 4,
+          name : 'done',
+          color : 'bg-success'
+        }
+      ],
+      tasks : []
     }
   },
   components :{
@@ -38,12 +62,9 @@ export default {
   },
   methods:{
     changePage(page){
-      console.log(page,'sampe app');
       this.currentPage = page
     },
     register(registUser){
-      console.log(registUser);
-      
       axios({
         url : `${baseurl}register`,
         method : "post",
@@ -68,7 +89,6 @@ export default {
       })
     },
     async login(loginUser){
-      console.log(loginUser);
       try {
         const token = await axios({
           url : `${baseurl}login`,
@@ -80,7 +100,7 @@ export default {
           title: "Welcome",
           text : `${loginUser.email}`
         })
-        this.currentPage = 'kaban page'
+        this.currentPage = 'kanban page'
         localStorage.setItem('access_token', token.data.access_token)
 
         // console.log(token.data);
@@ -95,12 +115,27 @@ export default {
     logout(page){
       localStorage.removeItem('access_token')
       this.currentPage = page;
+    },
+    async fetch(){
+      try {
+        const data = await axios({
+          url : `${baseurl}tasks`,
+          method: 'get',
+          headers :{
+            access_token : localStorage.getItem('access_token')
+          }
+        })
+        this.tasks = data.data
+      } catch (error) {
+        console.log(error);
+      }
     }
         
   },
   created(){
     if(localStorage.getItem('access_token')){
       this.currentPage = 'kanban page'
+      this.fetch()
     }else{
       this.currentPage = 'login page'
     }
