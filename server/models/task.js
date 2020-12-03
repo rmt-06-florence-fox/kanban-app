@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			Task.belongsTo(models.User);
+			Task.belongsTo(models.Category);
 		}
 	}
 	Task.init(
@@ -34,23 +35,10 @@ module.exports = (sequelize, DataTypes) => {
 					},
 				},
 			},
-			category: {
-				type: DataTypes.STRING,
-				validate: {
-					notEmpty: {
-						args: true,
-						msg: 'Category Cannot be Empty',
-					},
-				},
-			},
 			UserId: DataTypes.INTEGER,
+			CategoryId: DataTypes.INTEGER,
 		},
 		{
-			hooks: {
-				beforeCreate: (instance, options) => {
-					instance.category = 'backlog';
-				},
-			},
 			sequelize,
 			modelName: 'Task',
 		}

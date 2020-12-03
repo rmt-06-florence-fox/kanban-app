@@ -1,11 +1,11 @@
-const e = require('express');
-const { Task, User } = require('../models');
+const { Task, User, Category } = require('../models');
 
 class TaskController {
 	static create(req, res, next) {
 		const newTask = {
 			title: req.body.title,
 			description: req.body.description,
+			CategoryId: req.body.CategoryId,
 			UserId: req.loggedInUser.id,
 		};
 		Task.create(newTask)
@@ -63,10 +63,10 @@ class TaskController {
 	static updateTask(req, res, next) {
 		const id = req.params.id;
 		const updateTask = {
-			category: req.body.category,
+			CategoryId: req.body.CategoryId,
 		};
 
-		if (!req.body.category) {
+		if (!req.body.CategoryId) {
 			const errorName = 'CategoryCannotBeNull';
 			next({
 				name: errorName,
@@ -101,7 +101,7 @@ class TaskController {
 		const editTask = {
 			title: req.body.title,
 			description: req.body.description,
-			category: req.body.category,
+			CategoryId: req.body.CategoryId,
 			UserId: req.loggedInUser.id,
 		};
 
@@ -155,6 +155,26 @@ class TaskController {
 				res.status(200).json({
 					message,
 				});
+			})
+			.catch((err) => {
+				next(err);
+			});
+	}
+
+	static getCategories(req, res, next) {
+		Category.findAll({
+			attributes: ['id', 'name'],
+			include: {
+				model: Task,
+				attributes: ['id', 'title', 'description', 'createdAt'],
+				include: {
+					model: User,
+					attributes: ['email'],
+				},
+			},
+		})
+			.then((data) => {
+				res.status(200).json(data);
 			})
 			.catch((err) => {
 				next(err);

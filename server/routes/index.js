@@ -17,6 +17,8 @@ router.get('/tasks', TaskController.getAllTasks);
 
 router.get('/tasks/:id', TaskController.getTask);
 
+router.get('/categories', TaskController.getCategories);
+
 router.patch('/tasks/:id', authorization, TaskController.updateTask);
 
 router.put('/tasks/:id', authorization, TaskController.editTask);

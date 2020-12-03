@@ -128,5 +128,11 @@ body {
     transform: scale(1);
   }
 }
+.btn-add {
+  float: right;
+  border-radius: 5px;
+  background-color: #27b188;
+  color: #333;
+}
 
 /*# sourceMappingURL=style.css.map */

@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-      // define association here
-      User.hasMany(models.Task)
+			// define association here
+			User.hasMany(models.Task);
 		}
 	}
 	User.init(
@@ -24,10 +24,6 @@ module.exports = (sequelize, DataTypes) => {
 					notEmpty: {
 						args: true,
 						msg: 'Email Cannot be Empty',
-					},
-					isEmail: {
-						args: true,
-						msg: 'Email must in email format',
 					},
 				},
 			},
