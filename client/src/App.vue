@@ -8,6 +8,8 @@
     <HomePage
         v-if="pageName === 'Home-page'"
         @logout="logoutFromHomePage"
+        @changePage="ChangePage"
+        :pageName="pageName"
         :tasks="tasks"
         :categories="categories"
     ></HomePage>
@@ -50,14 +52,18 @@
             LoginRegisterPage, HomePage
         },
         created() {
-            if (localStorage.getItem('access_token')) {
-                this.pageName = 'Home-page'
-            } else {
+            if (!localStorage.getItem('access_token')) {
                 this.pageName = 'Login-register-page'
+            } else {
+                this.pageName = 'Home-page'
             }
         },
 
         methods: {
+            ChangePage(page) {
+                this.pageName = page                
+            },
+
             loginToHomePage(user) {
                 axios({
                     url: "http://localhost:3000/login",
@@ -96,23 +102,6 @@
                 }
             },
 
-            // onSignIn(googleUser) {
-            //     // const googleToken = googleUser.getAuthResponse().id_token;
-            //     console.log(googleUser);
-            //     // axios({
-            //     //     method: "POST",
-            //     //     url: "http://localhost:3000/googleLogin",
-            //     //     data: { googleToken }
-            //     // })
-            //     // .then(response => {
-            //     //     console.log(response)
-            //     //     // localStorage.setItem('access_token', response.access_token)
-            //     // })
-            //     // .catch(error => {
-            //     //     console.log(error)
-            //     // })
-            //     },
-
         computed: {
             fetchTask() {
                 axios({
@@ -131,7 +120,25 @@
             }
         }
     };
+                // onSignIn(googleUser) {
+            //     // const googleToken = googleUser.getAuthResponse().id_token;
+            //     console.log(googleUser);
+            //     // axios({
+            //     //     method: "POST",
+            //     //     url: "http://localhost:3000/googleLogin",
+            //     //     data: { googleToken }
+            //     // })
+            //     // .then(response => {
+            //     //     console.log(response)
+            //     //     // localStorage.setItem('access_token', response.access_token)
+            //     // })
+            //     // .catch(error => {
+            //     //     console.log(error)
+            //     // })
+            //     },
+
 </script>
 
 <style>
 </style>
+
