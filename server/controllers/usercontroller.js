@@ -10,7 +10,8 @@ class UserController {
         password: req.body.password
       }
       const newUser = await User.create(data)
-      res.status(201).json({ user_details: newUser })
+      const access_token = generateToken({ id: newUser.id, email: newUser.email })
+      res.status(201).json({ access_token })
     } catch (error) {
       next(error)
     }

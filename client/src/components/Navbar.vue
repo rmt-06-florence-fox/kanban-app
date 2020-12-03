@@ -6,8 +6,8 @@
       </div>
       <div class="mr-4">
         <div class="right-navbar">
-          <a href="#" class="btn-color-navbar btn btn-signup text-color ml-5" onclick="return confirm('Are you sure?')"><strong>Sign Up</strong></a>
-          <a href="#" class="btn-color-navbar btn btn-signout text-color ml-5" onclick="return confirm('Are you sure?')"><strong>Sign Out</strong></a>
+          <a href="#" v-if="!isLogin" class="btn-color-navbar btn btn-signup text-color ml-5" @click.prevent="doSignUp"><strong>Sign Up</strong></a>
+          <a href="#" v-if="isLogin" class="btn-color-navbar btn btn-signout text-color ml-5" @click.prevent="doSignOut"><strong>Sign Out</strong></a>
         </div>
       </div>
     </nav>
@@ -15,9 +15,24 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import swal from 'sweetalert'
 export default {
-  
+  props: ['changeLogin', 'isLogin', 'signUpUser'],
+  methods: {
+    doSignOut() {
+      localStorage.clear()
+      this.changeLogin(false)
+      this.signUpUser(true)
+      swal('Thank you. See ya!', {
+        icon: 'success',
+        buttons: false,
+        timer: 2500
+      })
+    },
+    doSignUp() {
+      this.signUpUser(false)
+    }
+  }
 }
 </script>
 

@@ -19,10 +19,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        notEmpty: { args: true, message: `Email can't be empty` },
         isEmail: { message: 'Must be email format' }
       }
     },
-    password: DataTypes.STRING
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: { args: true, message: `Password can't be empty` }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',

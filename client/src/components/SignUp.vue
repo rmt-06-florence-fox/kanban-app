@@ -1,16 +1,19 @@
 <template>
-  <form class="container col-md-6 col-sm-6 p-5 mt-5 cust-container rounded" @submit.prevent="doSignIn">
+  <form class="container col-md-6 col-sm-6 p-5 cust-form-p mt-5 cust-container rounded">
+    <div class="cust-btn-back">
+      <button type="submit" class="btn-color-navbar btn btn-back text-color mb-4" @click.prevent="backToSignIn"><strong>Back</strong></button>
+    </div>
     <div class="form-group">
       <label for="email-login">Email: </label>
-      <input type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="enter your email">
+      <input v-model="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="example: han@gmail.com" required>
       <small class="cust-small-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
       <label for="password-login">Password: </label>
-      <input type="password" class="form-control" v-model="password" placeholder="enter your password">
+      <input v-model="password" type="password" class="form-control" placeholder="enter your password" required>
     </div>
     <div class="mt-5 btn-form">
-      <button type="submit" class="btn-color-navbar btn btn-signin text-color ml-3 mr-3"><strong>Sign In</strong></button>
+      <button type="submit" class="btn-color-navbar btn btn-signin text-color ml-3 mr-3" @click.prevent="doSignUp"><strong>Sign Up</strong></button>
     </div>
   </form>
 </template>
@@ -18,15 +21,18 @@
 <script>
   import swal from 'sweetalert'
   export default {
-    props: ['changeLogin'],
+    props: ['signUpUser', 'changeLogin'],
     data() {
       return { email: '', password: '' }
     },
     methods: {
-      doSignIn() {
+      backToSignIn() {
+        this.signUpUser(true)
+      },
+      doSignUp() {
         this.$api({
           method: 'post',
-          url: 'signin',
+          url: 'signup',
           data: { email: this.email, password: this.password }
         })
           .then(({ data }) => {
@@ -46,7 +52,10 @@
               timer: 2500
             })
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            // console.log(err)
+            // if (err.status === 400) console.log(err.message)
+          })
           .finally(() => {
             this.email = ''
             this.password = ''

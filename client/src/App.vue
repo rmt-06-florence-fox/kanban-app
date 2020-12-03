@@ -1,8 +1,8 @@
 <template>
    <div>
-    <Nav></Nav>
+    <Nav :isLogin="isLogin" :signUpUser="signUpUser" :changeLogin="changeIsLogin"></Nav>
     <div v-if="!isLogin">
-      <SignIn></SignIn>
+      <LandingPage :signUpUser="signUpUser" :haveAccount="haveAccount" :changeLogin="changeIsLogin"></LandingPage>
     </div>
 
     <div v-if="isLogin">
@@ -15,21 +15,24 @@
 <script>
   import Nav from './components/Navbar'
   import Home from './components/Home'
-  import SignIn from './components/SignIn'
+  import LandingPage from './components/LandingPage'
   export default {
     components: {
       Nav,
       Home,
-      SignIn
+      LandingPage
     },
     data() {
-      return { isLogin: false }
+      return { isLogin: false, haveAccount: true }
     },
-    // methods:{
-    //   togleHome(){
-    //     this.isHide = !this.isHide
-    //   }
-    // },
+    methods: {
+      changeIsLogin(val) {
+        this.isLogin = val
+      },
+      signUpUser(val) {
+        this.haveAccount = val
+      }
+    },
     created(){
       console.log('jalanin created App')
       if (localStorage.getItem('access_token')) {
