@@ -7,8 +7,8 @@
         <div class="p-3 mb-1 text-white rounded" :class="category.color">
           {{category.name}}
         </div>
-        <!-- cards -->
-        <task-board-component :tasks="tasks" :category="category.name"></task-board-component>
+  
+        <task-board-component @deleteId="deleteTask" :tasks="tasks" :category="category.name"></task-board-component>
       </div>
     </div>
   </div>
@@ -21,6 +21,11 @@ export default {
   components: { taskBoardComponent },
   name : 'kaban-board-component',
   props : ['categories','tasks'],
+  methods: {
+    deleteTask(id){
+      this.$emit('deleteId', id)
+    }
+  }
 }
 </script>
 

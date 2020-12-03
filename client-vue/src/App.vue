@@ -9,6 +9,7 @@
     <kanban-board-component v-else-if="currentPage == 'kanban page'" 
       :categories="categories"
       :tasks="tasks"
+      @deleteId="deleteTask"
     ></kanban-board-component>
   </div>
 </template>
@@ -126,6 +127,20 @@ export default {
           }
         })
         this.tasks = data.data
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteTask(id){
+      try {
+        const deleted = await axios({
+          url : `${baseurl}tasks/${id}`,
+          method: 'delete',
+          headers :{
+            access_token : localStorage.getItem('access_token')
+          }
+        })
+        this.fetch()
       } catch (error) {
         console.log(error);
       }
