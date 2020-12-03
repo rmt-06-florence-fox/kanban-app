@@ -9,7 +9,8 @@
         <homepage   v-if=" showPage == 'pg-homepage' "
                     @getData="getTaskList"
                     :organization="organization" 
-                    :categories="categories">
+                    :categories="categories"
+                    @createNewTask="postTask">
         </homepage>
         
     </div>
@@ -43,34 +44,65 @@ export default {
         getTaskList () {
             
             axios({
-              method: 'get',
-              url: 'http://localhost:3000/task',
-              headers: {
-                access_token: localStorage.getItem('access_token')
-              }
-            })
-            .then((res) => {
-              // handle success
-              console.log(res.data.Categories[0])
+                method: 'get',
+                url: 'http://localhost:3000/task',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+                })
+                .then((res) => {
+                // handle success
+                console.log(res.data.Categories[0])
 
-              this.organization = res.data.name
-              res.data.Categories.forEach(el => {
-                  this.categories.push(el)
-              })
+                this.organization = {
+                    id: res.data.id,
+                    name: res.data.name
+                }
+                res.data.Categories.forEach(el => {
+                    this.categories.push(el)
+                })
 
-              // console.log(res.data[0].Organization.Categories)
-              // res.data[0].Organization.Categories.forEach( el => {
-              //   this.categories[el.id] = [el.id, el.name]
-              // })
-              // this.tasks = res.data
-            })
-            .catch((error) => {
-              // handle error
-              console.log(error);
-            })
-            .then(_=> {
-              // always executed
-            });
+                // console.log(res.data[0].Organization.Categories)
+                // res.data[0].Organization.Categories.forEach( el => {
+                //   this.categories[el.id] = [el.id, el.name]
+                // })
+                // this.tasks = res.data
+                })
+                .catch((error) => {
+                // handle error
+                console.log(error);
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        postTask(title, des, catId, orgId) {
+            axios({
+                method: 'post',
+                url: 'http://localhost:3000/task',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    title: title,
+                    description: des,
+                    CategoryId: catId,
+                    OrganizationId: orgId
+                }
+                })
+                .then((res) => {
+                // handle success
+                    console.log(res)
+                    this.categories = []
+                    this.getTaskList()
+                })
+                .catch((error) => {
+                // handle error
+                    console.log(error);
+                })
+                .then(_=> {
+                // always executed
+                });
         }
     },
     created: function () {

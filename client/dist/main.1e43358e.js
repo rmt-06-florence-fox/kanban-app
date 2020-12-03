@@ -11449,7 +11449,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/task.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/taskOption.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11467,6 +11467,124 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'taskOption',
+  methods: {
+    catDown: function catDown() {
+      this.$emit('catDown');
+    },
+    deleteThis: function deleteThis() {
+      this.$emit('deleteThis');
+    },
+    editThis: function editThis() {
+      this.$emit('editThis');
+    },
+    catUp: function catUp() {
+      this.$emit('catUp');
+    }
+  }
+};
+exports.default = _default;
+        var $42fe14 = exports.default || module.exports;
+      
+      if (typeof $42fe14 === 'function') {
+        $42fe14 = $42fe14.options;
+      }
+    
+        /* template */
+        Object.assign($42fe14, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex items-center justify-between mt-2 pt-1" },
+    [
+      _c("div", [
+        _c("i", {
+          staticClass:
+            "fa fa-arrow-circle-left transform scale-100 hover:scale-125 ",
+          on: { click: _vm.catDown }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex space-x-4" }, [
+        _c("i", {
+          staticClass: "fa fa-trash transform scale-100 hover:scale-125 ",
+          on: { click: _vm.deleteThis }
+        }),
+        _vm._v(" "),
+        _c("i", {
+          staticClass: "fa fa-wrench transform scale-100 hover:scale-125 ",
+          on: { click: _vm.editThis }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("i", {
+          staticClass:
+            "fa fa-arrow-circle-right transform scale-100 hover:scale-125 ",
+          on: { click: _vm.catUp }
+        })
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$42fe14', $42fe14);
+          } else {
+            api.reload('$42fe14', $42fe14);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/task.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _taskOption = _interopRequireDefault(require("./taskOption"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -11494,7 +11612,33 @@ exports.default = void 0;
 //
 var _default = {
   name: 'task',
-  props: []
+  props: ['task'],
+  components: {
+    taskOption: _taskOption.default
+  },
+  data: function data() {
+    return {
+      showEdit: false
+    };
+  },
+  methods: {
+    catDownTask: function catDownTask() {
+      this.$emit('catDownTask', this.task.id);
+      console.log(this.task.id, 'dari task.vue catDownTask');
+    },
+    deleteThisTask: function deleteThisTask() {
+      this.$emit('deleteThisTask', this.task.id);
+      console.log(this.task.id, 'dari task.vue deleteThisTask');
+    },
+    editThisTask: function editThisTask() {
+      this.$emit('editThisTask', this.task.id);
+      console.log(this.task.id, 'dari task.vue editThisTask');
+    },
+    catUpTask: function catUpTask() {
+      this.$emit('catUpTask', this.task.id);
+      console.log(this.task.id, 'dari task.vue catUpTask');
+    }
+  }
 };
 exports.default = _default;
         var $ae731d = exports.default || module.exports;
@@ -11513,7 +11657,15 @@ exports.default = _default;
     "div",
     {
       staticClass:
-        "p-3 my-2 max-w-sm mx-2 bg-white shadow-md flex items-center space-x-4 hover:shadow-lg hover:bg-green-300"
+        "p-3 my-2 max-w-sm mx-2 bg-white shadow-md flex items-center space-x-4 hover:shadow-lg hover:bg-green-300",
+      on: {
+        mouseover: function($event) {
+          _vm.showEdit = true
+        },
+        mouseleave: function($event) {
+          _vm.showEdit = false
+        }
+      }
     },
     [
       _c(
@@ -11546,48 +11698,23 @@ exports.default = _default;
             _c("small", [_vm._v("Assignee: " + _vm._s(_vm.task.User.username))])
           ]),
           _vm._v(" "),
-          _vm._m(0)
-        ]
+          _vm.showEdit
+            ? _c("taskOption", {
+                on: {
+                  catDown: _vm.catDownTask,
+                  deleteThis: _vm.deleteThisTask,
+                  editThis: _vm.editThisTask,
+                  catUp: _vm.catUpTask
+                }
+              })
+            : _vm._e()
+        ],
+        1
       )
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "flex items-center justify-between mt-2 pt-1" },
-      [
-        _c("div", [
-          _c("i", {
-            staticClass:
-              "fa fa-arrow-circle-left transform scale-100 hover:scale-125 "
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex space-x-4" }, [
-          _c("i", {
-            staticClass: "fa fa-trash transform scale-100 hover:scale-125 "
-          }),
-          _vm._v(" "),
-          _c("i", {
-            staticClass: "fa fa-wrench transform scale-100 hover:scale-125 "
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c("i", {
-            staticClass:
-              "fa fa-arrow-circle-right transform scale-100 hover:scale-125 "
-          })
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -11620,6 +11747,193 @@ render._withStripped = true
       
       }
     })();
+},{"./taskOption":"src/components/taskOption.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/taskAdd.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'taskAdd',
+  data: function data() {
+    return {
+      title: '',
+      description: ''
+    };
+  },
+  methods: {
+    postAdd: function postAdd() {
+      this.$emit('postAdd', this.title, this.description);
+    }
+  }
+};
+exports.default = _default;
+        var $b5a368 = exports.default || module.exports;
+      
+      if (typeof $b5a368 === 'function') {
+        $b5a368 = $b5a368.options;
+      }
+    
+        /* template */
+        Object.assign($b5a368, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "p-3 my-2 max-w-sm mx-2 bg-gray-400 shadow-md flex items-center space-x-4 hover:shadow-lg hover:bg-green-300"
+    },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "w-full space-y-1 text-sm",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.postAdd($event)
+            }
+          }
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.title,
+                expression: "title"
+              }
+            ],
+            staticClass:
+              "shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+            attrs: { placeholder: "Title", id: "title", type: "text" },
+            domProps: { value: _vm.title },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.title = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.description,
+                expression: "description"
+              }
+            ],
+            staticClass:
+              "resize-y w-full shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+            attrs: { placeholder: "Description", id: "description" },
+            domProps: { value: _vm.description },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.description = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("\n        Add New Task\n        ")]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$b5a368', $b5a368);
+          } else {
+            api.reload('$b5a368', $b5a368);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/board.vue":[function(require,module,exports) {
 "use strict";
 
@@ -11628,9 +11942,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _task = _interopRequireDefault(require("./task"));
+var _task = _interopRequireDefault(require("./task.vue"));
 
-var _task2 = _interopRequireDefault(require("./task.vue"));
+var _taskAdd = _interopRequireDefault(require("./taskAdd"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11656,14 +11970,44 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'board',
   components: {
-    task: _task.default
+    task: _task.default,
+    taskAdd: _taskAdd.default
   },
   props: ['tasks', 'cat'],
   data: function data() {
-    return {};
+    return {
+      showAdd: false,
+      icon: 'fa fa-minus transform scale-100 hover:scale-125 text-white'
+    };
+  },
+  methods: {
+    postNewTask: function postNewTask(title, des) {
+      console.log(title, des, this.cat.id, 'from board');
+      this.$emit('postNewTask', title, des, this.cat.id);
+    }
+  },
+  computed: {
+    changeIcon: function changeIcon() {
+      if (this.showAdd) {
+        return 'fa fa-minus transform scale-100 hover:scale-125 text-white';
+      } else {
+        return 'fa fa-plus transform scale-100 hover:scale-125 text-white';
+      }
+    }
   }
 };
 exports.default = _default;
@@ -11690,27 +12034,35 @@ exports.default = _default;
         "div",
         {
           staticClass:
-            "bg-gradient-to-r from-gray-600 to-pink-600 sticky top-0 relative ",
-          staticStyle: { "min-width": "24vw" }
+            "flex justify-between bg-gradient-to-r from-gray-600 to-pink-600 sticky top-0 "
         },
         [
-          _c(
-            "h4",
-            {
-              staticClass:
-                "text-base leading-6 font-semibold text-white text-center py-3 px-24"
-            },
-            [
-              _vm._v(
-                "\n                " + _vm._s(_vm.cat.name) + "\n            "
-              )
-            ]
-          ),
+          _c("div", { staticClass: "self-center\tpx-4 py-3" }),
           _vm._v(" "),
-          _c("i", {
-            staticClass:
-              "fa fa-plus absolute top-4 right-12 transform scale-100 hover:scale-125 text-white"
-          })
+          _c("div", { staticClass: "self-center\tpx-20" }, [
+            _c(
+              "h4",
+              {
+                staticClass: "text-base leading-6 font-semibold text-white py-3"
+              },
+              [
+                _vm._v(
+                  "\n                " + _vm._s(_vm.cat.name) + "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "self-center\tpx-4 py-3" }, [
+            _c("i", {
+              class: _vm.changeIcon,
+              on: {
+                click: function($event) {
+                  _vm.showAdd = !_vm.showAdd
+                }
+              }
+            })
+          ])
         ]
       ),
       _vm._v(" "),
@@ -11720,10 +12072,16 @@ exports.default = _default;
           staticClass: "border-t border-gray-200 overflow-y-auto",
           staticStyle: { "max-height": "62vh", "min-height": "5vh" }
         },
-        _vm._l(_vm.tasks, function(task) {
-          return _c("task", { key: task.id, attrs: { task: task } })
-        }),
-        1
+        [
+          _vm.showAdd
+            ? _c("taskAdd", { on: { postAdd: _vm.postNewTask } })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.tasks, function(task) {
+            return _c("task", { key: task.id, attrs: { task: task } })
+          })
+        ],
+        2
       )
     ]
   )
@@ -11761,7 +12119,7 @@ render._withStripped = true
       
       }
     })();
-},{"./task":"src/components/task.vue","./task.vue":"src/components/task.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/homepage.vue":[function(require,module,exports) {
+},{"./task.vue":"src/components/task.vue","./taskAdd":"src/components/taskAdd.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/homepage.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11930,6 +12288,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: 'homepage',
   components: {
@@ -11943,7 +12302,12 @@ var _default = {
   //         categories: []
   //     }
   // },
-  methods: {},
+  methods: {
+    createNewTask: function createNewTask(title, des, catId) {
+      console.log(title, des, catId, this.organization.id, 'from homepage');
+      this.$emit('createNewTask', title, des, catId, this.organization.id);
+    }
+  },
   created: function created() {
     this.$emit('getData');
   }
@@ -12146,7 +12510,7 @@ exports.default = _default;
               [
                 _vm._v(
                   "\n          " +
-                    _vm._s(_vm.organization) +
+                    _vm._s(_vm.organization.name) +
                     "'s Kanban Board\n        "
                 )
               ]
@@ -12166,7 +12530,8 @@ exports.default = _default;
           _vm._l(_vm.categories, function(cat) {
             return _c("board", {
               key: cat.id,
-              attrs: { cat: cat, tasks: cat.Tasks }
+              attrs: { cat: cat, tasks: cat.Tasks },
+              on: { postNewTask: _vm.createNewTask }
             })
           }),
           1
@@ -12503,6 +12868,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 // import login from './components/login'
 var _default = {
   name: 'App',
@@ -12534,7 +12900,10 @@ var _default = {
       }).then(function (res) {
         // handle success
         console.log(res.data.Categories[0]);
-        _this.organization = res.data.name;
+        _this.organization = {
+          id: res.data.id,
+          name: res.data.name
+        };
         res.data.Categories.forEach(function (el) {
           _this.categories.push(el);
         }); // console.log(res.data[0].Organization.Categories)
@@ -12542,6 +12911,33 @@ var _default = {
         //   this.categories[el.id] = [el.id, el.name]
         // })
         // this.tasks = res.data
+      }).catch(function (error) {
+        // handle error
+        console.log(error);
+      }).then(function (_) {// always executed
+      });
+    },
+    postTask: function postTask(title, des, catId, orgId) {
+      var _this2 = this;
+
+      (0, _axios.default)({
+        method: 'post',
+        url: 'http://localhost:3000/task',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          title: title,
+          description: des,
+          CategoryId: catId,
+          OrganizationId: orgId
+        }
+      }).then(function (res) {
+        // handle success
+        console.log(res);
+        _this2.categories = [];
+
+        _this2.getTaskList();
       }).catch(function (error) {
         // handle error
         console.log(error);
@@ -12587,7 +12983,7 @@ exports.default = _default;
               organization: _vm.organization,
               categories: _vm.categories
             },
-            on: { getData: _vm.getTaskList }
+            on: { getData: _vm.getTaskList, createNewTask: _vm.postTask }
           })
         : _vm._e()
     ],

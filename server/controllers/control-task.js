@@ -49,7 +49,9 @@ class ControllerTask {
 
     static async post (req, res, next) {
         try {
-            const newTask = await Task.create (req.body)
+            const task = req.body
+            task.UserId = req.loggedUser.id
+            const newTask = await Task.create (task)
             console.log(newTask)
             res.status(200).json(newTask)
         } catch (err) {

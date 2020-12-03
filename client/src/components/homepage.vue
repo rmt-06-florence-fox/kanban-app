@@ -133,7 +133,7 @@
     <header class="bg-white shadow sticky left-0">
       <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
         <h1 class="text-xl font-bold leading-tight text-gray-900">
-          {{organization}}'s Kanban Board
+          {{organization.name}}'s Kanban Board
         </h1>
       </div>
     </header>
@@ -144,7 +144,8 @@
             <board  v-for="cat in categories " 
                     :key="cat.id"
                     :cat="cat"
-                    :tasks="cat.Tasks">
+                    :tasks="cat.Tasks"
+                    @postNewTask="createNewTask">
             </board>
             
         </div>
@@ -171,7 +172,10 @@ export default {
     //     }
     // },
     methods: {
-
+        createNewTask (title, des, catId) {
+            console.log(title, des, catId, this.organization.id, 'from homepage')
+            this.$emit('createNewTask', title, des, catId, this.organization.id)
+        }
     },
     created: function () {
         this.$emit('getData')
