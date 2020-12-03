@@ -4,6 +4,7 @@
         <!-- <h1>{{element}}</h1> -->
         <EditTask 
         v-if="editedTaskId == element.id"
+        :titleEdit="element.title"
         @cancelEdit='cancelEdit'
         ></EditTask>
         

@@ -1,8 +1,15 @@
 <template>
     <div>
-        <LoginPage 
+        <RegisterPage
+            @register="registerNewUser"
+            @changePage="changePage"
+            v-if="onPage == 'registerPage'"
 
+        ></RegisterPage>
+        <LoginPage 
         @login="login" 
+            @changePage="changePage"
+
         v-if="onPage == 'loginPage'"
         
         ></LoginPage>
@@ -23,6 +30,7 @@
 import axios from 'axios'
 import LoginPage from './component/LoginPage'
 import MainPage from './component/MainPage'
+import RegisterPage from "./component/RegisterPage"
 
 
 export default {
@@ -35,7 +43,8 @@ export default {
     },
     methods : {
         login(data){
-            console.log(data)
+            console.log(data,'login')
+
             axios({
                 method: 'post',
                 url: 'http://localhost:3000/login',
@@ -123,11 +132,32 @@ export default {
             }).catch(err =>{
                 console.log(err)
             })
+        },
+        registerNewUser(data){
+            console.log(data,'reg')
+            axios({
+                method: 'post',
+                url: 'http://localhost:3000/register',
+                data: data
+            })
+            .then(resp =>{
+                console.log('regis')
+                this.onPage = 'loginPage'
+            })
+            .catch(err =>{
+                console.log(err,'ini eror')
+            })
+            // .finally(()=>{
+            //     this.email = ""
+            //     this.password = ""
+
+            // })
         }
     },
     components : {
         LoginPage,
-        MainPage
+        MainPage,
+        RegisterPage
     },
     created(){
         if(localStorage.access_token){

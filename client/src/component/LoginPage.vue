@@ -5,7 +5,7 @@
             <div class="card-header">Login</div>
                 <div class="card-body">
                     <h5 class="card-title">login to continue</h5>
-                    <form @submit.prevent = "emitLoginFunc" >
+                    <form @submit.prevent = "" >
 
                         <div class="form-group">
                             <label>Email address</label>
@@ -18,7 +18,7 @@
                             <input v-model="userData.password" type="password" class="form-control" >
                         </div>
 
-                        <button  type="submit" class="btn btn-primary container-fluid mb-3">login</button>
+                        <button  @click="emitLoginFunc" class="btn btn-primary container-fluid mb-3">login</button>
 
                         <small id="" class="form-text text-muted">Login with google account</small>
                         <div class="g-signin2 google" data-onsuccess="onSignIn"></div>
@@ -48,6 +48,10 @@ export default {
     methods : {
         emitLoginFunc(){
             this.$emit("login",this.userData)
+        },
+        changePage(page){
+            // console.log('sss')
+            this.$emit('changePage',page)
         }
     }
 }

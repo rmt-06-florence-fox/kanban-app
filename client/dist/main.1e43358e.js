@@ -10724,6 +10724,10 @@ var _default = {
   methods: {
     emitLoginFunc: function emitLoginFunc() {
       this.$emit("login", this.userData);
+    },
+    changePage: function changePage(page) {
+      // console.log('sss')
+      this.$emit('changePage', page);
     }
   }
 };
@@ -10756,7 +10760,6 @@ exports.default = _default;
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.emitLoginFunc($event)
                 }
               }
             },
@@ -10821,7 +10824,7 @@ exports.default = _default;
                 "button",
                 {
                   staticClass: "btn btn-primary container-fluid mb-3",
-                  attrs: { type: "submit" }
+                  on: { click: _vm.emitLoginFunc }
                 },
                 [_vm._v("login")]
               ),
@@ -11062,10 +11065,14 @@ exports.default = void 0;
 //
 //
 //
-//
 var _default = {
   name: "EditTask",
-  promps: ['editedTaskId'],
+  data: function data() {
+    return {
+      title: titleEdit
+    };
+  },
+  props: ['titleEdit'],
   methods: {
     cancelEdit: function cancelEdit() {
       console.log('cancel');
@@ -11090,7 +11097,10 @@ exports.default = _default;
     _c("div", { staticClass: "card mt-3" }, [
       _c("div", { staticClass: "card-header" }, [
         _c("div", { staticClass: "edit-task" }, [
-          _c("input", { attrs: { placeholder: "task title", type: "text" } }),
+          _c("input", {
+            attrs: { placeholder: "task title", type: "text" },
+            domProps: { value: _vm.title }
+          }),
           _c("br"),
           _vm._v(" "),
           _c("button", { staticClass: "btn btn-primary" }, [_vm._v(" edit")]),
@@ -11174,6 +11184,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: "TaskCard",
   props: ['element'],
@@ -11218,7 +11229,10 @@ exports.default = _default;
       { staticClass: "card mt-3" },
       [
         _vm.editedTaskId == _vm.element.id
-          ? _c("EditTask", { on: { cancelEdit: _vm.cancelEdit } })
+          ? _c("EditTask", {
+              attrs: { titleEdit: _vm.element.title },
+              on: { cancelEdit: _vm.cancelEdit }
+            })
           : _c("div", { staticClass: "card-header" }, [
               _c("h1", [_vm._v(_vm._s(_vm.element.title))]),
               _vm._v(" "),
@@ -11903,7 +11917,229 @@ render._withStripped = true
       
       }
     })();
-},{"./Navbar":"src/component/Navbar.vue","./KanbanBoard":"src/component/KanbanBoard.vue","./AddTask":"src/component/AddTask.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"./Navbar":"src/component/Navbar.vue","./KanbanBoard":"src/component/KanbanBoard.vue","./AddTask":"src/component/AddTask.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/RegisterPage.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "RegisterPage",
+  data: function data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    registerNewUser: function registerNewUser() {
+      var newUser = {
+        email: this.email,
+        password: this.password
+      };
+      this.$emit('register', newUser);
+      this.email = "";
+      this.password = "";
+    },
+    changePage: function changePage(page) {
+      this.$emit('changePage', page);
+    }
+  }
+};
+exports.default = _default;
+        var $2f51dd = exports.default || module.exports;
+      
+      if (typeof $2f51dd === 'function') {
+        $2f51dd = $2f51dd.options;
+      }
+    
+        /* template */
+        Object.assign($2f51dd, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "login-container" }, [
+      _c(
+        "div",
+        {
+          staticClass: "card bg-light mb-5",
+          staticStyle: { "max-width": "18rem" }
+        },
+        [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Register")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v("Register your account")
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.registerNewUser($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Email adress")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.email,
+                        expression: "email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "email" },
+                    domProps: { value: _vm.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.email = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    { staticClass: "form-text text-muted", attrs: { id: "" } },
+                    [_vm._v("We'll never share your email with anyone else.")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Password")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.password,
+                        expression: "password"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "password" },
+                    domProps: { value: _vm.password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.password = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary container-fluid mb-3",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Register")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn  btn-danger container-fluid",
+                    on: {
+                      click: function($event) {
+                        return _vm.changePage("loginPage")
+                      }
+                    }
+                  },
+                  [_vm._v("cancel")]
+                )
+              ]
+            )
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$2f51dd', $2f51dd);
+          } else {
+            api.reload('$2f51dd', $2f51dd);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11917,8 +12153,17 @@ var _LoginPage = _interopRequireDefault(require("./component/LoginPage"));
 
 var _MainPage = _interopRequireDefault(require("./component/MainPage"));
 
+var _RegisterPage = _interopRequireDefault(require("./component/RegisterPage"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11952,7 +12197,7 @@ var _default = {
     login: function login(data) {
       var _this = this;
 
-      console.log(data);
+      console.log(data, 'login');
       (0, _axios.default)({
         method: 'post',
         url: 'http://localhost:3000/login',
@@ -12039,11 +12284,30 @@ var _default = {
       }).catch(function (err) {
         console.log(err);
       });
+    },
+    registerNewUser: function registerNewUser(data) {
+      var _this5 = this;
+
+      console.log(data, 'reg');
+      (0, _axios.default)({
+        method: 'post',
+        url: 'http://localhost:3000/register',
+        data: data
+      }).then(function (resp) {
+        console.log('regis');
+        _this5.onPage = 'loginPage';
+      }).catch(function (err) {
+        console.log(err, 'ini eror');
+      }); // .finally(()=>{
+      //     this.email = ""
+      //     this.password = ""
+      // })
     }
   },
   components: {
     LoginPage: _LoginPage.default,
-    MainPage: _MainPage.default
+    MainPage: _MainPage.default,
+    RegisterPage: _RegisterPage.default
   },
   created: function created() {
     if (localStorage.access_token) {
@@ -12070,8 +12334,16 @@ exports.default = _default;
   return _c(
     "div",
     [
+      _vm.onPage == "registerPage"
+        ? _c("RegisterPage", {
+            on: { register: _vm.registerNewUser, changePage: _vm.changePage }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _vm.onPage == "loginPage"
-        ? _c("LoginPage", { on: { login: _vm.login } })
+        ? _c("LoginPage", {
+            on: { login: _vm.login, changePage: _vm.changePage }
+          })
         : _vm._e(),
       _vm._v(" "),
       _vm.onPage == "kanbanBoard" || _vm.onPage == "addPage"
@@ -12122,7 +12394,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./component/LoginPage":"src/component/LoginPage.vue","./component/MainPage":"src/component/MainPage.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./component/LoginPage":"src/component/LoginPage.vue","./component/MainPage":"src/component/MainPage.vue","./component/RegisterPage":"src/component/RegisterPage.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
