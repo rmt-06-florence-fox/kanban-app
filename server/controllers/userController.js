@@ -11,8 +11,20 @@ class UserController{
             password: req.body.password
         }
         try {
-            let newUser = await User.create(obj)
-            res.status(201).json({id: newUser.id , email: newUser.email})
+            let isUnique = await User.findOne({
+                where:{
+                    email : obj.email
+                }
+            })
+            if(isUnique){
+                throw {
+                    status: 400,
+                    msg: 'Email Has Been Taken'
+                }
+            }else{
+                let newUser = await User.create(obj)
+                res.status(201).json({id: newUser.id , email: newUser.email})
+            }
         } catch (err) {
             next(err)
         }

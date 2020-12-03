@@ -5,16 +5,17 @@
                     <!-- form login -->
                     <div class="row align-items-center justify-content-between">
                         <h6>LOGIN:</h6>
-                        <h6>OR</h6><button @click="showLogin = false" class="btn btn-success">REGISTER</button>
+                        <h6>OR</h6><button @click="showLogin = false , bodyLogin.email = '' , bodyLogin.password = '' , error.login = ''"  class="btn btn-success">REGISTER</button>
                     </div>
-                    <form>
+                    <form @submit.prevent="login">
+                        <p class="text-danger">{{error.login}}</p>
                         <div class="form-group">
                             <label for="">Email address</label>
-                            <input type="email" class="form-control">
+                            <input v-model="bodyLogin.email" type="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input type="password" class="form-control">
+                            <input v-model="bodyLogin.password" type="password" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -27,16 +28,17 @@
                     <!-- form register -->
                     <div class="row align-items-center justify-content-between">
                         <h6>REGISTER:</h6>
-                        <h6>OR</h6><button @click="showLogin = true" class="btn btn-primary">LOGIN</button>
+                        <h6>OR</h6><button @click="showLogin = true , bodyRegister.email = '' , bodyRegister.password = '' , error.register = ''" class="btn btn-primary">LOGIN</button>
                     </div>
-                    <form>
+                    <form @submit.prevent="register">
+                        <p class="text-danger">{{error.register}}</p>
                         <div class="form-group">
                             <label for="">Email address</label>
-                            <input type="email" class="form-control">
+                            <input v-model="bodyRegister.email" type="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input type="password" class="form-control">
+                            <input v-model="bodyRegister.password" type="password" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-success">Register</button>
                     </form>
@@ -48,16 +50,32 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+    props: ['error'],
     data(){
         return{
-            showLogin: true
+            showLogin: true,
+            bodyLogin:{
+                email: '',
+                password: ''
+            },
+            bodyRegister:{
+                email:'',
+                password:''
+            }
         }
     },
     methods:{
-        //login
-        //register
-        //googleLogin
+        login(){
+            this.$emit('postLogin', this.bodyLogin)
+        },
+        register(){
+            this.$emit('postRegister', this.bodyRegister)
+        },
+        googleLogin(){
+
+        }
     }
 }
 </script>
