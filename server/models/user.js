@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Task)
     }
   };
   User.init({
@@ -28,7 +29,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          arg: true,
+          msg: "password is not Empty"
+        },
+        len: [6, 24]
+      }
     }
   }, {
     hooks: {

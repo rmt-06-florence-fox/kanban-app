@@ -6,8 +6,8 @@ async function authentication(req, res, next){
     try {
         if(!access_token){
             throw {
-                status: 401,
-                msg: 'Please Login First'
+                name: "noAuthentication",
+                status: 401
             }
         }
         else{
@@ -15,16 +15,18 @@ async function authentication(req, res, next){
             const user = User.findOne({where: {id: decoded.id}})
             if(!user){
                 throw {
-                    status: 401,
-                    msg: "Please Login First/register if you don't have an account"
+                    name: "noAuthentication",
+                    status: 401
                 }
             }
             else {
-                req.loggedUserIn = decoded
+                req.loggedInUser = decoded
                 next() 
             }
         }
     } catch (error) {
-        res.status(500).json(error)
+        next(error)
     }
 }
+
+module.exports = authentication
