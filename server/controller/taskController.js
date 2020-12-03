@@ -72,7 +72,7 @@ class TaskController {
         const taskId = req.params.id
         const editedTask = {
             title : req.body.title,
-            Category : req.body.category
+            CategoryId : req.body.categoryId
         }
         console.log(editedTask)
         try {
@@ -100,7 +100,7 @@ class TaskController {
         console.log('=========== Modified Task')
         const taskId = req.params.id
         const changedStatus = {
-            Category : req.body.Category
+            CategoryId : req.body.categoryId
         }
 
         try {
