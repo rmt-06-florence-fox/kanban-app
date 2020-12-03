@@ -1,0 +1,16 @@
+.background-register{
+    background: linear-gradient(to top, #7e7474, #214252);   
+}
+
+.background-login{
+    /*background: #0f2027; */
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+
+}
+
+.background-content{
+    background: linear-gradient(to left, #ffd5cd, #9ad3bc );
+}
+ * {
+     font-family:Architects Daughter, serif;
+ }

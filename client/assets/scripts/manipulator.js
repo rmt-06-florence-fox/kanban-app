@@ -49,7 +49,6 @@ let vue = new Vue({
         },
         
         addTask(){
-            
         },
     },
     computed : {

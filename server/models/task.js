@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks : {
       beforeCreate(task, option){
-        if(!task.category) task.category = 'back log'
+        if(!task.category) task.category = 'Back Log'
       }
     },
     sequelize,
