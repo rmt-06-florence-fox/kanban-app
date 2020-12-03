@@ -25,6 +25,16 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty : {
+          args: true,
+          msg: "please fill the category"
+        }
+      }
+    },
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
