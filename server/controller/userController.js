@@ -1,11 +1,12 @@
 const {User} = require('../models')
 const {compare} = require('../helper/bcrypt')
+const {makeToken} = require('../helper/jwt')
 
 class UserController {
   static async register(req, res, next) {
     try {
       let obj = {
-        firsName : req.body.firstName,
+        firstName : req.body.firstName,
         lastName : req.body.lastName,
         email : req.body.email,
         password : req.body.password
@@ -32,8 +33,14 @@ class UserController {
       if (data) {
         const compared = compare(obj.password, data.password)
         if (compared) {
-          
-          res.status(200).json(access_token)
+          const listData = {
+            id : data.id,
+            fullname : data.fullname,
+            email : data.email
+          }
+          const access_token = makeToken(listData)
+          const fullname = data.fullname
+          res.status(200).json({access_token, fullname})
         } else {
           throw {
             status : 401,

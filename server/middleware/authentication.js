@@ -8,7 +8,7 @@ module.exports = async (req,res,next) => {
       const decoded = decode(access_token)
       const found = await User.findOne({where: {id: decoded.id}})
       if (found) {
-        req.UserLogin = decoded
+        req.userLogin = decoded
         next()
       } else {
         throw {

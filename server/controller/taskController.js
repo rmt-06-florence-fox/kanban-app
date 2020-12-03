@@ -1,7 +1,6 @@
-const { UserController } = require('.')
 const {Task} = require('../models')
 
-class TaskController {
+class TaskController{
   static async seeList(req,res,next){
     try {
       const list = await Task.findAll()
@@ -19,12 +18,12 @@ class TaskController {
   }
 
   static async create(req,res,next){
-    let obj = {
-      title : req.body.firstName,
-      category : req.body.category,
-      UserId : req.userLogin.id
-    }
     try {
+      let obj = {
+        title : req.body.title,
+        category : req.body.category,
+        UserId : req.userLogin.id
+      }
       const created = await Task.create(obj)
       res.status(201).json(created)
     } catch (error) {
