@@ -8,10 +8,7 @@
       v-if="pageName === 'Home Page'" 
       :categories="categories"
       :dataTasks='dataTasks'
-      :dataEdit='dataEdit'
-      @idEdit='editData'
       @idDelete='deleteData'
-      @idPatch='patchData'
       @createTask='createTask'
       @updateData='updateData'
       @updateCategory='updateCategory'>
@@ -52,7 +49,6 @@
           }
         ],
         dataTasks: [],
-        dataEdit: {}
       };
     },
     components:{
@@ -66,20 +62,17 @@
         this.pageName = page
       },
       regist(data){
-        // console.log(data, '<<< data regist di app');
         axios({
           url: this.baseUrl + 'register',
           method: 'POST',
           data: data
         })
           .then(response =>{
-            // console.log(response);
             this.pageName = 'Login Page'
           })
           .catch(err => console.log(err))
       },
       login(data){
-        // console.log(data, '<<< data login di app');
         axios({
           url: this.baseUrl + 'login',
           method: 'POST',
@@ -87,15 +80,17 @@
         })
           .then(response =>{
             console.log('----berhasil login----');
-            // console.log(response);
             localStorage.setItem('access_token', response.data.access_token)
+            localStorage.setItem('email', response.data.email)
+            localStorage.setItem('id', response.data.id)
             this.pageName = 'Home Page'
-            // console.log(localStorage, '<<< localstorage');
           })
           .catch(err => console.log(err))
       },
       logout(){
         localStorage.removeItem('access_token')
+        localStorage.removeItem('email')
+        localStorage.removeItem('id')
         this.pageName = 'Login Page'
       },
       fetchData(){
@@ -107,32 +102,12 @@
           }
         })
           .then(response =>{
-            // console.log(response.data, '<<< data');
             this.dataTasks = response.data
             console.log(this.dataTasks, '<<< data tasks');
           })
           .catch(err => console.log(err))
       },
-      editData(id){
-        console.log(id, '<< id untuk edit di app');
-        axios({
-          url: this.baseUrl + 'tasks/' + id,
-          method: 'GET',
-          headers:{
-            access_token: localStorage.getItem('access_token')
-          }
-        })
-          .then(response =>{
-            // console.log(response);
-            this.dataEdit = response.data
-            console.log(this.dataEdit, '<<< data untuk edit');
-          })
-          .catch(err =>{
-            console.log(err)
-          })
-      },
       updateData(newData, id){
-        // console.log(newData, id, '<<< data update di app');
         axios({
           url: this.baseUrl + 'tasks/' + id,
           method: 'PUT',
@@ -142,7 +117,6 @@
           data: newData
         })
           .then(response =>{
-            // console.log(response.data, '<<<hasil update di app');
             this.fetchData()
           })
           .catch(err => console.log(err))
@@ -158,9 +132,6 @@
         })
           .then(response => this.fetchData())
           .catch(err => console.log(err))
-      },
-      patchData(id){
-        console.log(id, '<< id untuk patch di app');
       },
       createTask(data){
         // console.log(data, '<<< data untuk di tambahkan ada di app');

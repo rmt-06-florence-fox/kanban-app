@@ -11,10 +11,7 @@
                 <div class="card" v-for="data in filteredTask(category.name)" :key="data.id">
                   <tasklist 
                     :dataList="data"
-                    :dataEdit='dataEdit'
-                    @idEdit='editData'
                     @idDelete='deleteData'
-                    @idPatch='patchData'
                     @updateData='updateData'
                     @updateCategory='updateCategory'>
                   </tasklist>  
@@ -29,7 +26,7 @@
               <form @submit.prevent="addTask(category.name)">
                 <textarea v-model="createTask" class ="add-task" name="add-backlog"></textarea>
                 <button type="submit" class="btn btn-add-task fas fa-check"><label class="ml-2">Add Task</label></button>
-                <button type="button" class="btn btn-cancel fas fa-times"><label class="ml-2">Cancel</label></button>
+                <button type="button" @click.prevent="cancelButton" class="btn btn-cancel fas fa-times"><label class="ml-2">Cancel</label></button>
               </form>
             </div>
           </div>
@@ -49,20 +46,14 @@
         createTask: ''
       }
     },
-    props: ['categories', 'dataTasks', 'dataEdit'],
+    props: ['categories', 'dataTasks'],
     components: { tasklist },
     methods:{
       filteredTask(category){
         return this.dataTasks.filter(e => e.category === category)
       },
-      editData(id){
-        this.$emit('idEdit', id)
-      },
       deleteData(id){
         this.$emit('idDelete', id)
-      },
-      patchData(id){
-        this.$emit('idPatch', id)
       },
       updateData(newData, id){
         this.$emit('updateData', newData, id)
@@ -71,17 +62,19 @@
         this.$emit('updateCategory', newData, id)
       },
       showAdd(category){
-        console.log(category, '<<< untuk add');
         this.pageAdd = category
       },
       addTask(category){
-        // console.log(this.createTask, category);
         const newData = {
           title: this.createTask,
           category: category
         }
         this.$emit('createTask', newData)
         this.createTask = ''
+        this.pageAdd = ''
+      },
+      cancelButton(){
+        this.pageAdd = ''
       }
     }
   }

@@ -5,10 +5,10 @@
       <h5 class="card-title">{{ dataList.title }}</h5>
       <p class="card-text text-right"><i>Author: {{ dataList.User.name }} </i></p>
     </div>
-    <div class="card-footer container-button-task">
-      <button type="button" class="btn far fa-edit" @click.prevent="editData(dataList.id)"></button>
+    <div class="card-footer container-button-task" v-if="isAuthor(dataList.User.email)">
+      <button type="button" class="btn far fa-edit" @click.prevent="editData(dataList)"></button>
       <button type="button" class="btn far fa-trash-alt" @click.prevent="deleteData(dataList.id)"></button>
-      <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchData(dataList.id)" ></button>
+      <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchData()" ></button>
     </div>
     <!-- Pindah Category -->
     <div class="patchData" v-if="pagePatch">
@@ -25,8 +25,8 @@
       </form>
     </div>
     <!-- Form Edit -->
-    <div class="edit-task-page" v-if="dataEdit.id === dataList.id && pageEdit">
-      <form action="" @submit.prevent='updateData(dataEdit.id)'>
+    <div class="edit-task-page" v-if="dataForEdit.id === dataList.id && pageEdit">
+      <form action="" @submit.prevent='updateData(dataList.id)'>
         <textarea class ="edit-task" name="edit-backlog" v-model="editTask"></textarea>
         <button type="submit" class="btn btn-add-task fas fa-check"><label class="ml-2">Edit Task</label></button>
         <button type="button" class="btn btn-cancel fas fa-times" @click="cancelButton()"><label class="ml-2">Cancel</label></button>
@@ -43,42 +43,46 @@
         editTask: '',
         pageEdit: false,
         pagePatch: false,
-        patchCategory: ''
+        patchCategory: '',
+        dataForEdit: {},
+        dataUser:{
+          id: +localStorage.getItem('id'),
+          email: localStorage.getItem('email')
+        }
       }
     },
-    props: ['dataList', 'dataEdit'],
+    props: ['dataList'],
     methods:{
-      editData(id){
-        console.log(id, '<< id untuk edit');
-        this.$emit('idEdit', id)
-        this.editTask = this.dataEdit.title
-        this.pageEdit = true
+      isAuthor(email){
+        if(email === this.dataUser.email) return true
+        else return false
+      },
+      editData(data){
+        this.editTask = data.title
+        this.dataForEdit = data
+        this.pageEdit = !this.pageEdit
       },
       deleteData(id){
-        console.log(id, '<< id untuk delete');
         this.$emit('idDelete', id)
       },
-      patchData(id){
-        console.log(id, '<< id untuk patch');
-        this.$emit('idPatch', id)
-        this.pagePatch = true
+      patchData(){
+        this.pagePatch = !this.pagePatch
       },
       updateData(id){
         const newData = {
           title: this.editTask,
-          category: this.dataEdit.category
+          category: this.dataForEdit.category
         }
-        console.log(newData, '<<< data di update');
         this.$emit('updateData', newData, id)
-        this.dataEdit = {}
+        this.dataForEdit = {}
         this.editTask = ''
-        this.pageEdit = false
+        this.pageEdit = !this.pageEdit
       },
       cancelButton(){
         this.pageEdit = false
+        this.pagePatch = false
       },
       updateCategory(id){
-        console.log(this.patchCategory, id, '<<< data untuk patch');
         const newData = {category: this.patchCategory }
         this.$emit('updateCategory', newData, id)
         this.pagePatch = false
