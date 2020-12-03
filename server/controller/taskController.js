@@ -101,6 +101,7 @@ class TaskController {
 		const editTask = {
 			title: req.body.title,
 			description: req.body.description,
+			category: req.body.category,
 			UserId: req.loggedInUser.id,
 		};
 

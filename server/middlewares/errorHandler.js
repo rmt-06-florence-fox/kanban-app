@@ -27,7 +27,7 @@ module.exports = (err, req, res, next) => {
 		message = 'Please Login First';
 	} else if (err.name === 'JsonWebTokenError') {
 		status = 404;
-		message = "Invalid Account Or Password'";
+		message = 'Invalid Account Or Password';
 	} else if (err.name === 'EmailOrPasswordCannotBeNull') {
 		status = 400;
 		message = 'Email or Password Cannot be Empty';
