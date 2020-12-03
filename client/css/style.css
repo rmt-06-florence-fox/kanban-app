@@ -23,7 +23,7 @@
   margin-bottom: 5px;
 }
 
-.column {
+.column-items {
   min-height: 400px;
   max-height: 400px;
   overflow-y: scroll;
@@ -44,6 +44,25 @@
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.bg-img {
+  background-image: url("../assets/bg-1.gif");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #999;
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.box {
+  background-color: rgba(255, 255, 255, 0.78);
 }
 
 /*# sourceMappingURL=style.css.map */

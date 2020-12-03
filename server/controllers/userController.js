@@ -20,19 +20,21 @@ class UserC {
 
   //login
   static login(req, res, next) {
-    let whichObj = {};
-    if (req.body.email) {
-      whichObj.email = req.body.email;
-    } else if (req.body.username) {
-      whichObj.username = req.body.username;
-    }
+    // let whichObj = {};
+    // if (req.body.email) {
+    //   whichObj.email = req.body.email;
+    // } else if (req.body.username) {
+    //   whichObj.username = req.body.username;
+    // }
     User.findOne({
-      where: whichObj,
+      where: {
+        email: req.body.email
+      } 
     })
       .then((data) => {
         if (!data) {
           throw {
-            status: 401,
+            status: 404,
             message: "Account not found!",
           };
         } else if (compare(req.body.password, data.password)) {
