@@ -1,13 +1,16 @@
 const router = require('express').Router()
 const TasksController = require('../Controller/tasksController')
 const UserController = require('../Controller/userController')
+const authentication = require('../midlleware/authentication')
+const authorization = require('../midlleware/authorization')
 
 router.post('/register', UserController.register)
-// router.post('/login', UserController)
+router.post('/login', UserController.login)
 
-// router.get('/tasks', Controller)
-// router.post('/tasks', Controller)
-// router.put('/tasks/:id', Controller)
-// router.delete('/tasks/:id', Controller)
+router.use(authentication)
+router.get('/tasks', TasksController.getTask)
+router.post('/tasks', TasksController.createTask)
+router.put('/tasks/:id',authorization, TasksController.editTask)
+router.delete('/tasks/:id', authorization, TasksController.deleteTask)
 
 module.exports = router

@@ -9,9 +9,7 @@ var hash = bcrypt.hashSync(password, salt);
 }
 
 const comparePassword = (password, hashPassword) => {
-    bcrypt.compareSync(password, hashPassword)
-
-
+   return bcrypt.compareSync(password, hashPassword)
 }
 
 module.exports = {generatePassword, comparePassword}
