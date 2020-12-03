@@ -79,7 +79,7 @@
                     <div class="card border-success mb-3 shadow " style="max-width: 18rem;" v-for="(test, index) in todos" :key="index">
                         <div class="card-header bg-transparent border-success ">{{test.todo}}</div>
                         <div class="card-body text-success">
-                            <h5 class="card-title">{{test.name}}</h5>
+                            <h5 class="card-title">creator: {{test.name}}</h5>
                             <p class="card-text">{{test.description}}</p>
                         </div>
                         <div class="card-footer bg-transparent border-success">
@@ -141,13 +141,42 @@
             </div>
     </div>
 
+    <!-- add-new-task -->
+    <div id="add-new-task">
+        <img src="https://images.vexels.com/media/users/3/152299/isolated/preview/4f63af6a16633f2bfd29063205f2882c-astronaut-flying-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
+        <div id="add-task-page">
+            <form id="form-add-task" class="border bg-success">
+                <h2 style="text-align: center;">add-task</h2>
+                <label for="">name</label><br>
+                <input type="text" placeholder="task name here" id="add-task-fullname" required>
+                <br><br>
+                <label for="">description</label><br>
+                <input type="email" placeholder="task description here" id="add-task-email" required>
+                <br><br>
+                <label for="">category</label><br>
+                <select class="custom-select my-1 mr-sm-2" id="selectCategory">
+                    <option selected>Choose....</option>
+                    <option value="Back-Log">Back-Log</option>
+                    <option value="To-Do">To-Do</option>
+                    <option value="Doing">Doing</option>
+                    <option value="Done">Done</option>
+                </select>
+                <br><br>
+                <button id="add-task-btn">add task</button>
+                <br><br>
+                <button class="btn-delete-task" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">cancel</button>
+            </form>
+        </div>
+    </div>
+
+
 </div>
 
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- main js -->
-    <script src="main.js"></script>
+    <!-- <script src="main.js"></script> -->
     
 
 </body>

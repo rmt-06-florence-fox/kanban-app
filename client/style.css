@@ -109,6 +109,7 @@ transform: translateY(4px);
     padding-left: 60px;
     padding-right: 50px;
     border-radius: 15px;
+    box-shadow: 4px 12px 12px 4px #999;
 }
 #register-fullname{
     border-radius: 15px
@@ -148,7 +149,7 @@ transform: translateY(4px);
 
 
 
-/* ----maing page---- */
+/* ----main page---- */
 #form-card-1{
     background-color: rgba(212, 209, 209, 0.212);
 }
@@ -239,3 +240,83 @@ transform: translateY(4px);
 
 
 
+/* ----add-task page---- */
+#add-task-page{
+    
+    margin-top: 10%;
+    margin-bottom: 40%;
+    margin-left: 40%;
+    margin-right: 35%;
+    color: honeydew;    
+}
+/* ----add-task form---- */
+#form-add-task{  
+    padding-top: 20%;
+    padding-bottom: 20%;
+    padding-left: 60px;
+    padding-right: 50px;
+    border-radius: 15px;
+    box-shadow: 4px 12px 12px 4px #999;
+}
+#add-task-fullname{
+    border-radius: 15px
+}
+#add-task-email{
+    border-radius: 15px
+}
+#add-task-password{
+    border-radius: 15px
+}
+
+/* ----add-task btn---- */
+#add-task-btn {
+    margin-left: 10%;
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    width: 80%;
+}
+#add-task-btn:hover {
+    background-color: #3e8e41
+}
+#add-task-btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+/* cancel-task */
+
+.btn-delete-task {
+    margin-left: 35%;
+    display: inline-block;
+    padding: 3px 3px 3px 3px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #df1616;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px #999;
+    width: 30%;
+}
+.btn-delete-task:hover {
+    background-color: #df1616
+}
+.btn-delete-task:active {
+background-color:#df1616;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
