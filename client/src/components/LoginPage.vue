@@ -43,10 +43,14 @@
               </div>
             </div>
             <div>
-              <a href="#">don't have any account?</a>
+              <a href="#" @click.prevent="toRegister"
+                >don't have any account?</a
+              >
             </div>
             <div class="mt-2">
-              <button class="button is-success" @click.prevent="doLogin">Login</button>
+              <button class="button is-success" @click.prevent="doLogin">
+                Login
+              </button>
             </div>
           </form>
         </div>
@@ -56,41 +60,47 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import swal from "sweetalert";
 
 export default {
   name: "loginPage",
-  props: ['changeStatus'],
+  props: ["changeStatus", "hasAcc"],
   data() {
     return {
-      email: '',
-      password: '',
-      isLoading: false
-    }
+      email: "",
+      password: "",
+      isLoading: false,
+    };
   },
   methods: {
+    toRegister() {
+      this.hasAcc(false);
+    },
     doLogin() {
-      this.isLoading = true,
-      this.$api({
-        method: 'POST',
-        url: 'login',
-        data: {
-          email: this.email,
-          password: this.password,
-        }
-      })
-      .then(({ data }) => {
-        localStorage.setItem('access_token', data.access_token);
-        Swal.fire
-        this.changeStatus(true);
-      })
-      .catch((err) => {
-        if (err === 'WrongInput')
-          Swal.fire('Wrong Input', 'Email/Password is wrong', 'warning')
-        this.isLoading = false
-      })
-    }
-  }
+        this.$api({
+          method: "POST",
+          url: "login",
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+          .then(({ data }) => {
+            localStorage.setItem("access_token", data.access_token);
+            this.changeStatus(true);
+            swal("heyho", {
+              icon: 'success',
+              buttons: false,
+              timer: 1000,
+            });
+          })
+          .catch((err) => {
+            if (err === "WrongInput")
+              Swal.fire("Wrong Input", "Email/Password is wrong", "warning");
+            this.isLoading = false;
+          });
+    },
+  },
 };
 </script>
 

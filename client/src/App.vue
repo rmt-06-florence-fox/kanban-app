@@ -1,7 +1,17 @@
 <template>
   <section class="hero is-fullheight">
-    <Navbar :changeStatus="changeIsLogin" :isLogin="isLogin"></Navbar>
-    <LandingPage :changeStatus="changeIsLogin" v-if="!isLogin"></LandingPage>
+    <Navbar
+      :changeStatus="changeIsLogin"
+      :isLogin="isLogin"
+      :hasAcc="hasAcc"
+      :hasAccount="hasAccount"
+    ></Navbar>
+    <LandingPage 
+      :changeStatus="changeIsLogin"
+      v-if="!isLogin"
+      :hasAcc="hasAcc"
+      :hasAccount="hasAccount"
+    ></LandingPage>
     <DashboardPage v-if="isLogin"></DashboardPage>
     <Footer></Footer>
 </section>
@@ -27,12 +37,16 @@ export default {
   data() {
     return {
       isLogin: false,
+      hasAccount: true,
     }
   },
 
   methods: {
     changeIsLogin(value) {
-      this.isLogin = value
+      this.isLogin = value;
+    },
+    hasAcc(value) {
+      this.hasAccount = value;
     }
   },
 

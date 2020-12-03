@@ -17,9 +17,9 @@
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">Menu</a>
               <div class="navbar-dropdown">
-                <a class="navbar-item">Register</a>
+                <a class="navbar-item" @click.prevent="toRegister">Register</a>
                 <hr class="navbar-divider" />
-                <a class="navbar-item">Login</a>
+                <a class="navbar-item" @click.prevent="toLogin">Login</a>
               </div>
             </div>
           </div>
@@ -43,17 +43,30 @@
 </template>
 
 <script>
+import swal from "sweetalert"
+
 export default {
-  props: [ 'changeStatus', 'isLogin'],
+  props: [ 'changeStatus', 'isLogin', 'hasAccount', 'hasAcc'],
   data() {
     return {
       burgerToggle: false,
     };
   },
   methods: {
+    toRegister() {
+      this.hasAcc(false)
+    },
+    toLogin() {
+      this.hasAcc(true)
+    },
     onSignOut() {
       localStorage.clear();
       this.changeStatus(false)
+      swal("bye~", { 
+        icon: 'success',
+        buttons: false,
+        timer: 1000,
+      })
     },
   },
 };

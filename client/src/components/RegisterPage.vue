@@ -19,6 +19,7 @@
                   type="text"
                   placeholder="e.g. icanq"
                   class="input"
+                  v-model="username"
                   required
                 />
                 <span class="icon is-small is-left">
@@ -33,6 +34,7 @@
                   type="email"
                   placeholder="e.g. icanq@gmail.com"
                   class="input"
+                  v-model="email"
                   required
                 />
                 <span class="icon is-small is-left">
@@ -47,6 +49,7 @@
                   type="password"
                   placeholder="*******"
                   class="input"
+                  v-model="password"
                   required
                 />
                 <span class="icon is-small is-left">
@@ -55,10 +58,10 @@
               </div>
             </div>
             <div>
-              <a href="#">Already have an account?</a>
+              <a href="#" @click.prevent="toLogin">Already have an account?</a>
             </div>
             <div class="mt-2">
-              <button class="button is-success">Register</button>
+              <button class="button is-success" @click.prevent="onRegister">Register</button>
             </div>
           </form>
         </div>
@@ -68,10 +71,11 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert'
 
 export default {
- name: "register page",
+ name: "registerPage",
+ props: [ 'hasAcc' ],
  data() {
     return {
       username: '',
@@ -81,32 +85,10 @@ export default {
     }
   },
   methods: {
+    toLogin() {
+      this.hasAcc(true)
+    },
     onRegister() {
-      this.isLoading = true
-      if(!this.username) {
-        this.isLoading = false
-        return Swal.fire(
-          'Username Empty', 
-          'Username required',
-          'warning'
-        )
-      }
-      if (!this.email) {
-        this.isLoading = false
-        return Swal.fire(
-          'Email Empty',
-          'Email is required for sign in!',
-          'warning'
-        )
-      }
-      if (!this.password) {
-        this.isLoading = false
-        return Swal.fire(
-          'Password Empty',
-          'Password is required for sign in!',
-          'warning'
-        )
-      }
       this.$api({
         method: 'POST',
         url: 'register',
@@ -116,14 +98,17 @@ export default {
           password: this.password,
         }
       })
-      .then(({ data }) => {
-        localStorage.setItem('access_token', data.access_token);
-        
+      .then(() => {
+        this.hasAcc(true)
+        swal("account registered!", { 
+          icon: 'success',
+          buttons: false,
+          timer: 1500,
+        })
       })
       .catch((err) => {
         console.log(err)
       })
-      
     }
   }
 }

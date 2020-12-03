@@ -20,13 +20,7 @@ class UserC {
 
   //login
   static login(req, res, next) {
-    // let whichObj = {};
-    // if (req.body.email) {
-    //   whichObj.email = req.body.email;
-    // } else if (req.body.username) {
-    //   whichObj.username = req.body.username;
-    // }
-    User.findOne({
+     User.findOne({
       where: {
         email: req.body.email
       } 
