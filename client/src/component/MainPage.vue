@@ -5,11 +5,19 @@
       @changePage ="changePage"  
     
     ></Navbar>
+
     <KanbanBoard 
     v-if="onPage == 'kanbanBoard'"
     :taskData="taskData"
+    @deleteTask='deleteTask'
     ></KanbanBoard>
-    <AddTask v-if="onPage == 'addPage'"></AddTask>
+
+
+    <AddTask 
+    v-if="onPage == 'addPage'"
+    @changePage="changePage"
+    @addTask ="addTask"
+    ></AddTask>
   </div>
 </template>
 
@@ -39,6 +47,14 @@ export default {
         console.log('pagemain')
         console.log(page)
         this.$emit('changePage',page)
+      },
+      addTask(paylaod){
+        console.log(paylaod,'from main page')
+        this.$emit('addTask',paylaod)
+      },
+      deleteTask(id){
+        console.log(id,'here')
+        this.$emit('deleteTask',id)
       }
     }
 }

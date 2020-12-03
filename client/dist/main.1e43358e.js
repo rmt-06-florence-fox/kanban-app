@@ -11041,6 +11041,103 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/EditTask.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "EditTask",
+  promps: ['editedTaskId'],
+  methods: {
+    cancelEdit: function cancelEdit() {
+      console.log('cancel');
+      this.$emit('cancelEdit', 0);
+    }
+  }
+};
+exports.default = _default;
+        var $691556 = exports.default || module.exports;
+      
+      if (typeof $691556 === 'function') {
+        $691556 = $691556.options;
+      }
+    
+        /* template */
+        Object.assign($691556, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "card mt-3" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("div", { staticClass: "edit-task" }, [
+          _c("input", { attrs: { placeholder: "task title", type: "text" } }),
+          _c("br"),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn btn-primary" }, [_vm._v(" edit")]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-danger", on: { click: _vm.cancelEdit } },
+            [_vm._v(" cancel")]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$691556', $691556);
+          } else {
+            api.reload('$691556', $691556);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/TaskCard.vue":[function(require,module,exports) {
 "use strict";
 
@@ -11048,6 +11145,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _EditTask = _interopRequireDefault(require("./EditTask"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
 //
 //
 //
@@ -11072,7 +11175,29 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "TaskCard"
+  name: "TaskCard",
+  props: ['element'],
+  data: function data() {
+    return {
+      editedTaskId: ""
+    };
+  },
+  methods: {
+    editTask: function editTask(id) {
+      console.log(id);
+      this.editedTaskId = id;
+    },
+    cancelEdit: function cancelEdit(id) {
+      this.editedTaskId = '';
+    },
+    deleteTask: function deleteTask(id) {
+      console.log('trey delete', id);
+      this.$emit('deleteTask', id);
+    }
+  },
+  components: {
+    EditTask: _EditTask.default
+  }
 };
 exports.default = _default;
         var $38bee1 = exports.default || module.exports;
@@ -11087,41 +11212,63 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "card mt-3" },
+      [
+        _vm.editedTaskId == _vm.element.id
+          ? _c("EditTask", { on: { cancelEdit: _vm.cancelEdit } })
+          : _c("div", { staticClass: "card-header" }, [
+              _c("h1", [_vm._v(_vm._s(_vm.element.title))]),
+              _vm._v(" "),
+              _c("h1", [_vm._v(_vm._s(_vm.element.id))])
+            ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", [
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.editedTaskId = _vm.element.id
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-pencil" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.deleteTask(_vm.element.id)
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-trash-o" })]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
+          ])
+        ])
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card mt-3" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h1", [_vm._v("Task Card")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("ul", [
-            _c("li", [_vm._v("User")]),
-            _vm._v(" "),
-            _c("li", [_vm._v("DATE")])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-pencil" })
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-trash-o" })
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-arrows" })
-            ])
-          ])
-        ])
-      ])
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-arrows" })
     ])
   }
 ]
@@ -11157,139 +11304,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/EditTask.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "EditTask"
-};
-exports.default = _default;
-        var $691556 = exports.default || module.exports;
-      
-      if (typeof $691556 === 'function') {
-        $691556 = $691556.options;
-      }
-    
-        /* template */
-        Object.assign($691556, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "card mt-3" }, [
-        _c("h1", [_vm._v("Edit")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-header" }, [
-          _c("div", { staticClass: "edit-task" }, [
-            _c("input", { attrs: { placeholder: "task title", type: "text" } }),
-            _c("br"),
-            _vm._v(" "),
-            _c("button", { staticClass: "btn btn-primary" }, [_vm._v(" edit")]),
-            _vm._v(" "),
-            _c("button", { staticClass: "btn btn-danger" }, [_vm._v(" cancel")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("ul", [
-            _c("li", [_vm._v("User")]),
-            _vm._v(" "),
-            _c("li", [_vm._v("DATE")])
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-pencil" })
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-trash-o" })
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-arrows" })
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: null,
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$691556', $691556);
-          } else {
-            api.reload('$691556', $691556);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/TaskBoard.vue":[function(require,module,exports) {
+},{"./EditTask":"src/component/EditTask.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/TaskBoard.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11317,17 +11332,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: "TaskBoard",
-  data: function data() {
-    return {
-      editedIdTask: 2
-    };
-  },
-  props: ['doingtask', 'backlogtask', 'todotask', 'donetask'],
+  props: ['task'],
   components: {
     TaskCard: _TaskCard.default,
     EditTask: _EditTask.default
+  },
+  methods: {
+    deleteTask: function deleteTask(id) {
+      console.log('board delete', id);
+      this.$emit('deleteTask', id);
+    }
   }
 };
 exports.default = _default;
@@ -11348,11 +11365,17 @@ exports.default = _default;
       "div",
       { staticClass: "p-3 bg-primary text-black" },
       [
-        _c("TaskCard"),
+        _c("h1", [_vm._v(_vm._s(_vm.task.name))]),
         _vm._v(" "),
-        _vm.editedIdTask == "" ? _c("EditTask") : _vm._e()
+        _vm._l(_vm.task.Tasks, function(element, index) {
+          return _c("TaskCard", {
+            key: index,
+            attrs: { element: element },
+            on: { deleteTask: _vm.deleteTask }
+          })
+        })
       ],
-      1
+      2
     )
   ])
 }
@@ -11421,71 +11444,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   name: "KanbanBoard",
   props: ['taskData'],
   components: {
     TaskBoard: _TaskBoard.default
   },
-  computed: {
-    doneTask: function doneTask() {
-      var categoryData = [];
-      this.taskData.forEach(function (element) {
-        if (element.Category == 'done') {
-          categoryData.push(element);
-        }
-      });
-      return categoryData;
-    },
-    todoTask: function todoTask() {
-      var categoryData = [];
-      this.taskData.forEach(function (element) {
-        if (element.Category == 'todo') {
-          categoryData.push(element);
-        }
-      });
-      return categoryData;
-    },
-    backlogTask: function backlogTask() {
-      var categoryData = [];
-      this.taskData.forEach(function (element) {
-        if (element.Category == 'backlog') {
-          categoryData.push(element);
-        }
-      });
-      return categoryData;
-    },
-    doingTask: function doingTask() {
-      var categoryData = [];
-      this.taskData.forEach(function (element) {
-        if (element.Category == 'doing') {
-          categoryData.push(element);
-        }
-      });
-      return categoryData;
+  methods: {
+    deleteTask: function deleteTask(id) {
+      console.log('deletes', id);
+      this.$emit('deleteTask', id);
     }
   }
 };
@@ -11504,32 +11472,17 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "container-fluid mt-5" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.doneTask))]),
-      _vm._v(" "),
       _c(
         "div",
         { staticClass: "row" },
-        [
-          _vm._l(_vm.backlogTask, function(backlog, index) {
-            return _c("TaskBoard", {
-              key: index,
-              attrs: { backlogtask: backlog }
-            })
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.todoTask, function(todo, index) {
-            return _c("TaskBoard", { key: index, attrs: { todotask: todo } })
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.doingTask, function(doing, index) {
-            return _c("TaskBoard", { key: index, attrs: { doingtask: doing } })
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.doneTask, function(done, index) {
-            return _c("TaskBoard", { key: index, attrs: { donetask: done } })
+        _vm._l(_vm.taskData, function(task) {
+          return _c("TaskBoard", {
+            key: task.id,
+            attrs: { task: task },
+            on: { deleteTask: _vm.deleteTask }
           })
-        ],
-        2
+        }),
+        1
       )
     ])
   ])
@@ -11611,7 +11564,27 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "AddTask"
+  name: "AddTask",
+  data: function data() {
+    return {
+      title: "",
+      categoryId: ""
+    };
+  },
+  methods: {
+    changePage: function changePage(page) {
+      console.log(page, 'addtask');
+      this.$emit('changePage', page);
+    },
+    addTask: function addTask() {
+      var newTask = {
+        title: this.title,
+        categoryId: this.categoryId
+      };
+      console.log(this.title, this.categoryId);
+      this.$emit('addTask', newTask);
+    }
+  }
 };
 exports.default = _default;
         var $37e2db = exports.default || module.exports;
@@ -11655,9 +11628,80 @@ exports.default = _default;
                 }
               },
               [
-                _vm._m(0),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Title")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.title,
+                        expression: "title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { placeholder: "makan nasi", type: "text" },
+                    domProps: { value: _vm.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.title = $event.target.value
+                      }
+                    }
+                  })
+                ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v(" Category ")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.categoryId,
+                          expression: "categoryId"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.categoryId = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", [_vm._v("--select category--")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("backlog")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "2" } }, [_vm._v("todo")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "3" } }, [
+                        _vm._v("doing")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "4" } }, [_vm._v("done")])
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -11672,7 +11716,11 @@ exports.default = _default;
                   "button",
                   {
                     staticClass: "btn  btn-danger container-fluid",
-                    attrs: { type: "submit" }
+                    on: {
+                      click: function($event) {
+                        return _vm.changePage("kanbanBoard")
+                      }
+                    }
                   },
                   [_vm._v("cancel")]
                 )
@@ -11684,43 +11732,7 @@ exports.default = _default;
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v("Title")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { placeholder: "makan nasi", type: "text" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "sel1" } }, [
-        _vm._v(" Category (select one):")
-      ]),
-      _vm._v(" "),
-      _c("select", { staticClass: "form-control" }, [
-        _c("option", [_vm._v("--select category--")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "backlog" } }, [_vm._v("backlog")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "todo" } }, [_vm._v("todo")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "doing" } }, [_vm._v("doing")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "done" } }, [_vm._v("done")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -11784,6 +11796,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "MainPage",
   data: function data() {
@@ -11805,6 +11825,14 @@ var _default = {
       console.log('pagemain');
       console.log(page);
       this.$emit('changePage', page);
+    },
+    addTask: function addTask(paylaod) {
+      console.log(paylaod, 'from main page');
+      this.$emit('addTask', paylaod);
+    },
+    deleteTask: function deleteTask(id) {
+      console.log(id, 'here');
+      this.$emit('deleteTask', id);
     }
   }
 };
@@ -11827,10 +11855,17 @@ exports.default = _default;
       _c("Navbar", { on: { logout: _vm.logout, changePage: _vm.changePage } }),
       _vm._v(" "),
       _vm.onPage == "kanbanBoard"
-        ? _c("KanbanBoard", { attrs: { taskData: _vm.taskData } })
+        ? _c("KanbanBoard", {
+            attrs: { taskData: _vm.taskData },
+            on: { deleteTask: _vm.deleteTask }
+          })
         : _vm._e(),
       _vm._v(" "),
-      _vm.onPage == "addPage" ? _c("AddTask") : _vm._e()
+      _vm.onPage == "addPage"
+        ? _c("AddTask", {
+            on: { changePage: _vm.changePage, addTask: _vm.addTask }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -11903,6 +11938,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: "App",
   data: function data() {
@@ -11949,15 +11986,56 @@ var _default = {
       this.task = [];
       (0, _axios.default)({
         method: 'get',
-        url: 'http://localhost:3000/task',
+        url: 'http://localhost:3000/task/category',
         headers: {
           access_token: access_token
         }
       }).then(function (resp) {
-        resp.data.task.forEach(function (el) {
+        console.log(resp.data.data);
+        resp.data.data.forEach(function (el) {
           _this2.task.push(el);
         });
         console.log(_this2.task);
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    addTask: function addTask(payload) {
+      var _this3 = this;
+
+      console.log(payload, 'from app');
+      var access_token = localStorage.access_token;
+      console.log(access_token);
+      (0, _axios.default)({
+        method: 'post',
+        url: "http://localhost:3000/task",
+        headers: {
+          access_token: access_token
+        },
+        data: payload
+      }).then(function (resp) {
+        _this3.fethcData();
+
+        _this3.onPage = "kanbanBoard";
+      }).catch(function (err) {
+        console.log(err, 'gagal');
+      });
+    },
+    deleteTask: function deleteTask(id) {
+      var _this4 = this;
+
+      var access_token = localStorage.access_token;
+      console.log('final', id);
+      (0, _axios.default)({
+        url: "http://localhost:3000/task/".concat(id),
+        method: 'delete',
+        headers: {
+          access_token: access_token
+        }
+      }).then(function (res) {
+        _this4.fethcData();
+
+        console.log(res);
       }).catch(function (err) {
         console.log(err);
       });
@@ -11999,7 +12077,12 @@ exports.default = _default;
       _vm.onPage == "kanbanBoard" || _vm.onPage == "addPage"
         ? _c("MainPage", {
             attrs: { onPage: _vm.onPage, taskData: _vm.task },
-            on: { logout: _vm.logout, changePage: _vm.changePage }
+            on: {
+              logout: _vm.logout,
+              changePage: _vm.changePage,
+              addTask: _vm.addTask,
+              deleteTask: _vm.deleteTask
+            }
           })
         : _vm._e()
     ],
@@ -12081,7 +12164,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33261" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42267" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

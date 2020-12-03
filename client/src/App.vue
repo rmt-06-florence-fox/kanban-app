@@ -9,9 +9,11 @@
 
         <MainPage
         v-if="onPage == 'kanbanBoard' || onPage == 'addPage'"
-        :onPage="onPage"
         @logout="logout"
         @changePage="changePage"
+        @addTask="addTask"
+        @deleteTask='deleteTask'
+        :onPage="onPage"
         :taskData="task"
         ></MainPage>
     </div>
@@ -71,19 +73,54 @@ export default {
             this.task = []
             axios({
                 method : 'get',
-                url : 'http://localhost:3000/task',
+                url : 'http://localhost:3000/task/category',
                 headers : {
                     access_token  
                 }
             })
             .then(resp =>{
-                resp.data.task.forEach( el =>{
+                console.log(resp.data.data)
+                resp.data.data.forEach( el =>{
                     this.task.push(el)
                 })
                 console.log(this.task)
                 
             })
             .catch(err =>{
+                console.log(err)
+            })
+        },
+        addTask(payload){
+            console.log(payload,'from app')
+            const access_token = localStorage.access_token
+            console.log(access_token)
+            axios({
+                method : 'post',
+                url: "http://localhost:3000/task",
+                headers : {
+                    access_token },
+                data : payload
+            }).then(resp =>{
+                this.fethcData()
+                this.onPage="kanbanBoard"
+
+            }).catch(err =>{
+                console.log(err,'gagal')
+            })
+        },
+        deleteTask(id){
+            const access_token = localStorage.access_token
+            console.log('final',id)
+            axios({
+                url : `http://localhost:3000/task/${id}`,
+                method : 'delete',
+                headers : {
+                    access_token
+                }
+            }).then(res =>{
+                this.fethcData()
+                console.log(res)
+            }).catch(err =>{
                 console.log(err)
             })
         }

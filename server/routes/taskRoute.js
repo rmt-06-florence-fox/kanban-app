@@ -6,6 +6,7 @@ const authorization = require('../midleware/authorization')
 route.use(authentication)
 
 route.get('/', TaskController.getAllTask)
+route.get('/category', TaskController.getCategory)
 route.post('/', TaskController.addNewTask)
 
 route.use('/:id',authorization)

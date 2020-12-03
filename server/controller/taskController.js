@@ -153,6 +153,28 @@ class TaskController {
             next(error)
         }
     }
+
+    static  async getCategory(req,res,next){
+        try {
+            const category = await Category.findAll({
+                include : [Task]
+            })
+            console.log(category)
+            const data = category.map(el =>{
+                console.log('==========loop')
+                console.log(el.dataValues.Tasks)
+                return {
+                    id : el.dataValues.id,
+                    name : el.dataValues.name,
+                    Tasks : el.dataValues.Tasks
+                }
+            })
+            console.log(data)
+            res.status(200).json({data})
+        } catch (error) {
+            
+        }
+    }
 }
 
 module.exports = TaskController

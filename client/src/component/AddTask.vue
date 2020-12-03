@@ -10,23 +10,23 @@
 
                         <div class="form-group">
                           <label >Title</label>
-                          <input placeholder="makan nasi" type="text" class="form-control" >
+                          <input v-model="title" placeholder="makan nasi" type="text" class="form-control" >
                         </div>
 
                         <div class="form-group">
-                            <label for="sel1"> Category (select one):</label>
-                            <select class="form-control" >
+                            <label  > Category </label>
+                            <select v-model="categoryId" class="form-control" >
                               <option >--select category--</option>
-                              <option value="backlog">backlog</option>
-                              <option value="todo">todo</option>
-                              <option value="doing">doing</option>
-                              <option value="done">done</option>
+                              <option value=1>backlog</option>
+                              <option value=2>todo</option>
+                              <option value=3>doing</option>
+                              <option value=4>done</option>
                             </select>
                         </div>
 
                         <button  type="submit" class="btn btn-primary container-fluid mb-3">Add</button>
 
-                        <button  type="submit" class="btn  btn-danger container-fluid">cancel</button>
+                        <button @click="changePage('kanbanBoard')" class="btn  btn-danger container-fluid">cancel</button>
                         
                       </form>   
                 </div>
@@ -36,7 +36,27 @@
 
 <script>
 export default {
-    name : "AddTask"
+    name : "AddTask",
+    data(){
+      return {
+        title : "",
+        categoryId: ""
+      }
+    },
+    methods : {
+      changePage(page){
+        console.log(page,'addtask')
+        this.$emit('changePage', page)
+      },
+      addTask(){
+        const newTask = {
+          title : this.title,
+          categoryId : this.categoryId
+        }
+        console.log(this.title,this.categoryId)
+        this.$emit('addTask', newTask)
+      }
+    }
 }
 </script>
 
