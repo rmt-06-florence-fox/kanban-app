@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    onSignUp() {
+    onRegister() {
       this.isLoading = true
       if(!this.username) {
         this.isLoading = false
@@ -107,25 +107,23 @@ export default {
           'warning'
         )
       }
-      this.$store
-        .dispatch('signUp', {
-          first_name: this.first_name,
-          last_name: this.last_name,
+      this.$api({
+        method: 'POST',
+        url: 'register',
+        data: {
+          username: this.username,
           email: this.email,
-          password: this.password
-        })
-        .then(() => {
-          this.$router.push('/kanban')
-        })
-        .catch(err => {
-          if (err === 'DuplicateEmail')
-            Swal.fire(
-              'Duplicate Email',
-              'This email already registered!',
-              'warning'
-            )
-          this.isLoading = false
-        })
+          password: this.password,
+        }
+      })
+      .then(({ data }) => {
+        localStorage.setItem('access_token', data.access_token);
+        
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      
     }
   }
 }

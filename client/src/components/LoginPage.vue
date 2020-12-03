@@ -56,6 +56,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: "loginPage",
   props: ['changeStatus'],
@@ -63,10 +65,12 @@ export default {
     return {
       email: '',
       password: '',
+      isLoading: false
     }
   },
   methods: {
     doLogin() {
+      this.isLoading = true,
       this.$api({
         method: 'POST',
         url: 'login',
@@ -76,10 +80,14 @@ export default {
         }
       })
       .then(({ data }) => {
-        localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('access_token', data.access_token);
+        Swal.fire
+        this.changeStatus(true);
       })
       .catch((err) => {
-        console.log(err)
+        if (err === 'WrongInput')
+          Swal.fire('Wrong Input', 'Email/Password is wrong', 'warning')
+        this.isLoading = false
       })
     }
   }
