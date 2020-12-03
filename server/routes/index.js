@@ -7,6 +7,6 @@ router.get(`/`, (req, res) => {
 });
 
 router.use(`/`, userRoutes);
-router.use(`/task`, taskRoutes);
+router.use(`/tasks`, taskRoutes);
 
 module.exports = router;
