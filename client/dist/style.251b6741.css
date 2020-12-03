@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&family=Yellowtail&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr;
+}
+body .custom-navbar {
+  background: #1e3799;
+}
+body .main-page {
+  background: #4a69bd;
+  height: 100vh;
+  min-height: 500px;
+}
+
+.login-page {
+  height: 100vh;
+  min-height: 500px;
+  font-family: "Source Sans Pro", sans-serif;
+  background-image: url("/city1.2f5c50d9.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.login-page .card {
+  margin: 0 auto;
+  /* Added */
+  float: none;
+  /* Added */
+  margin-bottom: 10px;
+  /* Added */
+  box-shadow: black;
+}
+
+.register-page {
+  height: 100vh;
+  min-height: 500px;
+  font-family: "Source Sans Pro", sans-serif;
+  background-image: url("/city2.53e8d15c.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.register-page .card {
+  margin: 0 auto;
+  /* Added */
+  float: none;
+  /* Added */
+  margin-bottom: 10px;
+  /* Added */
+}
+
+.custom-navbar {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+}
+.custom-navbar .left-navbar {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(2, auto);
+  justify-self: flex-start;
+  margin-left: 20px;
+}
+.custom-navbar .left-navbar .nav-item {
+  height: 50px;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  padding: 5px;
+}
+.custom-navbar .center-navbar {
+  justify-self: center;
+  justify-content: center;
+}
+.custom-navbar .center-navbar .logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0.5rem;
+  transition: color 150ms;
+  cursor: pointer;
+  font-family: "Yellowtail", cursive;
+}
+.custom-navbar .center-navbar .logo h2 {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+.custom-navbar .center-navbar .logo-icon {
+  padding-right: 0.1rem;
+}
+.custom-navbar .right-navbar {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, auto);
+  justify-self: flex-end;
+  margin-right: 20px;
+}
+.custom-navbar .right-navbar .nav-item {
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.container {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.task-lists {
+  display: grid;
+  grid-auto-columns: 260px;
+  grid-auto-flow: column;
+  grid-gap: 25px;
+  overflow-x: auto;
+}
+
+.task-lists::-webkit-scrollbar {
+  height: 1.6rem;
+}
+
+.task-lists::-webkit-scrollbar-thumb {
+  margin: 5px;
+  background-color: #6a89cc;
+  border: 0.3rem solid #4a69bd;
+}
+
+.task-list {
+  background: #dfe6e9;
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-gap: 10px;
+  padding: 5px;
+  overflow-y: auto;
+  max-height: calc(100vh - 11rem);
+}
+.task-list .card :hover {
+  background-color: #eaeaea;
+}
+
+.task-list::-webkit-scrollbar {
+  height: 1.6rem;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  margin: 5px;
+  background-color: #5f5f5f;
+  border: 0.2rem solid #dfe6e9;
+}
+
+.container h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  padding: 1rem;
+}
+
+.add-card-btn {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #838c91;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.add-list-btn {
+  flex: 0 0 27rem;
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 400;
+  background-color: #6a89cc;
+  color: #809ddb;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 150ms;
+  text-align: left;
+}
+
+.edit-icon :hover {
+  text-decoration: none;
+  background-color: #121212;
+}
+
+footer {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+}
+
+
+
+
+/*# sourceMappingURL=/style.251b6741.css.map */
