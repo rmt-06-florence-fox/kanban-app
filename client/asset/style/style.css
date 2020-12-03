@@ -1,0 +1,25 @@
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-container .input {
+  padding: 50px;
+}
+
+.form {
+  position: absolute;
+  left: 9%;
+  background: whitesmoke;
+  width: 35%;
+  padding: 50px;
+  margin: 100px auto;
+}
+
+img {
+  position: relative;
+  left: 80%;
+  width: 60%;
+}
+
+/*# sourceMappingURL=style.css.map */

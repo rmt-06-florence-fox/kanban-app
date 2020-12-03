@@ -1,0 +1,30 @@
+$base-color: whitesmoke;
+$width-size: 35%;
+$padding: 50px;
+
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .input {
+    padding: $padding; 
+  }
+}
+
+.form {
+  position: absolute;
+  left: 9%;
+  background: $base-color;
+  width: $width-size;
+  padding: $padding;
+  margin: 100px auto;
+}
+
+img {
+  position: relative;
+  left: 80%;
+  width: 60%;
+}
+
+
