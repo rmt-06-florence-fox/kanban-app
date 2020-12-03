@@ -7,7 +7,9 @@
     ></LoginRegisterPage>
     <HomePage
         v-if="pageName === 'Home-page'"
-        @logout="logoutFromHomePage"    
+        @logout="logoutFromHomePage"
+        :tasks="tasks"
+        :categories="categories"
     ></HomePage>
   </div>
 </template>
@@ -15,6 +17,7 @@
 <script>
     import LoginRegisterPage from "./components/LoginRegisterPage";
     import HomePage from "./components/HomePage";
+    import axios from 'axios'
 
     export default {
         name: "App",
@@ -22,7 +25,25 @@
             return {
                 name: "Wellcome",
                 pageName: "Login-register-page",
-                tasks: []
+                tasks: [],
+                categories: [
+                    {
+                        name: 'Backlog',
+                        color: 'bg-dark',
+                    },
+                    {
+                        name: 'Todo',
+                        color: 'bg-dark',
+                    },
+                    {
+                        name: 'Doing',
+                        color: 'bg-dark',
+                    },
+                    {
+                        name: 'Completed',
+                        color: 'bg-dark',
+                    }
+                ]
             };
         },
         components: {
@@ -45,7 +66,7 @@
                 })
                 .then((response) => {
                     localStorage.setItem("access_token", response.data.access_token);
-                    this.pageName = "Home-page"
+                    this.pageName = "Home-page"            
                 })
                 .catch((error) => {
                     console.log(error);
@@ -92,6 +113,7 @@
             //     // })
             //     },
 
+        computed: {
             fetchTask() {
                 axios({
                     url: "http://localhost:3000/tasks",
@@ -101,12 +123,13 @@
                     } 
                 })
                 .then(response => {
-                    console.log(response.data)
+                    this.tasks = response.data
                 })
                 .catch(error => {
                     console.log(error)
                 })
             }
+        }
     };
 </script>
 

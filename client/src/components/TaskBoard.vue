@@ -1,53 +1,28 @@
 <template>
-  <div>
-                      <!-- <section id="home-page" class="container mt-5">
-            <main>
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6 mt-3">
-                            <div class="p-3 bg-primary rounded text-white">
-                                Backlog
-                            </div>
-                            <div class="card mt-3">
-                                <div class="card-body">
-                                  <h5 class="card-title">Tugas1</h5>
-                                  <h6 class="card-subtitle mb-2 text-muted">Detail</h6>
-                                  <a href="#" class="card-link">Edit</a>
-                                  <a href="#" class="card-link">Delete</a>
-                                </div>
-                              </div>
-                              <div class="mt-3 p-3 mb-2 bg-dark text-white">
-                                  Add Task
-                              </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mt-3">
-                            <div class="p-3 bg-primary rounded text-white">
-                                Todo
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mt-3">
-                            <div class="p-3 bg-primary rounded text-white">
-                                Done
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 mt-3">
-                            <div class="p-3 bg-primary rounded text-white">
-                                Completed
-                            </div>
-                        </div>    
-                    </div>
-                </div>
-            </main>
-        </section> -->
+  <div class="col-md-3 col-sm-6 mt-3">
+    <div class="p-3 rounded text-white" :class="category.color">{{ category.name }}</div>
+    <TaskItem
+        v-for="(task, idx) in filteredTask" :key="idx"
+        :task="task"
+    >
+    </TaskItem>
   </div>
 </template>
 
 <script>
+import TaskItem from "./TaskItem"
+
 export default {
-    name: "TaskBoard"
-}
+  name: "TaskBoard",
+  props: ["tasks", "category"],
+  components: { TaskItem },
+  computed: {
+      filteredTask () {
+          return this.tasks.task.filter(e => {return e.category === this.category.name})
+      }
+  }
+};
 </script>
 
 <style>
-
 </style>
