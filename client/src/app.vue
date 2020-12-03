@@ -3,7 +3,7 @@
       <LoginPage @postLogin="login" @postRegister="register" v-if="page == 'login'"
       :error="errorLogin"
       ></LoginPage>
-      <MainPage @logout="logout" v-if="page == 'main'" :tasks="tasks" @bukaMain="fetchAll"></MainPage>
+      <MainPage @logout="logout" v-if="page == 'main'" :tasks="tasks" @bukaMain="fetchAll" @fetchUlang="fetchAll"></MainPage>
   </div>
 </template>
 
@@ -31,7 +31,8 @@ export default {
                 Todo:[],
                 Doing:[],
                 Done:[]
-            }
+            },
+            UserId: NaN
         }
     },
     methods:{
@@ -45,7 +46,9 @@ export default {
                 }
             })
                 .then(({data})=>{
+                    console.log(data);
                     localStorage.setItem('access_token',data.access_token)
+                    localStorage.setItem('UserId',data.UserId)
                     this.errorLogin = {
                         login:'',
                         register: ''
@@ -106,7 +109,7 @@ export default {
                     })
                 })
                 .catch(err=>{
-                    console.log(err);
+                    console.log(err.response);
                 })
         }
     },

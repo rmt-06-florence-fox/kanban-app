@@ -19,7 +19,9 @@ class TaskController{
     }
     static async getTask(req,res,next){
         try {
-            let allTask = await Task.findAll()
+            let allTask = await Task.findAll({
+                order:[['id' , 'ASC']]
+            })
             res.status(200).json({allTask})
         } catch (err) {
             next(err)
@@ -48,8 +50,7 @@ class TaskController{
     static async putTask(req,res,next){
         let id = req.params.id
         let obj = {
-            title: req.body.title,
-            due_date: req.body.due_date
+            title: req.body.title
         }
         try {
             let editedTask = await Task.update(obj,{

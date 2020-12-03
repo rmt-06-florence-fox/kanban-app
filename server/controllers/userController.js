@@ -43,7 +43,7 @@ class UserController{
             if(loginUser){
                 if(comparePassword(obj.password , loginUser.password)){
                     let access_token = generateJwt({ id: loginUser.id , email: loginUser.email})
-                    res.status(200).json({access_token})
+                    res.status(200).json({access_token , UserId : loginUser.id})
                 }else{
                     throw{
                         status: 400,
@@ -77,7 +77,7 @@ class UserController{
             })
             if(isRegistered){
                 let access_token = generateJwt({ id: isRegistered.id , email: isRegistered.email})
-                res.status(200).json({access_token})
+                res.status(200).json({access_token , UserId : isRegistered.id})
             }else{
                 let obj = {
                     email: payload.email,
