@@ -2,7 +2,12 @@
     <div>
         <entryPage :pageName = "pageName" v-if="entry" @changePage = 'changePage' @axiosLogin= "axiosLogin" @axiosRegist = 'axiosRegist'></entryPage>
         <navBar v-if="!entry" @logout= 'logout'></navBar>
-        <boardList @addNewTask = 'addNewTask' v-if="!entry">
+        <boardList 
+            :tasks = 'tasks' 
+            @addNewTask = 'addNewTask' 
+            @destroying = 'destroying'
+            v-if="!entry"
+            >
 
         </boardList>
     </div>
@@ -16,6 +21,7 @@ import boardList from './components/boardList'
 import taskBoard from './components/taskBoard'
 import taskItem from './components/taskItem'
 import addNew from './components/addNew'
+import axios from 'axios'
 
 export default {
     name: "App",
@@ -23,6 +29,7 @@ export default {
         return {
             entry: true,
             pageName: 'login page',
+            tasks : []
             // addNewStatus: false
         }
     },
@@ -48,6 +55,7 @@ export default {
                 headers:{access_token}
             })
             .then(response =>{
+                this.fetchTask()
                 console.log(response.data)
             })
             .catch(err =>{
@@ -93,11 +101,40 @@ export default {
             localStorage.clear()
             this.entry = true
             this.pageName = 'login page'
+        },
+        fetchTask(){
+            let access_token = localStorage.access_token
+            axios({
+                method: 'get',
+                url: `http://localhost:3000/tasks`,
+                headers:{access_token}
+            })
+            .then(response =>{
+                this.tasks = response.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        },
+        destroying(id){
+            let access_token = localStorage.access_token
+            axios({
+                method: 'delete',
+                url: `http://localhost:3000/tasks/${id}`,
+                headers:{access_token}
+            })
+            .then(response =>{
+                this.fetchTask()
+            })
+            .catch(err =>{
+                swal('Not your Authorization', ' ', 'warning')
+            })
         }
     },
     created(){
         if(localStorage.getItem('access_token')){
             this.entry = false
+            this.fetchTask()
         } else {
             this.entry = true
             this.pageName = 'login page'

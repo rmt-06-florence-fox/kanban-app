@@ -1,6 +1,13 @@
 <template>
     <div  class="d-flex justify-content-around mainBoard">
-        <taskBoard @addNewTask = "addNewTask" v-for="(category, index) in categories" :key= "index" :categoryName = "category"></taskBoard>
+        <taskBoard 
+            :tasks= 'tasks' 
+            @addNewTask = "addNewTask"
+            @destroying = 'destroying' 
+            v-for="(category, index) in categories" :key= "index" 
+            :categoryName = "category"
+            >
+        </taskBoard>
     </div>
 
 </template>
@@ -42,8 +49,12 @@ export default {
         addNewTask(payload){
             this.$emit('addNewTask', payload)
             // console.log(payload, ' from boardlist')
+        },
+        destroying(id){
+            this.$emit('destroying', id)
         }
-    }
+    },
+    props: ['tasks']
 
 }
 </script>
