@@ -6,12 +6,12 @@
         @register="registerUser"
     ></LoginRegisterPage>
     <HomePage
-        v-if="pageName === 'Home-page'"
         @logout="logoutFromHomePage"
         @changePage="ChangePage"
         :pageName="pageName"
         :tasks="tasks"
         :categories="categories"
+        v-else
     ></HomePage>
   </div>
 </template>
@@ -19,7 +19,7 @@
 <script>
     import LoginRegisterPage from "./components/LoginRegisterPage";
     import HomePage from "./components/HomePage";
-    import axios from 'axios'
+    import axios from 'axios';
 
     export default {
         name: "App",
@@ -102,7 +102,6 @@
                 }
             },
 
-        computed: {
             fetchTask() {
                 axios({
                     url: "http://localhost:3000/tasks",
@@ -117,7 +116,6 @@
                 .catch(error => {
                     console.log(error)
                 })
-            }
         }
     };
                 // onSignIn(googleUser) {

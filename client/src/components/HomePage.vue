@@ -4,21 +4,21 @@
         @logout="signOut"
         @ChangePage="changePage"
     ></Navbar>
-    <AddForm
-        v-if="pageName === 'Add-form'"
-    ></AddForm>
     <BoardList
         v-if="pageName === 'Home-page'"
         :tasks="tasks"
         :categories="categories"
     ></BoardList>
+    <AddForm
+        v-if="pageName === 'Add-form'"    
+    ></AddForm>
   </div>
 </template>
 
 <script>
+import AddForm from "./AddForm"
 import Navbar from "./Navbar";
 import BoardList from "./BoardList";
-import AddForm from "./AddForm";
 
 export default {
   name: "HomePage",

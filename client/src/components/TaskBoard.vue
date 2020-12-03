@@ -18,7 +18,7 @@ export default {
   components: { TaskItem },
   computed: {
       filteredTask () {
-          // return this.tasks.task.filter(e => {return e.category === this.category.name})
+          return this.tasks.task.filter(e => {return e.category === this.category.name})
       }
   }
 };
