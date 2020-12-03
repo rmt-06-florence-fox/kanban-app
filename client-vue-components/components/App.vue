@@ -3,8 +3,8 @@
   
     <Header @listenLogout = "logout" v-if="page === 'content'"></Header>
     
-    <LoginForm @listenToRegister = "changePage" v-else-if="page === 'login'"></LoginForm>
-    <RegisterForm @listenToLogin = "changePage" v-else-if="page === 'register'"></RegisterForm>
+    <LoginForm @listenToRegister = "changePage" @listenToContent = "changePage" v-else-if="page === 'login'"></LoginForm>
+    <RegisterForm @listenToLogin = "changePage" @listenToContent = "changePage" v-else-if="page === 'register'"></RegisterForm>
   </div>
   
 </template>
@@ -19,7 +19,7 @@ export default {
     name : 'App',
     data (){ // function that returns an object
         return {
-            page : "content"
+            page : "login"
         }
     },
     methods : {
@@ -29,10 +29,16 @@ export default {
             this.page = "login"
         },
         changePage(pageName){
-            //console.log('masuk changePage')
+            console.log('masuk changePage')
             this.page = pageName
         }
     },
+    //created : {
+    //    decidePage(){
+    //        if (localStorage.getItem('access_token')) this.page = "content"
+    //        else this.page = "login" 
+    //    }
+    //},
     components : {
         Header,
         LoginForm,

@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import server from "../../server.js"
+import axios from "axios"
+
 export default {
     name : "LoginForm",
     data (){
@@ -40,6 +43,23 @@ export default {
         showRegisterPage(){
             //console.log('pindah ke register')
             this.$emit('listenToRegister', 'register')
+        },
+        login(){
+            const {email, password} = this
+
+            axios({
+                url : server + "/login",
+                method : 'POST',
+                data : {email, password} 
+            })
+            .then( ({data}) => {
+                //console.log(data)
+                localStorage.setItem('access_token', data.access_token)
+                this.$emit('listenToContent', 'content')
+            })
+            .catch (err => {
+                console.log(err)
+            })
         }
     }
 

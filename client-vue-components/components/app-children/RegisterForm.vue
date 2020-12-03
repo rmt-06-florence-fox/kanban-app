@@ -31,8 +31,8 @@
 
 <script>
 //import axios from "axios"
-const axios = require("axios")
-const server = require("../../server.js")
+import axios from "axios"
+import server from "../../server.js"
 
 export default {
     data (){
@@ -46,17 +46,21 @@ export default {
             //console.log('pindah ke login')
             this.$emit('listenToLogin', 'login')
         },
-        async register(){
-            console.log(email, password)
-            try{
-                const {data} = await axios({
-                    url : server + "/register",
-                    method : "POST",
-                    data : {email, password}
-                })
-            }catch(err){
-                console.log(err)
-            }
+        register () {
+            //console.log(this.email, this.password)
+            const {email, password} = this
+            axios({
+                url : server + "/register",
+                method : "POST",
+                data : {email, password}
+            })
+            .then( _ => {
+                console.log('register success')
+                this.$emit('listenToContent', 'content')
+            })
+            .catch (err => {
+                console.log(err.message)
+            })
         }
     }
 }
