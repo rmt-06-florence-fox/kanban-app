@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-light">
+  <!-- <nav class="navbar navbar-light">
     <a class="navbar-brand p-2" href="#">
       Kanban Board
     </a>
@@ -24,10 +24,10 @@
     <a href="#" class="btn btn-info btn-lg">
       <span class="glyphicon glyphicon-log-out"></span> Log out
     </a>
-  </nav>
+  </nav> -->
 
   <!-- login form  -->
-  <div class="form-login">
+  <!-- <div class="form-login">
     <form>
       <label for="email-form">email :</label>
       <input type="email" id=email-form><br>
@@ -35,11 +35,11 @@
       <input type="password" id=password-form><br>
       <input type="submit" value="login">
     </form> 
-  </div><br>
+  </div><br> -->
 <!-- login form  -->
 
   <!-- add form -->
-<div class="form-login">
+<!-- <div class="form-login">
   <form>
     <label for="title-form">Task Title :</label>
     <input type="text" id=title-form><br>
@@ -49,7 +49,7 @@
     <input type="text" id=deadline-form><br>
     <input type="submit" value="add task">
   </form>
-  </div><br>
+  </div><br> -->
 <!-- add form -->
 
   <div class="board-container">
@@ -465,9 +465,16 @@
 
   </div>
 
+  <div id=app>
+    <h1 v-text="nama"></h1>
+    <h2>{{nama01}}</h2>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
