@@ -1,11 +1,13 @@
 <template>
 <div>
-  <div class="card-container mt-2" v-for="task in filterTask" :key="task.id">
+  <div class="card-container mt-2" >
+    <div v-for="task in filterTask" :key="task.id">
      <kanban-card-component 
       :filterTask="task" 
       @deleteId="deleteTask" 
       @editTask="edit"
     ></kanban-card-component>
+    </div>
      
   </div> 
 

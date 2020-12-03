@@ -10,7 +10,8 @@
       :categories="categories"
       :tasks="tasks"
       @deleteId="deleteTask"
-      @editTask="editTask" 
+      @editTask="editTask"
+      @addTask="createTask" 
     ></kanban-board-component>
   </div>
 </template>
@@ -152,6 +153,22 @@ export default {
         const editedTask = await axios ({
           url : `${baseurl}tasks/${id}`,
             method: 'put',
+            headers :{
+            access_token : localStorage.getItem('access_token')
+            },
+            data : data
+        })
+        this.fetch()
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async createTask(data){
+      // console.log(data);
+      try {
+        const newTask = await axios({
+          url : `${baseurl}tasks`,
+            method: 'post',
             headers :{
             access_token : localStorage.getItem('access_token')
             },
