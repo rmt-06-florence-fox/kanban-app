@@ -1,7 +1,7 @@
 <template>
   <section id="add-task-form"> 
         <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-          <div class="p-5 bg-light shadow" style="width: 30%; height: 80%; border-radius: 10px;">
+          <div class="p-5 bg-light shadow" style="width: 30%; height: 90%; border-radius: 10px;">
             <h2 class="text-center">Add new Task</h2>
             <img class="w-100" src="../assets/undraw_To_do_list_re_9nt7.png" alt="task-list">
             <form class="mt-4" @submit="add">

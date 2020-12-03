@@ -50,6 +50,7 @@ import HomePage from './components/HomePage'
 import RegisterPage from './components/RegisterPage'
 import Add from './components/Add'
 import Edit from './components/Edit'
+import Swal from 'sweetalert2'
 
 export default {
     name: "App",
@@ -111,10 +112,13 @@ export default {
                 console.log("ini masuk broo")
             })
             .catch(err => {
-                console.log(err,"masuk ke sini brooo ke erorr  ")
+                console.log(err,"masuk ke sini brooo ke erorr")
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sorry, wrong email/ password!'
+                })
             })
-            
-            
         },
         fetchTask(){
             let url = "/tasks"
@@ -196,6 +200,11 @@ export default {
             })
             .catch(err => {
                 console.log(err)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sorry, you are not authorized!'
+                })
             })
         },
         edit (payload) {
@@ -217,6 +226,11 @@ export default {
             })
             .catch(err => {
                 console.log(err)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Sorry, you are not authorized!'
+                })
             })
         }
     },
