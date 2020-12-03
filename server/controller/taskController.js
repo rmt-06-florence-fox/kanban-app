@@ -1,5 +1,5 @@
 const { compareSync } = require('bcrypt')
-const {Task,User} = require('../models')
+const {Task,User,Category} = require('../models')
 
 
 class TaskController {
@@ -8,19 +8,20 @@ class TaskController {
         console.log('=========== REad Task')
         console.log(req.loginUser)        
         try {
-            console.log('=========== Try REad Task')
-
+            
             const task = await Task.findAll({
-                include : [User]
+                include : [User,Category]
             })
-            console.log(task[0])
+            console.log('=========== Try REad Task')
+            console.log(task[0].dataValues)
             
             const data = task.map(el =>{
-                // console.log(el.dataValues.User.dataValues)
+                console.log('==========loop')
+                console.log(el.dataValues.Category)
                 return {
                     id : el.dataValues.id,
                     title : el.dataValues.title,
-                    Category : el.dataValues.Category,
+                    CategoryId : el.dataValues.CategoryId,
                     createdAt : el.dataValues.createdAt,
                     updatedAt : el.dataValues.updatedAt,
                     User : el.dataValues.User.dataValues.email
@@ -46,7 +47,7 @@ class TaskController {
         console.log(req.body)
         const newTask = {
             title : req.body.title,
-            Category : req.body.category,
+            CategoryId : req.body.categoryId,
             UserId : userId,
         }
         console.log(newTask)

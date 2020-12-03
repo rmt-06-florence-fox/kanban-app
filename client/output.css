@@ -70,6 +70,13 @@
   min-width: 50rem;
   min-height: 30rem;
 }
+.login-container small {
+  text-align: center;
+  margin-bottom: 2px;
+}
+.login-container .g-signin2 {
+  margin: auto;
+}
 
 .add-container {
   display: flex;

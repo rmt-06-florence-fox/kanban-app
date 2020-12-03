@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="470221539695-l3767gn8dmffife24ehlm02bcpf8j1at.apps.googleusercontent.com">
+    <!-- boostrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!-- font awesom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- css style -->
+    <link rel="stylesheet" href="output.css">
+    <title>kanban app</title>
+</head>
+<body>
+<div id="app">
+
+
+   <div v-if="onPage === 'loginPage'" id="login-page" class="login-container" >
+    <button @click="logout()" type="button" class="btn btn-danger">Logout</button>
+        <div class="card bg-light mb-5" >
+            <div class="card-header">Login</div>
+                <div class="card-body">
+                <h5 class="card-title">login to continue</h5>
+                <form @submit.prevent >
+                    <div class="form-group">
+                      <label>Email address</label>
+                      <input v-model="userData.email" type="email" class="form-control"  aria-describedby="">
+                      <small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label >Password</label>
+                      <input v-model="userData.password" type="password" class="form-control" >
+                    </div>
+                    <button @click="login()" type="submit" class="btn btn-primary container-fluid mb-3">login</button>
+
+                    <small id="" class="form-text text-muted">Login with google account</small>
+
+                    
+                    <div class="g-signin2 google" data-onsuccess="onSignIn"></div>
+
+
+                    <small id="" class="form-text text-muted">Dont have an account ? Please Register</small>
+                    <button @click="changePage('registerPage')" type="submit" class="btn  btn-success container-fluid">Register</button>
+                  </form>   
+                </div>
+              </div>
+            </div>
+            
+
+
+    <div v-if="onPage == 'registerPage' " id="register-page"  class="login-container">
+        <div class="card bg-light mb-5" style="max-width: 18rem;">
+            <div class="card-header">Register</div>
+                <div class="card-body">
+                <h5 class="card-title">Register your account</h5>
+                <form v-on:submit.prevent>
+                    <div class="form-group">
+                      <label for=>Email address</label>
+                      <input v-model="userData.email" type="email" class="form-control" id= aria-describedby="">
+                      <small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for=>Password</label>
+                      <input v-model="userData.password" type="password" class="form-control" id=>
+                    </div>
+                    <button @click="registerNewUser()" type="submit" class="btn btn-primary container-fluid mb-3">Register</button>
+                    <button @click="changePage('loginPage')" type="submit" class="btn  btn-danger container-fluid">cancel</button>
+                  </form>   
+            </div>
+        </div>
+    </div>
+
+
+    <div id="main-page">
+
+        <!-- navbar -->
+        <nav>
+            <div v-if="onPage == 'kanbanPage' || onPage == 'addPage' " class="navbar-container mb-3">
+                
+                <div><img src="https://img2.pngdownload.id/20180501/jce/kisspng-phi-greek-alphabet-letter-beta-phi-barrier-5ae7f8eef32138.9021669115251519829959.jpg" alt="logo"></div>
+    
+                <div class="logo">
+                    Kanban App
+                </div>
+    
+                <div>
+    
+                    <div class="navbar-features">
+                        <span  @click="changePage('addPage')"  class="add-task">
+                              <i class="fa fa-plus"></i>
+                              <p>CREATE</p>
+                        </span>
+                        
+                        <button @click="logout()" type="button" class="btn btn-danger">Logout</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+        <!-- end of navbar -->
+
+        <!-- ADD Page -->
+        <div v-if="onPage == 'addPage'" id="add-task-page" class="add-container">
+            <div class="card bg-light mb-5" style="max-width: 18rem;">
+                <div class="card-header">Add New Task To Your Kanban Board</div>
+                    <div class="card-body">
+                    <form @submit.prevent>
+                        <div class="form-group">
+                          <label for=>Title</label>
+                          <input v-model="newTask.title" placeholder="makan nasi" type="text" class="form-control" id= aria-describedby="">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1"> Category (select one):</label>
+                            <select v-model="newTask.category" class="form-control" >
+                              <option >--select category--</option>
+                              <option value="backlog">backlog</option>
+                              <option value="todo">todo</option>
+                              <option value="doing">doing</option>
+                              <option value="done">done</option>
+                            </select>
+                        </div>
+
+                        <button @click="addTask()"  type="submit" class="btn btn-primary container-fluid mb-3">Add</button>
+
+                        <button @click="changePage('kanbanPage')" type="submit" class="btn  btn-danger container-fluid">cancel</button>
+                        
+                      </form>   
+                </div>
+            </div>
+        </div>
+        <!-- End of add page -->
+
+        <!-- Kanban Board -->
+        <div v-if="onPage == 'kanbanPage'" class="container-fluid mt-5">
+            <div class="row">
+              <!-- BackLog-->
+              <div class="col-sm ">
+
+                  <div class="p-3 bg-primary text-white">
+                      BackLog
+                  </div>
+
+                  <div v-for="(task,index) in backLogTask" :key="index" class="card mt-3">
+                    <div  class="card-header">
+                      <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                        <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                          <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                          <button class="btn btn-primary"> edit</button>
+                          <button class="btn btn-danger"> cancel</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li>{{task.User}}</li>
+                            <li>{{task.createdAt}}</li>
+                        </ul>
+                        <div>
+                            <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
+                            <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                            <a href="#"><i class="fa fa-arrows"></i></a>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <!-- BackLog-->
+
+              <!-- TODO-->
+              <div class="col-sm ">
+                <div class="p-3 bg-primary text-white">
+                    TODO
+                </div>
+                <div v-for="(task,index) in todoTask" :key="index" class="card mt-3">
+                  <div  class="card-header">
+                    <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                      <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                        <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                        <button class="btn btn-primary"> edit</button>
+                        <button class="btn btn-danger"> cancel</button>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <ul>
+                          <li>{{task.User}}</li>
+                          <li>{{task.createdAt}}</li>
+                      </ul>
+                      <div>
+                          <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
+                          <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                          <a href="#"><i class="fa fa-arrows"></i></a>
+                      </div>
+                  </div>
+              </div>
+              </div>
+              <!-- TODO-->
+
+              <!-- doing-->
+            <div class="col-sm ">
+
+              <div class="p-3 bg-primary text-white">
+                  doing
+              </div>
+
+              <div v-for="(task,index) in doingTask" :key="index" class="card mt-3">
+                <div  class="card-header">
+                  <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                    <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                      <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                      <button class="btn btn-primary"> edit</button>
+                      <button class="btn btn-danger"> cancel</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>{{task.User}}</li>
+                        <li>{{task.createdAt}}</li>
+                    </ul>
+                    <div>
+                        <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
+                        <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                        <a href="#"><i class="fa fa-arrows"></i></a>
+                    </div>
+                </div>
+            </div>
+            </div>
+              <!-- doing-->
+
+            <!-- done -->
+            <div class="col-sm ">
+
+                <div class="p-3 bg-primary text-white">
+                    Done
+                </div>
+
+                <div v-for="(task,index) in doneTask" :key="index" class="card mt-3">
+                  <div  class="card-header">
+                    <p v-if="getIdEditTask != task.id" >{{task.title}}</p>
+
+                      <div v-else-if="getIdEditTask == task.id" class="edit-task">
+                        <input  @keyup.enter="getIdEditTask = ''"  v-model="task.title"  :placeholder="task.title" type="text" ><br>
+                        <button class="btn btn-primary"> edit</button>
+                        <button class="btn btn-danger"> cancel</button>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <ul>
+                          <li>{{task.User}}</li>
+                          <li>{{task.createdAt}}</li>
+                      </ul>
+                      <div>
+                          <a @click.prevent="getIdEditTask = task.id" href="#"> <i  class="fa fa-pencil"></i></a>
+                          <a @click.prevent ="deleteTask(task.id)" href="#"><i class="fa fa-trash-o"></i></a>
+                          <a href="#"><i class="fa fa-arrows"></i></a>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <!-- done -->
+
+        
+        <!-- end of Kanban Board -->
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!--Boostrap Script  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <!-- End Of Boostrap Script -->
+    <!-- Google oauth  -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- google oauth  -->
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Axios -->
+    <!-- Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="./main.js"></script>
+
+</body>
+</html>
