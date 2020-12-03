@@ -14,7 +14,7 @@
   <body>
     <div id="app">
       <!-- Register Page -->
-      <div class="main-container fullscreen">
+      <div v-if="pageName == 'register-page'" class="main-container fullscreen">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6 col-md-7">
@@ -45,7 +45,7 @@
         </div>
       </div>
       <!-- Login Page -->
-      <div class="main-container fullscreen">
+      <div v-else-if="pageName == 'login-page'" class="main-container fullscreen">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6 col-md-7">
@@ -71,7 +71,7 @@
         </div>
       </div>
       <!-- Kanban Page -->
-      <div class="layout layout-nav-top">
+      <div v-else-if="pageName == 'kanban-page'" class="layout layout-nav-top">
         <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
           <a class="navbar-brand" href="#">
             <img alt="Pipeline" src="assets/img/logo.svg" />
@@ -116,20 +116,20 @@
           <div class="container-kanban">
             
             <div class="kanban-board container-fluid mt-lg-3">
-
-              <div class="kanban-col">
+              <!-- Category -->
+              <div v-for="category in categories" :key="category.id" class="kanban-col">
                 <div class="card-list">
                   <div class="card-list-header">
-                    <h6>Backlog</h6>
+                    <h6>{{category.name}}</h6>
                   </div>
+                  <!-- Tasks -->
                   <div class="card-list-body">
-
-                    <div class="card card-kanban">
-
+                    <!-- Title -->
+                    <div v-for="task in tasks" :key="task.id" class="card card-kanban">
                       <div class="card-body">
                         <div class="card-options">
                           <button class="btn-options" type="button" aria-haspopup="true" aria-expanded="false">
-                            <i class="material-icons" >edit</i>
+                            <i class="material-icons">edit</i>
                             <i class="material-icons">delete</i>
                           </button>
                           <form class="modal fade" id="task-edit-modal" tabindex="-1" aria-hidden="true">
@@ -164,12 +164,10 @@
                           </form>
                         </div>
                         <div class="card-title text-wrap">
-                          <a href="#" data-toggle="modal" data-target="#task-modal"><h6>Lorem ipsum</h6></a>
+                          <a href="#" data-toggle="modal" data-target="#task-modal"><h6>{{task.title}}</h6></a>
                         </div>
-
                       </div>
                     </div>
-
                   </div>
                   <div class="card-list-footer">
                     <button class="btn btn-link btn-sm text-small" data-toggle="modal" data-target="#task-add-modal">Add task</button>
@@ -205,6 +203,22 @@
                     </div>
                   </form>
                 </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Error Page -->
+      <div v-else="pageName == 'error-page'" class="main-container fullscreen">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-7">
+              <div class="text-center">
+                <h1 class="display-1 text-primary">4&#x1f635;4</h1>
+                <p>
+                  The page you were looking for was not found. <a href="index.html">Click here to go home</a> or <a href="#">Contact Us</a> if you think this might be an error.
+                </p>
               </div>
             </div>
           </div>
