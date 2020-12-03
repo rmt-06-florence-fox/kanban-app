@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bulma": "^0.9.1"
+    "axios": "^0.21.0",
+    "bulma": "^0.9.1",
+    "vue": "^2.6.12"
   },
   "devDependencies": {},
   "scripts": {

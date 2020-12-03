@@ -1,22 +1,22 @@
-var filters = {
+const filters = {
   backlog: function (tasks) {
     return tasks.filter(function (task) {
-      return task.status === 1;
+      return task.category === 1;
     });
   },
   todo: function (tasks) {
     return tasks.filter(function (task) {
-      return task.status === 2;
+      return task.category === 2;
     });
   },
   ongoing: function (tasks) {
     return tasks.filter(function (task) {
-      return task.status === 3;
+      return task.category === 3;
     });
   },
   completed: function (tasks) {
     return tasks.filter(function (task) {
-      return task.status === 4;
+      return task.category === 4;
     });
   },
 };
@@ -32,20 +32,20 @@ Vue.component("task-card", {
       </footer>
       
       <footer class="card-footer">
-        <a class="card-footer-item" @click="decrementStatus(task)">◀︎</a>
-        <a class="card-footer-item" @click="incrementStatus(task)">▶︎</a>
+        <a class="card-footer-item" @click="decrementCategory(task)">◀︎</a>
+        <a class="card-footer-item" @click="incrementCategory(task)">▶︎</a>
       </footer>
     </div>
   `,
   methods: {
-    incrementStatus: function (task) {
-      if (1 <= task.status && task.status <= 3) {
-        task.status++;
+    incrementCategory: function (task) {
+      if (1 <= task.category && task.category <= 3) {
+        task.category++;
       }
     },
-    decrementStatus: function (task) {
-      if (2 <= task.status && task.status <= 4) {
-        task.status--;
+    decrementCategory: function (task) {
+      if (2 <= task.category && task.category <= 4) {
+        task.category--;
       }
     },
   },
@@ -55,10 +55,10 @@ new Vue({
   el: "#board",
   data: {
     tasks: [
-      { name: "makan", status: 1, assignee: "ican", duration: 3 },
-      { name: "masak aer", status: 3, assignee: "budi", duration: 2 },
-      { name: "ke pasar", status: 3, assignee: "sule", duration: 1 },
-      { name: "beli odol", status: 3, assignee: "cimicimi", duration: 1 },
+      { name: "makan", category: 1, assignee: "ican", duration: 3 },
+      { name: "masak aer", category: 3, assignee: "budi", duration: 2 },
+      { name: "ke pasar", category: 3, assignee: "sule", duration: 1 },
+      { name: "beli odol", category: 3, assignee: "cimicimi", duration: 1 },
     ],
     newTaskName: "",
     newTaskAssignee: "",
@@ -82,7 +82,7 @@ new Vue({
     addTask() {
       this.tasks.push({
         name: this.newTaskName,
-        status: 1,
+        category: 1,
         assignee: this.newTaskAssignee,
         duration: this.newTaskDuration,
       });
