@@ -1,7 +1,11 @@
 <template>
 <div>
   <div class="card-container mt-2" v-for="task in filterTask" :key="task.id">
-     <kanban-card-component :filterTask="task" @deleteId="deleteTask" ></kanban-card-component>
+     <kanban-card-component 
+      :filterTask="task" 
+      @deleteId="deleteTask" 
+      @editTask="edit"
+    ></kanban-card-component>
      
   </div> 
 
@@ -22,6 +26,9 @@ export default {
   methods: {
     deleteTask(id){
       this.$emit('deleteId', id)
+    },
+    edit(data,id){
+      this.$emit('editTask', data, id)
     }
   }
 }

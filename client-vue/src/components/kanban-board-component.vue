@@ -8,7 +8,12 @@
           {{category.name}}
         </div>
   
-        <task-board-component @deleteId="deleteTask" :tasks="tasks" :category="category.name"></task-board-component>
+        <task-board-component 
+          @deleteId="deleteTask"
+          @editTask="edit" 
+          :tasks="tasks" 
+          :category="category.name"
+        ></task-board-component>
       </div>
     </div>
   </div>
@@ -24,6 +29,9 @@ export default {
   methods: {
     deleteTask(id){
       this.$emit('deleteId', id)
+    },
+    edit(data, id){
+      this.$emit('editTask', data, id)
     }
   }
 }
