@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.status-1 {
+  background-color: #f7d794;
+}
+
+.status-2 {
+  background-color: #ea8685;
+}
+
+.status-3 {
+  background-color: #786fa6;
+}
+
+.status-4 {
+  background-color: #63cdda;
+}
+
+.card {
+  margin-bottom: 5px;
+}
+
+.column {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.card-content {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.card-footer-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.7s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+/*# sourceMappingURL=style.css.map */

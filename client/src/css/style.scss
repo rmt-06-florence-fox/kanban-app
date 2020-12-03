@@ -1,0 +1,58 @@
+$first-color: #f7d794;
+$second-color: #ea8685;
+$third-color: #786fa6;
+$fourth-color: #63cdda;
+@function transparent($color) {
+  @return rgba($color, .5 );
+}
+
+// @function invert($color, $amount: 100%) {
+//   $inverse: change-color($color, $hue: hue($color) + 180);
+//   @return mix($inverse, $color, $amount);
+// }
+
+// $primary-color: #036;
+// .header {
+//   background-color: invert($primary-color, 80%);
+// }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.status-1 {
+  background-color: $first-color;
+}
+.status-2 {
+  background-color: $second-color;
+}
+.status-3 {
+  background-color: $third-color;
+}
+.status-4 {
+  background-color: $fourth-color;
+}
+.card {
+  margin-bottom: 5px;
+}
+
+.column {
+  min-height: 400px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.card-content {
+  background-color: transparent(white);
+}
+
+.card-footer-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.7s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
