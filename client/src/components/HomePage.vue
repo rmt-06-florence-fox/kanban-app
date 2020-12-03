@@ -20,8 +20,8 @@
                 </form>
             </div>
         </nav>
-        <div class="boards-container ">
-            <div class="boards-container-board ">
+        <div class="boards-container">
+            <div class="boards-container-board" style="background-color:coral;">
                 <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Back Log </h1></div>
                 <!-- <h2 v-text="text"></h2>
                 <div v-html="pesan"></div> -->
@@ -30,21 +30,21 @@
                 </Card> 
                 
             </div>
-            <div class="boards-container-board">
+            <div class="boards-container-board" style="background-color:chartreuse;">
                 <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Products </h1></div>
                 
                 <Card v-for="task in filterProducts" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
                 
                 </Card> 
             </div>
-            <div class="boards-container-board">
+            <div class="boards-container-board" style="background-color:lightcyan;">
                 <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Development </h1></div>
                 
                 <Card v-for="task in filterDevelopment" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
                 
                 </Card> 
             </div>
-                <div class="boards-container-board">
+            <div class="boards-container-board" style="background-color:violet;">
                 <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Done </h1></div>
                 
                 <Card v-for="task in filterDone" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
@@ -103,6 +103,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.boards-container{
+    display: flex;
+    justify-content:center;
+}
+
+.boards-container-board{
+    width: 500px;
+}
 
 </style>

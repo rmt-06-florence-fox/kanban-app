@@ -1,12 +1,12 @@
 <template>
     <!-- <div class="boards-container-board-card" >{{task.title}} <br> {{task.description}} <br></div> -->
-    <div class="card" style="width: 14rem;">
+    <div class="card" style="width: 100%; justify-content: centre;">
         <div class="card-body">
             <h5 class="card-title">{{ task.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ task.progress }}</h6>
             <p class="card-text">{{ task.description }}</p>
             <a @click.prevent='edit' class="card-link" style="cursor:pointer;">edit</a>
-            <a @click.prevent='destroy' class="card-link" style="cursor:pointer;">delete</a>
+            <a @click.prevent='destroy' class="card-link" style="cursor:pointer; color:red;">delete</a>
         </div>
     </div>
     <!-- <ol class="kanban To-do">
