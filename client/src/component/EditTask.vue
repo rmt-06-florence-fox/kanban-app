@@ -15,17 +15,17 @@
 <script>
 export default {
     name : "EditTask",
-    data(){
-      return  {
-        title : titleEdit
-      }
-    },
     props : ['titleEdit'],
     methods : {
         cancelEdit(){
             console.log('cancel')
             this.$emit('cancelEdit',0)
         }
+    },
+    computed : {
+      editedData(){
+        return this.titleEdit
+      }
     }
 }
 </script>
