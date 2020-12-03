@@ -4,6 +4,15 @@
     <Navbar :pageName="pageName" @logoutButton='logout' ></Navbar>
     <login v-if="pageName === 'Login Page'" @changePage='changePage' @dataLogin='login'></login>
     <register v-if="pageName === 'Register Page'" @dataRegist='regist'></register>
+    <taskboard 
+      v-if="pageName === 'Home Page'" 
+      :categories="categories"
+      :dataTasks='dataTasks'
+      @idEdit='editData'
+      @idDelete='deleteData'
+      @idPatch='patchData'
+      @createTask='createTask'>
+    </taskboard>
   </div>
 </template>
 
@@ -12,6 +21,7 @@
   import Login from './components/login.vue';
   import Navbar from './components/navbar.vue';
   import Register from './components/register.vue';
+  import Taskboard from './components/taskboard.vue';
 
   export default {
     name: 'App',
@@ -19,13 +29,33 @@
       return {
         baseUrl: 'http://localhost:3000/',
         message: 'Hello Vue Component by Litha',
-        pageName: 'Login Page'
+        pageName: 'Login Page',
+        categories:[
+          {
+            id: 1,
+            name: 'Backlog'
+          },
+          {
+            id: 2,
+            name: 'Todo'
+          },
+          {
+            id: 3,
+            name: 'Doing'
+          },
+          {
+            id: 4,
+            name: 'Done'
+          }
+        ],
+        dataTasks: [],
       };
     },
     components:{
       Navbar,
       Login,
-      Register
+      Register,
+      Taskboard
     },
     methods:{
       changePage(page){
@@ -63,11 +93,49 @@
       logout(){
         localStorage.removeItem('access_token')
         this.pageName = 'Login Page'
+      },
+      fetchData(){
+        axios({
+          url: this.baseUrl + 'tasks',
+          method: 'GET',
+          headers:{
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(response =>{
+            // console.log(response.data, '<<< data');
+            this.dataTasks = response.data
+            console.log(this.dataTasks, '<<< data tasks');
+          })
+          .catch(err => console.log(err))
+      },
+      editData(id){
+        console.log(id, '<< id untuk edit di app');
+      },
+      deleteData(id){
+        console.log(id, '<< id untuk delete di app');
+      },
+      patchData(id){
+        console.log(id, '<< id untuk patch di app');
+      },
+      createTask(data){
+        // console.log(data, '<<< data untuk di tambahkan ada di app');
+        axios({
+          url: this.baseUrl + 'tasks',
+          method: 'POST',
+          headers:{
+            access_token: localStorage.getItem('access_token')
+          },
+          data: data
+        })
+          .then(response => this.fetchData())
+          .catch(err => console.log(err))
       }
     },
     created(){
       if(localStorage.getItem('access_token')){
         this.pageName = 'Home Page'
+        this.fetchData()
       }else this.pageName = 'Login Page'
     }
   }
