@@ -35,4 +35,7 @@ $(document).ready(function() {
         fetchTask()
         showListPage()
     })
+    $("#back-navbar").click(()=> {
+        showMainPage()
+    })
 });

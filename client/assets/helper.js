@@ -6,6 +6,8 @@ function showRegistrationPage() {
     $("#edit-page").hide()
     $("#add-form-page").hide()
     $("#list-page").hide()   
+    $("#navbar").hide() 
+    $("#btn-show").hide()   
 }
 function showLoginPage() {
     $("#login-page").show()
@@ -14,7 +16,9 @@ function showLoginPage() {
     $("#btn-logout").hide()
     $("#edit-page").hide()
     $("#add-form-page").hide()
-    $("#list-page").hide()   
+    $("#list-page").hide() 
+    $("#navbar").hide()  
+    $("#btn-show").hide()   
 }
 function showMainPage() {
     $("#login-page").hide()
@@ -23,7 +27,10 @@ function showMainPage() {
     $("#btn-logout").show()
     $("#edit-page").hide()
     $("#add-form-page").hide()
-    $("#list-page").hide()   
+    $("#list-page").hide()
+    $("#navbar").show()
+    $("#back-navbar").hide()
+    $("#btn-show").show()   
 }
 function showAddPage() {
     $("#login-page").hide()
@@ -32,16 +39,76 @@ function showAddPage() {
     $("#btn-logout").show()
     $("#edit-page").hide()
     $("#add-form-page").show()
-    $("#list-page").hide()   
+    $("#list-page").hide()
+    $("#navbar").show()
+    $("#back-navbar").show()
+    $("#btn-show").hide()   
 }
-function showListPage() {
+function showListPage(response) {
     $("#login-page").hide()
     $("#registration-page").hide()
     $("#main-page").hide()
     $("#btn-logout").show()
     $("#edit-page").hide()
     $("#add-form-page").hide()
-    $("#list-page").show()   
+    $("#navbar").show()   
+    $("#back-navbar").show()   
+    $("#btn-show").hide()   
+    $("#list-page").show() 
+    response.forEach(task => {
+        $("#list-page").append(`
+            <div class="row mt-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="p-3 bg-primary rounded">
+                        Backlog
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="card-title">${task.title}</h4>
+                            <p class="card-text">${task.category}</p>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="p-3 bg-secondary rounded">
+                        Todo
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="card-title">Card Title</h4>
+                            <p class="card-text">abcabcabc</p>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="p-3 bg-info rounded">
+                        Doing
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="card-title">Card Title</h4>
+                            <p class="card-text">abcabcabc</p>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="p-3 bg-danger rounded">
+                        Done
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="card-title">Card Title</h4>
+                            <p class="card-text">abcabcabc</p>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        `) 
+    })
 }
 function showEditPage(task) {
     $("#login-page").hide()
@@ -49,7 +116,10 @@ function showEditPage(task) {
     $("#main-page").hide()
     $("#btn-logout").show()
     $("#add-form-page").hide()
-    $("#list-page").show()   
+    $("#list-page").show() 
+    $("#navbar").show() 
+    $("#back-navbar").show()
+    $("#btn-show").hide()   
     $("#edit-page").show()
     $("#edit-page").append(`
         <h2>Form Edit Task</h2>
@@ -161,10 +231,11 @@ function fetchTask() {
         }
     })
     .done(response => {
-        $("#list-page").empty()              
-        response.forEach(task => {
-            $("#list-page").append(task.title,' | ', task.category,' | ', `<button onclick="editTask(${task.id})">Edit</button>`,' | ' ,`<button onclick="deleteTask(${task.id})">Delete</button>`,`</br>`)
-        })
+        $("#list-page").empty()
+        showListPage(response)              
+        // response.forEach(task => {
+        //     $("#list-page").append(task.title,' | ', task.category,' | ', `<button onclick="editTask(${task.id})">Edit</button>`,' | ' ,`<button onclick="deleteTask(${task.id})">Delete</button>`,`</br>`)
+        // })
     })
     .fail (xhr => {
         console.log(xhr)
@@ -179,6 +250,7 @@ function editTask(id) {
         }
     })
     .done(response => {
+        $("#edit-page").empty()              
         showEditPage(response)
     })
     .fail(xhr => console.log(xhr))
