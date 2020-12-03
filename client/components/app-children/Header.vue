@@ -7,7 +7,7 @@
             </div>
             <button class="btn-danger h-25 m-auto" @click="logoutBtn">LOG OUT</button>
         </header>
-        <addTaskForm></addTaskForm>
+        <addTaskForm @askToFetch = "askToFetch"></addTaskForm>
     </div>
 </template>
 
@@ -16,16 +16,13 @@ import AddTaskForm from "./header-children/AddTask"
 
 export default {
     name : 'Header', 
-    data (){
-        return {
-
-        }
-    },
     methods : {
         logoutBtn() {
-            //console.log('lewat header')
-            //console.log(this)
+           
             this.$emit('listenLogout')
+        },
+        askToFetch(){
+            this.$emit('appRefetch')
         }
     },
     components : {
