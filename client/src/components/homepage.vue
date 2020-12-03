@@ -141,55 +141,13 @@
     <!-- <main style="min-height: 81vh;" class="overflow-x-auto"> -->
         <div class="flex flex-row flex-nowrap gap-x-8 items-start px-8 w-max" id="main-content">
 
-            <div v-for="cat in categories " :key="cat.id"
-            class="flex-none  mb-4 max-w-xs bg-white shadow overflow-hidden sm:rounded-lg rounded shadow-md hover:shadow-2xl hover:bg-gray-50 lg:mb-0 " >
-                <div class="bg-gradient-to-r from-gray-600 to-pink-600 sticky top-0 relative " style="min-width: 24vw;">
-                    <h4 class="text-base leading-6 font-semibold text-white text-center py-3 px-24">
-                        {{cat.name}}
-                    </h4>
-                    <i class="fa fa-plus absolute top-4 right-12 transform scale-100 hover:scale-125 text-white"></i>
-                </div>
-                <div class="border-t border-gray-200 overflow-y-auto" style="max-height: 62vh; min-height: 5vh;">
-                    <div v-for="task in cat.Tasks" :key="task.id"
-                    class="p-3 my-2 max-w-sm mx-2 bg-white shadow-md flex items-center space-x-4 hover:shadow-lg hover:bg-green-300">
-                        <div class="grid-cols-1 divide-y divide-pink-300 w-full">
-                            <div class="max-h-28 mb-4 overflow-ellipsis overflow-hidden"
-                            >
-                                <h4 class="text-base font-medium text-black">
-                                    {{task.title}}
-                                </h4>
-                                <p class="text-gray-500 text-sm  ">
-                                    {{task.description}}
-                                </p>
-                            </div>
-                            <div>
-                                <small>Assignee: {{task.User.username}}</small>
-                            </div>
-                            <div class="flex items-center justify-between mt-2 pt-1">
-
-                                <div>
-                                    <i class="fa fa-arrow-circle-left transform scale-100 hover:scale-125 "></i>
-                                </div>
-
-                                <div class="flex space-x-4">
-                                    <i class="fa fa-trash transform scale-100 hover:scale-125 "></i>
-                                    <i class="fa fa-wrench transform scale-100 hover:scale-125 "></i>
-                                </div>
-
-                                <div>
-                                    <i class="fa fa-arrow-circle-right transform scale-100 hover:scale-125 "></i>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
+            <board  v-for="cat in categories " 
+                    :key="cat.id"
+                    :cat="cat"
+                    :tasks="cat.Tasks">
+            </board>
+            
         </div>
-        
     </main>
     
 </div>
@@ -197,55 +155,26 @@
 
 <script>
 import axios from 'axios';
+import board from './board'
 
 export default {
     name: 'homepage',
-    data () {
-        return {
-            tasks: [],
-            organization: '',
-            categories: []
-        }
+    components: {
+        board
     },
+    props: ['organization', 'categories'],
+    // data () {
+    //     return {
+    //         tasks: [],
+    //         organization: '',
+    //         categories: []
+    //     }
+    // },
     methods: {
-        getTaskList () {
-            
-            axios({
-              method: 'get',
-              url: 'http://localhost:3000/task',
-              headers: {
-                access_token: localStorage.getItem('access_token')
-              }
-            })
-            .then((res) => {
-              // handle success
-              console.log(res.data.Categories[0])
 
-              this.organization = res.data.name
-              res.data.Categories.forEach(el => {
-                  this.categories.push(el)
-              })
-              res.data.Categories.Tasks.forEach(el => {
-                  this.tasks.push(el)
-              })
-
-              // console.log(res.data[0].Organization.Categories)
-              // res.data[0].Organization.Categories.forEach( el => {
-              //   this.categories[el.id] = [el.id, el.name]
-              // })
-              // this.tasks = res.data
-            })
-            .catch((error) => {
-              // handle error
-              console.log(error);
-            })
-            .then(_=> {
-              // always executed
-            });
-        }
     },
     created: function () {
-        this.getTaskList ()
+        this.$emit('getData')
     }
 }
 </script>
