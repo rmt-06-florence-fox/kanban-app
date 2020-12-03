@@ -11478,6 +11478,7 @@ exports.default = void 0;
 //
 var _default = {
   name: 'taskOption',
+  props: ['optionInfo'],
   methods: {
     catDown: function catDown() {
       this.$emit('catDown');
@@ -11511,11 +11512,13 @@ exports.default = _default;
     { staticClass: "flex items-center justify-between mt-2 pt-1" },
     [
       _c("div", [
-        _c("i", {
-          staticClass:
-            "fa fa-arrow-circle-left transform scale-100 hover:scale-125 ",
-          on: { click: _vm.catDown }
-        })
+        _vm.optionInfo.ci != _vm.optionInfo.fi
+          ? _c("i", {
+              staticClass:
+                "fa fa-arrow-circle-left transform scale-100 hover:scale-125 ",
+              on: { click: _vm.catDown }
+            })
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "flex space-x-4" }, [
@@ -11531,11 +11534,13 @@ exports.default = _default;
       ]),
       _vm._v(" "),
       _c("div", [
-        _c("i", {
-          staticClass:
-            "fa fa-arrow-circle-right transform scale-100 hover:scale-125 ",
-          on: { click: _vm.catUp }
-        })
+        _vm.optionInfo.li != _vm.optionInfo.ci
+          ? _c("i", {
+              staticClass:
+                "fa fa-arrow-circle-right transform scale-100 hover:scale-125 ",
+              on: { click: _vm.catUp }
+            })
+          : _vm._e()
       ])
     ]
   )
@@ -11610,9 +11615,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   name: 'task',
-  props: ['task'],
+  props: ['task', 'optionInfo'],
   components: {
     taskOption: _taskOption.default
   },
@@ -11631,8 +11637,8 @@ var _default = {
       console.log(this.task.id, 'dari task.vue deleteThisTask');
     },
     editThisTask: function editThisTask() {
-      this.$emit('editThisTask', this.task.id);
-      console.log(this.task.id, 'dari task.vue editThisTask');
+      this.$emit('editThisTask', this.task);
+      console.log(this.task, 'dari task.vue editThisTask');
     },
     catUpTask: function catUpTask() {
       this.$emit('catUpTask', this.task.id);
@@ -11695,11 +11701,14 @@ exports.default = _default;
           ),
           _vm._v(" "),
           _c("div", [
-            _c("small", [_vm._v("Assignee: " + _vm._s(_vm.task.User.username))])
+            _c("small", [
+              _vm._v("belong to: " + _vm._s(_vm.task.User.username))
+            ])
           ]),
           _vm._v(" "),
           _vm.showEdit
             ? _c("taskOption", {
+                attrs: { optionInfo: _vm.optionInfo },
                 on: {
                   catDown: _vm.catDownTask,
                   deleteThis: _vm.deleteThisTask,
@@ -11981,13 +11990,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: 'board',
   components: {
     task: _task.default,
     taskAdd: _taskAdd.default
   },
-  props: ['tasks', 'cat'],
+  props: ['tasks', 'cat', 'optionInfo'],
   data: function data() {
     return {
       showAdd: false,
@@ -11998,6 +12012,22 @@ var _default = {
     postNewTask: function postNewTask(title, des) {
       console.log(title, des, this.cat.id, 'from board');
       this.$emit('postNewTask', title, des, this.cat.id);
+    },
+    catDownBoard: function catDownBoard(taskId) {
+      this.$emit('catDownBoard', taskId, +this.cat.id - 1);
+      console.log(taskId, this.cat.id, +this.cat.id - 1, 'dari board catDownBoard');
+    },
+    deleteThisBoard: function deleteThisBoard(taskId) {
+      this.$emit('deleteThisBoard', taskId, this.cat.id);
+      console.log(taskId, this.cat.id, +this.cat.id, 'dari board deleteThisBoard');
+    },
+    editThisBoard: function editThisBoard(task) {
+      this.$emit('editThisBoard', task, this.cat.id);
+      console.log(task, this.cat.id, +this.cat.id, 'dari board editThisBoard');
+    },
+    catUpBoard: function catUpBoard(taskId) {
+      this.$emit('catUpBoard', taskId, +this.cat.id + 1);
+      console.log(taskId, this.cat.id, +this.cat.id + 1, 'dari board catUpBoard');
     }
   },
   computed: {
@@ -12007,7 +12037,12 @@ var _default = {
       } else {
         return 'fa fa-plus transform scale-100 hover:scale-125 text-white';
       }
-    }
+    } // checkIndex () {
+    //     let data = this.optionInfo
+    //     data.ci = this.cat.id
+    //     return data
+    // }
+
   }
 };
 exports.default = _default;
@@ -12078,7 +12113,23 @@ exports.default = _default;
             : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.tasks, function(task) {
-            return _c("task", { key: task.id, attrs: { task: task } })
+            return _c("task", {
+              key: task.id,
+              attrs: {
+                task: task,
+                optionInfo: {
+                  li: _vm.optionInfo.li,
+                  fi: _vm.optionInfo.fi,
+                  ci: _vm.cat.id
+                }
+              },
+              on: {
+                catDownTask: _vm.catDownBoard,
+                deleteThisTask: _vm.deleteThisBoard,
+                editThisTask: _vm.editThisBoard,
+                catUpTask: _vm.catUpBoard
+              }
+            })
           })
         ],
         2
@@ -12119,7 +12170,309 @@ render._withStripped = true
       
       }
     })();
-},{"./task.vue":"src/components/task.vue","./taskAdd":"src/components/taskAdd.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/homepage.vue":[function(require,module,exports) {
+},{"./task.vue":"src/components/task.vue","./taskAdd":"src/components/taskAdd.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/modalEdit.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'modalEdit',
+  props: ['task'],
+  data: function data() {
+    return {
+      title: '',
+      description: ''
+    };
+  },
+  methods: {
+    cancelEdit: function cancelEdit() {
+      this.$emit('cancelEdit');
+    },
+    postEdit: function postEdit() {
+      this.$emit('postEdit', this.title, this.description);
+    }
+  },
+  created: function created() {
+    console.log('created modalEdit');
+    this.title = this.task.title;
+    this.description = this.task.description;
+  }
+};
+exports.default = _default;
+        var $52f780 = exports.default || module.exports;
+      
+      if (typeof $52f780 === 'function') {
+        $52f780 = $52f780.options;
+      }
+    
+        /* template */
+        Object.assign($52f780, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "fixed z-10 inset-0 overflow-y-auto" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "hidden sm:inline-block sm:align-middle sm:h-screen",
+            attrs: { "aria-hidden": "true" }
+          },
+          [_vm._v("​")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
+            attrs: {
+              role: "dialog",
+              "aria-modal": "true",
+              "aria-labelledby": "modal-headline"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4" },
+              [
+                _c("div", { staticClass: "sm:flex flex-col sm:items-center" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "text-center text-white pb-8 text-4xl font-semibold"
+                    },
+                    [_vm._v(" Edit " + _vm._s(_vm.task.title) + " ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "space-y-3 w-full text-center",
+                      attrs: { id: "formEdit" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.postEdit($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.title,
+                            expression: "title"
+                          }
+                        ],
+                        staticClass:
+                          "shadow appearance-none rounded w-10/12 h-12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                        attrs: {
+                          placeholder: "Title",
+                          id: "title",
+                          type: "text"
+                        },
+                        domProps: { value: _vm.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.title = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.description,
+                            expression: "description"
+                          }
+                        ],
+                        staticClass:
+                          "resize-y shadow appearance-none rounded w-10/12 h-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                        attrs: {
+                          placeholder: "Description",
+                          id: "description"
+                        },
+                        domProps: { value: _vm.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.description = $event.target.value
+                          }
+                        }
+                      })
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm",
+                    attrs: { type: "submit", form: "formEdit" }
+                  },
+                  [_vm._v("\n            Confirm Data\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
+                    attrs: { type: "button" },
+                    on: { click: _vm.cancelEdit }
+                  },
+                  [_vm._v("\n            Cancel\n            ")]
+                )
+              ]
+            )
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "fixed inset-0 transition-opacity",
+        attrs: { "aria-hidden": "true" }
+      },
+      [_c("div", { staticClass: "absolute inset-0 bg-gray-500 opacity-75" })]
+    )
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$52f780', $52f780);
+          } else {
+            api.reload('$52f780', $52f780);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/homepage.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12130,6 +12483,8 @@ exports.default = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 
 var _board = _interopRequireDefault(require("./board"));
+
+var _modalEdit = _interopRequireDefault(require("./modalEdit"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12289,27 +12644,79 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: 'homepage',
   components: {
-    board: _board.default
+    board: _board.default,
+    modalEdit: _modalEdit.default
   },
   props: ['organization', 'categories'],
-  // data () {
-  //     return {
-  //         tasks: [],
-  //         organization: '',
-  //         categories: []
-  //     }
-  // },
+  data: function data() {
+    return {
+      onEdit: false,
+      taskOnEdit: ''
+    };
+  },
   methods: {
     createNewTask: function createNewTask(title, des, catId) {
       console.log(title, des, catId, this.organization.id, 'from homepage');
       this.$emit('createNewTask', title, des, catId, this.organization.id);
+    },
+    catDownHome: function catDownHome(taskId, catId) {
+      this.$emit('commitPatch', taskId, catId);
+      console.log(taskId, catId, this.organization.id, 'dari homepage catDownHome');
+    },
+    deleteThisHome: function deleteThisHome(taskId, catId) {
+      this.$emit('deleteThisTask', taskId);
+      console.log(taskId, catId, this.organization.id, 'dari homepage deleteThisHome');
+    },
+    editThisHome: function editThisHome(task, catId) {
+      this.onEdit = true;
+      this.taskOnEdit = {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        catId: catId
+      };
+      console.log(task, catId, this.organization.id, 'dari homepage editThisHome');
+    },
+    catUpHome: function catUpHome(taskId, catId) {
+      this.$emit('commitPatch', taskId, catId);
+      console.log(taskId, catId, this.organization.id, 'dari homepage catUpHome');
+    },
+    commitEdit: function commitEdit(title, des) {
+      this.onEdit = false;
+      var data = {
+        id: this.taskOnEdit.id,
+        title: title,
+        description: des,
+        CategoryId: this.taskOnEdit.catId,
+        OrganizationId: this.organization.id
+      };
+      console.log(data);
+      this.$emit('commitEdit', data);
     }
   },
   created: function created() {
     this.$emit('getData');
+  },
+  computed: {
+    checkIndex: function checkIndex() {
+      return {
+        li: this.categories[this.categories.length - 1].id,
+        fi: this.categories[0].id
+      };
+    }
   }
 };
 exports.default = _default;
@@ -12530,14 +12937,33 @@ exports.default = _default;
           _vm._l(_vm.categories, function(cat) {
             return _c("board", {
               key: cat.id,
-              attrs: { cat: cat, tasks: cat.Tasks },
-              on: { postNewTask: _vm.createNewTask }
+              attrs: { cat: cat, tasks: cat.Tasks, optionInfo: _vm.checkIndex },
+              on: {
+                postNewTask: _vm.createNewTask,
+                catDownBoard: _vm.catDownHome,
+                deleteThisBoard: _vm.deleteThisHome,
+                editThisBoard: _vm.editThisHome,
+                catUpBoard: _vm.catUpHome
+              }
             })
           }),
           1
         )
-      ])
-    ]
+      ]),
+      _vm._v(" "),
+      _vm.onEdit
+        ? _c("modalEdit", {
+            attrs: { task: _vm.taskOnEdit },
+            on: {
+              cancelEdit: function($event) {
+                _vm.onEdit = false
+              },
+              postEdit: _vm.commitEdit
+            }
+          })
+        : _vm._e()
+    ],
+    1
   )
 }
 var staticRenderFns = [
@@ -12833,7 +13259,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./board":"src/components/board.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./board":"src/components/board.vue","./modalEdit":"src/components/modalEdit.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12851,6 +13277,9 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
 //
 //
 //
@@ -12891,6 +13320,7 @@ var _default = {
     getTaskList: function getTaskList() {
       var _this = this;
 
+      this.categories = [];
       (0, _axios.default)({
         method: 'get',
         url: 'http://localhost:3000/task',
@@ -12934,13 +13364,130 @@ var _default = {
         }
       }).then(function (res) {
         // handle success
-        console.log(res);
         _this2.categories = [];
 
         _this2.getTaskList();
       }).catch(function (error) {
         // handle error
         console.log(error);
+      }).then(function (_) {// always executed
+      });
+    },
+    commitEditTask: function commitEditTask(data) {
+      var _this3 = this;
+
+      console.log(data);
+      (0, _axios.default)({
+        method: 'put',
+        url: "http://localhost:3000/task/".concat(data.id),
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          title: data.title,
+          description: data.description,
+          CategoryId: data.CategoryId,
+          OrganizationId: data.OrganizationId
+        }
+      }).then(function (res) {
+        // handle success
+        _this3.categories = [];
+
+        _this3.getTaskList();
+      }).catch(function (error) {
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
+      }).then(function (_) {// always executed
+      });
+    },
+    commitDeleteTask: function commitDeleteTask(taskId) {
+      var _this4 = this;
+
+      (0, _axios.default)({
+        method: 'delete',
+        url: "http://localhost:3000/task/".concat(taskId),
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(function (res) {
+        // handle success
+        _this4.categories = [];
+
+        _this4.getTaskList();
+      }).catch(function (error) {
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
+      }).then(function (_) {// always executed
+      });
+    },
+    commitPatchTask: function commitPatchTask(taskId, catId) {
+      var _this5 = this;
+
+      (0, _axios.default)({
+        method: 'patch',
+        url: "http://localhost:3000/task/".concat(taskId),
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          CategoryId: catId
+        }
+      }).then(function (res) {
+        // handle success
+        _this5.categories = [];
+
+        _this5.getTaskList();
+      }).catch(function (error) {
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
       }).then(function (_) {// always executed
       });
     }
@@ -12983,7 +13530,13 @@ exports.default = _default;
               organization: _vm.organization,
               categories: _vm.categories
             },
-            on: { getData: _vm.getTaskList, createNewTask: _vm.postTask }
+            on: {
+              getData: _vm.getTaskList,
+              createNewTask: _vm.postTask,
+              commitEdit: _vm.commitEditTask,
+              deleteThisTask: _vm.commitDeleteTask,
+              commitPatch: _vm.commitPatchTask
+            }
           })
         : _vm._e()
     ],
@@ -13180,7 +13733,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57425" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57927" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -21,7 +21,12 @@
                     </taskAdd>
                     <task   v-for="task in tasks" 
                             :key="task.id"
-                            :task='task'>
+                            :task='task'
+                            :optionInfo="{li:optionInfo.li, fi:optionInfo.fi, ci:cat.id}"
+                            @catDownTask="catDownBoard"
+                            @deleteThisTask="deleteThisBoard"
+                            @editThisTask="editThisBoard"
+                            @catUpTask="catUpBoard">
                     </task>
 
                 </div>
@@ -41,7 +46,7 @@ export default {
         task,
         taskAdd
     },
-    props: ['tasks', 'cat'], 
+    props: ['tasks', 'cat', 'optionInfo'], 
     data () {
         return {
             showAdd: false,
@@ -52,7 +57,23 @@ export default {
         postNewTask (title, des) {
             console.log(title, des, this.cat.id, 'from board')
             this.$emit('postNewTask', title, des, this.cat.id)
-        }
+        },
+        catDownBoard (taskId) {
+            this.$emit('catDownBoard', taskId, (+this.cat.id)-1)
+            console.log(taskId, this.cat.id, (+this.cat.id)-1, 'dari board catDownBoard')
+        },
+        deleteThisBoard (taskId) {
+            this.$emit('deleteThisBoard', taskId, this.cat.id)
+            console.log(taskId, this.cat.id, (+this.cat.id), 'dari board deleteThisBoard')
+        },
+        editThisBoard (task) {
+            this.$emit('editThisBoard', task, this.cat.id)
+            console.log(task, this.cat.id, (+this.cat.id), 'dari board editThisBoard')
+        },
+        catUpBoard (taskId) {
+            this.$emit('catUpBoard', taskId, (+this.cat.id)+1)
+            console.log(taskId, this.cat.id, (+this.cat.id)+1, 'dari board catUpBoard')
+        },
     },
     computed: {
         changeIcon () {
@@ -61,7 +82,12 @@ export default {
             } else {
                 return 'fa fa-plus transform scale-100 hover:scale-125 text-white'
             }
-        }
+        },
+        // checkIndex () {
+        //     let data = this.optionInfo
+        //     data.ci = this.cat.id
+        //     return data
+        // }
     }
 }
 </script>

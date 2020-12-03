@@ -70,6 +70,7 @@ class ControllerTask {
 
     static async putId (req, res, next) {
         try {
+            console.log(req.body, req.params.id)
             const task = await Task.update (req.body, {
                 where: {
                     id: req.params.id

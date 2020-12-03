@@ -140,16 +140,26 @@
     <main class="pt-8">
     <!-- <main style="min-height: 81vh;" class="overflow-x-auto"> -->
         <div class="flex flex-row flex-nowrap gap-x-8 items-start px-8 w-max" id="main-content">
-
             <board  v-for="cat in categories " 
                     :key="cat.id"
                     :cat="cat"
                     :tasks="cat.Tasks"
-                    @postNewTask="createNewTask">
+                    :optionInfo="checkIndex"
+                    @postNewTask="createNewTask"
+                    @catDownBoard="catDownHome"
+                    @deleteThisBoard="deleteThisHome"
+                    @editThisBoard="editThisHome"
+                    @catUpBoard="catUpHome">
             </board>
             
         </div>
     </main>
+    
+    <modalEdit v-if="onEdit"
+                @cancelEdit="onEdit = false "
+                :task="taskOnEdit"
+                @postEdit="commitEdit">
+    </modalEdit>
     
 </div>
 </template>
@@ -157,28 +167,71 @@
 <script>
 import axios from 'axios';
 import board from './board'
+import modalEdit from './modalEdit'
 
 export default {
     name: 'homepage',
     components: {
-        board
+        board,
+        modalEdit
     },
     props: ['organization', 'categories'],
-    // data () {
-    //     return {
-    //         tasks: [],
-    //         organization: '',
-    //         categories: []
-    //     }
-    // },
+    data () {
+        return {
+            onEdit: false,
+            taskOnEdit: ''
+        }
+    },
     methods: {
         createNewTask (title, des, catId) {
             console.log(title, des, catId, this.organization.id, 'from homepage')
             this.$emit('createNewTask', title, des, catId, this.organization.id)
+        },
+        catDownHome (taskId, catId) {
+            this.$emit('commitPatch', taskId, catId)
+            console.log(taskId, catId, this.organization.id, 'dari homepage catDownHome')
+        },
+        deleteThisHome (taskId, catId) {
+            this.$emit('deleteThisTask', taskId)
+            console.log(taskId, catId, this.organization.id, 'dari homepage deleteThisHome')
+        },
+        editThisHome (task, catId) {
+            this.onEdit = true
+            this.taskOnEdit = {
+                id:task.id,
+                title:task.title,
+                description:task.description,
+                catId: catId
+            }
+            console.log(task, catId, this.organization.id, 'dari homepage editThisHome')
+        },
+        catUpHome (taskId, catId) {
+            this.$emit('commitPatch', taskId, catId)
+            console.log(taskId, catId, this.organization.id, 'dari homepage catUpHome')
+        },
+        commitEdit (title, des) {
+            this.onEdit = false
+            const data = {
+                id: this.taskOnEdit.id,
+                title: title,
+                description: des,
+                CategoryId: this.taskOnEdit.catId,
+                OrganizationId: this.organization.id
+            }
+            console.log(data)
+            this.$emit('commitEdit', data)
         }
     },
     created: function () {
         this.$emit('getData')
+    },
+    computed: {
+      checkIndex () {
+        return {
+          li: this.categories[this.categories.length-1].id,
+          fi: this.categories[0].id
+        }
+      }
     }
 }
 </script>

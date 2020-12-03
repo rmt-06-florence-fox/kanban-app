@@ -10,7 +10,10 @@
                     @getData="getTaskList"
                     :organization="organization" 
                     :categories="categories"
-                    @createNewTask="postTask">
+                    @createNewTask="postTask"
+                    @commitEdit="commitEditTask"
+                    @deleteThisTask="commitDeleteTask"
+                    @commitPatch="commitPatchTask">
         </homepage>
         
     </div>
@@ -42,7 +45,7 @@ export default {
             this.showPage = page
         },        
         getTaskList () {
-            
+            this.categories = []
             axios({
                 method: 'get',
                 url: 'http://localhost:3000/task',
@@ -92,13 +95,131 @@ export default {
                 })
                 .then((res) => {
                 // handle success
-                    console.log(res)
                     this.categories = []
                     this.getTaskList()
                 })
                 .catch((error) => {
                 // handle error
                     console.log(error);
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        commitEditTask (data) {
+            console.log(data)
+             axios({
+                method: 'put',
+                url: `http://localhost:3000/task/${data.id}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    title: data.title,
+                    description: data.description,
+                    CategoryId: data.CategoryId,
+                    OrganizationId: data.OrganizationId
+                }
+                })
+                .then((res) => {
+                // handle success
+                    this.categories = []
+                    this.getTaskList()
+                })
+                .catch((error) => {
+                // handle error
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        commitDeleteTask (taskId) {
+                axios({
+                method: 'delete',
+                url: `http://localhost:3000/task/${taskId}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                
+                })
+                .then((res) => {
+                // handle success
+                    this.categories = []
+                    this.getTaskList()
+                })
+                .catch((error) => {
+                // handle error
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        commitPatchTask (taskId, catId) {
+            axios({
+                method: 'patch',
+                url: `http://localhost:3000/task/${taskId}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    CategoryId: catId
+                }
+                })
+                .then((res) => {
+                // handle success
+                    this.categories = []
+                    this.getTaskList()
+                })
+                .catch((error) => {
+                // handle error
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    }
+                    console.log(error.config);
                 })
                 .then(_=> {
                 // always executed

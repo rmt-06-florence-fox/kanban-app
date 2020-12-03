@@ -11,9 +11,10 @@
                     </p>
                 </div>
                 <div>
-                    <small>Assignee: {{task.User.username}}</small>
+                    <small>belong to: {{task.User.username}}</small>
                 </div>
                 <taskOption v-if="showEdit"
+                            :optionInfo="optionInfo"
                             @catDown="catDownTask"
                             @deleteThis="deleteThisTask"
                             @editThis="editThisTask"
@@ -28,7 +29,7 @@ import taskOption from './taskOption'
 
 export default {
     name: 'task',
-    props: ['task'],
+    props: ['task', 'optionInfo'],
     components: {
         taskOption
     },
@@ -47,8 +48,8 @@ export default {
             console.log(this.task.id, 'dari task.vue deleteThisTask')
         },
         editThisTask () {
-            this.$emit('editThisTask', this.task.id)
-            console.log(this.task.id, 'dari task.vue editThisTask')
+            this.$emit('editThisTask', this.task)
+            console.log(this.task, 'dari task.vue editThisTask')
         },
         catUpTask () {
             this.$emit('catUpTask', this.task.id)

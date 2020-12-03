@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between mt-2 pt-1">
 
         <div>
-            <i class="fa fa-arrow-circle-left transform scale-100 hover:scale-125 " @click="catDown"></i>
+            <i v-if="optionInfo.ci != optionInfo.fi" class="fa fa-arrow-circle-left transform scale-100 hover:scale-125 " @click="catDown"></i>
         </div>
 
         <div class="flex space-x-4">
@@ -11,7 +11,7 @@
         </div>
 
         <div>
-            <i class="fa fa-arrow-circle-right transform scale-100 hover:scale-125 " @click="catUp"></i>
+            <i v-if="optionInfo.li != optionInfo.ci" class="fa fa-arrow-circle-right transform scale-100 hover:scale-125 " @click="catUp"></i>
         </div>
 
 
@@ -21,6 +21,7 @@
 <script>
 export default {
     name:'taskOption',
+    props: ['optionInfo'],
     methods: {
         catDown () {
             this.$emit('catDown')
