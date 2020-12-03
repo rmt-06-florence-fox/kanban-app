@@ -11,9 +11,12 @@
                 <div class="card" v-for="data in filteredTask(category.name)" :key="data.id">
                   <tasklist 
                     :dataList="data"
+                    :dataEdit='dataEdit'
                     @idEdit='editData'
                     @idDelete='deleteData'
-                    @idPatch='patchData'>
+                    @idPatch='patchData'
+                    @updateData='updateData'
+                    @updateCategory='updateCategory'>
                   </tasklist>  
                 </div>
 
@@ -29,15 +32,7 @@
                 <button type="button" class="btn btn-cancel fas fa-times"><label class="ml-2">Cancel</label></button>
               </form>
             </div>
-            <!-- Form Edit -->
-            <!-- <div class="edit-task-page">
-              <form action="">
-                <textarea class ="edit-task" name="edit-backlog"></textarea>
-                <button type="submit" class="btn btn-add-task fas fa-check"><label class="ml-2">Edit Task</label></button>
-                <button type="button" class="btn btn-cancel fas fa-times"><label class="ml-2">Cancel</label></button>
-              </form>
-            </div>
-          </div> -->
+          </div>
 
         </div>
       </div>
@@ -54,7 +49,7 @@
         createTask: ''
       }
     },
-    props: ['categories', 'dataTasks'],
+    props: ['categories', 'dataTasks', 'dataEdit'],
     components: { tasklist },
     methods:{
       filteredTask(category){
@@ -68,6 +63,12 @@
       },
       patchData(id){
         this.$emit('idPatch', id)
+      },
+      updateData(newData, id){
+        this.$emit('updateData', newData, id)
+      },
+      updateCategory(newData, id){
+        this.$emit('updateCategory', newData, id)
       },
       showAdd(category){
         console.log(category, '<<< untuk add');
