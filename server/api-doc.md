@@ -42,8 +42,7 @@ Response:
 ```json
 {
   "id": "integer",
-  "firstName":"string",
-  "lastName":"string",
+  "fullname":"string",
   "email": "string"
 }
 ```
@@ -400,11 +399,11 @@ Response:
 ```json
 {
         "id": 1,
-        "title": "Swimming",
-        "category": "Backlog",
+        "title": "Swimming at Pool",
+        "category": "Doing",
         "UserId": 1,
         "createdAt": "2020-12-04T16:05:38.692Z",
-        "updatedAt": "2020-12-04T16:05:38.692Z"
+        "updatedAt": "2020-12-04T18:05:38.692Z"
 }
 ```
 
@@ -452,7 +451,7 @@ Response:
 
 ```json
 {
-    "message": "tasks success to delete"
+    "message": "task success to delete"
 }
 ```
 
