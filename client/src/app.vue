@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const SERVER = 'http://localhost:3000'
+const SERVER = 'https://kanban-alfa.herokuapp.com'
 import LoginPage from './components/LoginPage'
 import MainPage from './components/MainPage'
 import GoogleLogin from 'vue-google-login'

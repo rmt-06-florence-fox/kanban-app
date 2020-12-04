@@ -72,6 +72,7 @@
 </template>
 
 <script>
+const SERVER = 'https://kanban-alfa.herokuapp.com'
 import CardState from "./CardState";
 import axios from 'axios'
 import draggable from "vuedraggable";
@@ -103,7 +104,7 @@ export default {
     },
     addTask(){
       axios({
-        url: 'http://localhost:3000/tasks',
+        url: `${SERVER}/tasks`,
         method: 'POST',
         headers:{
           access_token : localStorage.getItem('access_token')
@@ -132,7 +133,7 @@ export default {
     },
     editTask(){
       axios({
-        url: `http://localhost:3000/tasks/${this.editTaskId}`,
+        url: `${SERVER}/tasks/${this.editTaskId}`,
         method: 'PUT',
         headers:{
           access_token: localStorage.getItem('access_token')
@@ -155,7 +156,7 @@ export default {
     },
     deleteTask(){
       axios({
-        url: `http://localhost:3000/tasks/${this.editTaskId}`,
+        url: `${SERVER}/tasks/${this.editTaskId}`,
         method: 'DELETE',
         headers:{
           access_token: localStorage.getItem('access_token')
