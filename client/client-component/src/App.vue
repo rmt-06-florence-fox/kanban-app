@@ -66,7 +66,7 @@ export default {
       // console.log(objData)
       axios({
           method: 'post',
-          url: 'https://kanban-febrian.herokuapp.com//register',
+          url: 'https://kanban-febrian.herokuapp.com/register',
           data: objData
       })
         .then(data => {
