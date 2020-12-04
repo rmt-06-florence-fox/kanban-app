@@ -1,6 +1,14 @@
 <template>
   <div class="row flex-container-kanban">
-    <KanbanBoard v-for="category in categories" :key="category.id" :name="category.name" :id="category.id" :tasks=tasks></KanbanBoard>
+    <KanbanBoard 
+    v-for="category in categories" 
+    :key="category.id" 
+    :category="category" 
+    :tasks=tasks 
+    :loggedInEmail=loggedInEmail
+    @getCategory="getCategory"
+    ></KanbanBoard>
+   
   </div>
 </template>
 
@@ -13,9 +21,15 @@ export default {
       message: 'Hello world',
     };
   },
-  props: ['categories', 'tasks'],
+  props: ['categories', 'tasks', 'loggedInEmail'],
   components: {
-    KanbanBoard
+    KanbanBoard,
+
+  },
+  methods: {
+    getCategory(CategoryId, page){
+      this.$emit('getCategory', CategoryId, page)
+    }
   }
 };
 </script>

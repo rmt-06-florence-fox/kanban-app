@@ -3,7 +3,10 @@
     <Navbar @emitLogout="emitLogout"></Navbar>
     <Board 
     :categories=categories
-    :tasks=tasks>
+    :tasks=tasks
+    :loggedInEmail=loggedInEmail
+    @getCategory="getCategory"
+    >
     </Board>
   </div>
 </template>
@@ -17,7 +20,7 @@ export default {
     return {
     };
   },
-  props: ['categories', 'tasks'],
+  props: ['categories', 'tasks', 'loggedInEmail'],
   components: {
     Navbar,
     Board
@@ -25,6 +28,10 @@ export default {
   methods: {
     emitLogout(){
       this.$emit("emitLogout")
+    },
+    getCategory(CategoryId, page){
+      
+      this.$emit('getCategory', CategoryId, page)
     }
   }
 };

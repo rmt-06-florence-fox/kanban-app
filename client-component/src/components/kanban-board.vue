@@ -1,13 +1,15 @@
 <template>
+    <div>
         <div class="kanban-board">
-          <button type="button" class="btn mt-3 mb-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;">Add Task</button>
+          <button type="button" class="btn mt-3 mb-3" data-toggle="modal" data-target="#addForm" style="background-color: #5ec0ca; color: white;"  @click="$emit('getCategory', category.id, 'addForm')">Add Task</button>
           <div class="card text-white text-center mb-2 board-title">
-            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">{{name}}</h1>
+            <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">{{category.name}}</h1>
           </div>
           <div class="card text-white board-body">
-            <taskcard v-for="task in tasks" :key="task.id" v-if="task.categoryName === name" :task=task></taskcard>
+            <taskcard v-for="task in tasks" :key="task.id" v-if="task.categoryName === category.name" :task=task :loggedInEmail=loggedInEmail></taskcard>
           </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -16,11 +18,18 @@ export default {
   name: "KanbanBoard",
   data() {
     return {
+      taskAdded: {
+        CategoryId: null,
+        title: null,
+        due_date: null
+      }
     };
   },
-  props: ['id', 'name', 'tasks'],
+  props: ['category', 'tasks', 'loggedInEmail'],
   components: {
     taskcard
+  },
+  methods: {
   }
 };
 </script>
