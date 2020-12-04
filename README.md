@@ -139,7 +139,7 @@ _Response(500)_
 ```
 
 ### GET /tasks
->fetch all task
+> Fetch all task
 
 _Request Header_
 ```
@@ -153,15 +153,15 @@ _Response(200)_
 ```
 [
     {
-        "id": 6,
+        "id": 1,
         "title": "test lagi123",
-        "category": "done",
-        "UserId": 6,
+        "category": "Done",
+        "UserId": 1,
         "createdAt": "2020-12-03T14:12:36.420Z",
         "updatedAt": "2020-12-03T14:12:36.420Z",
         "User": {
-            "id": 6,
-            "email": "joko2@mail.com",
+            "id": 1,
+            "email": "han@mail.com",
             "password": "$2a$08$eHMl8Ypd2wHPVN5puXQbouIzvvCNGS8tww6RAYtiWD/NCKYMmHyQa",
             "createdAt": "2020-12-01T15:26:25.692Z",
             "updatedAt": "2020-12-01T15:26:25.692Z"
@@ -173,12 +173,12 @@ _Response(200)_
 _Response(500)_
 ```
 {
-  access_token : "internal serve error"
+  access_token : "Internal server error"
 }
 ```
 
 ### PUT /tasks/:id
->edit task
+> Edit task
 
 _Request Header_
 ```
@@ -190,16 +190,16 @@ id
 ```
 _Request Body_
 ```
-title : coba edit
-category : done
+title : 'Coba edit'
+category : 'Done'
 ```
 _Response(200)_
 ```
 {
     "id": 1,
-    "title": "coba edit",
-    "category": "done",
-    "UserId": 6,
+    "title": "Coba edit",
+    "category": "Done",
+    "UserId": 1,
     "createdAt": "2020-12-01T23:16:49.584Z",
     "updatedAt": "2020-12-01T23:57:03.492Z"
 }
@@ -207,23 +207,20 @@ _Response(200)_
 _Response(400)_
 ```
 [
-    {
-        "message": "can not be empty"
-    },
-    {
-        "message": "can not be empty"
-    }
+  {
+    "message": "Title can't be empty"
+  }
 ]
 ```
 _Response(500)_
 ```
 {
-  access_token : "internal serve error"
+  access_token : "Internal server error"
 }
 ```
 
 ### DELETE /tasks/:id
->fdelete a task
+> Delete a task
 
 _Request Header_
 ```
@@ -240,13 +237,13 @@ none
 _Response(200)_
 ```
 {
-  "message": "succesfully delete a task"
+  "message": "Task deleted"
 }
 ```
 _Response(500)_
 ```
 {
-  access_token : "internal serve error"
+  access_token : "Internal server error"
 }
 ```
 ### POST /googlesignin
@@ -262,13 +259,18 @@ token
 ```
 _Response(200)_
 ```
-{
-  access_token : "token string"
-}
+[  
+  {
+    google_token: 'google_token'
+  },
+  {
+    access_token: 'access_token'
+  }
+]
 ```
 _Response(500)_
 ```
 {
-  access_token : "internal serve error"
+  access_token : "Internal server error"
 }
 ```
