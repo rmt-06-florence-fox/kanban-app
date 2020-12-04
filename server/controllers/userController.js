@@ -52,7 +52,7 @@ class UserController {
                         email: data.email
                     })
                     res.status(200).json({
-                        access_token
+                        access_token, UserId: data.id
                     })
                 } else {
                     throw {
