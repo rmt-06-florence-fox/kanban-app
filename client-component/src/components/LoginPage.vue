@@ -10,18 +10,18 @@
                     <form @submit.prevent="login">
                         <div class="form-group">
                             <label for="login-email">Email address</label>
-                            <input type="email" class="form-control" v-model="email" placeholder="Your email">
+                            <input type="email" class="form-control" v-model="user.email" placeholder="Your email">
                         </div>
                         <div class="form-group">
                             <label for="login-password">Password</label>
-                            <input type="password" class="form-control" v-model="password" placeholder="Password">
+                            <input type="password" class="form-control" v-model="user.password" placeholder="Password">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
                     <br>
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>         
                     <br>
-                    <button id="back-register" class="btn btn-secondary btn-block">don't have account yet?</button>
+                    <button class="btn btn-secondary btn-block" @click="toRegister">don't have account yet?</button>
                 </div>
             </div>
         </div>
@@ -30,17 +30,21 @@
 
 <script>
 export default {
-    name: "LoginPage", 
+    name: "Login", 
     data() {
         return {
-            email: "",
-            password: ""
+            user: {
+                email: "",
+                password: ""
+            }
         }
     },
     methods: {
-        login () {
-            localStorage.setItem("access_token", 12345)
-            this.$emit("changeCurrentPage", "MainPage")
+        login(){
+            this.$emit('dataLogin', this.user)
+        },
+        toRegister(){
+            this.$emit('changePage', 'Register Page')
         }
     }
 }

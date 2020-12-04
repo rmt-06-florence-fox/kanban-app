@@ -1,12 +1,14 @@
 <template>
   <div>
-    <Navbar></Navbar>
+    <Navbar @emitChangePage="changePage"></Navbar>
     <TaskList :tasks="tasks"></TaskList>
+    <AddForm></AddForm>
 </template>
 
 <script>
 import Navbar from "./Navbar"
 import TaskList from "./TaskList"
+import AddForm from "./AddForm"
 import axios from "axios"
 
 export default {
@@ -18,7 +20,8 @@ export default {
     },
     components: {
       Navbar,
-      TaskList
+      TaskList,
+      AddForm 
     }, 
     methods: {
       fetchTask() {
