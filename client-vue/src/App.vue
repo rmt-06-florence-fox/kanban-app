@@ -83,7 +83,7 @@ export default {
         this.currentPage = 'login page'
       })
       .catch(err =>{
-        console.log(err.response.data);
+        // console.log(err.response.data);
         const errors = err.response.data.map(e=> e.message)
         swal({
           icon : "warning",
@@ -141,7 +141,12 @@ export default {
         })
         this.tasks = data.data
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+        swal({
+          icon: "error",
+          title: "error",
+          text : error.response.data.message
+        })
       }
     },
     async deleteTask(id){

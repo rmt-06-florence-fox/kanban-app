@@ -241,3 +241,26 @@ _Response(500)_
   access_token : "internal serve error"
 }
 ```
+### GET/googleLogin
+>login
+
+_Request Header_
+```
+none
+```
+_Request Body_
+```
+token
+```
+_Response(200)_
+```
+{
+  access_token : "token string"
+}
+```
+_Response(500)_
+```
+{
+  access_token : "internal serve error"
+}
+```
