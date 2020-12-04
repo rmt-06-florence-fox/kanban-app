@@ -32,6 +32,7 @@ export default {
       this.$emit('deleteId', id)
     },
     edit(data,id){
+      console.log(data,id, 'di task board');
       this.$emit('editTask', data, id)
     }
   }

@@ -4,6 +4,7 @@
     <login-form-component v-if="currentPage == 'login page'" 
       @halamanRegister="changePage"
       @loginUserData="login"
+      @googleToken="googleSignIn"
     ></login-form-component>
     <register-form-component v-else-if="currentPage == 'register page'" @registUser="register"></register-form-component>  
     <kanban-board-component v-else-if="currentPage == 'kanban page'" 
@@ -105,7 +106,7 @@ export default {
         })
         this.currentPage = 'kanban page'
         localStorage.setItem('access_token', token.data.access_token)
-
+        this.fetch()
         // console.log(token.data);
       } catch (error) {
         swal({
@@ -116,6 +117,11 @@ export default {
       }
     },
     logout(page){
+      swal({
+        icon: "success",
+        title: "logout",
+        text : `byeeee`
+      })
       localStorage.removeItem('access_token')
       this.currentPage = page;
     },
@@ -144,7 +150,11 @@ export default {
         })
         this.fetch()
       } catch (error) {
-        console.log(error);
+        swal({
+          icon: "error",
+          title: "error",
+          text : error.response.data.message
+        })
       }
     },
     async editTask(data, id){
@@ -160,6 +170,7 @@ export default {
         })
         this.fetch()
       } catch (error) {
+        this.fetch()
         console.log(error);
       }
     },
@@ -174,6 +185,25 @@ export default {
             },
             data : data
         })
+        this.fetch()
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async googleSignIn(token){
+      // console.log(token);
+
+      try {
+        const googleLoginToken = await axios({
+          url : `${baseurl}googleLogin`,
+          data :{
+            token
+          },
+          method : 'post'
+        })
+        // console.log(googleLoginToken.data.access_token);
+        localStorage.setItem('access_token', googleLoginToken.data.access_token)
+        this.currentPage = 'kanban page'
         this.fetch()
       } catch (error) {
         console.log(error);

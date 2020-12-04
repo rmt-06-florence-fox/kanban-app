@@ -91,13 +91,14 @@ class Controller{
   }
 
   static async googleLogin(req, res, next){
+    // console.log(req.body.token);
     try {
       const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: provess.env.CLIENT_ID,
+        idToken: req.body.token,
+        audience: process.env.CLIENT_ID,
       });
-      const payload = ticket
-
+      const payload = ticket.getPayload()
+      console.log(payload);
       const user = await User.findOne({ where : {email : payload.email}})
 
       if(!user){
@@ -111,6 +112,7 @@ class Controller{
         res.status(200).json({access_token})
       }
     } catch (error) {
+      console.log(error);
       next(error)
     }
   }

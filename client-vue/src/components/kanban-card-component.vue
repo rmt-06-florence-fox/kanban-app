@@ -15,7 +15,7 @@
       <form @submit.prevent="edit" action="">
         <textarea v-model="editTitle" name="" id="" cols="22" rows="2" required></textarea>
         <!-- <button @click.prevent="toggleEdit(filterTask)" type="button" class="btn btn-outline-primary fas fa-times"></button> -->
-        <select v-model="filterTask.category" name="" id="">
+        <select v-model="editCategory" name="" id="">
           <option value="backlog">backlog</option>
           <option value="todo">todo</option>
           <option value="doing">doing</option>
@@ -40,24 +40,28 @@ export default {
       this.editTogleStatus('none')
       this.editTitle = data.title
       this.editData = data
+      this.editCategory = this.editData.category
       this.editTogleStatus(data.id)
       this.editToggle = !this.editToggle
     }, 
     edit(){
       const objEdit = {
         title : this.editTitle,
-        category : this.editData.category
+        category : this.editCategory
       }
-      this.$emit('editTask', objEdit, this.editData.id)
+      const id = this.editData.id
+      console.log(objEdit);
       this.editToggle = false
       this.editTogleStatus('none')
+      this.$emit('editTask', objEdit, id)
     }
   },
   data(){
     return {
       editToggle : false,
       editTitle : '',
-      editData : {}
+      editData : {},
+      editCategory : ''
     }
   }
 }

@@ -14,7 +14,8 @@
               <input v-model="loginUser.password" type="password" class="form-control" id="exampleInputPassword1">
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-          </form>  
+          </form>
+          <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>  
         </div>
         <div class="card-footer"><a href="#" @click="changePage">Register</a></div>
       </div>
@@ -22,6 +23,8 @@
 </template>
 
 <script>
+import GoogleSignInButton from 'vue-google-signin-button-directive'
+
 export default {
   name : "login-form-component",
   methods:{
@@ -31,6 +34,13 @@ export default {
     },
     login(){
       this.$emit('loginUserData', this.loginUser)
+    },
+    OnGoogleAuthSuccess (idToken) {
+      this.$emit('googleToken', idToken)
+      // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
     }
   },
   data(){
@@ -38,12 +48,21 @@ export default {
       loginUser :{
         email : '',
         password : ''
-      }
+      },
+      clientId : '146280165956-q5r75o17om8pic39nl03cdv9smc407ke.apps.googleusercontent.com'
     }
   },
 }
 </script>
 
 <style>
-
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 </style>
