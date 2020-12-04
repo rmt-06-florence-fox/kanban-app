@@ -7,6 +7,8 @@
             v-for="(category, idx) in categories" :key="idx"
             :tasks="tasks"
             :category="category"
+            @destroyTask="deleteTask"
+            @editForm="updateForm"
           >    
           </TaskBoard>
         </div>
@@ -21,7 +23,15 @@ import TaskBoard from "./TaskBoard";
 export default {
   name: "BoardList",
   props: ["tasks", "categories"],
-  components: { TaskBoard }
+  components: { TaskBoard },
+  methods: {
+    deleteTask(id) {
+      this.$emit('destroyTask', id)
+    },
+    updateForm(id) {
+      this.$emit('editForm', id)
+    },            
+  }
 };
 </script>
 

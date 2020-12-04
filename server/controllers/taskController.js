@@ -1,10 +1,10 @@
-const { Task } = require('../models')
+const { User, Task } = require('../models')
 
 class TaskController {
     static async createTask (req, res, next) {
-        const { title } = req.body
+        const { title, category } = req.body
         const UserId = req.loggedInUser.id
-        const payload = { title, UserId}
+        const payload = { title, category, UserId}
 
         try {
             const task = await Task.create(payload);
@@ -17,7 +17,11 @@ class TaskController {
 
     static async getTask (req, res, next) {
         try {
-            const task = await Task.findAll();
+            const task = await Task.findAll({
+                include : {
+                    model: User
+                }
+            });
             res.status(200).json({task});
         }
         catch (error) {
@@ -38,8 +42,8 @@ class TaskController {
     static async editTask (req, res, next) {
         try {
             const id = +req.params.id
-            const { title } = req.body
-            const payload = { title }
+            const { title, category } = req.body
+            const payload = { title, category }
             const task = await Task.update(payload, { where: { id }, returning: true });
             res.status(200).json(task[1][0])            
         } catch (error) {

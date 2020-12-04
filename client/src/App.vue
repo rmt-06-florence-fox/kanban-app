@@ -6,10 +6,16 @@
         @register="registerUser"
     ></LoginRegisterPage>
     <HomePage
+        @fetchTask="fetchTask"
         @logout="logoutFromHomePage"
         @changePage="ChangePage"
+        @addTask="createTask"
+        @destroyTask="deleteTask"
+        @editForm="updateForm"
+        @editTask="updateTask"
         :pageName="pageName"
         :tasks="tasks"
+        :updating="updating"
         :categories="categories"
         v-else
     ></HomePage>
@@ -19,7 +25,7 @@
 <script>
     import LoginRegisterPage from "./components/LoginRegisterPage";
     import HomePage from "./components/HomePage";
-    import axios from 'axios';
+    import axios from 'axios'
 
     export default {
         name: "App",
@@ -28,6 +34,7 @@
                 name: "Wellcome",
                 pageName: "Login-register-page",
                 tasks: [],
+                updating: '',
                 categories: [
                     {
                         name: 'Backlog',
@@ -72,6 +79,7 @@
                 })
                 .then((response) => {
                     localStorage.setItem("access_token", response.data.access_token);
+                    localStorage.setItem("name", response.data.user.name)
                     this.pageName = "Home-page"            
                 })
                 .catch((error) => {
@@ -99,9 +107,9 @@
                     .catch((error) => {
                         console.log("register success");
                     })
-                }
+                
             },
-
+        
             fetchTask() {
                 axios({
                     url: "http://localhost:3000/tasks",
@@ -111,13 +119,99 @@
                     } 
                 })
                 .then(response => {
-                    this.tasks = response.data
+                    this.tasks = response.data.task
                 })
                 .catch(error => {
                     console.log(error)
                 })
+            },
+
+            createTask(payload) {
+                axios({
+                    url: "http://localhost:3000/tasks",
+                    method: "POST",
+                    data: {
+                        title: payload.title,
+                        category: payload.category
+                    },
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    } 
+                })
+                .then(response => {
+                    console.log('success add data')
+                    this.pageName = 'Home-page'
+                    this.fetchTask()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            },
+
+            deleteTask(id) {
+                axios({
+                    url: "http://localhost:3000/tasks/"+id,
+                    method: "DELETE",
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    } 
+                })
+                .then(response => {
+                    this.pageName = 'Home-page'
+                    this.fetchTask()
+                    console.log('success to delete')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            },
+
+            updateForm(id) {
+                axios({
+                    url: "http://localhost:3000/tasks/"+id,
+                    method: "GET",
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    } 
+                })
+                .then(response => {
+                    this.pageName = 'Edit-form'
+                    this.updating = response.data                    
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            },
+
+            updateTask(payload) {
+                console.log(payload)
+                console.log(payload.id)
+
+                axios({
+                    url: "http://localhost:3000/tasks/"+payload.id,
+                    method: "PUT",
+                    data: {
+                        title: payload.title,
+                        category: payload.category
+                    },
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    } 
+                })
+                .then(response => {
+                    this.pageName = 'Home-page'
+                    this.fetchTask()
+                    console.log('success to delete')
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
+
         }
-    };
+    }
+
+    
                 // onSignIn(googleUser) {
             //     // const googleToken = googleUser.getAuthResponse().id_token;
             //     console.log(googleUser);
@@ -134,6 +228,8 @@
             //     //     console.log(error)
             //     // })
             //     },
+            //
+
 
 </script>
 

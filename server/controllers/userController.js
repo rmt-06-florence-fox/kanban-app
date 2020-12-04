@@ -25,7 +25,7 @@ class UserController {
                 throw {status: 401, message: `Invalid account`}
             } else if (comparePwd(req.body.password, data.password)) {
                 const access_token = generateToken({id: data.id, email: data.email}, )
-                res.status(200).json({access_token})
+                res.status(200).json({access_token, user:data})
             } else {
                 throw {status: 401, message: `Invalid email/password`}
             }            

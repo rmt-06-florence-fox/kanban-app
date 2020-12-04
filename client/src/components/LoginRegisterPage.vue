@@ -2,8 +2,8 @@
   <section id="login-page" class="container">
     <div class="form-signin-register bg-front">
       <div class="row justify-content-center mt-5">
-        <div class="col-4">
-          <div class="shadow-lg p-5 mb-5 rounded">
+        <div class="col-4 bg-light">
+          <div class="shadow-lg p-5 rounded">
             <ul class="nav nav-pills nav-justified mb-5">
               <li class="nav-item">
                 <a
