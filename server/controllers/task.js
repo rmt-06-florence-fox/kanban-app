@@ -15,7 +15,9 @@ class TaskController {
 
   static async show (req, res, next) {
     try {
-      const task = await Task.findAll()
+      const task = await Task.findAll({
+        attributes: ['id', 'title', 'CategoryId']
+      })
       res.status(200).json(task)
     } catch (error) {
       next(error)

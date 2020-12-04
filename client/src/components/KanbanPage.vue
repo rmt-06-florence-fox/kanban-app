@@ -44,6 +44,7 @@
               :category="category"
               :tasks="tasks"
               @addTask="addTask"
+              @getCategoryId="getCategoryId"
             ></Category>
           </div>
         </div>
@@ -67,8 +68,11 @@ export default {
       localStorage.removeItem('access_token')
       this.$emit('emit-change-page', 'login-page')
     },
-    addTask() {
-      this.$emit('addTask', 'payload')
+    addTask(payload) {
+      this.$emit('addTask', payload)
+    },
+    getCategoryId(payload) {
+      this.$emit('getCategoryId', payload)
     }
   }
 }

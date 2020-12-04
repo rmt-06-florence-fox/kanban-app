@@ -18,6 +18,7 @@
       :categories='categories'
       :tasks='tasks'
       @addTask="addTask"
+      @getCategoryId="getCategoryId"
     ></KanbanPage>
 
     <ErrorPage 
@@ -110,13 +111,19 @@ export default {
       axios({
         method: 'POST',
         url: '/tasks',
-        data: payload
+        headers: {access_token: token},
+        data: { title: payload.title}
       })
       .then((result) => {
-        console.log(result.data)
+        console.log(result.data);
+        // this.fetchTask()
+        // this.fetchCategory()
       }).catch((err) => {
         console.log(err)
       });
+    },
+    getCategoryId(payload) {
+      console.log(payload); //!
     }
   },
   created() {

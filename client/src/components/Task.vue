@@ -3,8 +3,8 @@
     <div class="card-body">
       <div class="card-options">
         <button class="btn-options" type="button" aria-haspopup="true" aria-expanded="false">
-          <i class="material-icons">edit</i>
-          <i class="material-icons">delete</i>
+          <i @click="editTask(task.id)" class="material-icons">edit</i>
+          <i @click="deleteTask(task.id)" class="material-icons">delete</i>
         </button>
         <form class="modal fade" id="task-edit-modal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -50,6 +50,17 @@ export default {
   data() {
     return {
 
+    }
+  },
+  methods: {
+    editTask() {
+      console.log('enter in edit task');
+    },
+    deleteTask(task) {
+      const payload = {
+        title: task
+      }
+      console.log(payload);
     }
   }
 }
