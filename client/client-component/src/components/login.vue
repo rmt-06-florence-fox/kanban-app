@@ -56,7 +56,7 @@ export default {
         onSuccess(googleUser) {
             let googleToken = googleUser.getAuthResponse().id_token
             axios({
-                url: "http://localhost:3000/googlelogin",
+                url: "https://kanban-febrian.herokuapp.com/googlelogin",
                 method: "POST",
                 data: {
                     googleToken

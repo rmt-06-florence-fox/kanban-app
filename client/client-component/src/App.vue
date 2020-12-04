@@ -43,7 +43,7 @@ export default {
       }
       axios({
           method: 'post',
-          url: 'http://localhost:3000/login',
+          url: 'https://kanban-febrian.herokuapp.com/login',
           data: objUser
       })
         .then(data => {
@@ -66,7 +66,7 @@ export default {
       // console.log(objData)
       axios({
           method: 'post',
-          url: 'http://localhost:3000/register',
+          url: 'https://kanban-febrian.herokuapp.com//register',
           data: objData
       })
         .then(data => {
@@ -85,7 +85,7 @@ export default {
     getAllDataTasks() {
       axios({
         method: "GET",
-        url: 'http://localhost:3000',
+        url: 'https://kanban-febrian.herokuapp.com/',
         headers: {
               acces_token: localStorage.getItem("acces_token")
             }
@@ -105,7 +105,7 @@ export default {
       // console.log(objEdit, "--------")
       axios({
         method: "PUT",
-        url: 'http://localhost:3000/'+objEdit.id,
+        url: 'https://kanban-febrian.herokuapp.com/'+objEdit.id,
         headers: {
               acces_token: localStorage.getItem("acces_token")
             },
@@ -120,9 +120,6 @@ export default {
         })
     },
 
-    cancel() {
-      // console.log("cek")
-    },
 
     addTodo(title, category) {
       
@@ -133,7 +130,7 @@ export default {
       // console.log(objTask)
       axios({
         method: "POST",
-        url: 'http://localhost:3000',
+        url: 'https://kanban-febrian.herokuapp.com/',
         headers: {
               acces_token: localStorage.getItem("acces_token")
             },
@@ -141,7 +138,7 @@ export default {
       })
         .then(data => { 
           //  this.created()
-          console.log("-----------")
+          // console.log("-----------")
           this.changePage("kanban-page")
           this.getAllDataTasks()
           // this.changePage("kanban-page")
@@ -166,7 +163,7 @@ export default {
           if (result.isConfirmed) {
             axios({
               method: "delete",
-              url: 'http://localhost:3000/'+id,
+              url: 'https://kanban-febrian.herokuapp.com/'+id,
               headers: {
                     acces_token: localStorage.getItem("acces_token")
                   },
