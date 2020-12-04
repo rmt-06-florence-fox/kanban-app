@@ -316,3 +316,94 @@ _Response (500 - Internal server error)_
     "message": "Internal server error"
 }
 ```
+
+---
+### POST /categories
+
+> Create category data
+
+_Request Header_
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+```
+required : 
+- name = [string]
+- color = [string]
+
+
+{
+  "name": "<name to get insert into>",
+  "color": "<color to get insert into>"
+}
+```
+
+_Response (201 - Created)_
+```
+{
+    "id": 5,
+    "name": "soso",
+    "color": "yellow",
+    "updatedAt": "2020-12-04T16:00:45.948Z",
+    "createdAt": "2020-12-04T16:00:45.948Z"
+}
+```
+
+_Response (400 - Bad request)_
+```
+{
+    "message": [
+        "Name is required",
+        "Color is required"
+    ]
+}
+```
+
+---
+### GET /categories
+
+> Get all categories data of user
+
+_Request Header_
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+```
+not needed data
+```
+
+_Response (200 - Success)_
+```
+[
+    {
+        "id": 1,
+        "name": "backlog",
+        "color": "red",
+        "createdAt": "2020-12-04T15:52:49.837Z",
+        "updatedAt": "2020-12-04T15:52:49.837Z"
+    },
+    {
+        "id": 2,
+        "name": "todo",
+        "color": "black",
+        "createdAt": "2020-12-04T15:52:49.837Z",
+        "updatedAt": "2020-12-04T15:52:49.837Z"
+    },
+    ...
+]
+```
+
+_Response (500 - Internal server error)_
+```
+{
+    "message": "Internal server error"
+}
+```
