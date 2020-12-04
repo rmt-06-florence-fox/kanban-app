@@ -32,7 +32,7 @@ import NavBar from './NavBar.vue'
 import TaskList from './TaskList.vue'
 import SwAl from 'sweetalert2'
 import AppVue from '../App.vue'
-const server_url = 'http://localhost:3000'
+const server_url = 'https://kanban-trolle.herokuapp.com'
 
 export default {
   components : {
@@ -91,9 +91,6 @@ export default {
     },
     showAddList() {
       console.log('add list')
-    },
-    editTask(id) {
-      console.log('edit Task', id)
     },
     moveLeft(id, categoryId) {
       categoryId -= 1

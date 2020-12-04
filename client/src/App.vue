@@ -56,7 +56,6 @@ export default {
     }
   },
   created() {
-    console.log(localStorage.getItem('access_token'))
     if(localStorage.getItem('access_token')) {
       this.page = 'main'
     } else {
@@ -70,7 +69,6 @@ export default {
     },
     
     signinUser(data) {
-      console.log(data.data.access_token)
       localStorage.setItem('access_token', data.data.access_token)
       this.changePage('main')
     },

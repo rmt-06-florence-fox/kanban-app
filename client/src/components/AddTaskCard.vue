@@ -16,7 +16,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-const server_url ='http://localhost:3000'
+const server_url ='https://kanban-trolle.herokuapp.com'
 
 export default {
   props: ['category'],
@@ -33,7 +33,6 @@ export default {
       this.$emit('showAddCard')
     },
     addTask(title, category) {
-      console.log(title, category)
 
       axios({
         url: server_url + '/tasks',

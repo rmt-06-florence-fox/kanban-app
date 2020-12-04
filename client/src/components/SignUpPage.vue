@@ -46,7 +46,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-const server_url = 'http://localhost:3000'
+const server_url = 'https://kanban-trolle.herokuapp.com'
 
 export default {
   data() {
@@ -64,8 +64,6 @@ export default {
         email: this.signup_email,
         password: this.signup_password
       }
-
-      console.log(payload)
 
       axios({
         method: 'POST',

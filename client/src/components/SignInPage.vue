@@ -39,7 +39,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import GoogleLogin from 'vue-google-login'
-const server_url = 'http://localhost:3000'
+const server_url = 'https://kanban-trolle.herokuapp.com'
 
 export default {
   components: {
