@@ -67,6 +67,15 @@ module.exports = (sequelize, DataTypes) => {
           msg: "UserId is required"
         }
       }
+    },
+    createdBy: {
+      type : DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        notEmpty: {
+          msg: "Created By is required"
+        }
+      } 
     }
   }, {
     sequelize,

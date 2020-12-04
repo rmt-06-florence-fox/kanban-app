@@ -8,11 +8,12 @@ class UserController {
     static async register(req, res, next) {
         try {
             let payload = {
+                name: req.body.name,
                 email: req.body.email,
                 password: req.body.password
             }
             let user = await User.create(payload)
-            res.status(201).json({ id: user.id, email: user.email })
+            res.status(201).json({ id: user.id, name: user.name, email: user.email })
         } catch (error) {
             next(error)
         }
@@ -21,7 +22,6 @@ class UserController {
     static async login(req, res, next) {
         try {
             let data = await User.findOne({ where: { email: req.body.email } })
-            console.log(data);
             if (!data) {
                 throw {
                     status: 400,
@@ -29,7 +29,7 @@ class UserController {
                 }
             } else {
                 if (comparePassword(req.body.password, data.password)) {
-                    let access_token = generateToken({ id: data.id, email: data.email })
+                    let access_token = generateToken({ id: data.id, name: data.name, email: data.email })
                     res.status(200).json({ access_token })
                 } else {
                     throw {
@@ -55,6 +55,7 @@ class UserController {
                 await user
             } else {
                 user = await User.create({
+                    name: payload.name,
                     email: payload.email,
                     password: process.env.GOOGLE_LOGIN_PASS
                 })

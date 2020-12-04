@@ -46,6 +46,7 @@ Kanban App is an agile project management tool designed help visualize work and 
     ```json
     {
         "id": 1,
+        "name": "taufiq",
         "email": "taufiq@mail.com"
     }
     ```
@@ -57,6 +58,16 @@ Kanban App is an agile project management tool designed help visualize work and 
     ```json
     {
         "message": "email must be unique"
+    }
+    ```
+
+    OR 
+
+  * **Code:** 400 Bad Request <br />
+    **Content:**
+    ```json
+    {
+        "message": "Name is Required"
     }
     ```
 
@@ -191,6 +202,7 @@ Kanban App is an agile project management tool designed help visualize work and 
         "assignedto": "Cocoa",
         "status": "Backlog",
         "UserId": 1,
+        "createdBy": "taufiq",
         "updatedAt": "2020-12-01T13:33:15.625Z",
         "createdAt": "2020-12-01T13:33:15.625Z"
     }
@@ -306,6 +318,7 @@ Kanban App is an agile project management tool designed help visualize work and 
                 "assignedto": "Cocoa",
                 "status": "Doing",
                 "UserId": 1,
+                "createdBy": "taufiq",
                 "createdAt": "2020-12-01T13:33:15.625Z",
                 "updatedAt": "2020-12-01T14:01:15.207Z"
             },
@@ -317,6 +330,7 @@ Kanban App is an agile project management tool designed help visualize work and 
                 "assignedto": "Cocoa",
                 "status": "Backlog",
                 "UserId": 1,
+                "createdBy": "taufiq",
                 "createdAt": "2020-12-01T14:13:33.565Z",
                 "updatedAt": "2020-12-01T14:13:33.565Z"
             }
@@ -385,6 +399,7 @@ Kanban App is an agile project management tool designed help visualize work and 
             "assignedto": "Cocoa",
             "status": "Backlog",
             "UserId": 1,
+            "createdBy": "taufiq",
             "createdAt": "2020-12-01T14:13:52.693Z",
             "updatedAt": "2020-12-01T14:13:52.693Z"
         }
@@ -478,6 +493,7 @@ Kanban App is an agile project management tool designed help visualize work and 
             "assignedto": "Cocoa",
             "status": "Doing",
             "UserId": 1,
+            "createdBy": "taufiq",
             "createdAt": "2020-12-01T13:33:15.625Z",
             "updatedAt": "2020-12-01T13:58:09.266Z"
         }
@@ -621,6 +637,7 @@ Kanban App is an agile project management tool designed help visualize work and 
             "assignedto": "Cocoa",
             "status": "Done",
             "UserId": 1,
+            "createdBy": "taufiq",
             "createdAt": "2020-12-01T14:25:39.564Z",
             "updatedAt": "2020-12-01T14:26:23.286Z"
         }

@@ -9,9 +9,9 @@ class TaskController {
                 point: +req.body.point,
                 assignedto: req.body.assignedto,
                 status: req.body.status,
-                UserId: +req.loggedInUser.id
+                UserId: +req.loggedInUser.id,
+                createdBy: req.loggedInUser.name
             }
-            console.log(req.loggedInUser);
 
             let data = await Task.create(payload)
             res.status(201).json(data)
