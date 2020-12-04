@@ -28,6 +28,27 @@ class ControllerUser {
         })
     }
 
+    static findUser(req,res,next){
+        console.log(req.headers.id)
+        User.findAll({where: {id: req.headers.id}})
+        .then(data => {        
+            if(data) {
+                console.log(data.User.name)
+                res.status(200).json(
+                    {name: data.name}
+                )
+            } else {
+                throw{
+                    status: 404,
+                    message: 'user tidak ada'
+                }
+            }
+        })
+        .catch(error => {
+            next(error)
+        })
+    }
+
     static login(req,res,next){
         console.log(req.body)
         User.findOne({where: {email: req.body.email}})

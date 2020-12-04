@@ -43,6 +43,7 @@ export default {
             })
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access_token)
+                localStorage.setItem('user', this.user.email)
                 this.$emit("PleaseChangePage", "MainPage")
             })
             .catch(error => {

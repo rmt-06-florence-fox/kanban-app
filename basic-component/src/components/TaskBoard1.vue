@@ -4,12 +4,11 @@
             {{Category.name}}
         </div> 
         <TaskCard 
-        v-for="Task in Task"
+        v-for="Task in filteredTask"
         :key="Task.id"
         :Task="Task"
         :Category="Category.name"
         ></TaskCard>
-        
     </div>
 </template>
 
@@ -18,10 +17,25 @@ import TaskCard from "./taskCard"
 
 export default {
     name:  "TaskBoard1",
+    data() {
+        return {
+            tasks: []
+        }
+    },
     props: ['Task', 'Category'],
+    computed: {
+        filteredTask(){
+            return this.tasks.filter(task => task.category === this.Category.name)
+        }
+    },
     components: {
         TaskCard
+    },
+    created(){
+        console.log(this.tasks)
+        this.tasks = this.Task
     }
+    
 }
 </script>
 

@@ -3,8 +3,8 @@
         <Navbar 
         @PleaseChangePage="changePage">
         ></Navbar>
-        <BoardList 
-        :Task="Tasks"
+        <BoardList
+        :Task="Task"
         :Category="Category"
         ></BoardList>
 </template>
@@ -16,9 +16,9 @@ import axios from "axios"
 
 export default {
     name: "MainPage",
+    props: [ 'Task' ],
     data(){
         return {
-            Tasks: [],
             Category: [
                 {
                     id:1,
@@ -44,22 +44,6 @@ export default {
         BoardList
     },
     methods: {
-        fetchTask(){
-            axios({
-                method: "GET",
-                headers: {
-                    access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21teXN1c2FudG83N0BnbWFpbC5jb20iLCJpYXQiOjE2MDcwMTYwODl9.P9-4N77hklstE4YpMuwiA08YYwnRRreGqEU80dtGlrc"
-                },
-                url: "http://localhost:3000/task"
-            })
-            .then(response => {
-                this.Tasks = response.data
-                console.log(this.Tasks)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        },
         changePage(page){
             this.$emit("PleaseChangePage", page)
         }
@@ -67,7 +51,7 @@ export default {
 
     },
     created() {
-        this.fetchTask()
+        
     }
 }
 </script>
