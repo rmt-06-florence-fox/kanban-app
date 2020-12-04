@@ -2,10 +2,11 @@
     <div  class="d-flex justify-content-around mainBoard">
         <taskBoard 
             :tasks= 'tasks' 
+            @submitEdit = 'submitEdit'
             @addNewTask = "addNewTask"
             @destroying = 'destroying' 
             v-for="(category, index) in categories" :key= "index" 
-            :categoryName = "category"
+            :categoryName = "category" :allCategories = 'categories'
             >
         </taskBoard>
     </div>
@@ -14,6 +15,8 @@
 
 <script>
 import taskBoard from './taskBoard'
+import draggable from 'vuedraggable'
+
 export default {
     name: 'boardList',
     data (){
@@ -21,29 +24,30 @@ export default {
             categories : [
                 {
                 name:'back-log',
-                class: "bg-dark text-white p-2 rounded font-weight-bold",
-                style: "width: 310px;",
+                class: "text-white p-2 rounded font-weight-bold",
+                style: "width: 310px; background-color: #595238",
                 },
                 {
                 name:'To-Do',
-                class: "bg-warning text-dark p-2 rounded font-weight-bold",
-                style: "width: 310px;",
+                class: "text-dark p-2 rounded font-weight-bold",
+                style: "width: 310px; background-color: #1dd3bd",
                 },
                 {
                 name:'Doing',
-                class: "bg-primary text-warning p-2 rounded font-weight-bold",
-                style: "width: 310px;",
+                class: " text-dark p-2 rounded font-weight-bold",
+                style: "width: 310px; background-color: #2bb2bb",
                 },
                 {
                 name:'Done',
-                class: "bg-danger text-white p-2 rounded font-weight-bold",
-                style: "width: 310px;",
+                class: "text-dark p-2 rounded font-weight-bold",
+                style: "width: 310px; background-color: #87d4c5",
                 }
                 ]
         }
     },
     components: {
-        taskBoard
+        taskBoard,
+        draggable
     },
     methods:{
         addNewTask(payload){
@@ -52,6 +56,9 @@ export default {
         },
         destroying(id){
             this.$emit('destroying', id)
+        },
+        submitEdit(payload, id){
+            this.$emit('submitEdit', payload,id)
         }
     },
     props: ['tasks']

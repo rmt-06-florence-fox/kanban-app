@@ -1,9 +1,16 @@
 <template>
     <div>
-        <entryPage :pageName = "pageName" v-if="entry" @changePage = 'changePage' @axiosLogin= "axiosLogin" @axiosRegist = 'axiosRegist'></entryPage>
+        <entryPage :pageName = "pageName" v-if="entry" 
+            @changePage = 'changePage' 
+            @axiosLogin= "axiosLogin" 
+            @axiosRegist = 'axiosRegist'
+            @googleLogin = 'googleLogin'
+            >
+        </entryPage>
         <navBar v-if="!entry" @logout= 'logout'></navBar>
         <boardList 
             :tasks = 'tasks' 
+            @submitEdit = 'submitEdit'
             @addNewTask = 'addNewTask' 
             @destroying = 'destroying'
             v-if="!entry"
@@ -20,8 +27,8 @@ import navBar from './components/navBar'
 import boardList from './components/boardList'
 import taskBoard from './components/taskBoard'
 import taskItem from './components/taskItem'
-import addNew from './components/addNew'
 import axios from 'axios'
+import GoogleLogin from 'vue-google-login';
 
 export default {
     name: "App",
@@ -29,7 +36,10 @@ export default {
         return {
             entry: true,
             pageName: 'login page',
-            tasks : []
+            tasks : [],
+            params: {
+                    client_id: "1032301583959-22amjtnotb8e2qbkd1d0vtsn5s9v1hbm.apps.googleusercontent.com"
+                },
             // addNewStatus: false
         }
     },
@@ -39,14 +49,13 @@ export default {
         boardList,
         taskBoard,
         taskItem,
-        addNew
+        GoogleLogin,
     },
     methods : {
         changePage(page) {
             this.pageName = page
         },
         addNewTask(payload){
-            console.log(payload, 'from app vue')
             let access_token = localStorage.access_token
             axios({
                 method: 'post',
@@ -56,7 +65,6 @@ export default {
             })
             .then(response =>{
                 this.fetchTask()
-                console.log(response.data)
             })
             .catch(err =>{
                 console.log(err)
@@ -72,6 +80,7 @@ export default {
                 localStorage.setItem('access_token', response.data.access_token)
                 swal("Login Success","you can use Kanban Board Now", "success")
                 this.entry = false
+                this.fetchTask()
                 
             })
             .catch(err =>{
@@ -98,6 +107,10 @@ export default {
                 })
         },
         logout(){
+            //  var auth2 = gapi.auth2.getAuthInstance();
+            // auth2.signOut().then(function () {
+            // console.log('User signed out.');
+            // });
             localStorage.clear()
             this.entry = true
             this.pageName = 'login page'
@@ -127,7 +140,40 @@ export default {
                 this.fetchTask()
             })
             .catch(err =>{
-                swal('Not your Authorization', ' ', 'warning')
+                swal('Not your Task', ' ', 'warning')
+            })
+        },
+        submitEdit(payload, id){
+            let access_token = localStorage.access_token
+            axios({
+                method: 'put',
+                url: `http://localhost:3000/tasks/${id}`,
+                data : payload,
+                headers:{access_token}
+            })
+            .then(response => {
+                this.fetchTask()
+            })
+            .catch(err =>{
+                swal('Not your Your Task', ' ', 'warning')
+
+            })
+        },
+        googleLogin(googleToken){
+            axios({
+                method: 'post',
+                url: `http://localhost:3000/googleLogin`,
+                data: {googleToken}
+            })
+            .then(response =>{
+                // console.log(response.data.access_token, '<<<<')
+                localStorage.setItem('access_token', response.data.access_token)
+                swal("Login Success","you can use Kanban Board Now", "success")
+                this.entry = false
+                this.fetchTask()
+            })
+            .catch(err =>{
+                console.log(err, ' << errrrror >>>')
             })
         }
     },

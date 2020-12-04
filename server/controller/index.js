@@ -47,6 +47,7 @@ class Controller {
             })
         })
         .then(result =>{
+
             if(result){
                 return result
             } else {
@@ -57,7 +58,9 @@ class Controller {
             }
         })
         .then(user =>{
-            const access_token = getToken({id: user.id, email: user.email})
+            console.log('masukkkkkk lagi', user)
+
+            const access_token = jwt.sign({id: user.id, email: user.email}, process.env.SECRET)
             res.status(200).json({access_token})
     
         })
@@ -80,7 +83,9 @@ class Controller {
         })
     }
     static showTask(req, res ) {
-        Task.findAll()
+        Task.findAll({
+            include:[User]
+        })
         .then(task =>{
             res.status(200).json(task)
         })

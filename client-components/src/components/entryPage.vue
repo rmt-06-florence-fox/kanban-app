@@ -1,7 +1,13 @@
 <template>
   <div class="d-flex justify-content-center">
     <img id="img-left" src="img/undraw_stepping_up_g6oo.svg" alt="">
-    <loginForm v-if="pageName == 'login page'" @submitLogin = "loginSubmit" @changePageName="changePage"></loginForm>
+    <loginForm 
+        v-if="pageName == 'login page'" 
+        @submitLogin = "loginSubmit" 
+        @changePageName="changePage"
+        @googleLogin = "googleLogin"
+        >
+    </loginForm>
     <registerForm v-if="pageName == 'register page'" @registSubmit = "registSubmit" @changePageName= "changePage" ></registerForm>
   
     </div>
@@ -31,6 +37,9 @@ export default {
         },
         registSubmit(payload){
             this.$emit('axiosRegist', payload)
+        },
+        googleLogin(googleToken){
+            this.$emit('googleLogin', googleToken)
         }
     },
     created(){

@@ -20,6 +20,7 @@
               </div>
               <div class="row container ml-2 mb-3">
                 <button class="btn btn-lg text-white" style="background-color: #0eaef8;">Login</button>
+                <GoogleLogin class="ml-3 " :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
                 <!-- google sign button -->
               </div>
             </form>
@@ -28,13 +29,26 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
+
 export default {
     name: 'loginForm',
     data () {
         return {
             email: '',
-            password: ''
+            password: '',
+            params: {
+              client_id: "1032301583959-22amjtnotb8e2qbkd1d0vtsn5s9v1hbm.apps.googleusercontent.com"
+            },
+            renderParams: {
+                width: 140,
+                height: 50,
+                longtitle: false
+            }
         }
+    },
+    components:{
+      GoogleLogin
     },
     methods: {
         register(){
@@ -48,6 +62,12 @@ export default {
             }),
             this.email = ''
             this.password = ''
+        },
+        onSuccess(googleUser) {
+            // console.log(googleUser);
+            // console.log(googleUser.getAuthResponse().id_token)
+          let googleToken = googleUser.getAuthResponse().id_token
+          this.$emit('googleLogin', googleToken)
         }
     }
 

@@ -1,13 +1,17 @@
 <template>
     <div >
-        <h4  :class="categoryName.class" style="width: 310px;">{{categoryName.name}}</h4>
+        <h4  :class="categoryName.class" :style="categoryName.style">{{categoryName.name}}</h4>
         <div class="d-flex flex-column-reverse bd-highlight scrollbar scrollbar-primary " style="overflow-y: scroll; max-height: 450px; ">
-            <taskItem
-                @destroying = 'destroying'  
-                v-for="(task, index) in tasks" :key= "index"  :task = 'task' 
-                :categoryName= 'categoryName' 
-                >
-            </taskItem>
+        <draggable v-model="tasks" group="task" @start="drag=true" @end="drag=false">
+                <taskItem
+                    
+                    @submitEdit = 'submitEdit'
+                    @destroying = 'destroying'  
+                    v-for="(task, index) in tasks" :key= "index"  :task = 'task' 
+                    :categoryName= 'categoryName' :allCategories = 'allCategories'
+                    >
+                </taskItem>
+        </draggable>
         </div>
             <p @click="addNewTask" class="text-center newTask" ><i class="fa fa-plus-square" aria-hidden="true"></i> New Task</p>
             
@@ -18,31 +22,28 @@
 
 <script>
 import taskItem from './taskItem'
+import draggable from 'vuedraggable'
+
 export default {
     name: 'taskBoard',
     data(){
         return {
             title: "",
-            category: ""
+            category: "",
         }
     },
     components:{
-        taskItem
+        taskItem,
+        draggable
     },
-    props: ['categoryName', 'tasks'],
+    props: ['categoryName', 'tasks', 'allCategories'],
     methods:{
         addNewTask(){
-            swal({
-                text: 'New Task',
+            swal("New Task:", {
                 content: "input",
-                buttons: {
-                    cancel: 'Cancel',
-                    text: "Submit!",
-                    closeModal: false,
-                },
             })
             .then((value) => {
-                if(value){
+                 if(value){
                     this.title = value
                     this.category = this.categoryName.name
                     this.$emit('addNewTask', {
@@ -57,14 +58,14 @@ export default {
                     this.title = ''
                     this.category = ''
                 }
-
-
-            })
-            ;
-            // this.$emit('addNewTask', true)
+            });
+            
         },
         destroying(id){
            this.$emit('destroying', id)
+        },
+        submitEdit(payload, id){
+            this.$emit('submitEdit', payload, id)
         }
     }
 
