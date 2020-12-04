@@ -1,6 +1,7 @@
-if(!process.env.NODE_ENV){
-    require('dotenv').config()
-}
+//if (!process.env.NODE_ENV){
+//    console.log('masuk')
+//    require('dotenv').config()
+//}
 
 const express = require('express')
 const router = require('./routers')
