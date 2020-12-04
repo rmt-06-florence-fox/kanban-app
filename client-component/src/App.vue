@@ -102,7 +102,6 @@ export default {
           localStorage.setItem("email", email)
           localStorage.setItem("access_token", response.data.access_token)
           this.currentPage = "MainPage"
-          this.loggedInEmail = localStorage.getItem("email")
           this.getTasks()
 
         })
@@ -159,6 +158,7 @@ export default {
             response.data[i].converted_due_date = `${date} ${month} ${year}`
           }
           this.tasks = response.data
+          this.loggedInEmail = localStorage.getItem("email")
         })
         .catch(error => {
           console.log(error.response.data)

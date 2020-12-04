@@ -1,10 +1,12 @@
 const express = require("express")
 const router = require("./routers/main")
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const cors = require("cors")
 const errorHandler = require("./middlewares/errorhandlers")
-require("dotenv").config()
+if(process.env.NODE_ENV === "development"){
+  require("dotenv").config()
+}
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
