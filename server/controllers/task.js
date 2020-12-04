@@ -1,9 +1,14 @@
-const {Task} = require('../models')
+const {Task, User} = require('../models')
 
 class TaskController {
     static async getTasks(req, res, next) {
         try {
-            const data = await Task.findAll()
+            const data = await Task.findAll({
+                include: {
+                    model: User,
+                    attributes: ['email']
+                }
+            })
             res.status(200).json(data)
         } catch (error) {
             next(error)
@@ -13,8 +18,8 @@ class TaskController {
     static async createTask(req, res, next) {
         const data = {
             title: req.body.title,
-            UserId: req.loggedInUser.id,
-            CategoryId: +req.body.CategoryId
+            category: req.body.category,
+            UserId: req.loggedInUser.id
         }
         try {
             console.log(data);
@@ -24,30 +29,13 @@ class TaskController {
             next(error)
         }
     }
-
-    static async getTaskById(req, res, next) {
-        try {
-            const idTask = req.params.id
-            const data = await Task.findByPk(idTask)
-            if (!data) {
-                throw {
-                    status: 404,
-                    message: 'Data Not Found'
-                }
-            } else {
-                res.status(200).json(data)
-            }
-        } catch (error) {
-            next(error)
-        }
-    }
-
+    
     static async updateTask(req, res, next) {
         try {
             const idTask = req.params.id
             const data = {
                 title: req.body.title,
-                CategoryId: req.body.CategoryId
+                category: req.body.category
             }
             const dataTask = await Task.findByPk(idTask)
             if (!dataTask) {

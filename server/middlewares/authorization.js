@@ -7,6 +7,13 @@ module.exports = async (req, res, next) => {
                 id: req.params.id
             }
         })
+        if (!task) {
+            throw {
+                status: 404,
+                message: "Data Not Found"
+            }
+        }
+
         if(task.UserId === req.loggedInUser.id) {
             next()
         } else {
@@ -16,6 +23,14 @@ module.exports = async (req, res, next) => {
             }
         }
     } catch(err) {
+        // if(!task) {
+        //     throw {
+        //         status: 404,
+        //         message: "Data Not Found"
+        //     }
+        // } else {
+        // }
+        console.log(err);
         next(err)
     }
 } 

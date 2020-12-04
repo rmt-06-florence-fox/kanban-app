@@ -7,7 +7,6 @@ const authorization = require('../middlewares/authorization')
 router.use(authentication)
 router.get('/', TaskController.getTasks)
 router.post('/', TaskController.createTask)
-router.get('/:id', TaskController.getTaskById)
 router.put('/:id', authorization, TaskController.updateTask)
 router.delete('/:id', authorization, TaskController.deleteTask)
 

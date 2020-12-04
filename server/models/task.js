@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Task.belongsTo(models.User)
-      Task.belongsTo(models.Category)
     }
   };
   Task.init({
@@ -21,6 +20,15 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Title must not be empty'
+        }
+      }
+    },
+    category: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Category must not be empty'
         }
       }
     }
