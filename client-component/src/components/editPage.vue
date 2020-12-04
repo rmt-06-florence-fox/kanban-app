@@ -40,7 +40,7 @@ export default {
         taskEditted(){
             console.log(this.editted)
             axios({
-                url: `http://localhost:3000/tasks/${this.editted.id}`,
+                url: `https://robby-kanban.herokuapp.com/tasks/${this.editted.id}`,
                 method: 'put',
                 headers: {
                     access_token: localStorage.getItem('access_token')

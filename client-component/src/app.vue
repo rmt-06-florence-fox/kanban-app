@@ -48,7 +48,7 @@ export default {
         edit(data){
             // console.log(data)
             axios({
-                url: `http://localhost:3000/tasks/${data}`,
+                url: `https://robby-kanban.herokuapp.com/tasks/${data}`,
                 method: 'get',
                 headers:{
                     access_token: localStorage.getItem('access_token')

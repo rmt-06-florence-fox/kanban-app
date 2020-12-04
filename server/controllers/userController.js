@@ -21,7 +21,7 @@ class UserController{
         })
     }
 
-    static login(req, res){
+    static login(req, res, next){
         User.findOne({
             where:{
                 email: req.body.email
@@ -29,18 +29,25 @@ class UserController{
         })
         .then(data=>{
             if(!data){
-                res.status(401).json({message: 'invalid account'})
+                // res.status(401).json({message: 'invalid account'})
+                throw {
+                    status: 401,
+                    message: 'invalid account'
+                }
             } else if(bcrypt.compareSync(req.body.password, data.password)){
                 const access_token = Helper.generateToken({email: data.email, id: data.id})
                 // console.log(access_token)
                 res.status(200).json({access_token})
             } else {
-                res.status(401).json({message: 'invalid email/password'})
+                throw {
+                    status: 401,
+                    message: 'invalid email/password'
+                }
+                // res.status(401).json({message: 'invalid email/password'})
             }
         })
         .catch(e=>{
-            console.log(e)
-            res.status(500).json({message: 'internal server error'})
+            next(e)
         })
     }
     static googleLogin(req, res, next){
@@ -78,8 +85,7 @@ class UserController{
             res.status(200).json( {access_token} )
         })
         .catch(e=>{
-            console.log(e)
-            res.status(500).json(e)
+            next(e)
         })
     }
 }

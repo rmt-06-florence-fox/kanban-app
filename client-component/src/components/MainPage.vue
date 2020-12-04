@@ -68,7 +68,7 @@ export default {
         },
         fetch(){
             axios({
-                url: 'http://localhost:3000/tasks',
+                url: 'https://robby-kanban.herokuapp.com/tasks',
                 method: 'get',
                 headers:{
                     access_token: localStorage.getItem('access_token')
@@ -92,7 +92,7 @@ export default {
         },
         deleteId(data){
             axios({
-                url: `http://localhost:3000/tasks/${data}`,
+                url: `https://robby-kanban.herokuapp.com/tasks/${data}`,
                 method: 'delete',
                 headers:{
                     access_token: localStorage.getItem('access_token')
@@ -116,7 +116,7 @@ export default {
             }
             // console.log(editCategory)
             axios({
-                url: `http://localhost:3000/tasks/${data.id}`,
+                url: `https://robby-kanban.herokuapp.com/tasks/${data.id}`,
                 method: 'patch',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -146,7 +146,7 @@ export default {
             }
             console.log(editCategory)
             axios({
-                url: `http://localhost:3000/tasks/${data.id}`,
+                url: `https://robby-kanban.herokuapp.com/tasks/${data.id}`,
                 method: 'patch',
                 headers: {
                     access_token: localStorage.getItem('access_token')

@@ -52,7 +52,7 @@ export default {
     methods: {
         login () {
             axios({
-                url: 'http://localhost:3000/login',
+                url: 'https://robby-kanban.herokuapp.com/login',
                 method: 'post',
                 data: this.user
             })
@@ -78,7 +78,7 @@ export default {
             console.log(googleUser);
             var id_token = googleUser.getAuthResponse().id_token;
             axios({
-                url: 'http://localhost:3000/googleLogin',
+                url: 'https://robby-kanban.herokuapp.com/googleLogin',
                 method: 'post',
                 data: {
                     id_token

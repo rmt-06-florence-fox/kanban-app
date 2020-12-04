@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="text" name="password" id="create-password" class="form-control" placeholder="password" v-model="registerAkun.password">
+                <input type="password" name="password" id="create-password" class="form-control" placeholder="password" v-model="registerAkun.password">
             </div>
             <button type="submit" class="btn btn-primary" >Submit</button>
         </form>
@@ -44,7 +44,7 @@ export default {
     methods: {
         register(){
             axios({
-                url: 'http://localhost:3000/register',
+                url: 'https://robby-kanban.herokuapp.com/register',
                 method: 'post',
                 data: this.registerAkun
                 

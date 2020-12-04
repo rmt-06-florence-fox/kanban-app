@@ -43,7 +43,7 @@ export default {
     methods:{
         add(){
             axios({
-                url: 'http://localhost:3000/tasks/',
+                url: 'https://robby-kanban.herokuapp.com/tasks/',
                 method: 'post',
                 headers: {
                     access_token: localStorage.getItem('access_token')
