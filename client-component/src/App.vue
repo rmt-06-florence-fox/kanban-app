@@ -27,7 +27,6 @@
             @AddPage="changePage"
             @DeleteTask="deleteTask"
             @ToEditPage="getTodoById"
-            @EditTask="editPage"
             :tasks="tasks"
             :category="category"
         ></Task>
@@ -49,7 +48,7 @@ export default {
     data() {
         return {
             pageName: "Login Page",
-            url: "http://localhost:3000/",
+            url: "https://arfafa-kanban.herokuapp.com/",
             tasks: [],
             task: "",
             category: ['Backlog', 'Todo', 'Doing', 'Done']
@@ -94,12 +93,6 @@ export default {
                 .catch(err => {
                     console.log(err.response.data.msg)
                 })
-        },
-        editPage(page,task) {
-            // console.log(page, task)
-            this.task = task
-            // console.log(this.task)
-            this.pageName = page
         },
         changePage(page) {  
             // console.log(page)
