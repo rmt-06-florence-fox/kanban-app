@@ -59,7 +59,7 @@ export default {
             let access_token = localStorage.access_token
             axios({
                 method: 'post',
-                url: `http://localhost:3000/tasks`,
+                url: `https://moz-kanban-888.herokuapp.com/tasks`,
                 data: payload,
                 headers:{access_token}
             })
@@ -73,7 +73,7 @@ export default {
         axiosLogin(payload) {
             axios({
                 method: 'post',
-                url: `http://localhost:3000/login`,
+                url: `https://moz-kanban-888.herokuapp.com/login`,
                 data: payload
             })
             .then(response =>{
@@ -90,7 +90,7 @@ export default {
         axiosRegist(payload){
                 axios({
                     method: 'post',
-                    url: `http://localhost:3000/register`,
+                    url: `https://moz-kanban-888.herokuapp.com/register`,
                     data:payload
                 })
                 .then(response =>{
@@ -119,7 +119,7 @@ export default {
             let access_token = localStorage.access_token
             axios({
                 method: 'get',
-                url: `http://localhost:3000/tasks`,
+                url: `https://moz-kanban-888.herokuapp.com/tasks`,
                 headers:{access_token}
             })
             .then(response =>{
@@ -133,7 +133,7 @@ export default {
             let access_token = localStorage.access_token
             axios({
                 method: 'delete',
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://moz-kanban-888.herokuapp.com/tasks/${id}`,
                 headers:{access_token}
             })
             .then(response =>{
@@ -147,7 +147,7 @@ export default {
             let access_token = localStorage.access_token
             axios({
                 method: 'put',
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://moz-kanban-888.herokuapp.com/tasks/${id}`,
                 data : payload,
                 headers:{access_token}
             })
@@ -162,7 +162,7 @@ export default {
         googleLogin(googleToken){
             axios({
                 method: 'post',
-                url: `http://localhost:3000/googleLogin`,
+                url: `https://moz-kanban-888.herokuapp.com/googleLogin`,
                 data: {googleToken}
             })
             .then(response =>{
