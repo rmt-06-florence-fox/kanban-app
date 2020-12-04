@@ -244,8 +244,7 @@
         {
             "title": "<task title>",
             "description": "<description of task>",
-            "status": "<status of task completion>",
-            "due_date": "<deadline of task>"
+            "category": "<category of task>",
         }
 
     - Response 200: OK
@@ -253,8 +252,7 @@
             "id": <selected task list id>,
             "title": "<updated task title>",
             "description": "<updated description>",
-            "status": "<updated status>",
-            "due_date": "<updated deadline of task>",
+            "category": "<updated category>",
             "createdAt": "<date given by system>",
             "updatedAt": "<date given by system>"
         }
