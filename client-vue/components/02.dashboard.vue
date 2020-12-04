@@ -1,6 +1,6 @@
 <template>
   <!-- Task -->
-      <div class="d-flex justify-content-around d-flex align-items-center">
+      <div class="d-flex justify-content-around d-flex align-items-center pt-4">
         <card 
         v-for = "(category, idx) in categories" :key= "idx" :name= "category"
         @fetchTask = "fetchTask"

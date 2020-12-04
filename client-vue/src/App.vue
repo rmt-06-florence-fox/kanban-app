@@ -63,13 +63,16 @@ export default {
             password : obj.password
           }
         })
-        localStorage.setItem('access_token', data.data.access_token)
-        localStorage.setItem('fullname', data.data.fullname)
-        this.fetchTask()
-        this.changePage('main page')
+        if (data.data) {
+          Swal.fire(`You're logging in`, 'Welcome to The Kanban.co!', `success`)
+          localStorage.setItem('access_token', data.data.access_token)
+          localStorage.setItem('fullname', data.data.fullname)
+          this.fetchTask()
+          this.changePage('main page')
+        }
       } catch (error) {
         let status = `${error.response.status} ${error.response.statusText}`
-        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        let message = error.response.data
         Swal.fire({
           icon: 'error',
           title: `${status}`,
@@ -90,7 +93,10 @@ export default {
             password : obj.password
           }
         })
-        this.page = 'login page'
+        if (data.data) {
+          Swal.fire(`You're registered`, 'Welcome!', `success`)
+          this.page = 'login page'
+        }
       } catch (error) {
         let status = `${error.response.status} ${error.response.statusText}`
         let message = error.response.data.message.toString().replace(/,/g, ', ')
@@ -102,9 +108,39 @@ export default {
         })
       }
     },
-    logout() {
-      localStorage.clear()
-      this.page = "login page"
+    async logout() {
+      try {
+        let confirm = await Swal.fire({
+          title: 'Do You want to logout?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        })
+        if (confirm.isConfirmed) {
+          Swal.fire(`You're logging out`, 'Thank you for using this app', `success`)
+          localStorage.clear()
+          this.page = "login page"
+        } 
+      } catch (error) {
+        if (error.status) {
+          Swal.fire({
+            icon: 'error',
+            title: `${error.status}`,
+            text: `${error.message}`,
+            footer: 'Please check again before you submit'
+          })
+        } else {
+          let status = `${error.response.status} ${error.response.statusText}`
+          let message = error.response.data.message.toString().replace(/,/g, ', ')
+          Swal.fire({
+            icon: 'error',
+            title: `${status}`,
+            text: `${message}`,
+            footer: 'Please check again before you submit'
+          })
+        }
+      }
     },
     async createTask(){
       try {
@@ -150,9 +186,9 @@ export default {
         })
         if (data.data) {
           Swal.fire(`Success Add ${data.data.title}`, '', `success`)
+          this.fetchTask()
+          this.page = 'main page'
         }
-        this.fetchTask()
-        this.page = 'main page'
       } catch (error) {
         let status = `${error.response.status} ${error.response.statusText}`
         let message = error.response.data.message.toString().replace(/,/g, ', ')
@@ -196,7 +232,7 @@ export default {
         this.edit(data.data, id)
       } catch (error) {
         let status = `${error.response.status} ${error.response.statusText}`
-        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        let message = error.response.data
         Swal.fire({
           icon: 'error',
           title: `${status}`,
@@ -247,9 +283,9 @@ export default {
         })
         if (data.data) {
           Swal.fire(`Success Edit ${data.data.title}`, '', `success`)
+          this.fetchTask()
+          this.page = 'main page'
         }
-        this.fetchTask()
-        this.page = 'main page'
       } catch (error) {
         let status = `${error.response.status} ${error.response.statusText}`
         let message = error.response.data.message.toString().replace(/,/g, ', ')
@@ -263,6 +299,13 @@ export default {
     },
     async destroy(id){
       try {
+        let data = await axios({
+          url : `${this.localhost}/tasks/${id}`,
+          method : 'get',
+          headers : {
+            access_token : localStorage.getItem('access_token')
+          }
+        })
         let confirm = await Swal.fire({
           title: 'Are you sure to delete this task?',
           text: "Please check before delete!",
@@ -281,33 +324,19 @@ export default {
           })
           if (data.data) {
             Swal.fire(`Success delete your task`, '', `success`)
-          }
-          this.fetchTask()
-          this.page = 'main page'
-        } else {
-          throw {
-            status : 500,
-            message : 'internal server error'
+            this.fetchTask()
+            this.page = 'main page'
           }
         }
       } catch (error) {
-        if (error.status) {
-          Swal.fire({
-            icon: 'error',
-            title: `${error.status}`,
-            text: `${error.message}`,
-            footer: 'Please check again before you submit'
-          })
-        } else {
-          let status = `${error.response.status} ${error.response.statusText}`
-          let message = error.response.data.message.toString().replace(/,/g, ', ')
-          Swal.fire({
-            icon: 'error',
-            title: `${status}`,
-            text: `${message}`,
-            footer: 'Please check again before you submit'
-          })
-        }
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`
+        })
+        
       }
       
     },
@@ -321,13 +350,14 @@ export default {
             googleToken
           }
         })
+        Swal.fire(`You're logging in`, 'Welcome to The Kanban.co!', `success`)
         localStorage.setItem('access_token', data.data.access_token)
         localStorage.setItem('fullname', data.data.fullname)
         this.fetchTask()
         this.changePage('main page')
       } catch (error) {
         let status = `${error.response.status} ${error.response.statusText}`
-        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        let message = error.response.data
         Swal.fire({
           icon: 'error',
           title: `${status}`,

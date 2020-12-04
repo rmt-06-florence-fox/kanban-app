@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="width: 20rem;">
-    <h5 class="card-header text-center bg-primary text-white" v-text = "name"></h5>
+    <h5 class="card-header text-center bg-info text-white" v-text = "name"></h5>
     <div class="mh-100 overflow-auto p-1" style="height: 70vh;">
       <tasks 
       v-for = "(task, idx) in filteredCategory" :key= "idx" :list= "task"

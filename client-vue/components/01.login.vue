@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-6 d-flex justify-content-center d-flex align-items-center" style="height: 100vh;">
-        <img src="" alt="">
+        <img src="..\src\time-management.png" alt="">
       </div>
     </div>
   </div>
