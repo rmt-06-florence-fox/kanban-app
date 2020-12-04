@@ -340,6 +340,136 @@ _Response (500 - Internal Server Error)_
 
 ---
 
+## GET /categories
+
+_Request Headers_
+
+```
+{
+    (REQUIRED) "access_token": "/token from login/"
+}
+```
+
+_Response (200 - Ok)_
+
+```
+[
+    {
+        "id": 1,
+        "name": "Back-log",
+        "Tasks": [
+            {
+                "id": 11,
+                "title": "test",
+                "description": "test",
+                "createdAt": "2020-12-04T06:56:37.133Z",
+                "User": {
+                    "email": "andhikamuttaqien@gmail.com"
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Todo",
+        "Tasks": [
+            {
+                "id": 15,
+                "title": "test",
+                "description": "test",
+                "createdAt": "2020-12-04T07:39:22.042Z",
+                "User": {
+                    "email": "andhikamuttaqien@gmail.com"
+                }
+            },
+            {
+                "id": 12,
+                "title": "test",
+                "description": "test",
+                "createdAt": "2020-12-04T07:20:22.245Z",
+                "User": {
+                    "email": "test@mail.com"
+                }
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Ongoing",
+        "Tasks": [
+            {
+                "id": 16,
+                "title": "Test sedikit panjang nih",
+                "description": "43242352352",
+                "createdAt": "2020-12-04T07:41:00.910Z",
+                "User": {
+                    "email": "andhikamuttaqien@gmail.com"
+                }
+            },
+            {
+                "id": 14,
+                "title": "test",
+                "description": "testtt",
+                "createdAt": "2020-12-04T07:35:12.988Z",
+                "User": {
+                    "email": "andhikamuttaqien@gmail.com"
+                }
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Done",
+        "Tasks": [
+            {
+                "id": 17,
+                "title": "(Example) Judul 2",
+                "description": "(Example) Ini deskripsi",
+                "createdAt": "2020-12-04T08:00:24.510Z",
+                "User": {
+                    "email": "test@mail.com"
+                }
+            },
+            {
+                "id": 8,
+                "title": "test",
+                "description": "test",
+                "createdAt": "2020-12-04T06:25:29.130Z",
+                "User": {
+                    "email": "test@mail.com"
+                }
+            }
+        ]
+    }
+]
+```
+
+_Response (401 - No Access Token)_
+
+```
+{
+    "message": "Please Login First"
+}
+```
+
+_Response (404 - Invalid Access Token)_
+
+```
+{
+    "message": "Invalid Account or Password"
+}
+```
+
+_Response (500 - Internal Server Error)_
+
+```
+{
+    "message": "Internal Server Error"
+}
+```
+
+---
+
 ## PATCH /tasks/:id
 
 _Request Headers_
@@ -354,7 +484,7 @@ _Request Body_
 
 ```
 {
-    (REQUIRED) "category": "done"
+    (REQUIRED) "CategoryId": "4"
 }
 ```
 
@@ -365,7 +495,7 @@ _Response (200 - Ok)_
     "id": 1,
     "title": "Ganti Judul",
     "description": "Ini juga ganti",
-    "category": "done",
+    "CategoryId": "4",
     "UserId": 1,
     "createdAt": "2020-11-30T14:05:36.610Z",
     "updatedAt": "2020-12-01T09:25:03.687Z"
@@ -431,7 +561,7 @@ _Request Body_
 {
     (REQUIRED) "title": "Ganti Judul",
     (REQUIRED) "description": "Ini juga ganti",
-    (REQUIRED) "category": "done"
+    (REQUIRED) "CategoryId": "4"
 }
 ```
 
@@ -442,7 +572,7 @@ _Response (200 - Ok)_
     "id": 1,
     "title": "Ganti Judul",
     "description": "Ini juga ganti lagi",
-    "category": "done",
+    "CategoryId": "4",
     "UserId": 1,
     "createdAt": "2020-11-30T14:05:36.610Z",
     "updatedAt": "2020-12-03T04:40:17.648Z"
@@ -488,7 +618,6 @@ _Response (400 - Bad Request)_
     "message": [
       "Title Cannot be Empty",
       "Description Cannot be Empty",
-      "Category Cannot be Empty"
     ]
 }
 ```

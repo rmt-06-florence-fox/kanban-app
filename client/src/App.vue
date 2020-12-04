@@ -15,7 +15,7 @@ export default {
     return {
       name: 'Andhika',
       curentPage: 'loginPage',
-      url: 'http://localhost:3000',
+      url: 'https://kanban-app-amp.herokuapp.com',
       tasks: []
       
     }
@@ -23,6 +23,9 @@ export default {
   methods: {
     changePage(page) {
       this.curentPage = page
+      if (page === 'mainPage') {
+        this.fetchTask()
+      }
     },
     fetchTask() {
       axios({
@@ -71,32 +74,45 @@ export default {
       })
     },
     deleteThisTask(id) {
-      axios({
-        url: `${this.url}/tasks/${id}`,
-        method: 'DELETE',
-        headers: {
-          access_token: localStorage.getItem('access_token')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            url: `${this.url}/tasks/${id}`,
+            method: 'DELETE',
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          })
+          .then((data) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Okay..',
+              text: 'Your task has been Deleted',
+            })
+            this.fetchTask()
+          })
+          .catch((err) => {
+            console.log(err)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Are you sure this is your task?',
+            })
+          })
         }
       })
-      .then((data) => {
-        Swal.fire({
-					icon: 'success',
-					title: 'Okay..',
-					text: 'Your task has been Deleted',
-        })
-        this.fetchTask()
-      })
-      .catch((err) => {
-        console.log(err)
-        Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					text: 'Are you sure this is your task?',
-        })
-      })
+      
     },
     editThisTask(editTask) {
-      console.log(editTask, 'dari app')
+      // console.log(editTask, 'dari app')
       const id = editTask.editTaskId
       const title = editTask.editTitle
       const description = editTask.editDescription
@@ -132,7 +148,7 @@ export default {
       })
     },
     updateTask(updatedTask) {
-      console.log(updatedTask, 'dari app')
+      // console.log(updatedTask, 'dari app')
       const id = updatedTask.id
       const CategoryId = updatedTask.CategoryId
       axios({

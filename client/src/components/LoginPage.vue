@@ -35,6 +35,7 @@
 						v-model="password_input"
 					/>
 				</div>
+				<br>
 				<div id="error-log"></div>
 				<button @click.prevent="login" type="submit" class="shadow btn btn-success">
 					Login
@@ -47,13 +48,13 @@
 				>
 					I Don't Have an Account
 				</button>
-				<small
+			</form>
+			<small
 					id="logpref"
-					class="form-text text-black text-left mt-4 mb-3"
+					class="form-text text-black text-center mt-4 mb-3"
 					>- or login with your google account -</small
 				>
-				<div class="g-signin2 mt-3" data-onsuccess="onSignIn"></div>
-			</form>
+			<div style="text-align: center;"><button v-google-signin-button="clientId" class="google-signin-button"><i class="fa fa-street-view fa-fw"></i>Continue with Google</button></div>
 		</div>
 	</section>
 
@@ -91,6 +92,7 @@
 						v-model="newPassword_input"
 					/>
 				</div>
+				<br>
 				<button @click.prevent="register" type="submit" class="btn btn-success">Register</button>
 				<button
 					@click="haveAccount"
@@ -100,17 +102,13 @@
 				>
 					I Have an Account
 				</button>
-				<div id="errorlog"></div>
-				<small
+			</form>
+			<small
 					id="logpref"
-					class="form-text text-black text-left mt-4 mb-3"
+					class="form-text text-black text-center mt-4 mb-3"
 					>- or login with your google account -</small
 				>
-				<div
-					class="g-signin2 mx-auto justify-content-center rounded"
-					data-onsuccess="onSignIn"
-				></div>
-			</form>
+			<div style="text-align: center;"><button v-google-signin-button="clientId" class="google-signin-button"><i class="fa fa-street-view fa-fw"></i>Continue with Google</button></div>
 		</div>
 	</section>
 </template>
@@ -118,18 +116,20 @@
 <script>
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import GoogleSignInButton from 'vue-google-signin-button-directive'
 
 export default {
   name: "LoginPage",
   data() {
     return {
-      url: 'http://localhost:3000',
+      url: 'https://kanban-app-amp.herokuapp.com',
       name: 'Login Page',
       registerStatus: true,
       email_input: '',
       password_input: '',
       newEmail_input: '',
-      newPassword_input: ''
+			newPassword_input: '',
+			clientId: '961197718284-p6f9vfbgottj78pug3ate437ar11ls6a.apps.googleusercontent.com'
     }
   },
   methods: {
@@ -152,7 +152,7 @@ export default {
 					title: `Hi ${this.email_input}`,
 					text: 'Welcome to Kanban Apps ',
 				})
-        this.$emit('changeCurentPage', 'mainPage')
+				this.$emit('changeCurentPage', 'mainPage')
       })
       .catch((err) => {
         Swal.fire({
@@ -188,7 +188,43 @@ export default {
 				})
 				console.log(err)
 			})
-		}
+		},
+		OnGoogleAuthSuccess (idToken) {
+			// console.log(idToken)
+			axios({
+        method: 'POST',
+        url: `${this.url}/googleLogin`,
+        data: {
+					googleToken: idToken
+        }
+      })
+      .then((response) => {
+				localStorage.setItem('access_token', response.data.access_token)
+				Swal.fire({
+					icon: 'success',
+					title: `Hi ${this.email_input}`,
+					text: 'Welcome to Kanban Apps ',
+				})
+				this.$emit('changeCurentPage', 'mainPage')
+				// console.log(response)
+      })
+      .catch((err) => {
+        Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Something went wrong, Check again your Google Account!',
+				})
+				console.log(err)
+      })
+    },
+    OnGoogleAuthFail (error) {
+			console.log(error)
+			Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Are You Sure with your Google Account?',
+				})
+    }
   }
 }
 </script>
