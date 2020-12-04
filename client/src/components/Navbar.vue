@@ -21,4 +21,3 @@ export default {
 <style>
 
 </style>
-btn btn-sm btn-outline-secondary

@@ -6,7 +6,7 @@
                 <div class="card bg-light mb-3" style="max-width: 15rem;">
                     <div class="card-header" style="display: flex; justify-content: space-between">
                         {{category}}
-                        <i class="fa fa-plus-square-o" style="font-size:24px"></i>
+                        <button type="button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus-square-o" style="font-size:15px"></i></button>    
                     </div>
 
                     <div class="card-body" style="height: 80vh; overflow-y: auto; background-color: #dcdde1;">
@@ -18,11 +18,10 @@
                                     <h6 class="card-subtitle mb-2 text-muted">by {{task.User.email}}</h6>
 
                                     <a href="#" class="card-link">Edit</a>
-                                    <a @click="deleteTask(task.id)" href="#" class="card-link">Delete</a>
+                                    <a @click="deleteTask(task.id)" href="#" class="card-link" >Delete</a>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -37,8 +36,7 @@ export default {
     props: ["tasks", "categories"],
 
     methods: {
-        deleteTask(id) {
-            
+        deleteTask(id) {    
             this.$emit("deleteTask", id)
         }
     },

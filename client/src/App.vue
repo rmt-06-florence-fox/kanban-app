@@ -74,7 +74,7 @@ export default {
                     this.currentPage = "login"
                 })
                 .catch((err) => {
-                    console.log(err.response)
+                    console.log(err.response, '<<<<<')
                 })
         },
         googleLogin(idToken) {
@@ -113,13 +113,12 @@ export default {
                 })
         },
         addTask(payload) {
+            console.log('masuk add <<<<')
             const access_token = localStorage.getItem("access_token")
             axios ({
                 url: "http://localhost:3000/tasks",
                 method: "POST",
-                data: {
-                    title: payload.title
-                },
+                data: payload,
                 headers: {
                     access_token
                 },
