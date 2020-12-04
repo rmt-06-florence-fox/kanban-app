@@ -4,6 +4,7 @@
     v-if = "atPage === 'loginPage'"
     @login="login"
     @toRegister="toRegister"
+    @OnGoogleAuthSuccess="OnGoogleAuthSuccess"
   ></LoginPage>
 
   <RegisterPage
@@ -157,6 +158,25 @@ export default {
         console.log(err)
       })
     },
+    OnGoogleAuthSuccess(idToken){
+            console.log(idToken)
+            axios({
+                url :'/loginGoogle',
+                method : 'POST',
+                data : {
+                    google_access_token : idToken
+                }
+            })
+            .then(data => {
+                console.log('sampe nih')
+                localStorage.setItem('access_token', data.data.access_token)
+                this.ready()
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+        },
+
     register(payload) {
       axios({
         url: '/register',

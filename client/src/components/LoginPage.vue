@@ -19,6 +19,8 @@
             <div class="error-message"></div>
             <div class="register-success"></div>
         </form>
+        <p>or you can use :</p>
+        <button v-google-signin-button="clientId" class="google-signin-button btn btn-dark">I'm Google</button>
         </div>
     </div>
 </template>
@@ -30,7 +32,8 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
+            clientId: '185397511381-fmcrh65i9cesrqrkvi470jjbik0ij3s8.apps.googleusercontent.com'
         }
     },
     methods: {
@@ -43,6 +46,12 @@ export default {
         },
         toRegister() {
             this.$emit('toRegister')
+        },
+        OnGoogleAuthSuccess(idToken){
+            this.$emit('OnGoogleAuthSuccess', idToken)
+        },
+        OnGoogleAuthFail(error){
+            console.log(error, 'kesini ya')
         }
     }
 }

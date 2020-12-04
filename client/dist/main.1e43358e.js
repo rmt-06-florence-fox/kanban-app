@@ -8916,12 +8916,15 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   name: 'loginPage',
   data: function data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      clientId: '185397511381-fmcrh65i9cesrqrkvi470jjbik0ij3s8.apps.googleusercontent.com'
     };
   },
   methods: {
@@ -8934,6 +8937,12 @@ var _default = {
     },
     toRegister: function toRegister() {
       this.$emit('toRegister');
+    },
+    OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
+      this.$emit('OnGoogleAuthSuccess', idToken);
+    },
+    OnGoogleAuthFail: function OnGoogleAuthFail(error) {
+      console.log(error, 'kesini ya');
     }
   }
 };
@@ -9070,6 +9079,24 @@ exports.default = _default;
             _vm._v(" "),
             _c("div", { staticClass: "register-success" })
           ]
+        ),
+        _vm._v(" "),
+        _c("p", [_vm._v("or you can use :")]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "google-signin-button",
+                rawName: "v-google-signin-button",
+                value: _vm.clientId,
+                expression: "clientId"
+              }
+            ],
+            staticClass: "google-signin-button btn btn-dark"
+          },
+          [_vm._v("I'm Google")]
         )
       ])
     ]
@@ -9129,6 +9156,7 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: 'TodoList',
   props: ['task'],
@@ -9169,6 +9197,8 @@ exports.default = _default;
       _c("p", { staticClass: "card-text text-muted" }, [
         _vm._v("Author: " + _vm._s(_vm.task.User.email))
       ]),
+      _vm._v(" "),
+      _c("hr"),
       _vm._v(" "),
       _c("div", { staticClass: "tombol" }, [
         _c(
@@ -12342,8 +12372,27 @@ var _default = {
         console.log(err);
       });
     },
-    register: function register(payload) {
+    OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
       var _this3 = this;
+
+      console.log(idToken);
+      (0, _axios.default)({
+        url: '/loginGoogle',
+        method: 'POST',
+        data: {
+          google_access_token: idToken
+        }
+      }).then(function (data) {
+        console.log('sampe nih');
+        localStorage.setItem('access_token', data.data.access_token);
+
+        _this3.ready();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    register: function register(payload) {
+      var _this4 = this;
 
       (0, _axios.default)({
         url: '/register',
@@ -12361,7 +12410,7 @@ var _default = {
           timer: 1500
         });
 
-        _this3.ready();
+        _this4.ready();
       }).catch(function (err) {
         Swal.fire({
           icon: 'error',
@@ -12372,7 +12421,7 @@ var _default = {
       });
     },
     destroy: function destroy(payload) {
-      var _this4 = this;
+      var _this5 = this;
 
       (0, _axios.default)({
         url: "/tasks/".concat(payload),
@@ -12389,9 +12438,9 @@ var _default = {
           timer: 1500
         });
 
-        _this4.ready();
+        _this5.ready();
 
-        _this4.fetchTask();
+        _this5.fetchTask();
       }).catch(function (err) {
         Swal.fire({
           icon: 'error',
@@ -12402,7 +12451,7 @@ var _default = {
       });
     },
     editTask: function editTask(payload) {
-      var _this5 = this;
+      var _this6 = this;
 
       (0, _axios.default)({
         url: "/tasks/".concat(payload.id),
@@ -12423,11 +12472,11 @@ var _default = {
           timer: 1500
         });
 
-        _this5.ready();
+        _this6.ready();
 
-        _this5.fetchTask();
+        _this6.fetchTask();
 
-        _this5.atPage = 'homePage';
+        _this6.atPage = 'homePage';
       }).catch(function (err) {
         Swal.fire({
           icon: 'error',
@@ -12438,7 +12487,7 @@ var _default = {
       });
     }
   }, _defineProperty(_methods, "fetchTask", function fetchTask() {
-    var _this6 = this;
+    var _this7 = this;
 
     (0, _axios.default)({
       url: '/tasks',
@@ -12447,14 +12496,14 @@ var _default = {
         access_token: localStorage.getItem('access_token')
       }
     }).then(function (data) {
-      _this6.tasks = data.data;
+      _this7.tasks = data.data;
 
-      _this6.ready();
+      _this7.ready();
     }).catch(function (err) {
       console.log(err);
     });
   }), _defineProperty(_methods, "addTodo", function addTodo(payload) {
-    var _this7 = this;
+    var _this8 = this;
 
     (0, _axios.default)({
       url: "/tasks",
@@ -12475,11 +12524,11 @@ var _default = {
         timer: 1500
       });
 
-      _this7.ready();
+      _this8.ready();
 
-      _this7.fetchTask();
+      _this8.fetchTask();
 
-      _this7.atPage = 'homePage';
+      _this8.atPage = 'homePage';
     }).catch(function (err) {
       console.log(err);
     });
@@ -12513,7 +12562,11 @@ exports.default = _default;
     [
       _vm.atPage === "loginPage"
         ? _c("LoginPage", {
-            on: { login: _vm.login, toRegister: _vm.toRegister }
+            on: {
+              login: _vm.login,
+              toRegister: _vm.toRegister,
+              OnGoogleAuthSuccess: _vm.OnGoogleAuthSuccess
+            }
           })
         : _vm.atPage === "registerPage"
         ? _c("RegisterPage", {
@@ -12584,21 +12637,77 @@ render._withStripped = true
       
       }
     })();
-},{"./components/LoginPage":"src/components/LoginPage.vue","./components/HomePage":"src/components/HomePage.vue","./components/RegisterPage":"src/components/RegisterPage.vue","./components/AddForm":"src/components/AddForm.vue","./components/EditForm":"src/components/EditForm.vue","./components/Category":"src/components/Category.vue","./config/axios":"src/config/axios.js","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./components/LoginPage":"src/components/LoginPage.vue","./components/HomePage":"src/components/HomePage.vue","./components/RegisterPage":"src/components/RegisterPage.vue","./components/AddForm":"src/components/AddForm.vue","./components/EditForm":"src/components/EditForm.vue","./components/Category":"src/components/Category.vue","./config/axios":"src/config/axios.js","sweetalert":"node_modules/sweetalert/dist/sweetalert.min.js","_css_loader":"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-signin-button-directive/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _vue.default.directive('google-signin-button', {
+  bind: function (el, binding, vnode) {
+    CheckComponentMethods();
+    let clientId = binding.value;
+    let googleSignInAPI = document.createElement('script');
+    googleSignInAPI.setAttribute('src', 'https://apis.google.com/js/api:client.js');
+    document.head.appendChild(googleSignInAPI);
+    googleSignInAPI.onload = InitGoogleButton;
+
+    function InitGoogleButton() {
+      gapi.load('auth2', () => {
+        const auth2 = gapi.auth2.init({
+          client_id: clientId,
+          cookiepolicy: 'single_host_origin'
+        });
+        auth2.attachClickHandler(el, {}, OnSuccess, Onfail);
+      });
+    }
+
+    function OnSuccess(googleUser) {
+      vnode.context.OnGoogleAuthSuccess(googleUser.getAuthResponse().id_token);
+      googleUser.disconnect();
+    }
+
+    function Onfail(error) {
+      vnode.context.OnGoogleAuthFail(error);
+    }
+
+    function CheckComponentMethods() {
+      if (!vnode.context.OnGoogleAuthSuccess) {
+        throw new Error('The method OnGoogleAuthSuccess must be defined on the component');
+      }
+
+      if (!vnode.context.OnGoogleAuthFail) {
+        throw new Error('The method OnGoogleAuthFail must be defined on the component');
+      }
+    }
+  }
+});
+
+exports.default = _default;
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
 var _App = _interopRequireDefault(require("./App.vue"));
 
+var _vueGoogleSigninButtonDirective = _interopRequireDefault(require("vue-google-signin-button-directive"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 new _vue.default({
   render: function render(h) {
     return h(_App.default);
-  }
+  },
+  GoogleSignInButton: _vueGoogleSigninButtonDirective.default
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","vue-google-signin-button-directive":"node_modules/vue-google-signin-button-directive/index.js"}],"../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12626,7 +12735,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49423" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53296" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

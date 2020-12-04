@@ -4,6 +4,7 @@
     <h5 class="card-title">{{task.title}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{new Date(task.createdAt).toISOString().split('T')[0]}}</h6>
     <p class="card-text text-muted">Author: {{task.User.email}}</p>
+    <hr>
     <div class="tombol">
         <a @click="toEditPage" href="#" class="card-link"><i class='far fa-edit' style='font-size:24px'></i></a>
         <a @click.prevent="destroy" href="#" class="card-link"><i class='fas fa-trash-alt' style='font-size:24px'></i></a>
