@@ -7,26 +7,25 @@
             </div>
             <button class="btn-danger h-25 m-auto" @click="logoutBtn">LOG OUT</button>
         </header>
-        <addTaskForm @askToFetch = "askToFetch"></addTaskForm>
+        <AddTask @listenAdd = "listenAdd"></AddTask>
     </div>
 </template>
 
 <script>
-import AddTaskForm from "./header-children/AddTask"
+import AddTask from "./header-components/AddTask.vue"
 
 export default {
     name : 'Header', 
     methods : {
         logoutBtn() {
-           
             this.$emit('listenLogout')
         },
-        askToFetch(){
-            this.$emit('appRefetch')
+        listenAdd(title){
+            this.$emit('listenAdd', title)
         }
     },
     components : {
-        AddTaskForm
+        AddTask
     }
 }
 </script>

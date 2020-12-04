@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div v-if="page === 'content' ">
         <!--<h1>ini dari app</h1>-->
-        <Header @listenLogout = "logout" @appRefetch = "fetch"></Header>
-        <BoardList></BoardList>
+        <Header @listenLogout = "logout" @listenAdd="addTask"></Header>
+        <BoardList :tasks="tasks"></BoardList>
     </div>
     
     <LoginForm @listenToRegister = "changePage" @listenToContent = "changePage" v-else-if="page === 'login'"></LoginForm>
@@ -32,6 +32,7 @@ export default {
         }
     },
     methods : {
+        
         logout(){
             //console.log('lewat App')
             localStorage.removeItem("access_token")
@@ -46,22 +47,50 @@ export default {
             
             axios({    
                 method : 'GET',
-                url : server,
-                data : {
+                url : server + "/tasks",
+                headers : {
                     access_token
                 }
-                .then(({data}) => {
+            })
+            .then(({data}) => {
+                    //this.tasks = data
+                    //console.log(data)
                     this.tasks = data
-                })
-                .catch(err => {
+            })
+            .catch(err => {
                     console.log(err)
                 })
+        },
+        addTask (title){
+            //console.log(title)
+            const access_token = localStorage.getItem('access_token')
+            axios({
+                url : server + "/tasks",
+                method : "POST",
+                data : {title},
+                headers : {access_token}
+            })
+            .then( _ => {
+                this.fetch()
+            })
+            .catch(err => {
+                console.log(err)
             })
         }
+
     },
     created () {
-        localStorage.getItem('access_token') ? this.page = "content" : this.page = "login" 
-        
+        if(localStorage.getItem('access_token')) {
+            this.page = "content"
+            this.fetch()
+         } else {
+            this.page = "login" 
+         }
+    },
+    watch : {
+        refetch(){
+            this.fetch()
+        }
     },
     components : {
         Header,

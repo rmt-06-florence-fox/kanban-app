@@ -1,11 +1,23 @@
-const {Task} = require('../models')
+const {Task, User} = require('../models')
 
 class TaskController {
      
      static async retrieve(req, res, next){
          try{
-            let result = await Task.findAll()
-            res.status(200).json(result)
+            let result = await Task.findAll({
+                include : User
+            })
+            //result = result.User.email
+            let securedResult = result.map(r => {
+                let {id, title, category, User} = r
+                let obj = {
+                    id, title, category,
+                    User : User.email.split('@')[0]
+                }
+                return obj
+            })
+
+            res.status(200).json(securedResult)
          
          } catch (err){
              next(err)

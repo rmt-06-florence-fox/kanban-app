@@ -56,10 +56,23 @@ export default {
             })
             .then( _ => {
                 console.log('register success')
+                console.log('now processing login ......')
+
+                return axios({
+                    url : server + "/login",
+                    method : "POST",
+                    data : {email, password}
+                })
+               
+            })
+            .then(({data}) => {
+                console.log(data)
+                localStorage.setItem('access_token', data.access_token)
+                console.log('login succeess')
                 this.$emit('listenToContent', 'content')
             })
             .catch (err => {
-                console.log(err.message)
+                console.log(err.messages)
             })
         }
     }

@@ -15,11 +15,11 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    <form @submit.prevent = "addTask">
+                    <form @submit.prevent = "askToAdd">
                         <div class="form-group">
                             <input type="text" class="form-control" v-model="title" placeholder="task's title goes here">
                         </div>
-                        <input type="submit" class="btn-primary">
+                        <button type="submit" class="btn-primary"> Add </button>
                     </form>
                 </div>
 
@@ -35,30 +35,20 @@
 </template>
 
 <script>
-import server from "../../../server"
-import axios from "axios"
 
 export default {
     name : "AddTaskForm",
-    title : "",
-    methods : {
-        addTask (){
-
-            axios({
-                url : server + "/todos",
-                method : "POST",
-                data : {
-                    title : this.title
-                }
-            })
-            .then( _ => {
-                this.reFetch()
-            })
+    data (){
+        return {
+            title : "",
+            dismiss : ""
         }
     },
-    reFetch (){
-        this.$emit('askToFetch')
-    }
+    methods : {
+        askToAdd(){
+            this.$emit('listenAdd', this.title)
+        },
+    },
 }
 </script>
 
