@@ -4,20 +4,50 @@ html {
   }
   
   body{
-    background-color: #c75e2a;
+    background-color: #72c5b0;
     color: white;
   }
-  
-  .boards{
-    display: flex;
-    margin-top: 32px;
+  .navbar{
+    background-color: #edf4f2;
   }
-  
+
+  .navbar-item:hover{
+    color: #72c5b0;
+  }
+  .navbar-brand, .addTask{
+    color: #0b0c0c;
+  }
+  .navbar-brand:hover{
+    color: #72c5b0;
+  }
+  .addTask a:hover{
+    color: black;
+  }
+  .addTask{
+    text-decoration: none;  
+  }
+  .boards{
+    display: flex;    
+    margin-top: 32px;
+    height: 75vh;
+    position: relative;
+    overflow-y: scroll;
+    color: brown;  
+  }
+  #app{
+    justify-content: center;
+  }
   .board{
-    background: #141316;
+    width: 230vh;
+    background: #72c5b0;
     border: 1px solid #FD951F11;
     border-radius: 4px;
     margin: 0 16px;
+    position: relative;
+    overflow-y: scroll;
+
+    /* float; */
+    /* display: ; */
   }
   .googleLogin{
     float:right; 
@@ -26,34 +56,38 @@ html {
   .board h3{
     padding: 16px;
     margin: 0;
-    color: #FD951Fcc;
+    color: #000000cc;
+    text-align: center;
   }
   
   .dropzone{
     padding: 16px;
     min-width: 282px;
-    min-height: 200px;
+    min-height: 75vh;
   }
   
   .card {
-    padding: 16px;
+    padding: 15px;
     margin-top: 10px;
     box-shadow: 0 2px 2px -1px #FD951Fcc;
     background-color: #1A1A1C;
-    width: 250px;
-    margin-top: 250px 0;
+    width: 290px;
+    margin-top: 150px 0;
     border-radius: 4px;
     font-weight: 600;
     font-size: 18px;
+    position: relative;
+    overflow-y: scroll;
+
   }
   
-  .status {
+  .editTask {
     width: 20px;
     height: 8px;
-    background-color: gray;
     margin-bottom: 16px;
-    border-radius: 8px;
+    display: flex;
     float: right;
+    justify-content: right;
   }
   
   .status.green{

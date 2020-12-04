@@ -1,8 +1,5 @@
 function errorHandler(error, req, res, next){
-    console.log(error.name, error.message, error.status)
-    // if(error.status){
-    //     res.status(error.status).json(error.msg)
-    // }
+    
      if(error.name === "InvalidLogin"){
         res.status(401).json({msg: "Invalid email / password"})
     }

@@ -4,6 +4,7 @@ class TaskController{
     static async showAllTask(req, res, next){
         try {
             const task = await Task.findAll()
+            // console.log(loggedInUser)
             res.status(200).json(task)
         } catch (error) {
             next(error)
@@ -13,7 +14,7 @@ class TaskController{
     static async createTask(req, res, next){
         const payload = {
             title: req.body.title,
-            category: req.body.category,
+            CategoryId: req.body.CategoryId,
             UserId: req.loggedInUser.id 
         }
         try {

@@ -4,7 +4,7 @@ async function authorization(req, res, next){
     try {
         const task = await Task.findOne({where: {id: req.params.id}})
         // console.log(task)
-        console.log(req.loggedInUser)   
+        // console.log(req.loggedInUser)   
         if(task){
             if(task.UserId === req.loggedInUser.id){
                 next()
