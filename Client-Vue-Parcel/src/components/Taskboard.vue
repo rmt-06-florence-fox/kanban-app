@@ -4,7 +4,7 @@
       <div class="p-2 rounded task-header"><h5 class="text-center">{{ category.name }} </h5></div>
       <div class="p-1 container-overflow">
         <!-- Loop Task List -->
-          <Tasklist class="card cardTaskList" v-for="data in filteredTask(category.name)" :key="data.id"
+          <Tasklist class="card cardTaskList" v-for="data in filteredTask" :key="data.id"
             :dataList="data"
             @idDelete='deleteData'
             @updateData='updateData'
@@ -17,7 +17,7 @@
       <!-- Form Add -->
       <FormAdd class="add-task-page" v-if="pageAdd === category.name"
         :pageAdd='pageAdd' :category='category'
-        :createTask='createTask' :pageAddStatus='pageAddStatus'
+        @createTask='createTask' @pageAddStatus='pageAddStatus'
       ></FormAdd>
     </div>
   </div>
@@ -36,9 +36,6 @@
     props: ['category', 'dataTasks'],
     components: { Tasklist, FormAdd },
     methods:{
-      filteredTask(category){
-        return this.dataTasks.filter(e => e.category === category)
-      },
       deleteData(id){
         this.$emit('idDelete', id)
       },
@@ -58,6 +55,11 @@
         this.pageAdd = value
         this.$emit('createTask', newData)
       }
+    },
+    computed:{
+      filteredTask(){
+        return this.dataTasks.filter(e => e.category === this.category.name)
+      },
     }
   }
 </script>
