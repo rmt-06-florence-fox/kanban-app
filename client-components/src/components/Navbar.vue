@@ -12,14 +12,66 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div>
+    <!-- <a class="p-1" href="#" style="text-decoration: none"
+      >Add Category<span class="sr-only">(current)</span></a
+    > -->
+     <a href="#" v-b-modal="'addCategory'" style="text-decoration: none"
+                >Add Category</a>
+              <b-modal
+                id="addCategory"
+                ref="modal"
+                title="Add Category"
+                @show="resetModal"
+                @hidden="resetModal"
+                @ok="handleOk"
+                @cancel="handleCancel"
+              >
+                <form ref="form" @submit.stop.prevent="handleSubmit">
+                  <b-form-group
+                    :state="categoryState"
+                    label="Category"
+                    label-for="category-input"
+                  >
+                    <b-form-input
+                      id="category-input"
+                      v-model="category"
+                      :state="categoryState"
+                      required
+                    ></b-form-input>
+                  </b-form-group>
+                  <b-form-group
+                    :state="colorState"
+                    label="Color"
+                    label-for="color-input"
+                    invalid-feedback="Category and Color is required"
+                  >
+                    <b-form-input
+                      id="color-input"
+                      v-model="color"
+                      :state="colorState"
+                      required
+                    ></b-form-input>
+                  </b-form-group>
+                </form>
+              </b-modal>
+            <!-- </div> -->
+
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"></li>
         <li class="nav-item active">
-          
-         <a href="#" @click="logout" style="text-decoration:none;"
-            ><GoogleLogin :params="params" :logoutButton=true class="nav-link btn btn-danger p-1 w" style="color:black">Logout</GoogleLogin><span class="sr-only">(current)</span></a>
-          
+          <a href="#" @click="logout" style="text-decoration: none"
+            ><GoogleLogin
+              :params="params"
+              :logoutButton="true"
+              class="nav-link btn btn-danger p-1 w"
+              style="color: black"
+              >Logout</GoogleLogin
+            ><span class="sr-only">(current)</span></a
+          >
         </li>
       </ul>
     </div>
@@ -34,13 +86,17 @@ export default {
   components: {
     GoogleLogin,
   },
-  data(){
-    return{
+  data() {
+    return {
       params: {
         client_id:
           "166375431684-efkve6dh1ehpk1ic1m0sd818as9bpf78.apps.googleusercontent.com",
-      }
-    }
+      },
+      category: "",
+      categoryState: null,
+      color:"",
+      colorState: null
+    };
   },
   methods: {
     logout() {
@@ -52,9 +108,47 @@ export default {
       localStorage.clear();
       this.$emit("changePage", "login");
     },
-  },
+     checkFormValidity() {
+      const valid = this.$refs.form.checkValidity();
+      this.categoryState = valid;
+      this.colorState = valid;
+      return valid;
+    },
+    resetModal() {
+      this.category = "";
+      this.color = "";
+      this.categoryState = null;
+      this.colorState = null;
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      console.log(this.category, this.color, '<<<');
+      // Trigger submit handler
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      if (!this.checkFormValidity()) {
+        return;
+      }
+      // Hide the modal manually
+      let newCtgr = {
+        name: this.category,
+        color: this.color
+      }
+      console.log(newCtgr);
+      // this.$emit('addCtgr', newCtgr)
+      this.$root.$emit('addCtgr', newCtgr);
+      this.$nextTick(() => {
+        this.$bvModal.hide("addCategory");
+      });
+    },
+    handleCancel(){
+        console.log('gak jadi');
+        this.resetModal()
+    }
+  }
 };
 </script>
 <style>
-
 </style>

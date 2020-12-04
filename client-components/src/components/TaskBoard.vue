@@ -107,8 +107,7 @@ export default {
     handleCancel(){
         console.log('gak jadi');
         this.resetModal()
-    }
-    ,
+    },
     cat(categoryName){
       console.log(categoryName);
       this.categoryList = categoryName

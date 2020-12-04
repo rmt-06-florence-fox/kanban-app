@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="row d-flex">
+    <div class="row d-flex flex-nowrap overflow-auto ">
       <TaskBoard
         :dataTasks="dataTasks"
         :reloadTasks="reloadTasks"
@@ -37,10 +37,16 @@ export default {
          {
           name: "done",
           color: "green",
-        },
+        }
       ],
     };
   },
+  mounted() {
+    this.$root.$on('addCtgr', newCtgr => {
+        console.log(newCtgr,'ini di boardlist');
+        this.categories.push(newCtgr)
+    });
+}
 };
 </script>
 

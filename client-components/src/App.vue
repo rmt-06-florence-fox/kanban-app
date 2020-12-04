@@ -3,7 +3,7 @@
     <Login v-if="page == 'login'" @changePage="change" :dataTasks="fetchTasks"></Login>
     <Register v-else-if="page == 'register'" @changePage="change"></Register>
     <div v-else>
-      <Navbar @changePage="change" id="navbar"></Navbar>
+      <Navbar @changePage="change"  id="navbar"></Navbar>
       <BoardList :dataTasks="tasks" :reloadTasks="fetchTasks"></BoardList>
     </div>
   </div>
