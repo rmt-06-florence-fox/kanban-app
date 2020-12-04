@@ -96,7 +96,7 @@ export default {
                 
                 localStorage.setItem('access_token', res.data.access_token)
                 // this.getTaskList()
-                goTo('pg-homepage')
+                this.goTo('pg-regOrg')
               })
               .catch((error) => {
                 // handle error

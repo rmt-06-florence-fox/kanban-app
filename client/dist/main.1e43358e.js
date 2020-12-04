@@ -10904,7 +10904,7 @@ var _default = {
         // handle 
         localStorage.setItem('access_token', res.data.access_token); // this.getTaskList()
 
-        _this.goTo('pg-homepage');
+        _this.$emit('choosePage');
       }).catch(function (error) {
         // handle error
         // handle error
@@ -11449,7 +11449,7 @@ var _default = {
         // handle success
         localStorage.setItem('access_token', res.data.access_token); // this.getTaskList()
 
-        goTo('pg-homepage');
+        _this.goTo('pg-regOrg');
       }).catch(function (error) {
         // handle error
         // handle error
@@ -13856,7 +13856,326 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./board":"src/components/board.vue","./modalEdit":"src/components/modalEdit.vue","./modalError":"src/components/modalError.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./board":"src/components/board.vue","./modalEdit":"src/components/modalEdit.vue","./modalError":"src/components/modalError.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/register-orgData.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'registerOrgData',
+  props: ['org'],
+  methods: {
+    chooseThis: function chooseThis() {
+      this.$emit('chooseOrg', this.org.id);
+    }
+  }
+};
+exports.default = _default;
+        var $b6684f = exports.default || module.exports;
+      
+      if (typeof $b6684f === 'function') {
+        $b6684f = $b6684f.options;
+      }
+    
+        /* template */
+        Object.assign($b6684f, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "cursor-pointer mb-5", on: { click: _vm.chooseThis } },
+    [
+      _c("div", { staticClass: "inset-0 opacity-25 rounded-lg shadow-2xl" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            " inset-0 transform hover:-translate-y-6 transition duration-300"
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-full w-full  text-white bg-gradient-to-r from-green-600 to-indigo-600 rounded-lg shadow-2xl text-center flex place-content-center items-center font-bold\n                py-3 px-4"
+            },
+            [_vm._v(_vm._s(_vm.org.name))]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$b6684f', $b6684f);
+          } else {
+            api.reload('$b6684f', $b6684f);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/register-org.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _registerOrgData = _interopRequireDefault(require("./register-orgData"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'registerOrg',
+  props: ['orgData'],
+  components: {
+    registerOrgData: _registerOrgData.default
+  },
+  methods: {
+    chooseOrg: function chooseOrg(orgId) {
+      console.log(orgId);
+      this.$emit('chooseOrg', orgId);
+    }
+  },
+  created: function created() {
+    console.log('register-org created');
+    this.$emit('getOrgData');
+  }
+};
+exports.default = _default;
+        var $82d2e7 = exports.default || module.exports;
+      
+      if (typeof $82d2e7 === 'function') {
+        $82d2e7 = $82d2e7.options;
+      }
+    
+        /* template */
+        Object.assign($82d2e7, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+    },
+    [
+      _c("div", { staticClass: "max-w-md w-full space-y-8" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex flex-wrap items-center place-content-center space-x-2"
+          },
+          [
+            _vm._l(_vm.orgData, function(org) {
+              return _c("registerOrgData", {
+                key: org.id,
+                attrs: { org: org },
+                on: { chooseOrg: _vm.chooseOrg }
+              })
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ],
+          2
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c(
+        "div",
+        {
+          staticClass: "text-5xl font-extrabold mx-auto text-center select-none"
+        },
+        [
+          _c(
+            "span",
+            {
+              staticClass:
+                "bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500"
+            },
+            [_vm._v("\n            Kanbund\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "text-sm text-center\ttext-blue-700 text-opacity-75 mt-2 mb-2"
+            },
+            [_vm._v("\n                Mulai aktif ya Bund!\n            ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "h2",
+        { staticClass: "mt-6 text-center text-2xl font-bold text-gray-900" },
+        [_vm._v("\n            JOIN ORGANIZATION\n        ")]
+      ),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2 text-center text-sm text-gray-600" }, [
+        _vm._v("\n            Please choose your Organization\n        ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cursor-pointer mb-5" }, [
+      _c("div", { staticClass: "inset-0 opacity-25 rounded-lg shadow-2xl" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            " inset-0 transform hover:-translate-y-6 transition duration-300"
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "h-full w-full text-white bg-gray-900 rounded-lg shadow-2xl text-center flex place-content-center items-center font-bold\n                            py-3 px-4"
+            },
+            [_vm._v("Create New One")]
+          )
+        ]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$82d2e7', $82d2e7);
+          } else {
+            api.reload('$82d2e7', $82d2e7);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./register-orgData":"src/components/register-orgData.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13870,10 +14189,18 @@ var _register = _interopRequireDefault(require("./components/register.vue"));
 
 var _homepage = _interopRequireDefault(require("./components/homepage.vue"));
 
+var _registerOrg = _interopRequireDefault(require("./components/register-org"));
+
 var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13909,13 +14236,15 @@ var _default = {
       organization: '',
       categories: [],
       errorData: '',
-      activeUser: ''
+      activeUser: '',
+      orgData: []
     };
   },
   components: {
     login: _login.default,
     register: _register.default,
-    homepage: _homepage.default
+    homepage: _homepage.default,
+    registerOrg: _registerOrg.default
   },
   methods: {
     goTo: function goTo(page) {
@@ -13933,38 +14262,41 @@ var _default = {
         }
       }).then(function (res) {
         // handle success
-        console.log(res.data.Categories[0]);
+        // console.log(res.data.Categories[0])
         _this.organization = {
           id: res.data.id,
           name: res.data.name
         };
         res.data.Categories.forEach(function (el) {
           _this.categories.push(el);
+        });
+
+        _this.categories.sort(function (a, b) {
+          return a.id - b.id;
         }); // console.log(res.data[0].Organization.Categories)
         // res.data[0].Organization.Categories.forEach( el => {
         //   this.categories[el.id] = [el.id, el.name]
         // })
         // this.tasks = res.data
-      }).catch(function (error) {
-        // handle error
-        // handle error
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-        }
 
-        console.log(error.config);
+      }).catch(function (error) {// handle error
+        // handle error
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
       }).then(function (_) {// always executed
       });
     },
@@ -14145,6 +14477,7 @@ var _default = {
         // handle success
         _this6.activeUser = res.data;
         console.log(res);
+        return _this6.activeUser;
       }).catch(function (error) {
         // handle error
         // if (error.response) {
@@ -14172,11 +14505,174 @@ var _default = {
       console.log('logout');
       localStorage.removeItem('access_token');
       this.showPage = 'pg-login';
+    },
+    getOrgData: function getOrgData() {
+      var _this7 = this;
+
+      this.orgData = [];
+      (0, _axios.default)({
+        method: 'get',
+        url: "http://localhost:3000/org",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(function (res) {
+        // handle success
+        res.data.forEach(function (el) {
+          console.log(el);
+
+          _this7.orgData.push(el);
+        }); // this.orgData = res.data
+        // console.log(res.data)
+      }).catch(function (error) {
+        // handle error
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
+        _this7.errorData = JSON.parse(error.request.responseText).error;
+        console.log(JSON.parse(error.request.responseText).error);
+      }).then(function (_) {// always executed
+      });
+    },
+    chooseOrg: function chooseOrg(orgId) {
+      var _this8 = this;
+
+      (0, _axios.default)({
+        method: 'patch',
+        url: "http://localhost:3000/user/".concat(this.activeUser.id),
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          OrganizationId: orgId
+        }
+      }).then(function (res) {
+        // handle success
+        // localStorage.removeItem('access_token')
+        localStorage.setItem('access_token', res.data.access_token);
+        _this8.showPage = 'pg-homepage'; // this.orgData = res.data
+
+        console.log(res.data);
+      }).catch(function (error) {
+        // handle error
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
+        _this8.errorData = JSON.parse(error.request.responseText).error;
+        console.log(JSON.parse(error.request.responseText).error);
+      }).then(function (_) {// always executed
+      });
+    },
+    choosePage: function choosePage() {
+      var _this9 = this;
+
+      (0, _axios.default)({
+        method: 'get',
+        url: "http://localhost:3000/user",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(function (res) {
+        // handle success
+        console.log(res.data);
+
+        if (res.data.OrganizationId) {
+          _this9.showPage = 'pg-homepage';
+        } else {
+          _this9.showPage = 'pg-regOrg';
+        }
+      }).catch(function (error) {
+        // handle error
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
+        _this9.errorData = JSON.parse(error.request.responseText).error;
+        console.log(JSON.parse(error.request.responseText).error);
+      }).then(function (_) {// always executed
+      });
     }
   },
   created: function created() {
+    var _this10 = this;
+
     if (localStorage.getItem('access_token')) {
-      this.showPage = 'pg-homepage';
+      console.log('sudah cek local storage');
+      (0, _axios.default)({
+        method: 'get',
+        url: "http://localhost:3000/user",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(function (res) {
+        // handle success
+        console.log(res.data);
+
+        if (res.data.OrganizationId) {
+          _this10.showPage = 'pg-homepage';
+        } else {
+          _this10.showPage = 'pg-regOrg';
+        }
+      }).catch(function (error) {
+        // handle error
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
+        _this10.errorData = JSON.parse(error.request.responseText).error;
+        console.log(JSON.parse(error.request.responseText).error);
+      }).then(function (_) {// always executed
+      });
     } else {
       this.showPage = 'pg-login';
     }
@@ -14199,7 +14695,7 @@ exports.default = _default;
     "div",
     [
       _vm.showPage == "pg-login"
-        ? _c("login", { on: { goTo: _vm.goTo } })
+        ? _c("login", { on: { goTo: _vm.goTo, choosePage: _vm.choosePage } })
         : _vm._e(),
       _vm._v(" "),
       _vm.showPage == "pg-register"
@@ -14226,6 +14722,13 @@ exports.default = _default;
               getUser: _vm.getUser,
               logout: _vm.logout
             }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showPage == "pg-regOrg"
+        ? _c("registerOrg", {
+            attrs: { orgData: _vm.orgData },
+            on: { getOrgData: _vm.getOrgData, chooseOrg: _vm.chooseOrg }
           })
         : _vm._e()
     ],
@@ -14265,7 +14768,7 @@ render._withStripped = true
       
       }
     })();
-},{"./components/login.vue":"src/components/login.vue","./components/register.vue":"src/components/register.vue","./components/homepage.vue":"src/components/homepage.vue","axios":"node_modules/axios/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./components/login.vue":"src/components/login.vue","./components/register.vue":"src/components/register.vue","./components/homepage.vue":"src/components/homepage.vue","./components/register-org":"src/components/register-org.vue","axios":"node_modules/axios/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -14422,7 +14925,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57927" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53301" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

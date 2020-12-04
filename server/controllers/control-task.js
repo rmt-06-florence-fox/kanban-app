@@ -35,12 +35,15 @@ class ControllerTask {
                 },
                 include: [{
                     model: Category,
+                    order: [['id', 'DESC']],
                     include: [{
                         model:Task,
-                        include: User
+                        include: User,
+                        order: [['id', 'DESC']]
                     }]
                 }]
             })
+            console.log(orgData.Categories.sort())
             res.status(200).json(orgData)
         } catch (err) {
 

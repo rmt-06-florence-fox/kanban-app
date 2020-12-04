@@ -44,7 +44,8 @@ class ControllerUser {
             const access_token = genToken ({
                 id: newUser.id,
                 username: newUser.username,
-                email: newUser.email
+                email: newUser.email,
+                
             })
             res.status(200).json({access_token})
         } catch (err) {
@@ -59,11 +60,34 @@ class ControllerUser {
                     id: req.loggedUser.id
                 }
             })
-            res.status(201).json({id: user.id, username: user.username})
+            res.status(201).json({id: user.id, username: user.username, OrganizationId: user.OrganizationId})
         } catch (err) {
             next(err)
         }
     }
+
+    static async patchOrg (req, res, next) {
+        try {
+            const updateData = await User.update(req.body, {
+                where: {
+                    id: req.loggedUser.id
+                },
+                returning:true
+            })
+            
+            const access_token = genToken ({
+                id: updateData[1][0].id,
+                username: updateData[1][0].username,
+                email: updateData[1][0].email,
+                OrganizationId: updateData[1][0].OrganizationId
+            })
+            console.log(updateData[1][0].OrganizationId)
+            res.status(200).json({access_token, updateData})
+        } catch (err) {
+
+        }
+    }
+
 
 }
 

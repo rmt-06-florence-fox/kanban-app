@@ -6,6 +6,7 @@ user.get('/', ControllerUser.welcome)
 user.post('/login', ControllerUser.login)
 user.post('/register', ControllerUser.register)
 user.get('/user', authentication, ControllerUser.getUser)
+user.patch('/user/:id', authentication, ControllerUser.patchOrg)
 
 
 module.exports = user

@@ -1,7 +1,8 @@
 <template>
     <div>
         <login      v-if=" showPage == 'pg-login' "
-                    @goTo="goTo" >
+                    @goTo="goTo" 
+                    @choosePage="choosePage">
         </login>
         <register   v-if=" showPage == 'pg-register' "
                     @goTo="goTo">
@@ -21,6 +22,11 @@
                     @logout="logout">
                     
         </homepage>
+        <registerOrg    v-if="showPage == 'pg-regOrg' "
+                        @getOrgData="getOrgData"
+                        :orgData="orgData"
+                        @chooseOrg="chooseOrg">
+        </registerOrg>
     </div>
 </template>
 
@@ -29,6 +35,7 @@
 import login from './components/login.vue'
 import register from './components/register.vue'
 import homepage from './components/homepage.vue'
+import registerOrg from './components/register-org'
 import axios from 'axios';
 
 export default {
@@ -39,13 +46,15 @@ export default {
             organization: '',
             categories: [],
             errorData: '',
-            activeUser: ''
+            activeUser: '',
+            orgData: []
         }
     },
     components: {
         login,
         register,
-        homepage
+        homepage,
+        registerOrg
     },
     methods: {
         goTo (page) {
@@ -62,7 +71,7 @@ export default {
                 })
                 .then((res) => {
                 // handle success
-                console.log(res.data.Categories[0])
+                // console.log(res.data.Categories[0])
 
                 this.organization = {
                     id: res.data.id,
@@ -71,7 +80,7 @@ export default {
                 res.data.Categories.forEach(el => {
                     this.categories.push(el)
                 })
-
+                this.categories.sort(function(a, b){return a.id - b.id})
                 // console.log(res.data[0].Organization.Categories)
                 // res.data[0].Organization.Categories.forEach( el => {
                 //   this.categories[el.id] = [el.id, el.name]
@@ -81,22 +90,22 @@ export default {
                 .catch((error) => {
                 // handle error
                 // handle error
-                    if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                    } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
-                    console.log(error.request);
-                    } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error.message);
-                    }
-                    console.log(error.config);
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
                 })
                 .then(_=> {
                 // always executed
@@ -281,6 +290,7 @@ export default {
                 // handle success
                     this.activeUser = res.data
                     console.log(res)
+                    return this.activeUser
                 })
                 .catch((error) => {
                 // handle error
@@ -311,11 +321,181 @@ export default {
             console.log('logout')
             localStorage.removeItem('access_token')
             this.showPage = 'pg-login'
+        },
+        getOrgData() {
+            this.orgData = []
+            axios({
+                method: 'get',
+                url: `http://localhost:3000/org`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                })
+                .then((res) => {
+                // handle success
+                    res.data.forEach(el => {
+                        console.log(el)
+                        this.orgData.push(el)
+                    })
+                    // this.orgData = res.data
+                    // console.log(res.data)
+                })
+                .catch((error) => {
+                // handle error
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
+                    console.log(JSON.parse(error.request.responseText).error)
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        chooseOrg (orgId) {
+                axios({
+                method: 'patch',
+                url: `http://localhost:3000/user/${this.activeUser.id}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    OrganizationId: orgId
+                }
+                })
+                .then((res) => {
+                // handle success
+                    // localStorage.removeItem('access_token')
+                    localStorage.setItem('access_token', res.data.access_token)
+                    this.showPage = 'pg-homepage'
+                    // this.orgData = res.data
+                    console.log(res.data)
+                })
+                .catch((error) => {
+                // handle error
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
+                    console.log(JSON.parse(error.request.responseText).error)
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        choosePage () {
+            axios({
+                method: 'get',
+                url: `http://localhost:3000/user`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                })
+                .then((res) => {
+                // handle success
+                console.log(res.data)
+                    if (res.data.OrganizationId) {
+                        this.showPage = 'pg-homepage'
+                    } else {
+                        this.showPage = 'pg-regOrg'
+                    }
+                })
+                .catch((error) => {
+                // handle error
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
+                    console.log(JSON.parse(error.request.responseText).error)
+                })
+                .then(_=> {
+                // always executed
+                });
         }
     },
     created: function () {
         if (localStorage.getItem('access_token')) {
-            this.showPage = 'pg-homepage'
+            console.log('sudah cek local storage')
+             axios({
+                method: 'get',
+                url: `http://localhost:3000/user`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                })
+                .then((res) => {
+                // handle success
+                console.log(res.data)
+                    if (res.data.OrganizationId) {
+                        this.showPage = 'pg-homepage'
+                    } else {
+                        this.showPage = 'pg-regOrg'
+                    }
+                })
+                .catch((error) => {
+                // handle error
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
+                    console.log(JSON.parse(error.request.responseText).error)
+                })
+                .then(_=> {
+                // always executed
+                });
+            
         } else {
             this.showPage = 'pg-login'
         }

@@ -89,7 +89,7 @@ export default {
                 // handle 
                 localStorage.setItem('access_token', res.data.access_token)
                 // this.getTaskList()
-                this.goTo('pg-homepage')
+                this.$emit('choosePage')
               })
               .catch((error) => {
                 // handle error
