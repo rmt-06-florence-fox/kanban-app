@@ -27,7 +27,7 @@ import axios from 'axios'
 import swal from 'sweetalert';
 import KanbanBoardComponent from './components/kanban-board-component.vue'
 
-const baseurl = "http://localhost:3000/"
+const baseurl = "https://khan-bang.herokuapp.com/"
 
 export default {
   name : "App",

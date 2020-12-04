@@ -9,7 +9,7 @@ ITS ACTUALLY KHAN BANG APP
 # URL
 ```
 Client URL : http://localhost:8080
-Server URL : http://localhost:3000
+Server URL : https://khan-bang.herokuapp.com/
 ```
 
 ### GET/login
