@@ -13,7 +13,7 @@
 export default {
   data () {
     return {
-      fullname : `${localStorage.getItem('fullname')}`,
+      fullname : `${this.list.User.firstName} ${this.list.User.lastName}`,
       href : `#editform${this.list.id}`,
       cardId : `editform${this.list.id}`,
       title : `${this.list.title}`,

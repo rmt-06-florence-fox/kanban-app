@@ -18,7 +18,7 @@
   @requestLogout = "logout"
   @fetchTask = "fetchTask"
   :list = "tasks"
-  @requestEdit = "edit"
+  @requestEdit = "getEdit"
   @requestCreate = "createTask"
   @requestDelete = 'destroy'
   ></mainPage>
@@ -68,7 +68,14 @@ export default {
         this.fetchTask()
         this.changePage('main page')
       } catch (error) {
-        console.log(error.response);
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`,
+          footer: 'Please check again before you submit'
+        })
       }
     },
     async create(obj){
@@ -83,10 +90,16 @@ export default {
             password : obj.password
           }
         })
-        console.log(data.data);
         this.page = 'login page'
       } catch (error) {
-        console.log(error.response);
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`,
+          footer: 'Please check again before you submit'
+        })
       }
     },
     logout() {
@@ -135,14 +148,20 @@ export default {
             access_token : localStorage.getItem('access_token')
           }
         })
-        // console.log(data.data);
         if (data.data) {
           Swal.fire(`Success Add ${data.data.title}`, '', `success`)
         }
         this.fetchTask()
         this.page = 'main page'
       } catch (error) {
-        console.log(error.response);
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`,
+          footer: 'Please check again before you submit'
+        })
       }
     },
     async fetchTask() {
@@ -155,9 +174,34 @@ export default {
           }
         })
         this.tasks = data.data
-        console.log(data.data);
       } catch (error) {
-        console.log(error.response);
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`
+        })
+      }
+    },
+    async getEdit(obj, id) {
+      try {
+        let data = await axios({
+          url : `${this.localhost}/tasks/${id}`,
+          method : 'get',
+          headers : {
+            access_token : localStorage.getItem('access_token')
+          }
+        })
+        this.edit(data.data, id)
+      } catch (error) {
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`
+        })
       }
     },
     async edit(obj, id) {
@@ -190,7 +234,6 @@ export default {
           }
         })
         let result = formEdit.value
-        // console.log(result);
         let data = await axios({
           url : `${this.localhost}/tasks/${id}`,
           method : 'put',
@@ -202,14 +245,20 @@ export default {
             access_token : localStorage.getItem('access_token')
           }
         })
-        console.log(data.data);
         if (data.data) {
           Swal.fire(`Success Edit ${data.data.title}`, '', `success`)
         }
         this.fetchTask()
         this.page = 'main page'
       } catch (error) {
-        console.log(error.response);
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`,
+          footer: 'Please check again before you submit'
+        })
       }
     },
     async destroy(id){
@@ -230,7 +279,6 @@ export default {
               access_token : localStorage.getItem('access_token')
             }
           })
-          console.log(data.data);
           if (data.data) {
             Swal.fire(`Success delete your task`, '', `success`)
           }
@@ -243,7 +291,23 @@ export default {
           }
         }
       } catch (error) {
-        
+        if (error.status) {
+          Swal.fire({
+            icon: 'error',
+            title: `${error.status}`,
+            text: `${error.message}`,
+            footer: 'Please check again before you submit'
+          })
+        } else {
+          let status = `${error.response.status} ${error.response.statusText}`
+          let message = error.response.data.message.toString().replace(/,/g, ', ')
+          Swal.fire({
+            icon: 'error',
+            title: `${status}`,
+            text: `${message}`,
+            footer: 'Please check again before you submit'
+          })
+        }
       }
       
     },
@@ -262,7 +326,13 @@ export default {
         this.fetchTask()
         this.changePage('main page')
       } catch (error) {
-        console.log(error.response);
+        let status = `${error.response.status} ${error.response.statusText}`
+        let message = error.response.data.message.toString().replace(/,/g, ', ')
+        Swal.fire({
+          icon: 'error',
+          title: `${status}`,
+          text: `${message}`
+        })
       }
     }
   },

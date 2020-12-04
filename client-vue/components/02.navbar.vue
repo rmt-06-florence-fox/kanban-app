@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 pr-4 font-weight-normal">The Kanban.co</h5>
+    <h4 class="my-0 pr-4 mb-1 font-weight-normal">The Kanban.co</h4>
+    <p class="pt-3 pr-3">Welcome, <strong>{{name}}</strong>! this is your tasks</p>
     <button type="button" class="btn btn-outline-primary mr-md-auto" @click.prevent = "create">
       Create New Task
     </button>
@@ -15,7 +16,7 @@
 export default {
   data() {
     return{
-
+      name : `${localStorage.getItem('fullname')}`
     }
   },
   methods : {
