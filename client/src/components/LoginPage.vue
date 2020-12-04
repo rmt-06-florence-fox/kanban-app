@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         toRegister() {
-            this.$emit("changeState","register")
+            this.$emit("changeStatus","register")
             this.email = ''
             this.password = ''
         },

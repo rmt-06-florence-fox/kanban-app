@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         toLogin() {
-            this.$emit("changeState","login")
+            this.$emit("changeStatus","login")
             this.email = ''
             this.password = ''
         },

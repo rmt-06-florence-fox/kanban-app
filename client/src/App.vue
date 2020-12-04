@@ -5,6 +5,8 @@
             @login="login"
             @register="register"
             @googleSignIn="googleSignIn"
+            :loginState=loginState
+            @changeStatus="changeStatus"
         ></LandingPage>
         <MainPage 
             v-if="pageName == 'mainpage'"
@@ -46,14 +48,18 @@ export default {
     data() {
         return {
             pageName: 'landingpage',
-            tasks: []
+            tasks: [],
+            loginState: 'login'
         };
     },
     methods: {
+        changeStatus(input) {
+            this.loginState = input
+        },
         login(email, password) {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/login',
+                url: 'https://jarooda-kanban-app.herokuapp.com/login',
                 data: {
                     email,
                     password
@@ -71,7 +77,7 @@ export default {
         },
         register(email, password) {
             axios({
-                url:'http://localhost:3000/register',
+                url:'https://jarooda-kanban-app.herokuapp.com/register',
                 method:'POST',
                 data: {
                     email,
@@ -80,6 +86,7 @@ export default {
             })
                 .then(response => {
                     this.showAlert('success', 'Success', `Success register ${response.data.email}`)
+                    this.loginState = 'login'
                 })
                 .catch(error => {
                     let errors
@@ -97,7 +104,7 @@ export default {
         },
         fetchTasks() {
             axios({
-                url:'http://localhost:3000/tasks',
+                url:'https://jarooda-kanban-app.herokuapp.com/tasks',
                 method:'GET',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -124,7 +131,7 @@ export default {
                 .then((result) => {
                     if (result.isConfirmed) {
                         return axios({
-                            url:`http://localhost:3000/tasks/${id}`,
+                            url:`https://jarooda-kanban-app.herokuapp.com/tasks/${id}`,
                             method: 'DELETE',
                             headers: {
                                 access_token: localStorage.getItem('access_token')
@@ -142,7 +149,7 @@ export default {
         },
         update(id, title, category) {
             axios({
-                url:`http://localhost:3000/tasks/${id}`,
+                url:`https://jarooda-kanban-app.herokuapp.com/tasks/${id}`,
                 method: 'PUT',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -162,7 +169,7 @@ export default {
         googleSignIn(googleUser) {
             const id_token = googleUser.getAuthResponse().id_token
             axios({
-                url:`http://localhost:3000/googleLogin`,
+                url:`https://jarooda-kanban-app.herokuapp.com/googleLogin`,
                 method:'POST',
                 data: {
                     google_token: id_token
@@ -180,7 +187,7 @@ export default {
         },
         addTask(title, category) {
             axios({
-                url:'http://localhost:3000/tasks',
+                url:'https://jarooda-kanban-app.herokuapp.com/tasks',
                 method:'POST',
                 data: {
                     title,
@@ -207,7 +214,7 @@ export default {
         },
         changeCategory(category, id) {
             axios({
-                url:`http://localhost:3000/tasks/${id}`,
+                url:`https://jarooda-kanban-app.herokuapp.com/tasks/${id}`,
                 method: 'PATCH',
                 headers: {
                     access_token: localStorage.getItem('access_token')
