@@ -5,7 +5,6 @@
 
 .background-page {
     min-height: 450px;
-
     margin: 0%;
 }
 
@@ -16,6 +15,11 @@
 
 .pading-1 {
     padding: 0%;
+}
+
+.button-right {
+    display: flex;
+    justify-content: flex-end;
 }
 /* .kanban {
     display: flex;

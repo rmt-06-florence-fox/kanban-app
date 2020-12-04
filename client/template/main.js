@@ -70,5 +70,12 @@ var app = new Vue({
                 console.log(err)
             })
         }
+    },
+    created() {
+      if(localStorage.getItem("acces_token")) {
+        this.pageName = "kanban-page"
+      } else {
+        this.pageName = "home-page"
+      }
     }
   })
