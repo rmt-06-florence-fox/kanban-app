@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       pageName: "login page",
-      url: "http://localhost:3000",
+      url: "https://kanbanogy-server.herokuapp.com",
       categories: [],
       organizations: [],
       userEmail: '',
@@ -66,11 +66,12 @@ export default {
         }
       })
       .then(res => {
+        swal(`Edit Task Category Success`)
         this.fetchCatagory()
-        console.log(res)
       })
       .catch(err => {
         console.log(err)
+        swal(`error you are not authorized`)
       })
     },
     addCategory(title){
@@ -128,7 +129,7 @@ export default {
         this.fetchCatagory()
       })
       .catch(err => {
-        console.log(err.message)
+        swal(`error you are not authorized`)
       })
     },
     terimaNewTask(payload){
@@ -213,7 +214,7 @@ export default {
         console.log(res)
       })
       .catch(err => {
-        console.log(err)
+        swal(`error you are not authorized`)
       })
     },
     fetchCatagory(){

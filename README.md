@@ -582,31 +582,61 @@ _Request Body_
 _Response (200)_
 ```
 [
-    {
+  {
         "id": 1,
         "title": "backlog",
         "createdAt": "2020-11-30T10:15:44.126Z",
-        "updatedAt": "2020-11-30T10:15:44.126Z"
+        "updatedAt": "2020-11-30T10:15:44.126Z",
+        "Tasks": [
+            {
+                "id": 5,
+                "title": "pusing bikin tampilan",
+                "createdAt": "2020-12-03T08:47:48.037Z",
+                "updatedAt": "2020-12-04T07:06:39.889Z",
+                "CategoryId": 1,
+                "OrganizationId": 1,
+                "UserId": 3,
+                "User": {
+                    "id": 3,
+                    "email": "ogy@mail.com",
+                    "password": "$2a$10$mf3PV1901mh4nJrCoqnPJOhMDdeL3j4lk24j5zCNAFrc6Y.8Cw9wq",
+                    "createdAt": "2020-11-30T12:40:40.432Z",
+                    "updatedAt": "2020-11-30T12:40:40.432Z",
+                    "OrganizationId": 1
+                },
+                "Organization": {
+                    "id": 1,
+                    "name": "florence-fox",
+                    "createdAt": "2020-11-30T12:36:57.885Z",
+                    "updatedAt": "2020-11-30T12:36:57.885Z"
+                }
+            },
+            {
+                "id": 4,
+                "title": "Mengerjakan Kanban App",
+                "createdAt": "2020-11-30T12:51:36.519Z",
+                "updatedAt": "2020-11-30T12:51:36.519Z",
+                "CategoryId": 1,
+                "OrganizationId": 1,
+                "UserId": 3,
+                "User": {
+                    "id": 3,
+                    "email": "ogy@mail.com",
+                    "password": "$2a$10$mf3PV1901mh4nJrCoqnPJOhMDdeL3j4lk24j5zCNAFrc6Y.8Cw9wq",
+                    "createdAt": "2020-11-30T12:40:40.432Z",
+                    "updatedAt": "2020-11-30T12:40:40.432Z",
+                    "OrganizationId": 1
+                },
+                "Organization": {
+                    "id": 1,
+                    "name": "florence-fox",
+                    "createdAt": "2020-11-30T12:36:57.885Z",
+                    "updatedAt": "2020-11-30T12:36:57.885Z"
+                }
+            }
+        ]
     },
-    {
-        "id": 2,
-        "title": "todo",
-        "createdAt": "2020-11-30T10:15:44.126Z",
-        "updatedAt": "2020-11-30T10:15:44.126Z"
-    },
-    {
-        "id": 3,
-        "title": "doing",
-        "createdAt": "2020-11-30T10:15:44.126Z",
-        "updatedAt": "2020-11-30T10:15:44.126Z"
-    },
-    {
-        "id": 4,
-        "title": "done",
-        "createdAt": "2020-11-30T10:15:44.126Z",
-        "updatedAt": "2020-11-30T10:15:44.126Z"
-    }
-]
+  ]
 
 ```
 
