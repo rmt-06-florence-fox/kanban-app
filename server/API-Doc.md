@@ -1,9 +1,20 @@
-# Kanban Documentation
+# Fancy Todo Documentation
 
-Kanban is an application to manage your task with friend. This app has : 
+Fancy Todo is an application to manage your task. This app has : 
 * RESTful endpoint for todo's CRUD operation
 * JSON formatted response
+* Qoutes API
 
+# URL Local
+```
+Client URL : http://localhost:8080
+Server URL : http://localhost:3000
+```
+# URL Deploy
+```
+Client URL : https://new-khanban.web.app
+Server URL : https://new-khanban.herokuapp.com
+```
 
 ## RESTful endpoints
 ### POST /login
@@ -16,7 +27,6 @@ _Request Header_
 ```
 Not needed
 ```
-
 _Request Body_
 ```
 {
@@ -24,30 +34,28 @@ _Request Body_
   "password": "<your password>"
 }
 ```
-
-_Response (200)_
-```
-{
-  "access_token": "<your access token>"
-}
-```
-
-_Response (401)_
-```
-{
-  "error": "Wrong Email/Password"
-}
-```
-
-_Response (500 - Bad Request)_
-```
-{
-  "error": "Internal server error"
-}
-```
+### _Success Response_
+  _Response (200)_
+  ```
+  {
+    "access_token": "<your access token>"
+  }
+  ```
+### _Errors Response_
+  _Response (401)_
+  ```
+  {
+    "msg": "Wrong Email/Password"
+  }
+  ```
+  _Response (500)_
+  ```
+  {
+    "msg": "Internal server error"
+  }
+  ```
 ---
 ### POST /register
-
 > Create new user
 
 _Request Params_
@@ -58,7 +66,6 @@ _Request Header_
 ```
 Not needed
 ```
-
 _Request Body_
 ```
 {
@@ -66,71 +73,70 @@ _Request Body_
   "password": "<password to get insert into>"
 }
 ```
-
-_Response (201 - Created)_
-```
-{
-  "id": <given id by system>,
-  "email": "<posted email>"
-}
-```
-_Response (500 - Bad Request)_
-```
-{
-  "error": "Internal server error"
-}
-```
-_Response (400)_
-```
-{
-  "error": "Password is required!, Password must be more than 6 character"
-}
-```
-_Response (400)_
-```
-{
-  "error": "Email is required!, Email must be a format sample@mail.com"
-}
-```
+### _Success Response_
+  _Response (201)_
+  ```
+  {
+    "id": <given id by system>,
+    "email": "<posted email>"
+  }
+  ```
+### _Errors Response_
+  _Response (500)_
+  ```
+  {
+    "msg": "Internal server error"
+  }
+  ```
+  _Response (400)_
+  ```
+  {
+    "msg": "Password is required!, Password must be more than 6 character"
+  }
+  ```
+  _Response (400)_
+  ```
+  {
+    "msg": "Email is required!, Email must be a format sample@mail.com"
+  }
+  ```
 ---
-### POST /loginGoogle
+### POST /googleLogin
 
 _Request Params_
 ```
 Not needed
 ```
-
 _Request Header_
 ```
 Not needed
 ```
-
 _Request Body_
 ```
 {
     "token_id": "<token id from google>"
 }
 ```
-
-_Response (200)_
-```
-{
-    "id": "<user id>",
-    "email": "<user email>"
-    "access_token": "<generated accesss token>"
-}
-```
-
-_Response (401)_
-```
-{
-  "message": "Invalid Email/Password"
-}
-```
+### _Success Response_
+  _Response (200)_
+  ```
+  {
+      "id": "<user id>",
+      "email": "<user email>"
+      "access_token": "<generated accesss token>"
+  }
+  ```
+### _Errors Response_
+  _Response (401)_
+  ```
+  {
+    "msg": "Invalid Email/Password"
+  }
+  ```
 ---
 ### GET /tasks
 
-> Get all tasks
+> Get all task
 
 _Request Params_
 ```
@@ -138,31 +144,43 @@ Not needed
 ```
 _Request Header_
 ```
-Not needed
+{
+  "access_token": "<your access token>"
+}
 ```
 _Request Body_
 ```
 not needed
 ```
+### _Success Response_
 _Response (200)_
-```
-{
-    "id": "<tasks id>",
-    "title": "<tasks title>",
-    "category": "<tasks category>",
-    "UserId": "<id User>"
-}
-```
-_Response (500 - Bad Request)_
-```
-{
-  "error": "Internal server error"
-}
-```
+  ```
+  [
+    {
+      "id": "<task id>",
+      "title": "<task title>",
+      "category": "<task category>",
+      "UserId": "<Id User>"
+    }
+  ]
+  ```
+### _Errors Response_
+  _Response (500 - Bad Request)_
+  ```
+  {
+    "msg": "Internal server error"
+  }
+  ```
+  _Response (401)_
+  ```
+  {
+    "msg": "Authentication Failed!"
+  }
+  ```
 ---
 ### POST /tasks
 
-> Create new tasks
+> Create new task
 
 _Request Params_
 ```
@@ -181,35 +199,43 @@ _Request Body_
   "category": "<category to get insert into>"
 }
 ```
-_Response (201 - Created)_
-```
-{
-  "id": <given id by system>,
-  "title": "<posted title>",
-  "category": "<posted description>",
-  "UserId": "<posted status>",
-}
-```
-_Response (400 - Bad Request)_
-```
-{
-  "error": "Title is required!, Category is required!"
-}
-```
-_Response (500 - Bad Request)_
-```
-{
-  "error": "Internal server error"
-}
-```
+### _Success Response_
+  _Response (201)_
+  ```
+  {
+    "id": <given id by system>,
+    "title": "<posted title>",
+    "category": "<posted category>",
+    "UserId": "<Id User>"
+  }
+  ```
+### _Errors Response_
+  _Response (400)_
+  ```
+  {
+    "msg": "Title is required, Category is required"
+  }
+  ```
+  _Response (401)_
+  ```
+  {
+    "msg": "Authentication Failed!"
+  }
+  ```
+  _Response (500 - Bad Request)_
+  ```
+  {
+    "msg": "Internal server error"
+  }
+  ```
 ---
 ### PUT /tasks/:id
 
-> Update tasks with specific id
+> Update task with specific id
 
 _Request Params_
 ```
-Todo's ID
+Task's ID
 ```
 _Request Header_
 ```
@@ -220,46 +246,60 @@ _Request Header_
 _Request Body_
 ```
 {
-  "id": "<tasks id>",
-  "title": "<tasks previous title>",
-  "category": "<tasks previous category>"
+  "id": "<task id>",
+  "title": "<task previous title>",
+  "category": "<task previous category>"
 }
 ```
-_Response (200)_
-```
-{
-  "id": <tasks id>,
-  "title": "<tasks updated title>",
-  "category": "<tasks updated category>",
-  "UserId": "<User Id>"
-}
-```
-_Response (400 - Bad Request)_
-```
-{
-  "error": "Title is required!, Category is required!"
-}
-```
-_Response (500 - Bad Request)_
-```
-{
-  "error": "Internal server error"
-}
-```
-_Response (404 - Not Found)_
-```
-{
-  "error": "Error not found!"
-}
-```
+### _Success Response_
+  _Response (200)_
+  ```
+  {
+    "id": <task id>,
+    "title": "<task updated title>",
+    "description": "<task updated description>",
+    "UserId": "<Id User>"
+  }
+  ```
+### _Errors Response_
+  _Response (400)_
+  ```
+  {
+    "msg": "Title is required, Category is required"
+  }
+  ```
+  _Response (500)_
+  ```
+  {
+    "msg": "Internal server error"
+  }
+  ```
+  _Response (404)_
+  ```
+  {
+    "msg": "Error not found!"
+  }
+  ```
+  _Response (401)_
+  ```
+  {
+    "msg": "Authentication Failed!"
+  }
+  ```
+  _Response (403)_
+  ```
+  {
+    "msg": "Not Authorized!
+  }
+  ```
 ---
-### DELETE /todos/:id
+### DELETE /tasks/:id
 
-> Delete todos with specific id
+> Delete tasks with specific id
 
 _Request Params_
 ```
-Todo's ID
+Task's ID
 ```
 _Request Header_
 ```
@@ -269,24 +309,37 @@ _Request Header_
 ```
 _Request Body_
 ```
-Todo's ID
+Tasks's ID
 ```
-_Response (200)_
-```
-{
-  "Task Deleted Successfully"
-}
-```
-_Response (500 - Bad Request)_
-```
-{
-  "error": "Internal server error"
-}
-```
-_Response (404 - Not Found)_
-```
-{
-  "error": "Error not found!"
-}
-```
+### _Success Response_
+  _Response (200)_
+  ```
+  {
+    "Task Deleted Successfully"
+  }
+  ```
+### _Success Response_
+  _Response (500 )_
+  ```
+  {
+    "msg": "Internal server error"
+  }
+  ```
+  _Response (404)_
+  ```
+  {
+    "msg": "Error not found!"
+  }
+  ```
+  _Response (401)_
+  ```
+  {
+    "msg": "Authentication Failed!"
+  }
+  ```
+  _Response (403)_
+  ```
+  {
+    "msg": "Not Authorized!
+  }
 ---
