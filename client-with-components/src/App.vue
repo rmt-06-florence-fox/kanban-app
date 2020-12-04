@@ -33,7 +33,7 @@ export default {
       return {
          message:'Test',
          currPage:'landingPage',
-         baseUrl:'http://localhost:3000',
+         baseUrl:'https://kanban-awesome-server.herokuapp.com',
          categories:[],
          tasks:[]
       }
