@@ -93,8 +93,7 @@ export default {
 
     onSuccess(googleUser) {
       const googleToken = googleUser.getAuthResponse().id_token;
-      console.log(googleToken)
-
+      
       axios({
         url: server_url + '/google-sign-in',
         method: "POST",

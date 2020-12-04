@@ -29,6 +29,7 @@ import axios from 'axios'
 import NavBar from './NavBar.vue'
 import TaskList from './TaskList.vue'
 import SwAl from 'sweetalert2'
+import AppVue from '../App.vue'
 const server_url = 'http://localhost:3000'
 
 export default {

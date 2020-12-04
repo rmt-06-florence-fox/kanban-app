@@ -94,7 +94,6 @@ export default {
     },
 
     loginGoogle(data) {
-      console.log(data.data.access_token)
       localStorage.setItem('access_token', data.data.access_token)
       this.changePage('main')
     },

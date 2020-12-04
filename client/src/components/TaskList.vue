@@ -13,10 +13,12 @@
         >
         </TaskCard>
       </div>
-      <button v-show="!showAdd" class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
+      <button v-show="!showAdd" class="add-card-btn btn" @click="showAddCard"><span><i class="fa fa-plus"></i></span> Add a task</button>
       <AddTaskCard
         v-show="showAdd"
         :category="category.name"
+        @showAddCard="showAddCard"
+        @getAllTask="getAllTask"
       >
       </AddTaskCard>
     </div>
@@ -44,13 +46,20 @@ export default {
   },
   methods: {
     showAddCard() {
-      this.showAdd = true
+      if(this.showAdd === true) {
+        this.showAdd = false
+      } else {
+        this.showAdd = true
+      }
     },
     editTask(id) {
       this.$emit("editTask", id)
     },
     deleteTask(id) {
       this.$emit("deleteTask", id)
+    },
+    getAllTask() {
+      this.$emit('getAllTask')
     }
   }
   

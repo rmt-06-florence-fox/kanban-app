@@ -13,7 +13,7 @@ router.use(authentication)
 
 router.get('/tasks', TaskController.getAll)
 router.get('/tasks/:id', authorization, TaskController.getOne)
-router.post('/tasks', authorization, TaskController.add)
+router.post('/tasks', TaskController.add)
 router.put('/tasks/:id', authorization, TaskController.edit)
 router.delete('/tasks/:id', authorization, TaskController.delete)
 

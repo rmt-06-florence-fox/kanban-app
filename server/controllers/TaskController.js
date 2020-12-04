@@ -9,6 +9,8 @@ class TaskController {
       organization: req.body.organization,
     }
 
+    console.log(payload)
+
     Task.create(payload)
     .then(data => {
       res.status(201).json(data)

@@ -1,30 +1,58 @@
 <template>
-  <form class="card-body">
-    <textarea class="card-title form-control" placeholder="Insert Task Title" >
-    <button class="btn btn-primary" type="submit">Edit Task</button>
-    <button class="btn btn-danger" @click>Cancel</button>
-  </form>
+  <div class="card-body">
+    <form @submit.prevent="editTask(edit.title, edit.category)">
+      <input class="card-title form-control" v-model="edit.title">
+      <input style="display: none;" :value="category">
+      <button class="btn btn-primary" type="submit">Edit Task</button>
+      <button class="btn btn-danger" @click.prevent="toggleDisplayEdit">Cancel</button>
+    </form>
+  </div>
 </template>
 
 <script>
 import Vue from "vue";
 import axios from "axios";
-const server_url = ""
+const server_url = 'http://localhost:3000'
 
 export default {
-  props: ['editId'],
+  props: ['task','category'],
   data() {
     return {
-      edit_title: '',
-      edit_category: ''
+      edit: {
+        title: this.task.title,
+        category: this.category
+      }
     }
   },
-  created() {
-    // axios({
-    //   method: "GET",
-    //   url: server_url + `/tasks/${editId}`
-    // })
-  }
+  methods: {
+    toggleDisplayEdit(){
+      this.$emit('toggleDisplayEdit')
+    },
+    editTask(title, category) {
+      const id = this.task.id
+
+      axios({
+        url: server_url + `/tasks/${id}`,
+        method: "PUT",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          title,
+          category,
+          organization: "organization"
+        }
+      })
+      .then(response => {
+        this.$emit('getAllTask')
+        this.toggleDisplayEdit()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
+
 }
 </script>
 

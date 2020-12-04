@@ -1,10 +1,15 @@
 <template>
   <div class="card add">
-    <form class="card-body" @submit.prevent="addTask">
-      <textarea class="card-title form-control" placeholder="Insert Task Title">
-      <button class="btn btn-primary" type="submit">Add Task</button>
-      <button class="btn btn-danger" @click="toggleShowAdd">Cancel</button>
-    </form>
+    <div class="card-body">
+      <form @submit.prevent="addTask(add.title, add.category)">
+        <input class="card-title form-control" placeholder="Insert Task Title" v-model="add.title">
+        <input style="display: none;" :value="category.name">
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">Add Task</button>
+          <button class="btn btn-danger" @click.prevent="showAddCard">Cancel</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -14,35 +19,40 @@ import axios from 'axios'
 const server_url ='http://localhost:3000'
 
 export default {
+  props: ['category'],
   data() {
     return {
-      newTask: {
-        add_title: '',
-        add_category: category.name
+      add: {
+        title: null,
+        category: this.category
       }
     }
   },
-  props: ['category'],
   methods: {
-    addTask() {
-      const payload = {
-        title: newTask.add_title,
-        category: newTask.add_category
-      }
+    showAddCard() {
+      this.$emit('showAddCard')
+    },
+    addTask(title, category) {
+      console.log(title, category)
 
       axios({
-        method: 'POST',
         url: server_url + '/tasks',
+        method: "POST",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
         data: {
-          title: payload.title,
-          category: payload.category
+          title,
+          category,
+          organization: "organization"
         }
       })
-      .then(data => {
-        // this.$emit('', data)
+      .then(response => {
+        this.$emit('getAllTask')
+        this.$emit('showAddCard')
       })
       .catch(err => {
-        this.$emit('consoleErr', err)
+        console.log(err)
       })
     }
   },
