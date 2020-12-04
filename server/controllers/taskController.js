@@ -17,9 +17,7 @@ class TaskController {
   }
   static async show(req, res, next) {
     try {
-      const task = await Task.findAll({
-        where: { UserId: req.loggedInUser.id },
-      });
+      const task = await Task.findAll();
       res.status(200).json(task);
     } catch (error) {
       next(error);

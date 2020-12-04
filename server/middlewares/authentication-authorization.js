@@ -29,9 +29,10 @@ const authentication = async (req, res, next) => {
 };
 
 const authorization = async (req, res, next) => {
+  console.log("masuk?");
   try {
     const task = await Task.findOne({
-      where: { UserId: req.loggedInUser.id },
+      where: { id: req.params.id },
     });
     if (task.UserId === req.loggedInUser.id) {
       next();
