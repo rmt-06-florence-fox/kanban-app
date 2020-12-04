@@ -7,6 +7,21 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "ykp",
+  "license": "ISC",
+  "dependencies": {
+    "@shopify/draggable": "^1.0.0-beta.8",
+    "autosize": "^4.0.2",
+    "flatpickr": "^4.6.6",
+    "jquery": "^3.5.1",
+    "list.js": "^2.3.0",
+    "popper.js": "^1.16.1",
+    "prismjs": "^1.22.0",
+    "vue": "^2.6.12",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.2.0",
+    "vue-template-compiler": "^2.6.12"
+  }
 }
