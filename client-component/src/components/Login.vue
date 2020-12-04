@@ -56,11 +56,11 @@ export default {
             this.$emit("loginpage", payload)
         },
         onSuccess(googleUser) {
-            // console.log(googleUser);
- 
+            // console.log(googleUser.getAuthResponse().id_token);
+            const googleToken = googleUser.getAuthResponse().id_token
             // This only gets the user information: id, name, imageUrl and email
             // console.log(googleUser.getBasicProfile().du);
-            this.$emit("GoogleLogin", googleUser.getBasicProfile().du)
+            this.$emit("GoogleLogin", googleToken)
         }
     },
     components: {

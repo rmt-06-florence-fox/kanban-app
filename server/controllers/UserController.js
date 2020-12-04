@@ -55,51 +55,20 @@ class UserController {
             })
     }
 
-    static googleLogin(req, res, next) {
-        User.findOne({
-            where: {
-                email: req.body.email
-            }
-        })
-            .then(user => {
-                if (user) {
-                    return user
-                } else {
-                    return User.create({
-                        email: req.body.email,
-                        password: process.env.GOOGLE_PASSWORD
-                    })
-                }
-            })
-            .then(data => {
-                const access_token = getToken({id: data.id, email: data.email})
-                res.status(201).json({access_token})
-            })
-            .catch(err => {
-                next(err)
-            })
-    }
-
     // static googleLogin(req, res, next) {
-    //     let payload
-    //     client.verifyIdToken({
-    //         idToken: req.body.googleToken,
-    //         audience: process.env.GOOGLE_CLIENT_ID
+    //     User.findOne({
+    //         where: {
+    //             email: req.body.email
+    //         }
     //     })
-    //         .then(ticket => {
-    //             payload = ticket.getPayload()
-    //             // console.log(payload)
-    //             return User.findOne({
-    //                 where: {
-    //                     email: payload.email
-    //                 }
-    //             })
-    //         })
     //         .then(user => {
     //             if (user) {
     //                 return user
     //             } else {
-    //                 return User.create({email: payload.email, password: process.env.GOOGLE_PASSWORD})
+    //                 return User.create({
+    //                     email: req.body.email,
+    //                     password: process.env.GOOGLE_PASSWORD
+    //                 })
     //             }
     //         })
     //         .then(data => {
@@ -107,10 +76,41 @@ class UserController {
     //             res.status(201).json({access_token})
     //         })
     //         .catch(err => {
-    //             res.status(500).json(err)
-    //             // console.log(err)
+    //             next(err)
     //         })
     // }
+
+    static googleLogin(req, res, next) {
+        let payload
+        client.verifyIdToken({
+            idToken: req.body.googleToken,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+            .then(ticket => {
+                payload = ticket.getPayload()
+                // console.log(payload)
+                return User.findOne({
+                    where: {
+                        email: payload.email
+                    }
+                })
+            })
+            .then(user => {
+                if (user) {
+                    return user
+                } else {
+                    return User.create({email: payload.email, password: process.env.GOOGLE_PASSWORD})
+                }
+            })
+            .then(data => {
+                const access_token = getToken({id: data.id, email: data.email})
+                res.status(201).json({access_token})
+            })
+            .catch(err => {
+                res.status(500).json(err)
+                // console.log(err)
+            })
+    }
 }
 
 module.exports = UserController

@@ -125,13 +125,13 @@ export default {
                     console.log(err.response)
                 })
         },
-        googleLogin(googleEmail) {
+        googleLogin(googleToken) {
             // console.log("hello google", googleEmail)
             axios({
                 url: this.url + "googleLogin",
                 method: "POST",
                 data: {
-                    email: googleEmail
+                    googleToken
                 }
             })
                 .then(response => {
