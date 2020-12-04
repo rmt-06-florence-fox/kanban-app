@@ -4,6 +4,8 @@
     <div v-for="task in filterTask" :key="task.id">
      <kanban-card-component 
       :filterTask="task" 
+      :currentEditId="currentEditId"
+      :editTogleStatus="editTogleStatus"
       @deleteId="deleteTask" 
       @editTask="edit"
     ></kanban-card-component>
@@ -19,7 +21,7 @@ import kanbanCardComponent from './kanban-card-component.vue'
 export default {
   components: { kanbanCardComponent },
   name : 'task-board-component',
-  props : ['tasks','category'],
+  props : ['tasks','category','currentEditId','editTogleStatus'],
   computed : {
     filterTask(){
       return this.tasks.filter(e=> e.category == this.category)

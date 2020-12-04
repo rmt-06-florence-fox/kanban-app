@@ -14,6 +14,8 @@
           @editTask="edit" 
           :tasks="tasks" 
           :category="category.name"
+          :currentEditId="currentEditId"
+          :editTogleStatus="editTogleStatus"
         ></task-board-component>
         <div v-if="addToggle && selectedCategory == category.name">
           <form @submit.prevent="addTask" action="">
@@ -53,13 +55,18 @@ export default {
       }
       this.$emit('addTask', newTask)
       this.addToggle = false
+    },
+    editTogleStatus(value){
+      // console.log('asa');
+      this.currentEditId = value
     }
   },
   data(){
     return {
       addToggle : false,
       selectedCategory : '',
-      addTitle : ''
+      addTitle : '',
+      currentEditId : 'none'
     }
   }
 }

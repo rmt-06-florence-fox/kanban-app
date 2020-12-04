@@ -145,21 +145,21 @@ _Response(200)_
 ```
 [
     {
-        "id": 1,
-        "title": "test postman",
-        "category": "backlog",
+        "id": 6,
+        "title": "test lagi123",
+        "category": "done",
         "UserId": 6,
-        "createdAt": "2020-12-01T23:16:49.584Z",
-        "updatedAt": "2020-12-01T23:16:49.584Z"
+        "createdAt": "2020-12-03T14:12:36.420Z",
+        "updatedAt": "2020-12-03T14:12:36.420Z",
+        "User": {
+            "id": 6,
+            "email": "joko2@mail.com",
+            "password": "$2a$08$eHMl8Ypd2wHPVN5puXQbouIzvvCNGS8tww6RAYtiWD/NCKYMmHyQa",
+            "createdAt": "2020-12-01T15:26:25.692Z",
+            "updatedAt": "2020-12-01T15:26:25.692Z"
+        }
     },
-    {
-        "id": 2,
-        "title": "test lagi",
-        "category": "doing",
-        "UserId": 6,
-        "createdAt": "2020-12-01T23:23:16.607Z",
-        "updatedAt": "2020-12-01T23:23:16.607Z"
-    }
+    ...
 ]
 ```
 _Response(500)_

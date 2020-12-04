@@ -11,11 +11,17 @@
         </div>
       </div>
     </div>
-    <div v-if="editToggle">
+    <div v-if="editToggle && (currentEditId == 'none' || currentEditId == editData.id)">
       <form @submit.prevent="edit" action="">
         <textarea v-model="editTitle" name="" id="" cols="22" rows="2" required></textarea>
-        <button  type="submit" class="btn btn-outline-primary fas fa-check"></button>
         <!-- <button @click.prevent="toggleEdit(filterTask)" type="button" class="btn btn-outline-primary fas fa-times"></button> -->
+        <select v-model="filterTask.category" name="" id="">
+          <option value="backlog">backlog</option>
+          <option value="todo">todo</option>
+          <option value="doing">doing</option>
+          <option value="done">done</option>
+        </select>
+        <button  type="submit" class="btn btn-outline-primary fas fa-check"></button>
       </form>
     </div>
   </div>
@@ -25,15 +31,17 @@
 <script>
 export default {
   name :  "kanban-card-component",
-  props : ["filterTask"],
+  props : ["filterTask","currentEditId","editTogleStatus"],
   methods : {
     deleteTask(id){
       this.$emit('deleteId', id)
     },
     toggleEdit(data){
-      this.editToggle = !this.editToggle
+      this.editTogleStatus('none')
       this.editTitle = data.title
       this.editData = data
+      this.editTogleStatus(data.id)
+      this.editToggle = !this.editToggle
     }, 
     edit(){
       const objEdit = {
@@ -42,6 +50,7 @@ export default {
       }
       this.$emit('editTask', objEdit, this.editData.id)
       this.editToggle = false
+      this.editTogleStatus('none')
     }
   },
   data(){
