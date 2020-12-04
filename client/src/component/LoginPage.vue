@@ -21,7 +21,7 @@
                         <button  @click="emitLoginFunc" class="btn btn-primary container-fluid mb-3">login</button>
 
                         <small id="" class="form-text text-muted">Login with google account</small>
-                        <div class="g-signin2 google" data-onsuccess="onSignIn"></div>
+                         <GoogleLogin :params="params" :onSuccess="onSuccess" >Login</GoogleLogin>
 
                         <small id="" class="form-text text-muted">Dont have an account ? Please Register</small>
                         <button @click="changePage('registerPage')" class="btn  btn-success container-fluid">Register</button>
@@ -35,6 +35,9 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login'
+
+
 export default {
     name : "LoginPage",
     data() {
@@ -42,6 +45,14 @@ export default {
             userData : {
                 email : "",
                 password  : ""
+            },
+            params : {
+                client_id :'480994684506-tctr776rv41nj2oe70un3m7onit1cvle.apps.googleusercontent.com'
+            },
+            renderParams: {
+                    width: 250,
+                    height: 50,
+                    longtitle: true
             }
         }
     },
@@ -52,7 +63,16 @@ export default {
         changePage(page){
             // console.log('sss')
             this.$emit('changePage',page)
+        },
+        onSuccess(googleUser) {
+            console.log(googleUser);
+ 
+            // This only gets the user information: id, name, imageUrl and email
+            console.log(googleUser.getBasicProfile());
         }
+    },
+    components : {
+        GoogleLogin
     }
 }
 </script>
