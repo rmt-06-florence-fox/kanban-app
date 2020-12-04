@@ -4,7 +4,7 @@ class ControllerTask {
     static showAllDataTask(req, res, next) {
         Task.findAll()
             .then(data => {
-                res.status(200).json(data)
+                res.status(200).json({data: data})
             })
             .catch(err => {
                 next(err)
@@ -61,7 +61,6 @@ class ControllerTask {
     static modifyDataTask(req, res, next) {
         let id = req.params.id
         let category = req.body.category
-        
 
         Task.update({category}, {
             where: {
