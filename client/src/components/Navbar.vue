@@ -64,7 +64,6 @@ export default {
       this.changeStatus(false);
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-        console.log("User signed out.");
         swal("bye~", {
           icon: "success",
           buttons: false,

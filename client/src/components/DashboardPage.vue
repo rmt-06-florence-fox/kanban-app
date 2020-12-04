@@ -5,6 +5,7 @@
       :dataTasks="dataTasks"
       :addTask="addTask"
       :getTasks="getTasks"
+      :editTask="editTask"
       ></BoardList>
     </div>
   </div>
@@ -19,7 +20,7 @@ export default {
   components: {
     BoardList,
   },
-  props: [ "dataTasks", "addTask", "getTasks"],
+  props: [ "dataTasks", "addTask", "getTasks", "editTask"],
 };
 </script>
 

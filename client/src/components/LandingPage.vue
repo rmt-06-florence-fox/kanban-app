@@ -9,6 +9,7 @@
     v-if="hasAccount"
     :changeStatus="changeStatus"
     :checkAcc="checkAcc"
+    :getTasks="getTasks"
   ></LoginPage>
 </div>
 </template>
@@ -19,7 +20,7 @@ import RegisterPage from "./RegisterPage"
 
 export default {
   name: "landingPage",
-  props: ['changeStatus', 'hasAccount', 'checkAcc'],
+  props: ['changeStatus', 'hasAccount', 'checkAcc', 'getTasks'],
   data() {
     return {
       isShow: true

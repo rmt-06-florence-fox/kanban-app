@@ -58,7 +58,6 @@ class UserC {
         audience: process.env.CLIENT_ID
       })
       const payload = ticket.getPayload();
-      console.log(payload)
       const user = await User.findOne({
         where: {
           email: payload.email
@@ -83,7 +82,6 @@ class UserC {
         res.status(200).json({ access_token })
       }
     } catch (err) {
-      console.log(err)
       next(err)
     }
   }

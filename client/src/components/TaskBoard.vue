@@ -1,7 +1,7 @@
 <template>
-  <div class="column column-items status mx-3">
+  <div class="column column-items status mx-3 my-3">
     <div>
-      <button class="button is-success" @click.prevent="openAdd">add</button>
+      <button class="button is-success mb-3" @click.prevent="openAdd"><i class="fas fa-plus"></i><b> Add</b></button>
     </div>
     <div class="tags has-addons">
       <span class="tag">{{ category.name }}</span>
@@ -13,6 +13,7 @@
       :key="task.id"
       :task="task"
       :getTasks="getTasks"
+      :editTask="editTask"
     ></TaskItem>
     </div>
     
@@ -25,7 +26,7 @@ import swal from "sweetalert"
 
 export default {
   name: "TaskBoard",
-  props: ["dataTasks", "category", "addTask", "getTasks"],
+  props: ["dataTasks", "category", "addTask", "getTasks", "editTask"],
   components: {
     TaskItem,
   },
@@ -48,7 +49,9 @@ export default {
         .then((response) => {
           this.addTask(response, this.category.name);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err)
+        });
     },
   },
 };

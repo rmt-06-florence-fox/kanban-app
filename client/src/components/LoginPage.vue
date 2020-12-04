@@ -69,7 +69,7 @@ import GoogleLogin from "vue-google-login"
 
 export default {
   name: "loginPage",
-  props: ["changeStatus", "checkAcc", 'onFailure', ],
+  props: ["changeStatus", "checkAcc", 'onFailure', 'getTasks'],
   data() {
     return {
       email: "",
@@ -105,6 +105,7 @@ export default {
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           this.changeStatus(true);
+          this.getTasks()
           swal("heyho", {
             icon: 'success',
             buttons: false,
@@ -112,14 +113,13 @@ export default {
           });
         })
         .catch((err) => {
-          if (err === "WrongInput")
-            Swal.fire("Wrong Input", "Email/Password is wrong", "warning");
-          this.isLoading = false;
+          swal('wrong email/password!', {
+            icon: "error",
+          })
         });
     },
     onSuccess(googleUser) {
       var id_token = googleUser.getAuthResponse().id_token;
-      console.log(id_token)
       this.$api({
         method: "POST",
         url: `/gsignin`,
@@ -128,7 +128,6 @@ export default {
         }
       })
       .then(({data}) => {
-        console.log(data)
         localStorage.setItem("access_token", data.access_token);
         this.changeStatus(true);
           swal("heyho", {
@@ -138,9 +137,9 @@ export default {
           });
       })
       .catch((err) => {
-        if (err === "WrongInput")
-        Swal.fire("Wrong Input", "Email/Password is wrong", "warning");
-        this.isLoading = false;
+        swal('unexpected error!', {
+          icon: "error",
+        })
       });
     }
   },

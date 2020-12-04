@@ -4,7 +4,7 @@
 }
 
 .status {
-  background-color: rgba(32, 32, 32, 0.5);
+  background-color: rgba(99, 205, 218, 0.5);
 }
 
 .status-1 {
@@ -24,7 +24,7 @@
 }
 
 .card {
-  margin-bottom: 1em;
+  margin-bottom: 5px;
 }
 
 .column-items {

@@ -1,6 +1,6 @@
 <template>
   <div class="container card-container">
-    <div class="columns">
+    <div class="columns mb-3">
       <TaskBoard
         v-for="category in categories"
         :key="category.id"
@@ -8,6 +8,7 @@
         :category="category"
         :addTask="addTask"
         :getTasks="getTasks"
+        :editTask="editTask"
       >
       </TaskBoard>
     </div>
@@ -22,8 +23,7 @@ export default {
   components: {
     TaskBoard,
   },
-  props: ["dataTasks", "createTask", "addTask", "getTasks"],
-
+  props: ["dataTasks", "createTask", "addTask", "getTasks", "editTask"],
   data() {
     return {
       categories: [

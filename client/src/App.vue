@@ -11,6 +11,7 @@
       v-if="!isLogin"
       :changeStatus="changeIsLogin"
       :checkAcc="checkAcc"
+      :getTasks="getTasks"
       :hasAccount="hasAccount"
     ></LandingPage>
 
@@ -19,11 +20,8 @@
       :dataTasks="dataTasks"
       :addTask="addTask"
       :getTasks="getTasks"
+      :editTask="editTask"
     ></DashboardPage>
-
-    <!-- <AddForm
-      v-if="isLogin"
-    ></AddForm> -->
 
     <EditForm v-if="isLogin"></EditForm>
 
@@ -36,7 +34,6 @@
 import Navbar from "./components/Navbar";
 import LandingPage from "./components/LandingPage";
 import DashboardPage from "./components/DashboardPage";
-import AddForm from "./components/AddForm";
 import EditForm from "./components/EditForm";
 import Footer from "./components/Footer";
 
@@ -47,7 +44,6 @@ export default {
     Navbar,
     LandingPage,
     DashboardPage,
-    AddForm,
     EditForm,
     Footer,
   },
@@ -91,13 +87,12 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
           this.getTasks();
-
-          // atur page sm fetch data
         })
         .catch((err) => {
-          console.log(err);
+          swal('request cancelled!', {
+            icon: "info",
+          })
         });
     },
 
@@ -111,11 +106,12 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
           this.dataTasks = response.data;
         })
         .catch((err) => {
-          console.log(err);
+          swal('error!', {
+            icon: "error",
+          })
         });
     },
 
@@ -133,20 +129,15 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response);
-          // atur page
-          //
-          // fetch
           this.getTasks();
         })
         .catch((err) => {
-          next(err);
+          swal('bukan punyamu mas...', {
+            icon: "error",
+          })
         });
     },
-
-    
   },
-
   created() {
     if (localStorage.getItem("access_token")) {
       this.isLogin = true;

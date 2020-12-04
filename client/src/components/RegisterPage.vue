@@ -113,7 +113,9 @@ export default {
           });
         })
         .catch((err) => {
-          console.log(err);
+          swal('account already exists!', {
+            icon: "error",
+          })
         });
     },
   },
