@@ -15,9 +15,28 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Task.init({
-    title: DataTypes.STRING,
-    category: DataTypes.STRING,
-    desc: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          message: 'title is required'
+        }
+      }},
+    category: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          message: 'category is required'
+        }
+      }},
+    desc: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          message: 'desc is required'
+        },
+        isEmail: true
+      }},
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
