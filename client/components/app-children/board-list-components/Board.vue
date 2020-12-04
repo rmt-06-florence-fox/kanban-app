@@ -5,8 +5,9 @@
             <TaskItem v-for="task in filteredTasks" :key="task.id" 
             :task="task"
             :buttons="category.btn"
+            :categories="categories"
             @changeStatus="changeStatus"
-            @showEdit="showEdit"
+            @editHandler="editHandler"
             @deleteTask="deleteTask"
     
             ></TaskItem>
@@ -20,7 +21,7 @@ import TaskItem from "./TaskItem.vue"
 
 export default {
     name : "Board",
-    props : ["category", "tasks"],
+    props : ["category", "tasks", "categories"],
     components : {
         TaskItem
     },
@@ -29,14 +30,14 @@ export default {
             //console.log('masuk di board', bool, task)
             this.$emit('changeStatus', bool, task)
         },
-        showEdit(task){
-            //console.log('masuk di board show Edit', task)
-            this.$emit('showEdit', task)
-        },
+       
         deleteTask(task){
             //console.log('masuk di board delete', task)
             this.$emit('deleteTask', task)
         },
+        editHandler(task){
+            this.$emit('editHandler', task)
+        }
     },
     computed : {
         filteredTasks(){  
@@ -60,18 +61,18 @@ export default {
 
     #to-do{
         background: #a8ff3e;
-        height: 100%;
+        height: 460px;
         overflow-y: auto ;    
 
     }
     #doing{
         background: #6bfa47;
-        height: 100%;
+        height: 460px;
         overflow-y: auto ;    
     }
     #done{
         background: #15f10d;
-        height: 100%;
+        height: 460px;
         overflow-y: auto ;    
     }
 </style>

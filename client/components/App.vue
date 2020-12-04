@@ -6,7 +6,7 @@
         <BoardList 
         :tasks="tasks"
         @changeStatus="changeStatus"
-        @showEdit="showEdit"
+        @editHandler="editHandler"
         @deleteTask="deleteTask"
         ></BoardList>
     </div>
@@ -111,8 +111,23 @@ export default {
                 console.log(err)
             })
         },
-        showEdit(task){
+        editHandler(task){
+            const access_token = localStorage.getItem('access_token')
+            const {id, title, category} = task
+            
 
+            axios({
+                url : server + "/tasks/" + id,
+                method : 'PUT',
+                data : {title, category},
+                headers : {access_token}
+            })
+            .then(_ => {
+                this.fetch()
+            })
+            .catch(err => {
+                console.log(err)
+            })
         },
         deleteTask(task){
             const {id} = task

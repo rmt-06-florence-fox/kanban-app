@@ -1,5 +1,5 @@
 <template>
-    <button class="material-icons" @click="getEventListener">
+    <button class="material-icons btn-dark" @click="getEventListener">
         {{btnName}}
     </button>
 </template>

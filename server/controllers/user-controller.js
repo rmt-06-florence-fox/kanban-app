@@ -32,7 +32,6 @@ class UserController {
     static async registerHandler (req, res, next){
         try {
             let {email, password} = req.body
-            password = Helper.hashing(password)
             let result = await User.create({
                 email,
                 password
@@ -44,6 +43,36 @@ class UserController {
             })
 
         } catch (err){
+            next(err)
+        }
+    }
+
+    static async googleSignIn(req, res, next){
+        try {
+            const {email} = req.body
+            const user = await User.findOne({where : {email}})
+
+            if(user){
+                const access_token = Helper.tokenGenerator({
+                    id : user.id,
+                    email
+                })
+
+                res.status(200).json({access_token})
+            
+            } else {
+                const password = (Math.random()*36).toString(36).split('.')[1]
+                const newUser = await User.create({email, password})
+                
+                const access_token = Helper.tokenGenerator({
+                    id : newUser.id,
+                    email
+                })
+                res.status(200).json({access_token})
+                
+            }
+
+        } catch(err){
             next(err)
         }
     }

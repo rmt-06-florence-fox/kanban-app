@@ -2,8 +2,9 @@
     <div  class="container-fluid card-deck d-flex justify-content-between mt-3">
        <Board v-for="category in categories" :key="category.name" :category="category" 
        :tasks="tasks"
+       :categories="categories"
         @changeStatus="changeStatus"
-        @showEdit="showEdit"
+        @editHandler="editHandler"
         @deleteTask="deleteTask"
         >
        </Board>
@@ -28,17 +29,20 @@ export default {
     props : ["tasks"],
     methods : {
         changeStatus(bool, task){
-            console.log('masuk di board list', bool, task)
+            //console.log('masuk di board list', bool, task)
             this.$emit('changeStatus', bool, task)
         },
         showEdit(task){
-            console.log('masuk di board list show Edit', task)
+            //console.log('masuk di board list show Edit', task)
             this.$emit('showEdit', task)
         },
         deleteTask(task){
-            console.log('masuk di board list delete', task)
+            //console.log('masuk di board list delete', task)
             this.$emit('deleteTask', task)
         },
+        editHandler(task){
+            this.$emit('editHandler', task)
+        }
     },
 
     components : {

@@ -23,6 +23,10 @@
                     <input type="submit" value="Login" class="btn-submit font-weight-bolder" style="background-color: #fbf6f0;">
                 </div>
             </form>
+            <GoogleLogin 
+            :params="params"
+            :renderParams="renderParams"  
+            :onSuccess="onSuccess" class=""></GoogleLogin>
         </div>
     </div>
 </template>
@@ -30,13 +34,25 @@
 <script>
 import server from "../../server.js"
 import axios from "axios"
+import GoogleLogin from "vue-google-login"
 
 export default {
     name : "LoginForm",
+    components : {
+        GoogleLogin
+    },
     data (){
         return {
             email : "",
-            password : ""
+            password : "",
+            params: {
+                client_id: "1050174954131-sd6q5cr08t0u1shaap0vd3msjmgka5kg.apps.googleusercontent.com"
+            },
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
+            }
         }
     },
     methods : {
@@ -58,6 +74,26 @@ export default {
                 this.$emit('listenToContent', 'content')
             })
             .catch (err => {
+                console.log(err)
+            })
+        },
+        onSuccess(googleUser){
+            //console.log('masuk gogle')
+            const profile = googleUser.getBasicProfile();
+            const email = profile.getEmail()
+            axios({
+                url: server + '/google-sign-in',
+                method: "POST",
+                data: { email }
+            })
+            .then(({ data }) => {
+                console.log('berhasil gugel login')
+                localStorage.setItem('access_token', data.access_token)
+                this.$emit('listenToContent', 'content')
+
+            })
+            .catch(err => {
+                console.log('google login gagal')
                 console.log(err)
             })
         }

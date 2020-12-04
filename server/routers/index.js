@@ -5,6 +5,7 @@ const taskRouter = require('./task-router')
 
 router.post('/login', UserController.loginHandler)
 router.post('/register', UserController.registerHandler)
+router.post('/google-sign-in', UserController.googleSignIn)
 
 router.use(authentication)
 router.use('/tasks', taskRouter )
