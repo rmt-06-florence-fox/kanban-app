@@ -44,8 +44,7 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'EditTaskPage',
+};
 </script>
-
-<style>
-</style>

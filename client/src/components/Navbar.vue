@@ -30,6 +30,7 @@
 
 <script>
 export default {
+  name: 'Navbar',
   props: ['page'],
   methods: {
     addTaskPage(){
@@ -42,6 +43,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

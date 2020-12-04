@@ -39,6 +39,7 @@
 
 <script>
 export default {
+  name: "RegisterPage",
   data() {
     return {
       email: "",

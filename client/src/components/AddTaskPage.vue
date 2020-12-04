@@ -61,6 +61,7 @@
 
 <script>
 export default {
+  name: 'AddTaskPage',
   data() {
     return {
       title: "",
@@ -88,6 +89,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

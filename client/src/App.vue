@@ -16,7 +16,12 @@
       @registerData="register"
     >
     </RegisterPage>
-    <TaskBoard v-if="currentPage === 'Main Page'"></TaskBoard>
+    <TaskBoard 
+    v-if="currentPage === 'Main Page'"
+    :categories="categories"
+    :tasks="tasks"
+    >
+    </TaskBoard>
     <AddTaskPage
       v-if="currentPage === 'Add Task Page'"
       @mainPage="changePage"
@@ -39,7 +44,6 @@ export default {
   name: "App",
   data() {
     return {
-      name: "",
       currentPage: "Register Page",
       categories: [
         {
@@ -49,25 +53,29 @@ export default {
         },
         {
           name: 'todo',
-          color: 'item-1',
+          color: 'item-2',
           label: 'Todo'
         },
         {
           name: 'doing',
-          color: 'item-1',
+          color: 'item-3',
           label: 'Doing'
         },
         {
           name: 'done',
-          color: 'item-1',
+          color: 'item-4',
           label: 'Done'
         },
-      ]
+      ],
+      tasks: []
     };
   },
   methods: {
     changePage(page) {
       this.currentPage = page;
+      if(page == 'Main Page'){
+        this.fetchTask()
+      }
     },
 
     login(data) {
@@ -90,7 +98,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.currentPage = "Main Page";
+          this.changePage('Main Page')
         })
         .catch((error) => {
           Swal.fire({
@@ -124,7 +132,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.currentPage = "Main Page";
+          this.changePage('Main Page')
         })
         .catch((error) => {
           Swal.fire({
@@ -159,7 +167,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.$emit("loginPage", "Login Page");
+          this.changePage('Login Page')
         })
         .catch((error) => {
           Swal.fire({
@@ -203,7 +211,7 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.$emit("mainPage", "Main Page");
+          this.changePage('Main Page')
         })
         .catch((error) => {
           Swal.fire({
@@ -229,7 +237,7 @@ export default {
         }
       })
         .then((response) => {
-          console.log(response);
+          this.tasks = response.data.task;
         })
         .catch((error) => {
           Swal.fire({
@@ -244,9 +252,9 @@ export default {
   },
   created: function () {
     if (localStorage.getItem("access_token")) {
-      this.currentPage = "Main Page";
+      this.changePage('Main Page')
     } else {
-      this.currentPage = "Login Page";
+      this.changePage('Login Page')
     }
   },
   components: {
@@ -259,6 +267,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

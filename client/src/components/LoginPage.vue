@@ -49,6 +49,7 @@
 
 <script>
 export default {
+  name: 'LoginPage',
   data() {
     return {
       email: "",
@@ -79,6 +80,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
