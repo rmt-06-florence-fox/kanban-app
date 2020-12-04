@@ -15,12 +15,12 @@
   <mainPage
   v-if = "page === 'main page'"
   @requestLogout = "logout"
-  @requestCreateTask = "createTask"
   @fetchTask = "fetchTask"
   :list = "tasks"
   @requestEdit = "edit"
+  @requestCreate = "createTask"
+  @requestDelete = 'destroy'
   ></mainPage>
-
 </div>
 </template>
 
@@ -90,8 +90,37 @@ export default {
       localStorage.clear()
       this.page = "login page"
     },
-    async createTask(obj){
+    async createTask(){
       try {
+          const formData = await Swal.fire({
+          title: 'Create Form',
+          html:`
+            <form class="p-2">
+              <div class="form-group">
+                <label for="createTask">Task:</label>
+                <input type="text" class="form-control" id="createTask">
+              </div>
+              <div class="form-group">
+                <label for="selectCategory">Category</label>
+                <select class="form-control" id="category">
+                  <option value = ''>---- Select ----</option>
+                  <option value = 'Backlog'>Backlog</option>
+                  <option value = 'Todo'>Todo</option>
+                  <option value = 'Doing'>Doing</option>
+                  <option value = 'Done'>Done</option>
+                </select>
+              </div>
+          `,
+          showCancelButton: true,
+          focusConfirm: false,
+          preConfirm: () => {
+            return {
+              title : document.getElementById('createTask').value,
+              category : document.getElementById('category').value
+            }
+          }
+        })
+        let obj = formData.value
         let data = await axios({
           url : `${this.localhost}/tasks`,
           method : 'post',
@@ -103,7 +132,10 @@ export default {
             access_token : localStorage.getItem('access_token')
           }
         })
-        console.log(data.data);
+        // console.log(data.data);
+        if (data.data) {
+          Swal.fire(`Success Add ${data.data.title}`, '', `success`)
+        }
         this.fetchTask()
         this.page = 'main page'
       } catch (error) {
@@ -127,23 +159,90 @@ export default {
     },
     async edit(obj, id) {
       try {
+        const formEdit = await Swal.fire({
+          title: 'Edit Form',
+          html:`
+            <form class="p-2">
+              <div class="form-group">
+                <label for="editTask">Task:</label>
+                <input type="text" class="form-control" id="editTask" value=${obj.title}>
+              </div>
+              <div class="form-group">
+                <label for="selectCategory">Category</label>
+                <select class="form-control" id="category">
+                  <option value = 'Backlog' ${obj.category === 'Backlog' ? 'selected' : ''}>Backlog</option>
+                  <option value = 'Todo' ${obj.category === 'Todo' ? 'selected' : ''}>Todo</option>
+                  <option value = 'Doing' ${obj.category === 'Doing' ? 'selected' : ''}>Doing</option>
+                  <option value = 'Done' ${obj.category === 'Done' ? 'selected' : ''}>Done</option>
+                </select>
+              </div>
+          `,
+          showCancelButton: true,
+          focusConfirm: false,
+          preConfirm: () => {
+            return {
+              title : document.getElementById('editTask').value,
+              category : document.getElementById('category').value
+            }
+          }
+        })
+        let result = formEdit.value
+        // console.log(result);
         let data = await axios({
           url : `${this.localhost}/tasks/${id}`,
           method : 'put',
           data : {
-            title : obj.title,
-            category : obj.category
+            title : result.title,
+            category : result.category
           },
           headers : {
             access_token : localStorage.getItem('access_token')
           }
         })
         console.log(data.data);
+        if (data.data) {
+          Swal.fire(`Success Edit ${data.data.title}`, '', `success`)
+        }
         this.fetchTask()
         this.page = 'main page'
       } catch (error) {
         console.log(error.response);
       }
+    },
+    async destroy(id){
+      try {
+        let confirm = await Swal.fire({
+          title: 'Are you sure to delete this task?',
+          text: "Please check before delete!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        })
+        if (confirm.isConfirmed) {
+          let data = await axios({
+            url : `${this.localhost}/tasks/${id}`,
+            method : 'delete',
+            headers : {
+              access_token : localStorage.getItem('access_token')
+            }
+          })
+          console.log(data.data);
+          if (data.data) {
+            Swal.fire(`Success delete your task`, '', `success`)
+          }
+          this.fetchTask()
+          this.page = 'main page'
+        } else {
+          throw {
+            status : 500,
+            message : 'internal server error'
+          }
+        }
+      } catch (error) {
+        
+      }
+      
     }
   },
   created() {

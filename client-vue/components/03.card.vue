@@ -5,6 +5,7 @@
       <tasks 
       v-for = "(task, idx) in filteredCategory" :key= "idx" :list= "task"
       @requestEdit = "requestEdit"
+      @requestDelete = 'requestDelete'
       ></tasks>
     </div>
   </div>
@@ -28,6 +29,9 @@ export default {
     },
     requestEdit(obj, id) {
       this.$emit('requestEdit', obj, id)
+    },
+    requestDelete(id){
+      this.$emit('requestDelete',id)
     }
   },
   created() {

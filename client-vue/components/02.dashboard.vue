@@ -6,6 +6,7 @@
         @fetchTask = "fetchTask"
         :list = "list"
         @requestEdit = "requestEdit"
+        @requestDelete = 'requestDelete'
         ></card>
       </div>
 </template>
@@ -33,6 +34,9 @@ export default {
     },
     requestEdit(obj, id) {
       this.$emit('requestEdit', obj, id)
+    },
+    requestDelete(id) {
+      this.$emit('requestDelete', id)
     }
   }
 }
