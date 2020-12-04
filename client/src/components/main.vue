@@ -67,21 +67,11 @@ export default {
       changeLoginPage(){
         this.$emit('changeLoginPage')
       },
-      toggleRef(index) {
-        this.kondisiRef= []
-        for(let i = 0; i < this.categoryList.length; i++){
-          this.kondisiRef.push(false)
-        }
-        let temp = this.kondisiRef.slice(0)
-        temp[index] = !temp[index]
-        this.kondisiRef = temp;
-      },
       newTask(payload){
         this.$emit('lemparNewTask', payload)
       },
       titleTask(payload){
         this.$emit('lemparNewTask', payload)
-        this.kondisiRef[payload.CategoryId-1] = false
       },
       terimaPayloadEdit(payload){
         this.$emit('lemparPayloadEditKeApp', payload)
