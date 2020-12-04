@@ -4,7 +4,6 @@ class ControllerTask {
     static showAllDataTask(req, res, next) {
         Task.findAll()
             .then(data => {
-                console.log(data)
                 res.status(200).json(data)
             })
             .catch(err => {

@@ -7,6 +7,7 @@ const authorization = require("../middlewares/authorization")
 
 route.post("/register", ControllerUser.registerUser)
 route.post("/login", ControllerUser.loginUser)
+route.post("/googlelogin", ControllerUser.googleLOgin)
 
 route.use(authentication)
 route.get("/", ControllerTask.showAllDataTask)

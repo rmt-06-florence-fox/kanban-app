@@ -1,5 +1,7 @@
 const { User } = require("../models/index")
 var bcrypt = require('bcryptjs');
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID);
 const { createToken } = require("../helpers/createAndVerifyToken")
 
 class ControllerUser {
@@ -41,6 +43,48 @@ class ControllerUser {
                     }
                 }
             })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static googleLOgin(req, res, next) {
+        let tmpPayload = null
+        client.verifyIdToken({
+            idToken: req.body.googleToken,
+            audience: process.env.CLIENT_ID, 
+        })
+            .then((ticket) => {
+                let payload = ticket.getPayload();
+                tmpPayload = payload 
+                // console.log(payload, "---------------")
+                let email = payload.email
+
+                return User.findOne({
+                            where: {
+                                email
+                            }
+                })
+            })
+            .then(user => {
+                if(user) {
+                    return user
+                } else {
+                    // console.log(tmpPayload)
+                    return User.create({
+                        firstName: tmpPayload.given_name,
+                        lastName: tmpPayload.family_name,
+                        email: tmpPayload.email,
+                        password: process.env.GOOGLE_SECRET
+                    })
+                }
+            }) 
+            .then(user => {
+            
+                const acces_token = createToken({ email: user.email, id: user.id, fullName: user.fullName()})
+                res.status(200).json({acces_token})
+            })
+
             .catch(err => {
                 next(err)
             })
