@@ -2,7 +2,7 @@ const {User, Task} = require('../models')
 const {checkPassword} = require('../helpers/bcryptjs')
 const {generateToken} = require('../helpers/jwt')
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client('787087558897-pkt5ddt6m0ldb46mgqs1noucosfcicd4.apps.googleusercontent.com');
+const client = new OAuth2Client(process.env.ClientId);
 
 class Controller {
 
@@ -29,19 +29,27 @@ class Controller {
                 password : req.body.password
             }
             const findUser = await User.findOne({where : {email : data.email}})
-            if(checkPassword(data.password, findUser.password)){
-                let access_token = generateToken({
-                    id : findUser.id,
-                    email : findUser.email
-                })
-                res.status(200).json({access_token})
-            } else {
+            if(!findUser){
                 throw {
                     status : 404,
                     message : 'data not found'
                 }
+            } else {
+                if(checkPassword(data.password, findUser.password)){
+                    let access_token = generateToken({
+                        id : findUser.id,
+                        email : findUser.email
+                    })
+                    res.status(200).json({access_token})
+                } else {
+                    throw {
+                        status : 400,
+                        message : 'data invalid'
+                    }
+                }
             }
         } catch (err) {
+            console.log(err, '<<dari catch');
             next(err)
         }
     }
@@ -50,10 +58,11 @@ class Controller {
         try {
             let data = {
                 title : req.body.title,
-                category : req.body.category
+                category : req.body.category,
+                userId : req.user.id
             }
             const newTask = await Task.create(data)
-            res.status(200).json(newTask)
+            res.status(201).json(newTask)
         } catch (err) {
             next(err)
         }
@@ -82,8 +91,17 @@ class Controller {
                     message : 'data not found'
                 }
             } else {
-                const newTask = await Task.update(data, {where : {id}, returning : true})
-                res.status(200).json(newTask)
+                const find = await Task.findByPk(id)
+                console.log(find, "<<find");
+                if(!find){
+                    throw {
+                        status : 404,
+                        message : 'data not found'
+                    }
+                } else {
+                    const newTask = await Task.update(data, {where : {id}, returning : true})
+                    res.status(200).json(newTask[1][0])
+                }
             }
         } catch (err) {
             next(err)
@@ -93,6 +111,7 @@ class Controller {
     static async deleteTask(req, res, next){
         try {
             let id = req.params.id
+            console.log(id, '<id');
             const data = await Task.destroy({where : {id}})
             res.status(200).json('Success to delete')
         } catch (err) {
@@ -104,7 +123,15 @@ class Controller {
         try {
             let id = req.params.id
             const data = await Task.findByPk(id)
-            res.status(200).json(data)
+            if(!data){
+                throw{
+                    status : 400,
+                    message : 'data not found'
+                }
+            } else {
+               res.status(200).json(data) 
+            }
+            
         } catch (err) {
             next(err)
         }
@@ -114,7 +141,7 @@ class Controller {
         try {
             const ticket = await client.verifyIdToken({
                 idToken: token,
-                audience: '787087558897-pkt5ddt6m0ldb46mgqs1noucosfcicd4.apps.googleusercontent.com',  
+                audience: process.env.ClientId,  
             });
             const payload = ticket.getPayload();
             const findUser = await User.findOne({where : {email : payload.email}})
@@ -124,7 +151,7 @@ class Controller {
             } else {
                 let user = await User.create({
                     email : payload.email,
-                    password : payload.email
+                    password : process.env.PasswordGoogle
                 })
                 let access_token = generateToken({
                     id : user.id,
