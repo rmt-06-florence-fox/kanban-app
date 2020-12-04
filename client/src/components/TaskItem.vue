@@ -67,7 +67,19 @@ export default {
       this.$emit("getEdit", id)
     },
     del(id){
-      this.$emit("deleteTask", id)
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#16697a',
+        cancelButtonColor: '#af3838',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$emit("deleteTask", id)
+        }
+      })
     },
     moveLeft(id, status){
       this.$emit("moveLeft", id, status, 'prev')

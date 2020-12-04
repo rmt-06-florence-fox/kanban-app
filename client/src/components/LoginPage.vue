@@ -37,7 +37,7 @@
           <button
             type="button"
             v-google-signin-button="clientId"
-            class="btn btn-danger"
+            class="btn btn-form-cancel"
           >
             Continue with Google
           </button>

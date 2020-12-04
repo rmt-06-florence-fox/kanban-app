@@ -37,8 +37,19 @@ export default {
       this.$emit("addTask", "Add Task Page")
     },
     logout(){
-      localStorage.clear()
-      this.$emit("logout", "Login Page")
+      Swal.fire({
+        title: 'Are you sure to logout?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#16697a',
+        cancelButtonColor: '#af3838',
+        confirmButtonText: 'Yes, logout!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear()
+          this.$emit("logout", "Login Page")
+        }
+      })
     }
   }
 };
