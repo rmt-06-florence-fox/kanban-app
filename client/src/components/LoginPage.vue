@@ -2,9 +2,9 @@
 	<!-- Login Form -->
   <section id="login-form" v-if="registerStatus">
 		<br /><br />
-		<h2 class="text-black" style="text-align: center">
+		<h1 class="text-white font-weight-bold" style="text-align: center">
 			Login with Your Account
-		</h2>
+		</h1>
 		<div class="container border-success bg-primary text-white rounded">
 			<form
 				id="formlogin"
@@ -61,7 +61,7 @@
   <!-- Register Form -->
   <section id="register-form" v-else>
 		<br /><br />
-		<h2 style="text-align: center">Register Your New Account</h2>
+		<h1 class="text-white font-weight-bold" style="text-align: center">Register Your New Account</h1>
 		<div class="container border-success bg-primary text-white rounded">
 			<form
 				id="formregister"

@@ -2,10 +2,10 @@
   <section id="navbar" style="display: block">
 		<div class="custom-navbar">
 			<div>
-				<h1 class="text"><img class="foxImg" src="https://ecs7.tokopedia.net/img/attachment/2020/4/21/26999847/26999847_15e7941c-346d-4e0b-a912-28a3dc025b5c.png" alt="Hacktiv8 Fox">__</h1>
+				<h2 class="text"><img class="foxImg" src="https://ecs7.tokopedia.net/img/attachment/2020/4/21/26999847/26999847_15e7941c-346d-4e0b-a912-28a3dc025b5c.png" alt="Hacktiv8 Fox">__</h2>
 			</div>
 			<div class="d-flex title-nav-bar">
-				<h2><i class="fa fa-rocket fa-fw"></i>Kanban Kita Semua</h2>
+				<h1><i class="fa fa-rocket fa-fw"></i>Kanban Kita Semua</h1>
 			</div>
 			<div>
 				<a

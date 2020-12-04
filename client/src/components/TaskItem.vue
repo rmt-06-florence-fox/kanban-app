@@ -1,5 +1,5 @@
 <template>
-  <div class="card mt-2 shadow" :class="borderColor()">
+  <div class="card mt-2 shadow bg-task" :class="borderColor()">
 		<div class="card-body">
 			<h5 class="card-title">{{task.title}}</h5>
 			<p class="card-text">

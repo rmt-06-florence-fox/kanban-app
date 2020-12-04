@@ -11,6 +11,7 @@ $cyan: rgb(39, 177, 136);
 body {
 	font: 100% $font-stack;
 	color: $primary-color;
+	background-image: url('https://static.vecteezy.com/system/resources/previews/000/565/101/non_2x/web-designer-tools-icon-pattern-background-vector.jpg');
 }
 
 .custom-navbar {
@@ -161,4 +162,12 @@ body {
 
 .text {
 	color: $blue;
+}
+
+.bg-task {
+	background-color: rgb(219, 232, 232);
+}
+
+h1 {
+	text-shadow: 2px 2px 4px #000000;
 }
