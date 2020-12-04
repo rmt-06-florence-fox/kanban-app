@@ -67,7 +67,15 @@ class taskController {
       res.status(200).json({ output: output[1][0] })
     }
     catch(err) {
-      next(err)
+      if(err.name === 'SequelizeValidationError') {
+        next({
+          name: 'Validation Error',
+          status: 400,
+          message: err.errors
+        })
+      } else {
+        next(err)
+      }
     }
   }
 
@@ -86,7 +94,15 @@ class taskController {
       res.status(200).json({ output: output[1][0] })
     }
     catch(err) {
-      next(err)
+      if(err.name === 'SequelizeValidationError') {
+        next({
+          name: 'Validation Error',
+          status: 400,
+          message: err.errors
+        })
+      } else {
+        next(err)
+      }
     }
   }
 
