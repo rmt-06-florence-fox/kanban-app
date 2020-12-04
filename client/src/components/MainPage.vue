@@ -66,7 +66,7 @@ export default {
       if (this.newTask) {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/tasks',
+          url: 'https://kanbaban.herokuapp.com/tasks',
           data: {
             title: this.newTask,
           },
@@ -84,7 +84,7 @@ export default {
     fetchTasks() {
       axios({
           method: 'get',
-          url: 'http://localhost:3000/tasks',
+          url: 'https://kanbaban.herokuapp.com/tasks',
           headers: {
             access_token: localStorage.getItem("access_token")
           }

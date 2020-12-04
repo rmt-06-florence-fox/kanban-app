@@ -38,7 +38,7 @@ export default {
       console.log(id);
       axios({
           method: 'delete',
-          url: 'http://localhost:3000/tasks/' + id,
+          url: 'https://kanbaban.herokuapp.com/tasks/' + id,
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -59,7 +59,7 @@ export default {
     fetchTasks() {
       axios({
           method: 'get',
-          url: 'http://localhost:3000/tasks',
+          url: 'https://kanbaban.herokuapp.com/tasks',
           headers: {
             access_token: localStorage.getItem("access_token")
           }
@@ -73,7 +73,7 @@ export default {
     update(title, category, id) {
       axios({
           method: 'put',
-          url: 'http://localhost:3000/tasks/' + id,
+          url: 'https://kanbaban.herokuapp.com/tasks/' + id,
           headers: {
             access_token: localStorage.getItem("access_token")
           },

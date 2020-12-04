@@ -10,7 +10,7 @@
                         <h6 class="msg-info">Login and organize your tasks with us!</h6>
                         <form @submit.prevent="login">
                             <div class="form-group">
-                                <label class="form-control-label text-muted">Username</label>
+                                <label class="form-control-label text-muted">Email</label>
                                 <input v-model="email" type="text" id="email" name="email" placeholder="Enter your email" class="form-control">
                             </div>
                             <div class="form-group">
@@ -83,7 +83,7 @@ export default {
             // localStorage.setItem('access_token', '994279102205-ha32cicdqvcdpmkggvbl5k2b58r03qar.apps.googleusercontent.com')
             axios({
                 method: 'post',
-                    url: 'http://localhost:3000/register',
+                    url: 'https://kanbaban.herokuapp.com/register',
                     data: {
                         email: this.email,
                         password: this.password
@@ -99,7 +99,7 @@ export default {
         login() {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/login',
+                url: 'https://kanbaban.herokuapp.com/login',
                 data: {
                     email: this.email,
                     password: this.password
