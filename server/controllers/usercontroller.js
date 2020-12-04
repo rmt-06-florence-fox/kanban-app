@@ -1,6 +1,8 @@
 const { User } = require('../models')
 const { comparePwd } = require('../helpers/password')
 const { generateToken } = require('../helpers/jwt')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client('31610476291-ipg9c739e6kj3um420fm5h5n1emibk6g.apps.googleusercontent.com');
 
 class UserController {
   static async signup(req, res, next) {
@@ -31,6 +33,32 @@ class UserController {
     } catch (error) {
       next(error)
     }
+  }
+
+  static googlesignin(req, res, next) {
+    let payload
+    client.verifyIdToken({
+      idToken: req.body.google_token,
+      audience: '31610476291-ipg9c739e6kj3um420fm5h5n1emibk6g.apps.googleusercontent.com'
+    })
+      .then(ticket => {
+        payload = ticket.getPayload()
+        return User.findOne({ where: { email: payload.email } })
+      })
+      .then(user => {
+        if (user) return user
+        else {
+          return User.create({
+            email: payload.email,
+            password: 'awasyakalian'
+          })
+        }
+      })
+      .then(data => {
+        const access_token = generateToken({ id: data.id, email: data.email })
+        res.status(200).json({ email: data.email, access_token })
+      })
+      .catch (error => next(error))
   }
 }
 

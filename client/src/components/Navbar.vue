@@ -15,25 +15,28 @@
 </template>
 
 <script>
-import swal from 'sweetalert'
-export default {
-  props: ['changeLogin', 'isLogin', 'signUpUser'],
-  methods: {
-    doSignOut() {
-      localStorage.clear()
-      this.changeLogin(false)
-      this.signUpUser(true)
-      swal('Thank you. See ya!', {
-        icon: 'success',
-        buttons: false,
-        timer: 2500
-      })
-    },
-    doSignUp() {
-      this.signUpUser(false)
+  export default {
+    props: ['changeLogin', 'isLogin', 'signUpUser'],
+    methods: {
+      doSignOut() {
+        localStorage.clear()
+        this.changeLogin(false)
+        this.signUpUser(true)
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(() => {
+          console.log('User sign out!')
+          swal('Thank you. See ya!', {
+            icon: 'success',
+            buttons: false,
+            timer: 2500
+          })
+        })
+      },
+      doSignUp() {
+        this.signUpUser(false)
+      }
     }
   }
-}
 </script>
 
 <style>

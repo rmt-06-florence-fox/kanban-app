@@ -6,7 +6,7 @@
     </div>
 
     <div v-if="isLogin">
-      <Home></Home>
+      <HomePage></HomePage>
     </div>
 
   </div>
@@ -14,12 +14,13 @@
 
 <script>
   import Nav from './components/Navbar'
-  import Home from './components/Home'
+  import HomePage from './components/HomePage'
   import LandingPage from './components/LandingPage'
+  import swal from 'sweetalert'
   export default {
     components: {
       Nav,
-      Home,
+      HomePage,
       LandingPage
     },
     data() {

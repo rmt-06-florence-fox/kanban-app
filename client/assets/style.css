@@ -111,6 +111,11 @@ nav {
   border-style: none;
 }
 
+.cust-add-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .card {
   border-style: none;
 }

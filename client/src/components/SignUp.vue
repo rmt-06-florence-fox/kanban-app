@@ -19,7 +19,6 @@
 </template>
 
 <script>
-  import swal from 'sweetalert'
   export default {
     props: ['signUpUser', 'changeLogin'],
     data() {
@@ -53,8 +52,7 @@
             })
           })
           .catch(err => {
-            // console.log(err)
-            // if (err.status === 400) console.log(err.message)
+            console.log(err)
           })
           .finally(() => {
             this.email = ''
