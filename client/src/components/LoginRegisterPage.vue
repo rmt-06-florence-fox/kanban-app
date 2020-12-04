@@ -73,7 +73,7 @@
                     type="email"
                     class="form-control"
                     id="register-email"
-                    placeholder="Email"
+                    placeholder="Email*"
                   />
                 </div>
                 <div class="form-group">
@@ -82,8 +82,9 @@
                     type="password"
                     class="form-control"
                     id="register-password"
-                    placeholder="Password"
+                    placeholder="Password*"
                   />
+                <small id="emailHelp" class="form-text text-muted">*required</small>
                 </div>
                 <button type="submit" class="btn btn-success btn-block">
                   Submit
@@ -120,6 +121,9 @@ export default {
     },
     register() {
       this.$emit("register", this.user)
+      this.user.name = ''
+      this.user.email = ''
+      this.user.password = ''
     },
     OnGoogleAuthSuccess (idToken) {
       this.$emit('googleToken', idToken)

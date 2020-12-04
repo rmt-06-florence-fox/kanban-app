@@ -27,6 +27,7 @@
     import LoginRegisterPage from "./components/LoginRegisterPage";
     import HomePage from "./components/HomePage";
     import axios from 'axios'
+    import Swal from 'sweetalert2'
 
     export default {
         name: "App",
@@ -81,10 +82,13 @@
                 .then((response) => {
                     localStorage.setItem("access_token", response.data.access_token);
                     localStorage.setItem("name", response.data.user.name)
-                    this.pageName = "Home-page"            
+                    this.pageName = "Home-page"
                 })
                 .catch((error) => {
-                    console.log(error);
+                    Swal.fire('Login Failed',
+                        `${error.response.data.message}`,
+                        'error'
+                    )                    
                 })
             },
 
@@ -103,10 +107,17 @@
                         },
                     })
                     .then((response) => {
-                        console.log(response);
+                        Swal.fire(
+                            'Register Success',
+                            'Account is registered!',
+                            'success'
+                        )
                     })
                     .catch((error) => {
-                        console.log("register success");
+                        Swal.fire('Register Failed',
+                            `${error.response.data[0].message}`,
+                            'error'
+                        )
                     })
                 
             },
@@ -140,12 +151,19 @@
                     } 
                 })
                 .then(response => {
-                    console.log('success add data')
+                    Swal.fire(
+                        'Done',
+                        'Task Added!',
+                        'success'
+                    )
                     this.pageName = 'Home-page'
                     this.fetchTask()
                 })
                 .catch(error => {
-                    console.log(error)
+                    Swal.fire('Failed',
+                        `${error.response.data[0].message}`,
+                        'error'
+                    )
                 })
             },
 
@@ -158,12 +176,19 @@
                     } 
                 })
                 .then(response => {
+                    Swal.fire(
+                        'Done',
+                        'Task deleted!',
+                        'success'
+                    )
                     this.pageName = 'Home-page'
                     this.fetchTask()
-                    console.log('success to delete')
                 })
                 .catch(error => {
-                    console.log(error)
+                    Swal.fire('Unauthorized',
+                        `${error.response.data.message}`,
+                        'error'
+                    )
                 })
             },
 
@@ -180,7 +205,10 @@
                     this.updating = response.data                    
                 })
                 .catch(error => {
-                    console.log(error)
+                    Swal.fire('Unauthorized',
+                        `${error.response.data.message}`,
+                        'error'
+                    )
                 })
             },
 
@@ -197,12 +225,19 @@
                     } 
                 })
                 .then(response => {
+                    Swal.fire(
+                        'Done',
+                        'Task Updated!',
+                        'success'
+                    )
                     this.pageName = 'Home-page'
                     this.fetchTask()
-                    console.log('success to delete')
                 })
                 .catch(error => {
-                    console.log(error)
+                    Swal.fire('Failed',
+                        `${error.response.data[0].message}`,
+                        'error'
+                    )
                 })
             },
 

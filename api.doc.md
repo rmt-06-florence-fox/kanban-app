@@ -99,7 +99,6 @@ RESTfull API Doc
    `access_token=[string]`
 
 
-
 * **Data Params**
 
   None
@@ -153,12 +152,13 @@ RESTfull API Doc
   **Required:**
  
    `title=[string]`
+   `category=[string]`
 
 
 * **Success Response:**
 
   * **Code:** 200 OK <br />
-    **Content:** `{"task": { "id": 13, "title": "Take a rest"}}`
+    **Content:** `{"task": { "id": 13, "title": "Take a rest", category:"Backlog"}}`
  
 * **Error Response:**
 
@@ -207,7 +207,7 @@ RESTfull API Doc
 * **Success Response:**
 
   * **Code:** 200 OK <br />
-    **Content:** `{"task": { "id": 13, "title": "Take a rest"}`
+    **Content:** `{"task": { "id": 13, "title": "Take a rest", category:"Backlog"}`
  
 * **Error Response:**
 
@@ -254,15 +254,13 @@ RESTfull API Doc
   **Required:**
  
    `title=[string]`
-   `description=[string]`
-   `status=[string]`
-   `due_date=[date]`
+   `category=[string]`
 
 
 * **Success Response:**
 
   * **Code:** 200 OK <br />
-    **Content:** `{"task": { "id": 13, "title": "Take a rest"}}`
+    **Content:** `{"task": { "id": 13, "title": "Take a rest", category:"Backlog"}}`
  
 * **Error Response:**
 
@@ -283,7 +281,7 @@ RESTfull API Doc
 
     **Delete Tasks**
 ----
-  Create belong to user while logged in
+  Delete belong to user while logged in
 
 * **URL**
 
