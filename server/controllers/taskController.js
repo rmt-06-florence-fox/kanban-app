@@ -1,4 +1,4 @@
-const { Task } = require("../models/index")
+const { Task, User } = require("../models/index")
 
 class TaskController {
     static add (req,res, next) {
@@ -13,8 +13,7 @@ class TaskController {
         })
     }
     static list (req,res, next) {
-        const UserId = req.loggedInUser.id
-        Task.findAll()
+        Task.findAll({include: User})
         .then(data => {
             res.status(200).json(data)
         })
