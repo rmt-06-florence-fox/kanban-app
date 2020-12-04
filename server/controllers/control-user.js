@@ -1,5 +1,7 @@
 const { User } = require ('../models')
 const { checkHash, genToken } = require ('../helpers/helper')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.C_ID);
 
 class ControllerUser {
     static async welcome (req ,res, next) {
@@ -88,6 +90,49 @@ class ControllerUser {
         }
     }
 
+
+    static async google (req, res, next) {
+        try {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.id_token,
+                audience: process.env.C_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+                // Or, if multiple clients access the backend:
+                //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+            });
+            const payload = ticket.getPayload();
+            const userid = payload['sub'];
+            const checkUser = await User.findOne ({
+				where: {
+					email: payload.email
+				}
+			})
+			if(checkUser) {
+				const access_token = genToken({
+					id: checkUser.id,
+                    username: checkUser.username,
+                    email: checkUser.email,
+                    OrganizationId: checkUser.OrganizationId
+				});
+				res.status(201).json({ access_token });
+			} else {
+				const userData = {
+                    username: `${payload.given_name}_${payload.family_name}`,
+                    email: payload.email,
+                    password: process.env.PASS
+				}
+				const newUser = await User.create(userData);
+				const access_token = genToken({
+                    id: newUser.id,
+                    username: newUser.username,
+                    email: newUser.email,
+                    OrganizationId: newUser.OrganizationId
+			});
+			res.status(201).json({ access_token });
+			}
+        } catch (err) {
+            next (err)
+        }
+    }
 
 }
 

@@ -10802,7 +10802,60 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/login.vue":[function(require,module,exports) {
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-signin-button-directive/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = _vue.default.directive('google-signin-button', {
+  bind: function (el, binding, vnode) {
+    CheckComponentMethods();
+    let clientId = binding.value;
+    let googleSignInAPI = document.createElement('script');
+    googleSignInAPI.setAttribute('src', 'https://apis.google.com/js/api:client.js');
+    document.head.appendChild(googleSignInAPI);
+    googleSignInAPI.onload = InitGoogleButton;
+
+    function InitGoogleButton() {
+      gapi.load('auth2', () => {
+        const auth2 = gapi.auth2.init({
+          client_id: clientId,
+          cookiepolicy: 'single_host_origin'
+        });
+        auth2.attachClickHandler(el, {}, OnSuccess, Onfail);
+      });
+    }
+
+    function OnSuccess(googleUser) {
+      vnode.context.OnGoogleAuthSuccess(googleUser.getAuthResponse().id_token);
+      googleUser.disconnect();
+    }
+
+    function Onfail(error) {
+      vnode.context.OnGoogleAuthFail(error);
+    }
+
+    function CheckComponentMethods() {
+      if (!vnode.context.OnGoogleAuthSuccess) {
+        throw new Error('The method OnGoogleAuthSuccess must be defined on the component');
+      }
+
+      if (!vnode.context.OnGoogleAuthFail) {
+        throw new Error('The method OnGoogleAuthFail must be defined on the component');
+      }
+    }
+  }
+});
+
+exports.default = _default;
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/login.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10813,6 +10866,8 @@ exports.default = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 
 var _errorBox = _interopRequireDefault(require("./errorBox"));
+
+var _vueGoogleSigninButtonDirective = _interopRequireDefault(require("vue-google-signin-button-directive"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10875,7 +10930,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
+  directives: {
+    GoogleSignInButton: _vueGoogleSigninButtonDirective.default
+  },
   name: 'login',
   components: {
     errorBox: _errorBox.default
@@ -10886,7 +10955,8 @@ var _default = {
         email: '',
         password: ''
       },
-      errorData: ''
+      errorData: '',
+      clientId: '703333232257-cuta7ffl0i72sd5e3nhvk0q1lhutqvms.apps.googleusercontent.com'
     };
   },
   methods: {
@@ -10943,6 +11013,18 @@ var _default = {
       setTimeout(function (_) {
         _this2.errorData = '';
       }, 2000);
+    },
+    onSignIn: function onSignIn(googleUser) {
+      this.$emit('onSignIn', googleUser);
+      console.log('mulai sign in', googleUser);
+    },
+    OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
+      // Receive the idToken and make your magic with the backend
+      this.$emit('onSignIn', idToken);
+      console.log(idToken);
+    },
+    OnGoogleAuthFail: function OnGoogleAuthFail(error) {
+      console.log(error);
     }
   }
 };
@@ -11125,11 +11207,30 @@ exports.default = _default;
                   ]
                 ),
                 _vm._v(" "),
-                _c("div", {
-                  staticClass:
-                    "g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ",
-                  attrs: { "data-onsuccess": "onSignIn" }
-                })
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "google-signin-button",
+                        rawName: "v-google-signin-button",
+                        value: _vm.clientId,
+                        expression: "clientId"
+                      }
+                    ],
+                    staticClass:
+                      "google-signin-button group relative w-full flex justify-center \n            py-2 px-4 border border-transparent text-sm font-medium rounded-md \n            shadow-md border-2 border-black\n            bg-gray-100 hover:bg-gray-400 focus:outline-none focus:ring-2 \n            focus:ring-offset-2 focus:ring-gray-400 content-center space-x-4"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v(
+                        "\n                Continue with Google\n            "
+                      )
+                    ])
+                  ]
+                )
               ],
               1
             )
@@ -11173,6 +11274,12 @@ var staticRenderFns = [
         )
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("i", { staticClass: "fa fa-google" })])
   }
 ]
 render._withStripped = true
@@ -11207,7 +11314,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./errorBox":"src/components/errorBox.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/errorBox-reg.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./errorBox":"src/components/errorBox.vue","vue-google-signin-button-directive":"node_modules/vue-google-signin-button-directive/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/errorBox-reg.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11353,6 +11460,8 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _errorBoxReg = _interopRequireDefault(require("./errorBox-reg"));
 
+var _vueGoogleSigninButtonDirective = _interopRequireDefault(require("vue-google-signin-button-directive"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //
@@ -11418,7 +11527,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
+  directives: {
+    GoogleSignInButton: _vueGoogleSigninButtonDirective.default
+  },
   name: 'register',
   components: {
     errorBox: _errorBoxReg.default
@@ -11430,7 +11553,8 @@ var _default = {
         email: '',
         password: ''
       },
-      errorData: null
+      errorData: null,
+      clientId: '703333232257-cuta7ffl0i72sd5e3nhvk0q1lhutqvms.apps.googleusercontent.com'
     };
   },
   methods: {
@@ -11488,6 +11612,16 @@ var _default = {
       setTimeout(function (_) {
         _this2.errorData = '';
       }, 2000);
+    },
+    onSignIn: function onSignIn(googleUser) {
+      this.$emit('onSignIn', googleUser);
+      console.log('mulai sign in', googleUser);
+    },
+    OnGoogleAuthSuccess: function OnGoogleAuthSuccess(idToken) {
+      this.$emit('onSignIn', idToken); // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail: function OnGoogleAuthFail(error) {
+      console.log(error);
     }
   }
 };
@@ -11720,11 +11854,30 @@ exports.default = _default;
                   ]
                 ),
                 _vm._v(" "),
-                _c("div", {
-                  staticClass:
-                    "g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ",
-                  attrs: { "data-onsuccess": "onSignIn" }
-                })
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "google-signin-button",
+                        rawName: "v-google-signin-button",
+                        value: _vm.clientId,
+                        expression: "clientId"
+                      }
+                    ],
+                    staticClass:
+                      "google-signin-button group relative w-full flex justify-center \n            py-2 px-4 border border-transparent text-sm font-medium rounded-md \n            shadow-md border-2 border-black\n            bg-gray-100 hover:bg-gray-400 focus:outline-none focus:ring-2 \n            focus:ring-offset-2 focus:ring-gray-400 content-center space-x-4"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", [
+                      _vm._v(
+                        "\n                Continue with Google\n            "
+                      )
+                    ])
+                  ]
+                )
               ],
               1
             )
@@ -11764,6 +11917,12 @@ var staticRenderFns = [
         )
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("i", { staticClass: "fa fa-google" })])
   }
 ]
 render._withStripped = true
@@ -11798,7 +11957,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./errorBox-reg":"src/components/errorBox-reg.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/taskOption.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./errorBox-reg":"src/components/errorBox-reg.vue","vue-google-signin-button-directive":"node_modules/vue-google-signin-button-directive/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/taskOption.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14227,6 +14386,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 // import login from './components/login'
 var _default = {
   name: 'App',
@@ -14504,6 +14665,10 @@ var _default = {
     logout: function logout() {
       console.log('logout');
       localStorage.removeItem('access_token');
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
       this.showPage = 'pg-login';
     },
     getOrgData: function getOrgData() {
@@ -14629,10 +14794,29 @@ var _default = {
         console.log(JSON.parse(error.request.responseText).error);
       }).then(function (_) {// always executed
       });
+    },
+    onSignIn: function onSignIn(idToken) {
+      var _this10 = this;
+
+      (0, _axios.default)({
+        method: 'post',
+        url: 'http://localhost:3000/google-login',
+        data: {
+          id_token: idToken
+        }
+      }).then(function (res) {
+        localStorage.setItem('access_token', res.data.access_token);
+
+        _this10.choosePage();
+
+        console.log(res);
+      }).catch(function (err) {
+        console.log(err);
+      }).then(function (_) {});
     }
   },
   created: function created() {
-    var _this10 = this;
+    var _this11 = this;
 
     if (localStorage.getItem('access_token')) {
       console.log('sudah cek local storage');
@@ -14647,9 +14831,9 @@ var _default = {
         console.log(res.data);
 
         if (res.data.OrganizationId) {
-          _this10.showPage = 'pg-homepage';
+          _this11.showPage = 'pg-homepage';
         } else {
-          _this10.showPage = 'pg-regOrg';
+          _this11.showPage = 'pg-regOrg';
         }
       }).catch(function (error) {
         // handle error
@@ -14669,7 +14853,7 @@ var _default = {
         // console.log('Error', error.message);
         // }
         // console.log(error.config);
-        _this10.errorData = JSON.parse(error.request.responseText).error;
+        _this11.errorData = JSON.parse(error.request.responseText).error;
         console.log(JSON.parse(error.request.responseText).error);
       }).then(function (_) {// always executed
       });
@@ -14695,11 +14879,17 @@ exports.default = _default;
     "div",
     [
       _vm.showPage == "pg-login"
-        ? _c("login", { on: { goTo: _vm.goTo, choosePage: _vm.choosePage } })
+        ? _c("login", {
+            on: {
+              goTo: _vm.goTo,
+              choosePage: _vm.choosePage,
+              onSignIn: _vm.onSignIn
+            }
+          })
         : _vm._e(),
       _vm._v(" "),
       _vm.showPage == "pg-register"
-        ? _c("register", { on: { goTo: _vm.goTo } })
+        ? _c("register", { on: { goTo: _vm.goTo, onSignIn: _vm.onSignIn } })
         : _vm._e(),
       _vm._v(" "),
       _vm.showPage == "pg-homepage"
@@ -14925,7 +15115,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53301" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60054" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

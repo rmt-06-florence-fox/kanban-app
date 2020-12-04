@@ -49,8 +49,19 @@
             <div class="text-sm text-center	text-purple-700 text-opacity-50 mt-2 mb-2">
                 - you can also login with your google account -
             </div>
-
-            <div class="g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md " data-onsuccess="onSignIn"></div>
+            <button v-google-signin-button="clientId" 
+            class="google-signin-button group relative w-full flex justify-center 
+            py-2 px-4 border border-transparent text-sm font-medium rounded-md 
+            shadow-md border-2 border-black
+            bg-gray-100 hover:bg-gray-400 focus:outline-none focus:ring-2 
+            focus:ring-offset-2 focus:ring-gray-400 content-center space-x-4"> 
+            <div>
+                <i class="fa fa-google"></i>
+            </div>
+            <div>
+                Continue with Google
+            </div>
+            </button>
         </div>
         </form>
     </div>
@@ -60,8 +71,12 @@
 <script>
 import axios from 'axios';
 import errorBox from './errorBox'
+import GoogleSignInButton from 'vue-google-signin-button-directive'
 
 export default {
+    directives: {
+    GoogleSignInButton
+    },
     name: 'login',
     components: {
         errorBox
@@ -72,7 +87,8 @@ export default {
                 email: '',
                 password: ''
             },
-            errorData: ''
+            errorData: '',
+            clientId: '703333232257-cuta7ffl0i72sd5e3nhvk0q1lhutqvms.apps.googleusercontent.com'
         }
     },
     methods: {
@@ -128,11 +144,31 @@ export default {
             setTimeout(_=> {
                 this.errorData = ''
             }, 2000)
+        },
+        onSignIn (googleUser) {
+            this.$emit('onSignIn', googleUser)
+            console.log('mulai sign in', googleUser)
+        },
+        OnGoogleAuthSuccess (idToken) {
+      // Receive the idToken and make your magic with the backend
+            this.$emit('onSignIn', idToken)
+            console.log(idToken)
+        },
+        OnGoogleAuthFail (error) {
+        console.log(error)
         }
     }
 }
 </script>
 
 <style>
-
+/* .google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+} */
 </style>

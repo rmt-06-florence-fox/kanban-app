@@ -2,10 +2,12 @@
     <div>
         <login      v-if=" showPage == 'pg-login' "
                     @goTo="goTo" 
-                    @choosePage="choosePage">
+                    @choosePage="choosePage"
+                    @onSignIn="onSignIn">
         </login>
         <register   v-if=" showPage == 'pg-register' "
-                    @goTo="goTo">
+                    @goTo="goTo"
+                    @onSignIn="onSignIn">
         </register>
         <homepage   v-if=" showPage == 'pg-homepage' "
                     @getData="getTaskList"
@@ -320,7 +322,12 @@ export default {
         logout () {
             console.log('logout')
             localStorage.removeItem('access_token')
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                });
             this.showPage = 'pg-login'
+
         },
         getOrgData() {
             this.orgData = []
@@ -450,7 +457,28 @@ export default {
                 .then(_=> {
                 // always executed
                 });
-        }
+        },
+        onSignIn(idToken) {
+            
+            axios({
+                method: 'post',
+                url:'http://localhost:3000/google-login',
+                data: {
+                    id_token: idToken
+                }
+            })
+            .then (res => {
+                localStorage.setItem('access_token', res.data.access_token)
+                this.choosePage()
+                console.log(res)
+            })
+            .catch (err => {
+                    console.log(err)
+            })
+            .then(_=> {
+
+            })
+        }   
     },
     created: function () {
         if (localStorage.getItem('access_token')) {
