@@ -1,18 +1,40 @@
 <template>
   <div class="kbn-col">
-    <div class="item"
-     :class="category.color">
+    <div class="item" :class="category.color">
       {{ category.label }}
     </div>
-    <div 
-    class="bg-card" 
-    v-for="task in filteredTask" 
-    :key="task.id" 
-    :task="task">
-      <div class="card-content">
-        <div class="title-card">
-          {{ task.title }}
-          {{task.status}}
+    <div
+      class="bg-card"
+      v-for="task in filteredTask"
+      :key="task.id"
+      :task="task"
+    >
+      <div class="card mb-3" :class="category.color" style="max-width: 18rem">
+        <div class="card-header">Assigned To : {{task.assignedto}}</div>
+        <div class="card-body">
+          <h5 class="card-title">{{task.title}}</h5>
+          <p class="card-text">
+            {{task.description}}
+          </p>
+          <p>Point: {{task.point}}</p>
+          <button
+          class="btn"
+          :class="category.color"
+          >
+          <i class="far fa-edit"></i>
+          </button>
+          <button
+          class="btn"
+          :class="category.color"
+          >
+          <i class="far fa-trash-alt"></i>
+          </button>
+          <button
+          class="btn"
+          :class="category.color"
+          >
+          <i class="fas fa-exchange-alt"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -24,10 +46,10 @@ export default {
   name: "TaskItem",
   props: ["category", "tasks"],
   computed: {
-    filteredTask (){
-      return this.tasks.filter(e => e.status === this.category.name)
-    }
-  }
+    filteredTask() {
+      return this.tasks.filter((e) => e.status === this.category.name);
+    },
+  },
 };
 </script>
 
