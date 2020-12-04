@@ -92,6 +92,7 @@ export default {
             })
             .then(({data}) => {
                 this.switchPage('home')
+                this.fetchTask()
             })
             .catch(err =>{
                 console.log(err)
@@ -138,7 +139,6 @@ export default {
                 console.log(err)
             })
         },
-
         checkLogin(){
             if(localStorage.getItem('access_token')){
                 this.switchPage("home")
@@ -162,6 +162,7 @@ export default {
             })
             .catch(err =>{
                 console.log(err)
+                console.log(err,"masuk ke sini brooo ke erorr")
             })
         },
         signOut(){
@@ -187,24 +188,41 @@ export default {
         },
         destroy (id) {
             console.log(id, "masuk ke app.vue")
-            axios({
-              url: '/tasks/' + id,
-              method: 'delete',
-              headers: {
-                access_token: localStorage.access_token
-              }
-            })
-            .then(() =>{
-                this.switchPage('home')
-                this.fetchTask()
-            })
-            .catch(err => {
-                console.log(err)
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Sorry, you are not authorized!'
-                })
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios({
+                        url: '/tasks/' + id,
+                        method: 'delete',
+                        headers: {
+                            access_token: localStorage.access_token
+                        }
+                    })
+                    .then(() =>{
+                        this.switchPage('home')
+                        this.fetchTask()
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                    )
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Sorry, you are not authorized!'
+                        })
+                    })
+                }
             })
         },
         edit (payload) {

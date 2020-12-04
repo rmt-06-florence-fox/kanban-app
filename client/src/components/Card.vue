@@ -4,7 +4,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ task.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ task.progress }}</h6>
-            <p class="card-text">{{ task.description }}</p>
+            <p class="card-text">{{ shorten(task.description) }}</p>
             <a @click.prevent='edit' class="card-link" style="cursor:pointer;">edit</a>
             <a @click.prevent='destroy' class="card-link" style="cursor:pointer; color:red;">delete</a>
         </div>
@@ -40,6 +40,16 @@ export default {
           const id = this.task.id
         //   console.log(id)
           this.$emit('destroy' , id)
+        },
+        shorten (taskDescription) {
+          if(taskDescription.length > 30){
+            let desc = taskDescription.substr(0,30)
+            let result = desc + "..."
+            return result
+          }
+          else {
+            return taskDescription
+          }
         }
     }
 }

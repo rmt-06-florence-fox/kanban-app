@@ -20,7 +20,7 @@
                         <label class="input-group-text" for="inputGroupSelect01">Options</label>
                     </div>
                     <select v-model="progress" class="custom-select" id="inputGroupSelect01">
-                        <option selected>Task progress</option>
+                        <option selected disabled>Task progress</option>
                         <option value="backlog">Backlog</option>
                         <option value="products">Products</option>
                         <option value="development">Development</option>
