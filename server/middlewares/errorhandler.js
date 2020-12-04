@@ -11,7 +11,7 @@ module.exports = (err, req, res, next) => {
         } else if (err.name === 'SequelizeUniqueConstraintError' || err.name === 'SequelizeValidationError') {
             res.status(400).json({message: [err.errors[0].message]})
         } else {
-            // console.log('err >>>>', err)
+            console.log('err >>>>', err)
             res.status(500).json({message: ['Internal Server Error']})
         }
     }

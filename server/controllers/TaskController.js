@@ -40,13 +40,13 @@ class TaskController {
 
     static async editTask(req, res, next) {
         const obj = {
+            id: Number(req.params.id),
             title: req.body.title,
             due_date: req.body.due_date,
-            CategoryId: req.body.CategoryId
+            CategoryId: Number(req.body.CategoryId)
         }
-        console.log(obj)
         try {
-            const data = await Task.update(obj, {where: {id: Number(req.params.id)}})
+            const data = await Task.update(obj, {where: {id: obj.id}})
             res.status(200).json({message: 'Data updated successful!!'})
         } catch (error) {
             next(error)
@@ -70,6 +70,15 @@ class TaskController {
             const data = await Task.destroy({where: {id: Number(req.params.id)}})
             res.status(200).json({message: 'Data deleted successful!!'})
         } catch (error) {
+            next(error)
+        }
+    }
+
+    static async detailTask(req, res, next) {
+        try {
+            const data = await Task.findOne({where: {id: Number(req.params.id)}})
+            res.status(200).json(data)
+        } catch(error) {
             next(error)
         }
     }

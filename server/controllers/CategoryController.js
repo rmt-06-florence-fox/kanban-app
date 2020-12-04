@@ -7,7 +7,7 @@ class CategoryController {
         }
         try {
             if (obj.name) {
-                obj.name = obj.name.toLowerCase()
+                obj.name = obj.name.toUpperCase()
                 const data = await Category.create({name: obj.name})
                 res.status(201).json({message: 'Category successfully created!!'})
             } else {
@@ -16,6 +16,15 @@ class CategoryController {
                     message: 'Name is required!!'
                 }
             }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getCategory(req, res, next) {
+        try {
+            const data = await Category.findAll()
+            res.status(200).json(data)
         } catch (error) {
             next(error)
         }
