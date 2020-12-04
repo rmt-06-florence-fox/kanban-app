@@ -1,30 +1,7 @@
 <template>
   <div class="container-fluid" style="height: 93%">
     <div class="d-flex flex-row" style="height: 97%">
-      <CardState
-        :tasks="tasks.Backlog"
-        name="Backlog"
-        @showAdd="showAdd('Backlog')"
-        @showEdit="showEdit"
-      ></CardState>
-      <CardState
-        :tasks="tasks.Todo"
-        name="Todo"
-        @showAdd="showAdd('Todo')"
-        @showEdit="showEdit"
-      ></CardState>
-      <CardState
-        :tasks="tasks.Doing"
-        name="Doing"
-        @showAdd="showAdd('Doing')"
-        @showEdit="showEdit"
-      ></CardState>
-      <CardState
-        :tasks="tasks.Done"
-        name="Done"
-        @showAdd="showAdd('Done')"
-        @showEdit="showEdit"
-      ></CardState>
+      <CardState v-for="(val,key) in tasks" :key="key" :tasks="val" :name="key" @showAdd="showAdd" @showEdit="showEdit"></CardState>
     </div>
     <div>
       <b-modal id="addForm" hide-footer>
@@ -39,12 +16,21 @@
       <b-modal id="editForm" hide-footer>
         <form @submit.prevent="editTask">
           <div class="form-group">
+            <label >State</label>
+            <select v-model="editState" class="form-control">
+              <option>Backlog</option>
+              <option>Todo</option>
+              <option>Doing</option>
+              <option>Done</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label >Title:</label>
             <input type="text" class="form-control" v-model="editTaskTitle">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-          <button class="btn btn-danger mt-3">Delete</button>
+          <button class="btn btn-danger mt-3" @click="deleteTask">Delete</button>
       </b-modal>
     </div>
   </div>
@@ -53,17 +39,24 @@
 <script>
 import CardState from "./CardState";
 import axios from 'axios'
+import draggable from "vuedraggable";
 export default {
   props: ["tasks"],
   components: {
-    CardState,
+    CardState, draggable
   },
   data() {
     return {
       addTaskTitle: '',
       editTaskTitle:'',
       editTaskId: NaN,
-      state: ''
+      editState:'',
+      state: '',
+      Backlog: this.tasks.Backlog,
+      Todo: this.tasks.Todo,
+      Doing: this.tasks.Doing,
+      Done: this.tasks.Done,
+      isDragging : false
     };
   },
   methods:{
@@ -96,9 +89,11 @@ export default {
       })
     },
     showEdit(obj){
+      console.log(obj);
       this.$bvModal.show('editForm')
       this.editTaskTitle = obj.title
       this.editTaskId = obj.id 
+      this.editState = obj.state
     },
     editTask(){
       axios({
@@ -108,7 +103,27 @@ export default {
           access_token: localStorage.getItem('access_token')
         },
         data:{
+          state: this.editState,
           title: this.editTaskTitle
+        }
+      })
+        .then(({data})=>{
+          console.log(data);
+          this.$bvModal.hide('editForm')
+          this.$emit('fetchUlang')
+        })
+        .catch(({response})=>{
+          console.log(response);
+          this.$bvModal.hide('editForm')
+          this.$emit('fetchUlang')
+        })
+    },
+    deleteTask(){
+      axios({
+        url: `http://localhost:3000/tasks/${this.editTaskId}`,
+        method: 'DELETE',
+        headers:{
+          access_token: localStorage.getItem('access_token')
         }
       })
         .then(({data})=>{

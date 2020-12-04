@@ -1,7 +1,7 @@
 <template>
   <div>
       <LoginPage @postLogin="login" @postRegister="register" v-if="page == 'login'"
-      :error="errorLogin"
+      :error="errorLogin" @googleLogin="googleLogin"
       ></LoginPage>
       <MainPage @logout="logout" v-if="page == 'main'" :tasks="tasks" @bukaMain="fetchAll" @fetchUlang="fetchAll"></MainPage>
   </div>
@@ -11,13 +11,15 @@
 const SERVER = 'http://localhost:3000'
 import LoginPage from './components/LoginPage'
 import MainPage from './components/MainPage'
+import GoogleLogin from 'vue-google-login'
 
 import axios from 'axios'
 export default {
     name:'kepala',
     components:{
         LoginPage,
-        MainPage
+        MainPage,
+        GoogleLogin
     },
     data(){
         return{
@@ -85,8 +87,19 @@ export default {
         logout(){
             localStorage.clear()
             this.page = 'login'
+            // google logout
+            var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
         },
         fetchAll(){
+            this.tasks = {
+                        Backlog: [],
+                        Todo: [],
+                        Doing: [],
+                        Done: []
+                    }
             axios({
                 url: `${SERVER}/tasks`,
                 method: 'GET',
@@ -95,18 +108,36 @@ export default {
                 }
             })
                 .then(({data})=>{
-                    this.tasks = {
-                        Backlog: [],
-                        Todo: [],
-                        Doing: [],
-                        Done: []
-                    }
                     data.allTask.forEach((el,i)=>{
                         if(el.state == 'Backlog') this.tasks.Backlog.push(el)
                         else if(el.state == 'Todo') this.tasks.Todo.push(el)
                         else if(el.state == 'Doing') this.tasks.Doing.push(el)
                         else if(el.state == 'Done') this.tasks.Done.push(el)
                     })
+                })
+                .catch(err=>{
+                    console.log(err, '<-----ada error');
+                    console.log(err.response);
+                })
+        },
+        googleLogin(id_token){
+            // console.log(id_token);
+            axios({
+                url:`${SERVER}/googleLogin`,
+                method: 'POST',
+                data:{
+                    token: id_token
+                }
+            })
+                .then(({data})=>{
+                    localStorage.setItem('access_token',data.access_token)
+                    localStorage.setItem('UserId',data.UserId)
+                    this.errorLogin = {
+                        login:'',
+                        register: ''
+                    }
+                    this.page = 'main'
+
                 })
                 .catch(err=>{
                     console.log(err.response);

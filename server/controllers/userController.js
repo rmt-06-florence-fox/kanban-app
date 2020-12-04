@@ -85,7 +85,7 @@ class UserController{
                 }
                 let newUser = await User.create(obj)
                 let access_token = generateJwt({ id: newUser.id , email: newUser.email})
-                res.status(200).json({access_token})
+                res.status(200).json({access_token , UserId : newUser.id})
             }
         } catch (error) {
             next(err)

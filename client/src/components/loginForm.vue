@@ -20,7 +20,7 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
                     <p>OR SIGN IN with</p>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
                 </div>
             </div>
             <div v-if="!showLogin" class="card" style="min-height: 400px;min-width: 400px;">
@@ -43,15 +43,20 @@
                         <button type="submit" class="btn btn-success">Register</button>
                     </form>
                     <p>OR SIGN IN with</p>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </div>
+                    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
+                    </div>
             </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import GoogleLogin from 'vue-google-login'
+
 export default {
+    components:{
+        GoogleLogin
+    },
     props: ['error'],
     data(){
         return{
@@ -63,6 +68,14 @@ export default {
             bodyRegister:{
                 email:'',
                 password:''
+            },
+            params: {
+                client_id : "1028455310019-lvgag11ncrp0enkf9ssr3eafohnkmrbt.apps.googleusercontent.com"
+            },
+                renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
             }
         }
     },
@@ -73,8 +86,10 @@ export default {
         register(){
             this.$emit('postRegister', this.bodyRegister)
         },
-        googleLogin(){
-
+        onSuccess(googleUser){
+            const profile = googleUser.getBasicProfile()
+            var id_token = googleUser.getAuthResponse().id_token;
+            this.$emit('googleLogin', id_token)
         }
     }
 }

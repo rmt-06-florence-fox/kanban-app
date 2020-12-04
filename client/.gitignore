@@ -8,6 +8,7 @@ firebase-debug.log*
 firebase-debug.*.log*
 .cache
 dist
+sandbox
 # Firebase cache
 .firebase/
 .cache/

@@ -1,12 +1,15 @@
 <template>
-  <div :class="a" @click="showEdit" style="height:10vh;width:100%">
-      <h6>{{task.title}}</h6>
-  </div>
+    <div :class="a" @click="showEdit" style="height:10vh;width:100%">
+        <h6>{{task.title}}</h6>
+    </div>
 </template>
 
 <script>
 // class="card btn bg-success align-items-center justify-content-center mt-1"
 export default {
+  components:{
+    
+  },
     props:['task'],
     data (){
       return {
@@ -19,6 +22,7 @@ export default {
         this.a = [ 'card' , 'bg-secondary' , 'align-items-center' , ' justify-content-center' , 'mt-1']
         this.active = false
       }
+      console.log(this.task);
     },
     methods:{
       showEdit(){

@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid" style="height: 100vh; background-image: url(https://eskipaper.com/images/penguin-1.jpg)">
     <Nav></Nav>
-    <LoginForm @postLogin="login" @postRegister="register" :error="error"></LoginForm>
+    <LoginForm @postLogin="login" @postRegister="register" :error="error" @googleLogin="googleLogin"></LoginForm>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
         },
         register(obj){
             this.$emit('postRegister',obj)
+        },
+        googleLogin(id_token){
+            this.$emit('googleLogin', id_token)
         }
     }
 

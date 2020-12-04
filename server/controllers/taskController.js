@@ -50,6 +50,7 @@ class TaskController{
     static async putTask(req,res,next){
         let id = req.params.id
         let obj = {
+            state: req.body.state,
             title: req.body.title
         }
         try {
