@@ -89,7 +89,7 @@ export default {
       console.log(googleToken);
       axios({
         method:'POST',
-        url: 'http://localhost:3000/googleLogin',
+        url: 'https://kanban-server-apps.herokuapp.com/googleLogin',
         data: {
           googleToken
         }
@@ -108,7 +108,7 @@ export default {
     login() {
       axios({
         method: "POST",
-        url: "http://localhost:3000/login",
+        url: "https://kanban-server-apps.herokuapp.com/login",
         data: {
           email: this.email,
           password: this.password,

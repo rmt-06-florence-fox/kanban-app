@@ -6,7 +6,6 @@
     <div class="card-header">{{ task.name }}</div>
     <div class="card-body">
       <h5 class="card-title">{{ task.title }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
       <div>
         <div>
           <!-- <b-button v-b-modal="task.id + ''">Launch demo modal</b-button> -->
@@ -106,7 +105,7 @@ export default {
     destroy(id) {
       axios({
         method: "DELETE",
-        url: "http://localhost:3000/tasks/" + id,
+        url: "https://kanban-server-apps.herokuapp.com/tasks/" + id,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -150,7 +149,7 @@ export default {
       console.log(this.taskEdit.id, '???');
       axios({
         method: "PUT",
-        url: "http://localhost:3000/tasks/" + this.taskEdit.id,
+        url: "https://kanban-server-apps.herokuapp.com/tasks/" + this.taskEdit.id,
         headers: {
           access_token: localStorage.getItem('access_token')
         },

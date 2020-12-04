@@ -122,7 +122,7 @@ export default {
       console.log(this.name, this.title, this.categoryList, '<<<');
       axios({
         method: "POST",
-        url: "http://localhost:3000/tasks",
+        url: "https://kanban-server-apps.herokuapp.com/tasks",
         headers: {
           access_token: localStorage.access_token,
         },
