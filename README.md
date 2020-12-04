@@ -1,4 +1,8 @@
 # FANCY KANBAN
+
+## Link Deploy:
+    https://fanceykabnane.web.app/
+
 ## REST API DOCUMENTATION
 
 ## Open Endpoints
