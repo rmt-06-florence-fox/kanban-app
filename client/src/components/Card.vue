@@ -5,7 +5,7 @@
             <h5 class="card-title">{{ task.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ task.progress }}</h6>
             <p class="card-text">{{ shorten(task.description) }}</p>
-            <p class="card-text" style="text-align:centre;"><em>Author : {{ task.User.email }}</em></p>
+            <p class="card-text" style="text-align:centre;"><small><em>Author : {{ task.User.email }}</em></small></p>
             <a @click.prevent='edit' class="card-link" style="cursor:pointer;">edit</a>
             <a @click.prevent='destroy' class="card-link" style="cursor:pointer; color:red;">delete</a>
         </div>
