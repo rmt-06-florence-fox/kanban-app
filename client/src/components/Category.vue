@@ -16,6 +16,7 @@
 <script>
 import taskCard from './TaskCard'
 import axios from 'axios'
+import swal from 'sweetalert2'
 export default {
     name: 'Category',
     components:{
@@ -56,6 +57,12 @@ export default {
             })
             .catch(err => {
                 console.log(err.message)
+                swal.fire({
+                    icon: 'error',
+                    title: 'Error Add Task!',
+                    text: err.response.data.msg,
+                    showConfirmButton: true
+                })
             })
         },
         listTask() {

@@ -75,10 +75,12 @@ class UsersController {
             }
         })
         .then(dataUser => {
-            let access_token = generateToken({id: dataUser.id, email: dataUser.email})
+            // console.log(dataUser)
+            let access_token = genToken({id: dataUser.id, email: dataUser.email})
             return res.status(200).json({id: dataUser.id, email: dataUser.email, access_token})
         })
         .catch(err => {
+            console.log(err.message)
             next(err)
         })
     }

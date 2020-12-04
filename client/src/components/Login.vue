@@ -51,10 +51,9 @@ export default {
             .catch(err => {
                 swal.fire({
                     icon: 'error',
-                    title: 'Opps...',
-                    text: 'Wrong password or email',
-                    showConfirmButton: false,
-                    timer: 1500
+                    title: 'Error Add Task!',
+                    text: err.response.data.msg,
+                    showConfirmButton: true
                 })
                 console.log(err.message)
             })
@@ -73,9 +72,22 @@ export default {
             .then(result => {
                 this.changePage('dashboard')
                 localStorage.setItem('access_token', result.data.access_token)
+                swal.fire({
+                    icon: 'success',
+                    title: 'Login Success!',
+                    text: 'Welcome to Kanban !!!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(err => {
                 console.log(err)
+                swal.fire({
+                    icon: 'error',
+                    title: 'Error Login!',
+                    text: err.response.data.msg,
+                    showConfirmButton: true
+                })
             })
         },
         OnGoogleAuthFail (error) {

@@ -30,6 +30,7 @@ import register from './components/Register'
 import login from './components/Login'
 import dashboard from './components/Dashboard'
 import axios from 'axios'
+import swal from 'sweetalert2'
 export default {
     name: 'App',
     data() {
@@ -54,10 +55,18 @@ export default {
             }
         },
         logout() {
+            swal.fire({
+                icon: 'success',
+                title: 'Good Bye!',
+                text: 'See You!!!',
+                showConfirmButton: false,
+                timer: 1500
+            })
             this.PageName = 'login',
             localStorage.clear()
         },
         listTasks() {
+            //console.log('<<< MASUK LIST TASK')
             axios({
                 method: 'GET',
                 url: this.server + '/tasks',
@@ -70,6 +79,12 @@ export default {
             })
             .catch(err => {
                 console.log(err.respone)
+                swal.fire({
+                    icon: 'error',
+                    title: 'Error Task!',
+                    text: err.response.data.msg,
+                    showConfirmButton: true
+                })
             })
         }
     },

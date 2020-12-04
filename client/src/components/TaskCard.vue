@@ -60,7 +60,7 @@ export default {
                 }
             })
             .then(result => {
-                this.$emit('listTasks')
+                this.$emit('listTask')
                 this.updateTask = false
                 swal.fire({
                     icon: 'success',
@@ -70,6 +70,12 @@ export default {
             })
             .catch(err => {
                 console.log(err.message)
+                swal.fire({
+                    icon: 'error',
+                    title: 'Error Edit Task!',
+                    text: err.response.data.msg,
+                    showConfirmButton: true
+                })
             })
         },
         deleteTask() {
@@ -102,7 +108,7 @@ export default {
                             }
                         })
                         .then(res => {
-                            this.$emit('listTasks')
+                            this.$emit('listTask')
                             swalWithBootstrapButtons.fire(
                             'Deleted!',
                             'Your file has been deleted.',
