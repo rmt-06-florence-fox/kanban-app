@@ -1,58 +1,52 @@
 <template>
-    <div  class="container-fluid card-deck">
-        <div v-for="c in categories" :key="c.id" class="card mt-3" :id="c.id">
-            <div class="card-header bg-dark text-white text-center mt-0 sticky-top">
-                <h1> {{c.category}} </h1>
-            </div>
-            <div class="card-body w-100" v-for="t in tasks" :key="t.id">
-                <div v-if="t.category === c.category">
-                    <TaskItem :task=t></TaskItem>
-                </div>
-            </div>
-        
-        </div>
+    <div  class="container-fluid card-deck d-flex justify-content-between mt-3">
+       <Board v-for="category in categories" :key="category.name" :category="category" 
+       :tasks="tasks"
+        @changeStatus="changeStatus"
+        @showEdit="showEdit"
+        @deleteTask="deleteTask"
+        >
+       </Board>
     </div>
 </template>
 
 <script>
-import TaskItem from "./board-list-components/TaskItem.vue"
+import Board from "./board-list-components/Board.vue"
 
 export default {
     name : "BoardList",
     data (){
         return {
             categories : [
-                {category : "Back Log", id : "back-log"},
-                {category : "To Do", id : "to-do"},
-                {category : "Doing", id : "doing"},
-                {category : "Done", id : "done"}
+                {name : "Back Log", id : "back-log", btn : ["arrow_forward", "edit","delete_forever"] },
+                {name : "To Do", id : "to-do", btn : ["arrow_back","arrow_forward", "edit","delete_forever"]},
+                {name : "Doing", id : "doing", btn: ["arrow_back" ,"arrow_forward", "edit","delete_forever"]},
+                {name : "Done", id : "done", btn : ["arrow_back" ,"edit","delete_forever"]}
             ],
         }
     },
     props : ["tasks"],
     methods : {
-        
+        changeStatus(bool, task){
+            console.log('masuk di board list', bool, task)
+            this.$emit('changeStatus', bool, task)
+        },
+        showEdit(task){
+            console.log('masuk di board list show Edit', task)
+            this.$emit('showEdit', task)
+        },
+        deleteTask(task){
+            console.log('masuk di board list delete', task)
+            this.$emit('deleteTask', task)
+        },
     },
 
     components : {
-        TaskItem
+        Board
     }
 
 }
 </script>
-
 <style>
-    #back-log{
-        background: #f4ff61;
-    }
-
-    #to-do{
-        background: #a8ff3e;
-    }
-    #doing{
-        background: #6bfa47;
-    }
-    #done{
-        background: #15f10d;
-    }
+ 
 </style>

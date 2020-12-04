@@ -3,7 +3,12 @@
     <div v-if="page === 'content' ">
         <!--<h1>ini dari app</h1>-->
         <Header @listenLogout = "logout" @listenAdd="addTask"></Header>
-        <BoardList :tasks="tasks"></BoardList>
+        <BoardList 
+        :tasks="tasks"
+        @changeStatus="changeStatus"
+        @showEdit="showEdit"
+        @deleteTask="deleteTask"
+        ></BoardList>
     </div>
     
     <LoginForm @listenToRegister = "changePage" @listenToContent = "changePage" v-else-if="page === 'login'"></LoginForm>
@@ -76,9 +81,58 @@ export default {
             .catch(err => {
                 console.log(err)
             })
-        }
+        },
+        changeStatus(bool, task){
+            
+            let {id, category } = task
+            const access_token = localStorage.getItem('access_token')
+            
+            if (bool){
+                if (category === "Back Log") category = "To Do"
+                else if (category === "To Do") category = "Doing"
+                else if (category === "Doing") category = "Done"
+                
+            } else {
+                if (category === "To Do") category = "Back Log"
+                else if (category === "Doing") category = "To Do"
+                else if (category === "Done") category = "Doing"
+            }
+
+            axios({
+                url : server + "/tasks/" + id,
+                method : "PATCH",
+                data : {category},
+                headers : {access_token}
+            })
+            .then(_ => {
+                this.fetch()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        showEdit(task){
+
+        },
+        deleteTask(task){
+            const {id} = task
+            const access_token = localStorage.getItem('access_token')
+            
+            axios({
+                url : server + "/tasks/" + id,
+                method : "DELETE",
+                headers : {access_token}
+            })
+            .then(_ => {
+                this.fetch()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
 
     },
+
     created () {
         if(localStorage.getItem('access_token')) {
             this.page = "content"
