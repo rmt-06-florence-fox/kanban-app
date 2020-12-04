@@ -13,7 +13,9 @@
         :category="category"
         :task="task"
         @editTask="editTask"
-        @deleteTask="deleteTask"      
+        @deleteTask="deleteTask"
+        @moveLeft="moveLeft"
+        @moveRight="moveRight"
       >
       </TaskList>
 
@@ -92,6 +94,61 @@ export default {
     },
     editTask(id) {
       console.log('edit Task', id)
+    },
+    moveLeft(id, categoryId) {
+      categoryId -= 1
+
+      let newCategory;
+      this.categories.forEach(el => {
+        if(el.id == categoryId) {
+          newCategory = el.name
+        }
+      })
+
+      axios({
+        url: server_url + `/tasks/${id}`,
+        method: 'PUT',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          category: newCategory
+        }
+      })
+      .then(response => {
+        this.getAllTask()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+
+    moveRight(id, categoryId) {
+      categoryId += 1
+
+      let newCategory;
+      this.categories.forEach(el => {
+        if(el.id == categoryId) {
+          newCategory = el.name
+        }
+      })
+
+      axios({
+        url: server_url + `/tasks/${id}`,
+        method: 'PUT',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          category: newCategory
+        }
+      })
+      .then(response => {
+        this.getAllTask()
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
 
     deleteTask(id) {

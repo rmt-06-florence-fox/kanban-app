@@ -10,8 +10,8 @@
       </div>
     </div>
     <div class="right-navbar">
-      <button class="nav-item btn"><i class="fa fa-info-circle"></i></button>
-      <button class="nav-item btn"><i class="fa fa-plus-circle"></i></button>
+      <!-- <button class="nav-item btn"><i class="fa fa-info-circle"></i></button>
+      <button class="nav-item btn"><i class="fa fa-plus-circle"></i></button> -->
       <button class="nav-item btn btn-danger my-2 my-sm-1" @click.prevent="logOutUser">Sign Out</button>
     </div>
   </nav>  

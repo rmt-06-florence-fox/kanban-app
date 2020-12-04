@@ -6,10 +6,12 @@
     <div class="task-list">
       <div :key="task.index" v-for="task in task">
         <TaskCard
-        :category="category.name"
-        :task="task"
-        @editTask="editTask"
-        @deleteTask="deleteTask"
+          :category="category"
+          :task="task"
+          @editTask="editTask"
+          @deleteTask="deleteTask"
+          @moveLeft="moveLeft"
+          @moveRight="moveRight"
         >
         </TaskCard>
       </div>
@@ -60,6 +62,12 @@ export default {
     },
     getAllTask() {
       this.$emit('getAllTask')
+    },
+    moveLeft(id, categoryId) {
+      this.$emit("moveLeft", id, categoryId)
+    },
+    moveRight(id, categoryId) {
+      this.$emit("moveRight", id, categoryId)
     }
   }
   
