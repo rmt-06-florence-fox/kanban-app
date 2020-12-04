@@ -10,6 +10,7 @@
     <RegisterPage
       v-else-if="pageName == 'registerPage'"
       @changePage="changePage"
+      @register='register'
     ></RegisterPage>
 
     <HomePage
@@ -88,6 +89,19 @@ export default {
     }
   },
   methods: {
+    register(payload){
+      axios({
+        url: deployURL + 'register',
+        method: 'POST',
+        data: payload
+      })
+        .then(({ data }) => {
+          this.pageName = 'loginPage'
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
     backHome(){
       this.pageName = 'homePage'
     },

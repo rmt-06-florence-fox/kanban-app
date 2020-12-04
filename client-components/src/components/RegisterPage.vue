@@ -6,7 +6,7 @@
       <input v-model="user.email" type="email" id=email-form><br>
       <label for="password-form">Password :</label>
       <input v-model="user.password" type="password" id=password-form><br>
-      <a @click="changePage" href="#">Login</a>
+      <!-- <a @click="changePage" href="#">Login</a> -->
       <button class="btn btn-info">Register</button>
     </form> 
   </div>
@@ -25,14 +25,13 @@ export default {
   },
   methods: {
     register() {
-
-    },
-    changePage() {
-      let payload = {
-        pageName: 'loginPage'
+      const payload = {
+        email: this.user.email,
+        password: this.user.password
       }
-      this.$emit('changePage', payload)
-    }
+
+      this.$emit('register', payload)
+    },
   }
 }
 </script>
