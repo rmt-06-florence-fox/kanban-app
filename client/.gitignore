@@ -12,7 +12,7 @@ sandbox
 # Firebase cache
 .firebase/
 .cache/
-dist/
+
 
 # Firebase config
 

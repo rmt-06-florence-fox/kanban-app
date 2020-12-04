@@ -48,7 +48,6 @@ export default {
                 }
             })
                 .then(({data})=>{
-                    console.log(data);
                     localStorage.setItem('access_token',data.access_token)
                     localStorage.setItem('UserId',data.UserId)
                     this.errorLogin = {
@@ -72,7 +71,6 @@ export default {
                 }
             })
                 .then(({data})=>{
-                    console.log(data);
                     this.errorLogin = {
                         login:'',
                         register: ''

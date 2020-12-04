@@ -88,11 +88,6 @@ export default {
       editTaskId: NaN,
       editState:'',
       state: '',
-      // Backlog: this.tasks.Backlog,
-      // Todo: this.tasks.Todo,
-      // Doing: this.tasks.Doing,
-      // Done: this.tasks.Done,
-      // isDragging : false
     };
   },
   methods:{
@@ -121,11 +116,9 @@ export default {
       .catch(({response})=>{
         this.$bvModal.hide('addForm')
         this.$emit('fetchUlang')
-        console.log(response);
       })
     },
     showEdit(obj){
-      console.log(obj);
       this.$bvModal.show('editForm')
       this.editTaskTitle = obj.title
       this.editTaskId = obj.id 
@@ -144,12 +137,10 @@ export default {
         }
       })
         .then(({data})=>{
-          console.log(data);
           this.$bvModal.hide('editForm')
           this.$emit('fetchUlang')
         })
         .catch(({response})=>{
-          console.log(response);
           this.$bvModal.hide('editForm')
           this.$emit('fetchUlang')
         })
@@ -163,20 +154,15 @@ export default {
         }
       })
         .then(({data})=>{
-          console.log(data);
           this.$bvModal.hide('editForm')
           this.$emit('fetchUlang')
         })
         .catch(({response})=>{
-          console.log(response);
           this.$bvModal.hide('editForm')
           this.$emit('fetchUlang')
         })
     }
-  },
-  created() {
-    console.log(this.tasks);
-  },
+  }
 };
 </script>
 

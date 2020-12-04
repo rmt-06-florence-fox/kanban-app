@@ -22,7 +22,6 @@ export default {
         this.a = [ 'card' , 'bg-secondary' , 'align-items-center' , ' justify-content-center' , 'mt-1']
         this.active = false
       }
-      console.log(this.task);
     },
     methods:{
       showEdit(){
