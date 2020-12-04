@@ -5,17 +5,16 @@ module.exports = (req,res,next) => {
         .then(data => {
             if(data){
                 if (data.UserId == req.loggedInUser.id){
-                    console.log('bisa masuk')
                     next()
                 } else {
-                    res.status(401).json({message: 'you are not authorize with this todo'})
+                    res.status(401).json({message: 'you are not authorize with this task'})
                 }
             } else {
-                res.status(404).json({message: 'todo id not found'})
+                res.status(404).json({message: 'task id not found'})
             }
 
         })
         .catch(error => {
-            res.status(401).json({message: 'you are not authorize with this todo'})
+            res.status(401).json({message: 'you are not authorize with this task'})
         })
 }

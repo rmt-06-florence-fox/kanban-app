@@ -5,7 +5,6 @@ const { generateToken } = require("../helpers/jwt")
 
 class ControllerUser {
     static register(req,res,next){
-        console.log("masuk register 1")
         const obj = {
             name: req.body.name,
             email: req.body.email,
@@ -14,7 +13,6 @@ class ControllerUser {
         console.log(obj)
         User.create(obj)
         .then(data => {
-            console.log("masuk register")
             res.status(201).json({
                 id: data.id,
                 name: data.name,

@@ -3,7 +3,6 @@ const { User } = require('../models')
 
 module.exports = (req,res,next) => {
     try {
-        console.log('masuk authentication')
         const { access_token } = req.headers
 
         if (!access_token){

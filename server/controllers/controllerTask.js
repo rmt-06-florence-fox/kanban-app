@@ -3,7 +3,6 @@ const { Task } = require('../models')
 class ControllerTask {
 
     static createTask(req,res,next){
-        console.log("masuk create task")
         const obj = {
             name: req.body.name,
             description: req.body.description,
