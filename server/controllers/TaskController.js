@@ -71,7 +71,7 @@ class TaskController{
     }
     
   }
-  static async addtask(req,res){
+  static async addtask(req,res,next){
 
     console.log("masuk ad <<<<<<<<<<<<<")
 

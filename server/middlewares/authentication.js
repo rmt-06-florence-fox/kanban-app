@@ -4,6 +4,7 @@ const {User} = require('../models')
 
 module.exports = async (req,res,next) => {
   try {
+    
     const access_token = req.headers.access_token
     if(!access_token){
       // res.status(401).json({message: `Login First`})

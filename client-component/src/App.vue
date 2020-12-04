@@ -4,6 +4,7 @@
     @changePage='changePage'
     @userLogin='userLogin'
     @googleLogin ='googleLogin'> </LoginPage>
+
     <RegisterPage v-else-if="currentPage === 'register'" 
     @changePage='changePage'
     @userRegister='userRegister'></RegisterPage>
@@ -46,10 +47,11 @@ export default {
       this.currentPage = page
     },
     userRegister(userData){
+       console.log("diresgiapp")
       console.log(userData)
       axios({
          method: "POST",
-          url: `"http://localhost:3000/register"`,
+          url: `http://localhost:3000/register`,
           data:{
             name: userData.name,
             email: userData.email,
@@ -57,15 +59,20 @@ export default {
           }
       })
       .then(response=>{
-        console.log(response)
+        console.log('masuk sukses')
+        console.log(response.data.email)
+        this.showSuccess(`Account with email${response.data.email} created`)
         this.currentPage = 'login'
       })
       .catch(err=>{
-        console.log(err)
+         console.log('gagal')
+        this.showError(err.response.data)
+         console.log(err.response)
       })
 
     },
     userLogin(userData){
+     console.log("diloginapp")
       axios({
         method: "POST",
           url: "http://localhost:3000/login",
@@ -84,7 +91,7 @@ export default {
         this.fecthcategory()
       })
       .catch(err=>{
-        this.showError(err)
+        this.showError(err.response.data)
       })
 
     },
@@ -116,35 +123,35 @@ export default {
         })
         .catch((err)  => {
           console.log('masuk fail')
-          console.log(err );
+          this.showError(err.response.data)
         })
 
     },
     userLogout(){
-      console.log('userLogout')
-      // var auth2 = gapi.auth2.getAuthInstance()
-      localStorage.clear()
-      this.currentPage='login'
-      this.showSuccess(`You have logged out`)
-    },
+        console.log('userLogout')
+        // var auth2 = gapi.auth2.getAuthInstance()
+        localStorage.clear()
+        this.currentPage='login'
+        this.showSuccess(`You have logged out`)
+      },
     fecthTask(){
-      const access_token = localStorage.getItem('access_token')
-      axios({
-        method: "GET",
-        url: "http://localhost:3000/tasks",
-        headers:{
-          access_token
-        }
-      })
-      .then (response=>{
-        this.tasks = response.data
-        // console.log(response)
+        const access_token = localStorage.getItem('access_token')
+        axios({
+          method: "GET",
+          url: "http://localhost:3000/tasks",
+          headers:{
+            access_token
+          }
+        })
+        .then (response=>{
+          this.tasks = response.data
+          // console.log(response)
 
-      })
-      .catch(err=>{
-        console.log(err)
-        this.showError(err)
-      })
+        })
+        .catch(err=>{
+          console.log(err)
+          this.showError(err.response.data)
+        })
 
     },
     fecthcategory(){
@@ -162,7 +169,7 @@ export default {
       })
       .catch(err=>{
         console.log(err)
-        this.showError(err)
+       this.showError(err.response.data)
       })
 
     },
@@ -182,7 +189,7 @@ export default {
       })
       .catch(err=>{
         console.log(err)
-        this.showError(err)
+        this.showError(err.response.data)
       })
 
     },
@@ -206,9 +213,9 @@ export default {
         this.fecthcategory()
        
       })
-      .catch(xhr=>{
-        console.log(xhr)
-        // this.showError(error.message)
+      .catch(err=>{
+        console.log(err.response.data)
+        this.showError(err.response.data)
       })
 
 
@@ -235,7 +242,7 @@ export default {
       })
       .catch(err=>{
         console.log(err)
-        this.showError(err)
+        this.showError(err.response.data)
       })
 
 
@@ -263,7 +270,7 @@ export default {
       })
       .catch(err=>{
         console.log(err)
-        this.showError(err)
+        this.showError(err.response.data)
       })
 
 

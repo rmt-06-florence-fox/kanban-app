@@ -20,7 +20,7 @@
                           <input v-model="password"
                            type="password" name="password" id="regist-password" class="form-control">
                       </div>
-                      <button type="submit " class="btn btn-primary">Register</button>
+                      <button type="submit " class="btn-log-reg  btn-primary">Register</button>
                   </form>
                   <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
               </div>
@@ -47,7 +47,11 @@ export default {
         email : this.email,
         password : this.password
       }
-        this.$emit('userRegister', userData)
+      console.log("diregistvue",userData)
+        this.$emit('userRegister', userData),
+          this.name="",
+          this.email = "",
+          this.password= ""
       
 
     }
