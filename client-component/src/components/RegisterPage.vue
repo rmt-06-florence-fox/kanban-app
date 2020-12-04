@@ -2,7 +2,9 @@
       <div id="register-page" class="form-content" >
         <section id="landing" >
           <div class="d-flex justify-content-center align-items-center" style="height: 100vh;"  >
-            <div class="p-5 bg-light shadow" style="width: auto; height: auto; border-radius: 10px">
+            <div class="p-5 bg-light shadow">
+               <h3>Kanban App<h3>
+                 <br>
                   <form @submit.prevent="register">
                     <div class="form-group">
                       <h3>Create new Account</h3>

@@ -4,7 +4,9 @@
         <section id="landing">
           <div class="d-flex justify-content-center align-items-center" style="height: 100vh;"  >
             <div class="p-5 bg-light shadow" >
+              <h3>Kanban App<h3>
                   <form @submit.prevent="userLogin">
+                    
                       <div class="form-group">
                           <label for="email">Email</label>
                           <input type="email" name="email" id="email" v-model="email" class="form-control">
@@ -15,7 +17,7 @@
                       </div>
                       <button type="submit " class="btn-log-reg btn-primary">Login</button>
                       <button @click.prevent="changePage('register')" id= "btn-log-reg-register" class="btn-log-reg btn-danger">register</button>
-                      <button style="display: inline-block" v-google-signin-button="clientId" class="g-signin2" ></button>
+                      <button v-if="googlelogin" style="display: inline-block" v-google-signin-button="clientId" class="g-signin2" ></button>
                   </form>
   
     </div>
@@ -28,6 +30,7 @@ export default {
   name: "LoginPage",
   data() {
     return {
+       googlelogin: true,
         email: "",
         password: "",
         clientId: "879223745487-13ttaoug88fv6goh1k0q163jp1cq65ue.apps.googleusercontent.com",
