@@ -8,11 +8,13 @@ const router = express.Router()
 router.use(authentication)
 
 router.post('/', TaskController.addtask)
-router.get('/',TaskController.showtask) 
+router.get('/',TaskController.showtask)
+router.get('/category',TaskController.showCategory)
 router.get('/:id', TaskController.findIdtask)
 
 router.use('/:id',otorisesion)
 router.put('/:id', TaskController.edittask)
+router.patch('/:id', TaskController.changeCategory)
 router.delete('/:id', TaskController.deletetask)
 
 module.exports = router

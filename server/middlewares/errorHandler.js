@@ -10,9 +10,11 @@ module.exports = (err, req, res, next) => {
           arrErrors.push( err.errors[i].message)
       }
     res.status(400).json({message: `${arrErrors} required` })
+   
     }
     else {
       res.status(err.status).json(err.message)
+      new Error(err.message)
     }
   }
   else {

@@ -4,6 +4,8 @@ const {generateToken} = require('../helpers/jwt')
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
+
+
 class UserController{
   static register (req,res,next){
     console.log('masuk regist')
@@ -51,11 +53,11 @@ class UserController{
   }
 
   static googleLogin(req,res,next){
-    console.log('berhasil')
+  
    let payload
        client.verifyIdToken({
         idToken: req.body.googleToken,
-        audience: GOOGLE_PASSWORD,  // Specify the CLIENT_ID of the app that accesses the backend
+        audience: process.env.CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
             // Or, if multiple clients access the backend:
             //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
         })
@@ -83,8 +85,9 @@ class UserController{
             res.status(200).json({access_token})
           })
         .catch(err=>{
+          console.log('GAGAGAGAL')
           console.log(err)
-          next(err)
+          // next(err)
         })
        
 

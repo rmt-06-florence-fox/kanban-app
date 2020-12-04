@@ -7,5 +7,5 @@ const router = express.Router()
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
 router.post('/googleLogin', UserController.googleLogin)
-router.use('/task', taskRouter )
+router.use('/tasks', taskRouter )
 module.exports = router

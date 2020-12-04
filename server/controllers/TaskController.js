@@ -5,9 +5,6 @@ class TaskController{
 
     try{
       const tasks = await Task.findAll({
-        attributes : {
-          exclude : [ 'updatedAt', 'createdAt' ]
-        },
         order : [ [ 'updatedAt', 'ASC' ] ]
         ,
         include : [
@@ -15,17 +12,35 @@ class TaskController{
             attributes : ['name']
             },
             { model : User,
-              attributes : ['name']
+              attributes : ['email']
               }
           
         ], 
         
       })
+      console.log(tasks)
 
       
       res.status(200).json(tasks)
     }
     catch(error) {
+      console.log(error)
+      next(error)
+    }
+
+  }
+
+  static async showCategory(req,res,next){
+
+    try{
+      const category = await Category.findAll()
+      console.log(category)
+
+      
+      res.status(200).json(category)
+    }
+    catch(error) {
+      console.log(error)
       next(error)
     }
 
@@ -61,9 +76,11 @@ class TaskController{
     console.log("masuk ad <<<<<<<<<<<<<")
 
      try {
-       let category = await Category.findAll()
-         let categoryName = category[0].name
-         console.log(categoryName)
+      let category = await Category.findAll()
+
+      let categoryName = category[+req.body.CategoryId - 1].name
+       
+      
           const task = {
             title: req.body.title,
             category: categoryName,
@@ -89,8 +106,8 @@ class TaskController{
 
     try {
       let category = await Category.findAll()
-        let categoryName = category[0].name
-        // console.log(categoryName)
+      let categoryName = category[+req.body.CategoryId - 1].name
+        console.log(categoryName)
          const updateTask = {
            title: req.body.title,
            category: categoryName,
@@ -98,19 +115,50 @@ class TaskController{
            UserId: req.loginUser.id
          }
       const data = await Task.update(updateTask,{
-        where: {id}, returning:true
+        where: { 
+          id: req.params.id,
+          UserId: req.loginUser.id 
+        }, returning:true
+      })
+      console.log(data[1][0])
+      res.status(200).json(data[1][0])
+
+    }
+    catch (error){
+      console.log(error)
+      
+          next(error)
+    }
+    
+  }
+  static async changeCategory(req,res,next){
+
+    console.log("masuk patch <<<<<<<<<<<<<")
+
+    try {
+
+        // console.log(categoryName)
+         const updateTask = {
+           CategoryId: req.body.CategoryId
+         }
+      const data = await Task.update(updateTask,{
+        where: { 
+          id: req.params.id,
+          UserId: req.loginUser.id 
+        }, returning:true
       })
       res.status(200).json(data[1][0])
 
     }
     catch (error){
       console.log(error)
-          // next(error)
+          next(error)
     }
     
   }
 
-  static async deletetask(req,res){
+
+  static async deletetask(req,res,next){
     const id = req.params.id
     try {
 
