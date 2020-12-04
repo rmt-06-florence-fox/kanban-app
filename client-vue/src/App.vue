@@ -176,7 +176,11 @@ export default {
         this.fetch()
       } catch (error) {
         this.fetch()
-        console.log(error);
+        swal({
+          icon: "error",
+          title: "error",
+          text : error.response.data.message
+        })
       }
     },
     async createTask(data){
@@ -193,6 +197,11 @@ export default {
         this.fetch()
       } catch (error) {
         console.log(error);
+        swal({
+          icon: "error",
+          title: "error",
+          text : "failed"
+        })
       }
     },
     async googleSignIn(token){

@@ -8,7 +8,7 @@ ITS ACTUALLY KHAN BANG APP
 #
 # URL
 ```
-Client URL : http://localhost:8080
+Client URL : https://khanbang.web.app
 Server URL : https://khan-bang.herokuapp.com/
 ```
 
