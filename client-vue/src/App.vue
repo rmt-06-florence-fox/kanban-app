@@ -142,7 +142,7 @@ export default {
         }
       }
     },
-    async createTask(){
+    async createTask(nameTask){
       try {
           const formData = await Swal.fire({
           title: 'Create Form',
@@ -152,27 +152,18 @@ export default {
                 <label for="createTask">Task:</label>
                 <input type="text" class="form-control" id="createTask">
               </div>
-              <div class="form-group">
-                <label for="selectCategory">Category</label>
-                <select class="form-control" id="category">
-                  <option value = ''>---- Select ----</option>
-                  <option value = 'Backlog'>Backlog</option>
-                  <option value = 'Todo'>Todo</option>
-                  <option value = 'Doing'>Doing</option>
-                  <option value = 'Done'>Done</option>
-                </select>
-              </div>
           `,
           showCancelButton: true,
           focusConfirm: false,
           preConfirm: () => {
             return {
               title : document.getElementById('createTask').value,
-              category : document.getElementById('category').value
+              category : nameTask
             }
           }
         })
         let obj = formData.value
+        console.log(obj);
         let data = await axios({
           url : `${this.localhost}/tasks`,
           method : 'post',

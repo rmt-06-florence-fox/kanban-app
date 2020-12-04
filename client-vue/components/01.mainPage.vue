@@ -1,11 +1,11 @@
 <template>
     <div class=".container vh-100" id="mainP">
       <navbar
-        @requestCreate = "requestCreate"
         @requestLogout = "logout"
       ></navbar>
 
       <dashboard
+        @requestCreate = "requestCreate"
         @fetchTask = "fetchTask"
         :list = "list"
         @requestEdit = "requestEdit"
@@ -31,8 +31,8 @@ export default {
     dashboard
   },
   methods : {
-    requestCreate(){
-      this.$emit('requestCreate')
+    requestCreate(nameTask){
+      this.$emit('requestCreate', nameTask)
     },
     logout(){
       this.$emit('requestLogout')

@@ -8,6 +8,9 @@
       @requestDelete = 'requestDelete'
       ></tasks>
     </div>
+    <button type="button" class="btn btn-info mr-md-auto" style="width: 20rem;" @click.prevent = "create">
+      Create New Task
+    </button>
   </div>
 </template>
 
@@ -16,7 +19,7 @@ import tasks from './04.tasks'
 export default {
   data(){
     return {
-
+      nameTask : `${this.name}`
     }
   },
   props : ['name', 'list'],
@@ -32,6 +35,9 @@ export default {
     },
     requestDelete(id){
       this.$emit('requestDelete',id)
+    },
+    create(){
+      this.$emit('requestCreate', this.nameTask)
     }
   },
   created() {

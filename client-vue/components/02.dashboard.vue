@@ -7,6 +7,7 @@
         :list = "list"
         @requestEdit = "requestEdit"
         @requestDelete = 'requestDelete'
+        @requestCreate = "requestCreate"
         ></card>
       </div>
 </template>
@@ -37,6 +38,9 @@ export default {
     },
     requestDelete(id) {
       this.$emit('requestDelete', id)
+    },
+    requestCreate(nameTask){
+      this.$emit('requestCreate', nameTask)
     }
   }
 }
