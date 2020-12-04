@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "editForm",
+  name: "EditForm",
   data() {
     return {
       taskEdited: {

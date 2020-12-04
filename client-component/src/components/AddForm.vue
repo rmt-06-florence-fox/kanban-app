@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "addForm",
+  name: "AddForm",
   data() {
     return {
       task: {

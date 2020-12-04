@@ -6,23 +6,23 @@
             <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">{{category.name}}</h1>
           </div>
           <div class="card text-white board-body">
-            <taskcard v-for="task in tasks" 
+            <TaskItem v-for="task in tasks" 
             :key="task.id" 
             v-if="task.categoryName === category.name" 
             :task=task 
             :loggedInEmail=loggedInEmail
             @emitPopulate="emitPopulate"
             @emitMoveTask="emitMoveTask"
-            @emitDeleteTask="emitDeleteTask"></taskcard>
+            @emitDeleteTask="emitDeleteTask"></TaskItem>
           </div>
         </div>
     </div>
 </template>
 
 <script>
-import taskcard from "./taskcard.vue"
+import TaskItem from "./TaskItem.vue"
 export default {
-  name: "KanbanBoard",
+  name: "TaskBoard",
   data() {
     return {
       taskAdded: {
@@ -34,7 +34,7 @@ export default {
   },
   props: ['category', 'tasks', 'loggedInEmail'],
   components: {
-    taskcard
+    TaskItem
   },
   methods: {
     emitPopulate(task, page){

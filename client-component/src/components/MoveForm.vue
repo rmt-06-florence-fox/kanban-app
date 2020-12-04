@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: "moveForm",
+  name: "MoveForm",
   data() {
     return {
       task: {

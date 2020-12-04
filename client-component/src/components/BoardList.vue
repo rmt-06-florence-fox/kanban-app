@@ -1,6 +1,6 @@
 <template>
   <div class="row flex-container-kanban">
-    <KanbanBoard 
+    <TaskBoard 
       v-for="category in categories" 
       :key="category.id" 
       :category="category" 
@@ -10,15 +10,15 @@
       @emitPopulate="emitPopulate"
       @emitMoveTask="emitMoveTask"
       @emitDeleteTask="emitDeleteTask"
-    ></KanbanBoard>
+    ></TaskBoard>
    
   </div>
 </template>
 
 <script>
-import KanbanBoard from "./kanban-board.vue"
+import TaskBoard from "./TaskBoard.vue"
 export default {
-  name: "Board",
+  name: "BoardList",
   data() {
     return {
       message: 'Hello world',
@@ -26,7 +26,7 @@ export default {
   },
   props: ['categories', 'tasks', 'loggedInEmail'],
   components: {
-    KanbanBoard,
+    TaskBoard,
 
   },
   methods: {

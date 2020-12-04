@@ -13,10 +13,9 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: "NavbarComponent",
   data() {
     return {
-      message: 'Hello world',
     };
   },
 };

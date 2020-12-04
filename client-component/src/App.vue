@@ -28,38 +28,38 @@
       @emitDeleteTask="deleteTask">
     </MainPage>
 
-    <addForm 
+    <AddForm 
       v-if="currentPage === 'addForm'"
       @emitChangePage="changePage"
       @emitAddTask="addTask">
-    </addForm>
+    </AddForm>
 
-    <editForm
+    <EditForm
      v-if="currentPage === 'editForm'"
      @emitChangePage="changePage"
      @emitEditTask="editTask"
      :task=task>
-    </editForm>
+    </EditForm>
 
-    <moveForm
+    <MoveForm
      v-if="currentPage === 'moveForm'"
      @emitChangePage="changePage"
      @emitMoveTask="moveTask"
      :movedTask=movedTask
      :categories=categories>
-    </moveForm>
+    </MoveForm>
   </div>
 </template>
 
 <script>
 let basicUrl = "http://localhost:3000/"
 import {GoogleLogin} from 'vue-google-login';
-import addForm from "./components/addForm.vue"
-import editForm from "./components/editForm.vue"
-import moveForm from "./components/moveForm.vue"
-import MainPage from "./components/mainPage.vue"
-import RegisterPage from "./components/register.vue"
-import LoginPage from "./components/loginPage.vue"
+import AddForm from "./components/AddForm.vue"
+import EditForm from "./components/EditForm.vue"
+import MoveForm from "./components/MoveForm.vue"
+import MainPage from "./components/MainPage.vue"
+import RegisterPage from "./components/RegisterPage.vue"
+import LoginPage from "./components/LoginPage.vue"
 import axios from "axios"
 export default {
   name: "App",
@@ -276,9 +276,9 @@ export default {
     RegisterPage,
     LoginPage,
     MainPage,
-    addForm,
-    editForm,
-    moveForm,
+    AddForm,
+    EditForm,
+    MoveForm,
     GoogleLogin
   },
   created: function (){

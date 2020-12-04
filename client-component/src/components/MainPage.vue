@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Navbar @emitLogout="emitLogout"></Navbar>
-    <Board 
+    <NavbarComponent @emitLogout="emitLogout"></NavbarComponent>
+    <BoardList 
     :categories=categories
     :tasks=tasks
     :loggedInEmail=loggedInEmail
@@ -10,13 +10,13 @@
     @emitMoveTask="emitMoveTask"
     @emitDeleteTask="emitDeleteTask"
     >
-    </Board>
+    </BoardList>
   </div>
 </template>
 
 <script>
-import Navbar from "./navbar.vue"
-import Board from "./board.vue"
+import NavbarComponent from "./NavbarComponent.vue"
+import BoardList from "./BoardList.vue"
 export default {
   name: "MainPage",
   data() {
@@ -25,8 +25,8 @@ export default {
   },
   props: ['categories', 'tasks', 'loggedInEmail'],
   components: {
-    Navbar,
-    Board
+    NavbarComponent,
+    BoardList
   },
   methods: {
     emitLogout(){

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-name: "taskcard"
+name: "TaskItem"
 export default {
   data() {
     return {
