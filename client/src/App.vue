@@ -50,9 +50,15 @@ export default {
           this.allTasks = response
           location.reload()
         })
-        .catch(error => {
-          
-        })
+         .catch(err => {
+                console.log(err.response);
+                let message = err.response.data
+                Swal.fire({
+                    title: message,
+                    icon: 'error',
+                
+                })
+            })
     },
     reload() {
       this.$forceUpdate();
@@ -89,6 +95,15 @@ export default {
         .then(response => {
           this.currentPage = 'home'
         })
+        .catch(err => {
+                console.log(err.response);
+                let message = err.response.data
+                Swal.fire({
+                    title: message,
+                    icon: 'error',
+                
+                })
+          })
     }
   },
   components: {

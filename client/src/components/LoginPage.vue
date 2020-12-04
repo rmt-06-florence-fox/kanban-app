@@ -126,6 +126,7 @@ export default {
                 this.$emit('changePage', 'home')
             })
             .catch(err => {
+                console.log(err.response);
                 let message = err.response.data
                 Swal.fire({
                     title: message,

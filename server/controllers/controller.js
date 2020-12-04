@@ -30,11 +30,11 @@ class Controller {
             if(bcrypt.compareSync(req.body.password, data.password)) {
                 res.status(200).json({access_token})
             } else {
-                console.log('ga nemu');
+                res.status(401).json('Can not find your account')
             }
         })
         .catch(err => {
-            next(err)
+            res.status(401).json('Can not find your account')
         })
 
     }
