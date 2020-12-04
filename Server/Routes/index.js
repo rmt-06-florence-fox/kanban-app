@@ -1,5 +1,3 @@
-const { route } = require('../../../../d1/first-livecode/server/routers')
-
 const router = require('express').Router()
 const UserController = require('../controllers/user')
 const TaskController = require('../controllers/task')

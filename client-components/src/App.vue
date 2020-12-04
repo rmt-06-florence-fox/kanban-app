@@ -48,6 +48,7 @@ import HomePage from './components/HomePage'
 import AddComponent from './components/AddComponent'
 import EditComponent from './components/EditComponent'
 
+const deployURL = 'https://desolate-inlet-84582.herokuapp.com/'
 // Axios
 import axios from 'axios'
 
@@ -112,7 +113,7 @@ export default {
     createTask(payload) {
       const access_token = localStorage.getItem('access_token')
       axios({
-        url: 'http://localhost:3000/tasks',
+        url: deployURL + 'tasks',
         headers: {access_token},
         method: 'POST',
         data: payload
@@ -128,7 +129,7 @@ export default {
     },
     login(payload) {
       axios({
-        url: 'http://localhost:3000/login',
+        url: deployURL + 'login',
         method: 'POST',
         data: payload
       })
@@ -144,7 +145,7 @@ export default {
     fetchAllTask() {
       const access_token = localStorage.getItem('access_token')
       axios({
-        url: 'http://localhost:3000/tasks',
+        url: deployURL + 'tasks',
         method: 'GET',
         headers: { access_token }
       })
@@ -159,7 +160,7 @@ export default {
     deleteTask(id){
       const access_token = localStorage.getItem('access_token')
       axios({
-        url: `http://localhost:3000/tasks/${id}`,
+        url: deployURL + `tasks/${id}`,
         method: 'DELETE',
         headers: {access_token},
       })
@@ -174,7 +175,7 @@ export default {
     moveTask(payload){
       const access_token = localStorage.getItem('access_token')
       axios({
-        url: `http://localhost:3000/tasks/${payload.id}`,
+        url: deployURL + `tasks/${payload.id}`,
         method: 'PATCH',
         headers: {access_token},
         data: {
@@ -196,7 +197,7 @@ export default {
       console.log(payload, 'Data is edited');
       const access_token = localStorage.getItem('access_token')
       axios({
-        url: `http://localhost:3000/tasks/${payload.id}`,
+        url: deployURL + `tasks/${payload.id}`,
         method:  `PUT`,
         headers: {access_token},
         data: {
@@ -219,7 +220,7 @@ export default {
     },
     onSuccess(payload){
       axios({
-        url: 'http://localhost:3000/googleLogin',
+        url: deployURL + 'googleLogin',
         method: "POST",
         data: payload
       })
