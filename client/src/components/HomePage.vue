@@ -26,9 +26,8 @@
                 @destroy="destroy">
             </Category>
         </div>
-        <div class="black mt-2"></div>
+        <div class="black-market mt-4">newKanban ® 2020</div>
         <div class = "container-category">
-      
             <!--TASK LIST-->
         </div>
     </div>

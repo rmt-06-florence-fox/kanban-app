@@ -27,7 +27,7 @@
 }
 
 .black {
-    background-color:#ffeaa7;
+    background-color:#273c75;
     padding : 20px;
     justify-content: space-evenly;
     display: flex;
@@ -38,11 +38,11 @@
 }
 
 .flexbox-item-1 {
-    background-color: #ff7675 ;
+    background-color: #f39c12 ;
 }
 
 .flexbox-item-2 {
-    background-color: #55efc4;
+    background-color: #273c75;
 }
 
 .flexbox-item-3 {
@@ -81,4 +81,19 @@ div .addform {
 div .tombol {
     display: flex;
     width: 20px;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.black-market {
+    color: white;
+    background-color: #273c75;
+    padding: 20px;
+    justify-content: space-evenly;
+    display: flex;
 }

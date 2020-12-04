@@ -56,7 +56,7 @@ export default {
     return {
       tasks: [],
       atPage: 'loginPage',
-      detailTask: null,
+      detailTask: '',
       kategories: [
         {
           "kategori": "BACKLOG",
@@ -106,6 +106,7 @@ export default {
       this.ready()
     },
     toEditPage(payload) {
+      console.log(payload)
       this.atPage= payload.atPage
       this.detailTask= payload.task
     },
@@ -159,23 +160,23 @@ export default {
       })
     },
     OnGoogleAuthSuccess(idToken){
-            console.log(idToken)
-            axios({
-                url :'/loginGoogle',
-                method : 'POST',
-                data : {
-                    google_access_token : idToken
-                }
-            })
-            .then(data => {
-                console.log('sampe nih')
-                localStorage.setItem('access_token', data.data.access_token)
-                this.ready()
-            })
-            .catch(err=> {
-                console.log(err)
-            })
-        },
+      console.log(idToken)
+      axios({
+          url :'/loginGoogle',
+          method : 'POST',
+          data : {
+              google_access_token : idToken
+          }
+      })
+      .then(data => {
+          console.log('sampe nih')
+          localStorage.setItem('access_token', data.data.access_token)
+          this.ready()
+      })
+      .catch(err=> {
+          console.log(err)
+      })
+    },
 
     register(payload) {
       axios({
