@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-center">
     <NavbarComponent @emitLogout="emitLogout"></NavbarComponent>
     <BoardList 
     :categories=categories
