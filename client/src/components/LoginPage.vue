@@ -1,5 +1,5 @@
 <template>
-  <section id="login-page">
+  <section>
     <div class="main-container fullscreen">
       <div class="container">
         <div class="row justify-content-center">
@@ -9,15 +9,15 @@
               <p class="lead">Log in to your account to continue</p>
               <form @submit.prevent="login">
                 <div class="form-group">
-                  <input v-model="user.email" class="form-control" type="email" placeholder="Email Address" name="login-email" />
+                  <input v-model="user.email" class="form-control" type="email" placeholder="Email Address" name="login-email" required />
                 </div>
                 <div class="form-group">
-                  <input v-model="user.password" class="form-control" type="password" placeholder="Password" name="login-password" />
+                  <input v-model="user.password" class="form-control" type="password" placeholder="Password" name="login-password" required />
                 </div>
                 <button class="btn btn-lg btn-block btn-primary" role="button" type="submit">
                   Log in
                 </button>
-                <small>Don't have an account yet? <a @click.prevent="pageName = 'register-page'" href="#">Create one</a>
+                <small>Don't have an account yet? <a @click.prevent="register" href="#">Create one</a>
                 </small>
               </form>
             </div>
@@ -41,7 +41,10 @@ export default {
   },
   methods: {
     login() {
-      console.log('enter in login');
+      this.$emit('login', this.user)
+    },
+    register() {
+      this.$emit('emit-change-page', 'register-page')
     }
   }
 }
