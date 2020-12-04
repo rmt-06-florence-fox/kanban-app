@@ -116,6 +116,10 @@ nav {
   justify-content: flex-end;
 }
 
+.btn-gsign {
+  width: 130px !important;
+}
+
 .card {
   border-style: none;
 }

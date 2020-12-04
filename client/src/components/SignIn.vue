@@ -12,7 +12,7 @@
     <div class="mt-5 btn-form">
       <button type="submit" class="btn-color-navbar btn btn-signin text-color ml-3 mr-3"><strong>Sign In</strong></button>
       <h6 class="mt-2">OR</h6>
-      <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure" class="ml-3 mr-3 rounded"></GoogleLogin>
+      <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure" class="btn-color-navbar btn btn-gsign btn-signin text-color ml-3 mr-3"><strong>G - Sign In</strong></GoogleLogin>
     </div>
   </form>
 </template>
@@ -28,10 +28,6 @@
         password: '',
         params: {
           client_id: "31610476291-ipg9c739e6kj3um420fm5h5n1emibk6g.apps.googleusercontent.com"
-        },
-        renderParams: {
-          width: 100,
-          longtitle: false
         }
       }
     },
