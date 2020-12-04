@@ -14,18 +14,26 @@
      :tasks=tasks
      :loggedInEmail=loggedInEmail
      @getCategory="getCategory"
+     @emitPopulate="showEditForm"
      ></MainPage>
      <addForm 
      v-if="currentPage === 'addForm'"
      @emitChangePage="changePage"
      @emitAddTask="addTask"
       ></addForm>
+    <editForm
+     v-if="currentPage === 'editForm'"
+     @emitChangePage="changePage"
+     @emitEditTask="editTask"
+     :task=task
+     ></editForm>
   </div>
 </template>
 
 <script>
 let basicUrl = "http://localhost:3000/"
 import addForm from "./components/addForm.vue"
+import editForm from "./components/editForm.vue"
 import MainPage from "./components/mainPage.vue"
 import RegisterPage from "./components/register.vue"
 import LoginPage from "./components/loginPage.vue"
@@ -41,6 +49,12 @@ export default {
       loggedInEmail: null,
       category: {
         id: null
+      },
+      task: {
+        id: null,
+        title: null,
+        due_date: null,
+        CategoryId: null
       }
     };
   },
@@ -97,7 +111,7 @@ export default {
             let year = response.data[i].due_date.slice(0, 4)
             let month = months[Number(response.data[i].due_date.slice(5, 7)) - 1]
             let date = response.data[i].due_date.slice(8, 10)
-            response.data[i].due_date = `${date} ${month} ${year}`
+            response.data[i].converted_due_date = `${date} ${month} ${year}`
           }
           this.tasks = response.data
         })
@@ -128,7 +142,36 @@ export default {
         this.getTasks()
       })
       .catch(err => {
-        console.log(title, due_date, CategoryId + " <<< ini dari App error")
+        console.log(err)
+      })
+    },
+    showEditForm(task, page){
+       this.task.id = task.id
+       this.task.title = task.name
+       this.task.due_date = task.due_date
+       this.task.CategoryId = task.categoryId
+       this.currentPage = "editForm"
+       console.log(task, page)
+    },
+    editTask(taskEdited){
+      axios({
+        url: `${basicUrl}tasks/${taskEdited.id}`,
+        method: "put",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          title: taskEdited.title,
+          due_date: taskEdited.due_date,
+          CategoryId: taskEdited.CategoryId
+        }
+      })
+      .then(response => {
+        console.log(response)
+        this.currentPage = "MainPage"
+        this.getTasks()
+      })
+      .catch(err => {
         console.log(err)
       })
     },
@@ -141,7 +184,8 @@ export default {
     RegisterPage,
     LoginPage,
     MainPage,
-    addForm
+    addForm,
+    editForm
   },
   created: function (){
     if (localStorage.getItem("access_token")){

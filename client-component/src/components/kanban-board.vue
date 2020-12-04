@@ -6,7 +6,12 @@
             <h1 class="mt-1"style="font-family: 'Russo One', sans-serif;">{{category.name}}</h1>
           </div>
           <div class="card text-white board-body">
-            <taskcard v-for="task in tasks" :key="task.id" v-if="task.categoryName === category.name" :task=task :loggedInEmail=loggedInEmail></taskcard>
+            <taskcard v-for="task in tasks" 
+            :key="task.id" 
+            v-if="task.categoryName === category.name" 
+            :task=task 
+            :loggedInEmail=loggedInEmail
+            @emitPopulate="emitPopulate"></taskcard>
           </div>
         </div>
     </div>
@@ -30,6 +35,10 @@ export default {
     taskcard
   },
   methods: {
+    emitPopulate(task, page){
+      this.$emit('emitPopulate', task, page)
+      
+    }
   }
 };
 </script>

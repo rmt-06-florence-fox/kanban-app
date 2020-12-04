@@ -5,11 +5,13 @@
           <span aria-hidden="true">&times;</span>
       </button>
       <p><strong>{{task.name}}</strong></p>
-      <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;" v-if="task.createdBy === loggedInEmail">Edit</button>
+      <button type="button" class="btn" data-toggle="modal" data-target="#editForm" style="background-color: white; color: #5ec0ca;" 
+      v-if="task.createdBy === loggedInEmail"
+      @click="$emit('emitPopulate', task, 'editForm')">Edit</button>
       <button type="button" class="btn" data-toggle="modal" data-target="#moveForm" style="background-color: white; color: #5ec0ca;" v-if="task.createdBy === loggedInEmail">Move</button>
     </div>
     <div class="card-body">
-      <p>Due Date: {{task.due_date}}<br>Created By: {{task.createdBy}}</p>
+      <p>Due Date: {{task.converted_due_date}}<br>Created By: {{task.createdBy}}</p>
     </div>
   </div>
 </template>

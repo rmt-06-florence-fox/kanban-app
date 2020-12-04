@@ -7,6 +7,7 @@
     :tasks=tasks 
     :loggedInEmail=loggedInEmail
     @getCategory="getCategory"
+    @emitPopulate="emitPopulate"
     ></KanbanBoard>
    
   </div>
@@ -29,6 +30,9 @@ export default {
   methods: {
     getCategory(CategoryId, page){
       this.$emit('getCategory', CategoryId, page)
+    },
+    emitPopulate(task, page){
+      this.$emit('emitPopulate', task, page)
     }
   }
 };

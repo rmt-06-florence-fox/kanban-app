@@ -6,6 +6,7 @@
     :tasks=tasks
     :loggedInEmail=loggedInEmail
     @getCategory="getCategory"
+    @emitPopulate="emitPopulate"
     >
     </Board>
   </div>
@@ -32,6 +33,9 @@ export default {
     getCategory(CategoryId, page){
       
       this.$emit('getCategory', CategoryId, page)
+    }, 
+    emitPopulate(task, page){
+      this.$emit('emitPopulate', task, page)
     }
   }
 };
