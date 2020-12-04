@@ -20,7 +20,7 @@ export default {
     return {
       edit: {
         title: this.task.title,
-        category: this.category
+        category: this.category.name
       }
     }
   },
@@ -40,7 +40,6 @@ export default {
         data: {
           title,
           category,
-          organization: "organization"
         }
       })
       .then(response => {

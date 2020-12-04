@@ -3,25 +3,23 @@
     <!-- {{category}}
     {{task.category}} -->
     <div class="card">
-      <div v-if="task.category === category.name">
-        <div class="card-body" v-show="!displayEdit">
-          <h5 clss="card-title">{{task.title}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ task.User.createdAt.slice(0, 10) }}</h6>
-          <h6 class="card-subtitle text-muted">{{ task.User.name }}</h6>
-          <div>
-            <a class="edit-icon" v-if="category.id !== 1">
-              <i class="fa fa-arrow-left float-left" @click="moveLeft(task.id, category.id)"></i>
-            </a>
-            <a class="edit-icon" v-if="category.id !== 4">
-              <i class="fa fa-arrow-right float-left" @click="moveRight(task.id, category.id)"></i>
-            </a>
-            <a class="edit-icon" @click="editTask(task.id)">
-              <i class="fa fa-edit float-right"></i>
-            </a>
-            <a class="edit-icon" @click="deleteTask(task.id)">
-              <i class="fa fa-trash float-right"></i>
-            </a>
-          </div>
+      <div class="card-body" v-show="!displayEdit">
+        <h5 clss="card-title">{{task.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ task.User.createdAt.slice(0, 10) }}</h6>
+        <h6 class="card-subtitle text-muted">{{ task.User.name }}</h6>
+        <div>
+          <a class="edit-icon" v-if="category.id !== 1">
+            <i class="fa fa-arrow-left float-left" @click="moveLeft(task.id, category.id)"></i>
+          </a>
+          <a class="edit-icon" v-if="category.id !== 4">
+            <i class="fa fa-arrow-right float-left" @click="moveRight(task.id, category.id)"></i>
+          </a>
+          <a class="edit-icon" @click="editTask(task.id)">
+            <i class="fa fa-edit float-right"></i>
+          </a>
+          <a class="edit-icon" @click="deleteTask(task.id)">
+            <i class="fa fa-trash float-right"></i>
+          </a>
         </div>
       </div>
     </div>

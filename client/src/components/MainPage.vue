@@ -19,7 +19,7 @@
       >
       </TaskList>
 
-      <button class="card btn add-list-btn" @click.prevent="showAddList"><span><i class="fa fa-plus"></i></span> Add a list</button>
+      <!-- <button class="card btn add-list-btn" @click.prevent="showAddList"><span><i class="fa fa-plus"></i></span> Add a list</button> -->
     </div>
 
   </div>
@@ -174,7 +174,7 @@ export default {
                   'Deleted!',
                   'Your file has been deleted'
                 )
-                this.refresh()
+                this.getAllTask()
               })
               .catch(err => {
                 this.$emit('consoleErr', err)

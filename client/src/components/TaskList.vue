@@ -6,12 +6,14 @@
     <div class="task-list">
       <div :key="task.index" v-for="task in task">
         <TaskCard
+          v-if="task.category === category.name"
           :category="category"
           :task="task"
           @editTask="editTask"
           @deleteTask="deleteTask"
           @moveLeft="moveLeft"
           @moveRight="moveRight"
+          @getAllTask="getAllTask"
         >
         </TaskCard>
       </div>
