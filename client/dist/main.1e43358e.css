@@ -1,0 +1,60 @@
+button {
+  width: 49%;
+}
+button {
+  width: 49%;
+}
+button {
+  max-width: 90px;
+}
+p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#category-footer {
+  top: 45px;
+  z-index: 5;
+}
+#card:hover{
+  zoom: 105%;
+}
+#category-title {
+  top: 55px;
+  z-index: 5;
+}
+.add {
+  color: inherit;
+  margin-right: 20px;
+}
+
+#tasklist {
+  top: 55px;
+  max-height: 150vh;
+  overflow: auto;
+}
+#main {
+  background: url("https://source.unsplash.com/P1qyEf1g0HU/1920x1080") no-repeat
+    center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+#main-section {
+  height: 200vh;
+  text-align: center;
+}
+#page-title {
+  background: rgb(0, 0, 0, 0.3);
+  top: 56px;
+}
+#nav {
+  z-index: 10;
+}
+#board-area {
+  top: 100px;
+  overflow: inherit;
+}
