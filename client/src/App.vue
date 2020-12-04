@@ -39,7 +39,7 @@ export default {
         fetchTasks() {
             axios({
                 method: "GET",
-                url: "http://localhost:3000/tasks",
+                url: "https://kanban-db-arif.herokuapp.com/tasks",
                 headers: {
                     access_token: localStorage.getItem("access_token")
                 }
@@ -54,7 +54,7 @@ export default {
         createTask(datatitle, datacategory) {
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/tasks',
+                url: 'https://kanban-db-arif.herokuapp.com/tasks',
                 data: {
                     title: datatitle,
                     category: datacategory
@@ -73,7 +73,7 @@ export default {
         updateTask(newTitle, newCategory, id) {
             axios({
                 method: 'PUT',
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://kanban-db-arif.herokuapp.com/tasks/${id}`,
                 data: {
                     title: newTitle,
                     category: newCategory
@@ -92,7 +92,7 @@ export default {
         deleteTask(id) {
             axios({
                 method: 'DELETE',
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://kanban-db-arif.herokuapp.com/tasks/${id}`,
                 headers: {
                     access_token: localStorage.getItem("access_token")
                 }
