@@ -15,14 +15,13 @@ class UserController {
             res.status(200).json({email: data.email, id: data.id})
         })
         .catch(error => {
-            res.status(500).json({msg: 'internal server error'})
+            next(error)
         })
     }
 
     static login(req, res, next) {
         User.findOne({where: {email: req.body.email}})
         .then(data => {
-            console.log(data)
             if(!data){
                 throw {
                     status: 401,
@@ -30,11 +29,11 @@ class UserController {
                 }
             } else {
                 if(checkPassword(req.body.password, data.password)){
-                    let obj = {
+                    const obj = {
                         id: data.id,
                         email: data.email
                     }
-                    res.status(200).json({token: createToken(obj)})
+                    res.status(200).json({token: createToken(obj), email: obj.email, id: obj.id})
                 } else {
                     throw {
                         status: 404,
@@ -44,7 +43,7 @@ class UserController {
             }
         })
         .catch(error => {
-            console.log('sini?')
+            console.log(error)
             next(error)
         })
     }
@@ -52,7 +51,7 @@ class UserController {
     static googleLogin (req, res, next) {
         let payLoad
         client.verifyIdToken({
-            idToken: req.body.google_access_token,
+            idToken: req.body.token,
             audience: process.env.CLIENT_ID
         })
         .then(ticket => {
@@ -77,7 +76,7 @@ class UserController {
             res.status(200).json({access_token})
         })
         .catch(error => {
-            res.status(500).json(error)
+            next(error)
         })
     }
 }

@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { not } = require('sequelize/types/lib/operators');
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     /**
@@ -15,8 +16,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Task.init({
-    title: DataTypes.STRING,
-    category: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {msg: 'Title cannot be empty'},
+        notNull: {msg: 'Title cannot be empty'}
+      }
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {msg: 'Category cannot be empty'},
+        notNull: {msg: 'Category cannot be empty'}
+      }
+    },
     UserId: DataTypes.INTEGER
   }, {
     sequelize,

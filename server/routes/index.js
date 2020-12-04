@@ -7,6 +7,6 @@ const authentication = require('../middlewares/authentication')
 router.use('/', UserRouter)
 
 router.use(authentication)
-router.use('/task', TaskRouter)
+router.use('/tasks', TaskRouter)
 
 module.exports = router

@@ -1,4 +1,4 @@
-const { User, Task} = require('../models')
+const {Task} = require('../models')
 
 class TaskController {
     static addTask(req, res, next){
@@ -8,7 +8,7 @@ class TaskController {
             UserId: req.loggedInUser.id
         }
 
-        Todo.create(newTask)
+        Task.create(newTask)
         .then(data => {
             res.status(201).json(data)
         })
@@ -19,7 +19,7 @@ class TaskController {
     }
 
     static showAll(req, res, next){
-        Todo.findAll()
+        Task.findAll()
         .then(data => {
             res.status(200).json(data)
         })
@@ -36,7 +36,7 @@ class TaskController {
             UserId: req.loggedInUser.id
         }
 
-        Todo.update(UpdatedTask, {
+        Task.update(UpdatedTask, {
             where: {
                 id
             }
@@ -49,9 +49,28 @@ class TaskController {
         })
     }
 
+    static editTask(req, res, next){
+        const id = +req.params.id
+        let UpdatedCategory = {
+            category: req.body.category
+        }
+
+        Task.update(UpdatedCategory, {
+            where: {
+                id
+            }
+        })
+        .then(data => {
+            res.status(200).json(UpdatedCategory)
+        })
+        .catch(error => {
+            res.status(500).json({massage: 'internal server error'})
+        })
+    }
+
     static delete(req, res, next){
         const id = +req.params.id
-        Todo.destroy({
+        Task.destroy({
             where: {
                 id
             }

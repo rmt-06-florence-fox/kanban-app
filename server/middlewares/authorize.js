@@ -1,13 +1,13 @@
-const { Todo } = require('../models')
+const { Task } = require('../models')
 
 module.exports = async(req, res, next) => {
     try{
-        const todo = await Todo.findOne({
+        const task = await Task.findOne({
             where: {
                 id: req.params.id
             }
         })
-        if(todo.UserId == req.loggedInUser.id){
+        if(task.UserId == req.loggedInUser.id){
             next()
         } else {
             res.status(401).json({msg: 'you cannot access this data'})
