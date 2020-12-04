@@ -1,0 +1,6 @@
+Server/node_modules/
+Server/.env
+Client/template.html
+Client-Vue-Parcel/node_modules/
+Client-Vue-Parcel/.cache
+Client-Vue-Parcel/dist
