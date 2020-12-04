@@ -14,11 +14,13 @@ class taskController{
     }
 
     static async addTask(request, response) {
-        const userId = +request.loggedInUser.id;
+        //const userId = +request.loggedInUser.id;
+        console.log(request.body.title);
+        console.log(request.body);
         const newData = {
             title: request.body.title,
             category: request.body.category,
-            UserId: userId
+            //UserId: userId
         }
         console.log(newData);
         try {
@@ -32,7 +34,8 @@ class taskController{
             }
             response.status(201).json({result});
         } catch (error) {
-            next(error);
+            console.log(error);
+            //`next(error);
         }
     }
 
@@ -51,7 +54,7 @@ class taskController{
             })
             response.status(200).json(data[1][0]);
         } catch (error) {
-            //console.log(error);
+            console.log(error);
             next(error)            
         }
     }
@@ -67,6 +70,7 @@ class taskController{
             })
             response.status(200).json(data[1][0]);
         } catch (error) {
+            console.log(error);
             next(error)            
         }
     }
@@ -78,6 +82,11 @@ class taskController{
                 where: {id: taskId},
                 returning: true
             });
+            if(!deleteTask) {
+                throw { message: 'NotFound'}
+            } else {
+                response.status(201).json({ message: 'Item successfully deleted!'})
+            }
         } catch (error) {
             console.log(error);
             next(error);

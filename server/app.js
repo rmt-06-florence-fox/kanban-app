@@ -6,7 +6,7 @@ const PORT = 3000;
 const errorHandler = require("./middlewares/errorHandler");
 const routes = require("./routes/index");
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 app.use(cors());
 app.use(errorHandler);
 app.use(routes);

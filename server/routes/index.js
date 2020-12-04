@@ -7,12 +7,11 @@ const authorization = require("../middlewares/authorization");
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 
-router.use(authentication);
+//router.use(authentication);
 router.get("/tasks", taskController.viewAllTask);
 router.post("/tasks", taskController.addTask);
-router.use(authorization);
-router.put("/tasks/:id", taskController.updateTask);
-router.patch("/tasks/:id", taskController.updateTaskCategory);
-router.delete("/tasks/:id", taskController.delete);
+router.put("/tasks/:id", authorization, taskController.updateTask);
+router.patch("/tasks/:id", authorization, taskController.updateTaskCategory);
+router.delete("/tasks/:id", authorization, taskController.delete);
 
 module.exports = router;
