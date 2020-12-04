@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const { not } = require('sequelize/types/lib/operators');
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     /**
