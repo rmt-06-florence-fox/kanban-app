@@ -8,7 +8,10 @@
             :Task="Task"
             :Category="Category"
             :fetch="fetch"
+            @PleaseAddTask="addTask"
             @PleaseEditCategory="back"
+            @PleaseEditCategory="done"
+            @PleaseDeleteTask="destroy"
             ></TaskBoard1>
         </div>    
     </div>
@@ -30,6 +33,15 @@ export default {
     methods: {
         back(category,id){
             this.$emit("PleaseEditCategory", category, id)
+        },
+        done(category,id){
+            this.$emit("PleaseEditCategory", category, id)
+        },
+        destroy(id){
+            this.$emit("PleaseDeleteTask", id)
+        },
+        addTask(){
+            this.$emit("PleaseAddTask")
         }
     },
     created(){

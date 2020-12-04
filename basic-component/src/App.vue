@@ -8,13 +8,22 @@
         v-else-if="currentPage === 'MainPage'"
         :Task="Tasks"
         :fetch="fetchTask"
+        :Category="Category"
+        @PleaseAddTask="addTask"
         @PleaseChangePage="changePage"
-        @PleaseEditCategory="back">
+        @PleaseEditCategory="back"
+        @PleaseEditCategory="done"
+        @PleaseDeleteTask="destroy"
+        >
       </MainPage>
       <RegisterPage
         v-else-if="currentPage === 'RegisterPage'"
         @PleaseChangePage="changePage">
       ></RegisterPage>
+      <RegisterTask
+      v-else-if="currentPage === 'addTask'"
+      @nowAddTask="addTaskData"
+      ></RegisterTask>
       
   </div>
 </template>
@@ -24,6 +33,7 @@ import LoginPage from "./components/loginPage"
 import Navbar from "./components/navbar"
 import MainPage from "./components/mainPage"
 import RegisterPage from "./components/registerPage"
+import RegisterTask from "./components/registerTask"
 import axios from "axios"
 
 
@@ -33,7 +43,25 @@ export default {
         return {
             name: "tommy",
             Tasks: [],
-            currentPage: "LoginPage"
+            currentPage: "MainPage",
+            Category: [
+                {
+                    id:1,
+                    name: "Back-Log"
+                },
+                {
+                    id:2,
+                    name: "To-Do"
+                },
+                {
+                    id:3,
+                    name: "Doing"
+                },
+                {
+                    id:4,
+                    name: "Done"
+                }
+            ]
         }
         
     },
@@ -58,11 +86,46 @@ export default {
             this.currentPage = page
             console.log(this.currentPage)
         },
-        addNewTask(){
-
+        addTask(){
+          this.currentPage = "addTask"
         },
-        deleteTask(){
-
+        addTaskData(name,description,category){
+          axios({
+                method: "POST",
+                headers: {
+                  access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                  name: name,
+                  description: description,
+                  category: category
+                },
+                url: "http://localhost:3000/task"
+            })
+            .then(response => {
+                this.currentPage = 'MainPage'
+                this.fetchTask()
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        },
+        destroy(id){
+          axios({
+                method: "DELETE",
+                headers: {
+                  access_token: localStorage.getItem('access_token')
+                },
+                url: "http://localhost:3000/task/" + id
+            })
+            .then(response => {
+                this.fetchTask()
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         },
         back(category,id){
           axios({
@@ -76,7 +139,26 @@ export default {
                 url: "http://localhost:3000/task/" + id
             })
             .then(response => {
-                this.fetchTask
+                this.fetchTask()
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        },
+        done(category,id){
+          axios({
+                method: "PATCH",
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data:{
+                  category: category
+                },
+                url: "http://localhost:3000/task/" + id
+            })
+            .then(response => {
+                this.fetchTask()
                 console.log(response.data)
             })
             .catch(error => {
@@ -91,12 +173,12 @@ export default {
         LoginPage,
         Navbar,
         MainPage,
-        RegisterPage
+        RegisterPage,
+        RegisterTask
     },
     created() {
         if(localStorage.getItem("access_token")){
           this.fetchTask()
-          this.changePage("MainPage")
           this.currentPage = "MainPage"
         } else {
           this.currentPage = "LoginPage"

@@ -12,10 +12,11 @@
              :fetch="fetch"
              ></ButtonBack>
             <ButtonDone 
+            @PleaseEditCategory="done"
             v-if="Category !== 'Done'"
             :fetch="fetch"
             ></ButtonDone>
-           <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
+           <button @click="destroy" class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
         </div>
     </div>
 </div>
@@ -48,6 +49,21 @@ export default {
             
 
             this.$emit("PleaseEditCategory", this.taskCategory, this.Task.id)
+        },
+        done(){
+            if(this.Task.category == 'Back-Log'){
+                this.taskCategory = 'To-Do'
+            }else if(this.Task.category == 'To-Do'){
+                this.taskCategory = 'Doing'
+            }else if(this.Task.category == 'Doing'){
+                this.taskCategory = "Done"
+            }
+            
+
+            this.$emit("PleaseEditCategory", this.taskCategory, this.Task.id)
+        },
+        destroy(){
+            this.$emit("PleaseDeleteTask", this.Task.id)
         }
         
     },

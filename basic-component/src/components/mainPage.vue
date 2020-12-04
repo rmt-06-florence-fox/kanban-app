@@ -7,7 +7,10 @@
         :fetch="fetch"
         :Task="Task"
         :Category="Category"
+        @PleaseAddTask="addTask"
         @PleaseEditCategory="back"
+        @PleaseEditCategory="done"
+        @PleaseDeleteTask="destroy"
         ></BoardList>
 </template>
 
@@ -18,27 +21,10 @@ import axios from "axios"
 
 export default {
     name: "MainPage",
-    props: [ 'Task', 'fetch' ],
+    props: [ 'Task', 'fetch' , 'Category'],
     data(){
         return {
-            Category: [
-                {
-                    id:1,
-                    name: "Back-Log"
-                },
-                {
-                    id:2,
-                    name: "To-Do"
-                },
-                {
-                    id:3,
-                    name: "Doing"
-                },
-                {
-                    id:4,
-                    name: "Done"
-                }
-            ]
+            
         }
     },
     components: {
@@ -51,12 +37,24 @@ export default {
         },
         back(category,id){
             this.$emit("PleaseEditCategory", category, id)
+        },
+        done(category,id){
+            this.$emit("PleaseEditCategory", category, id)
+        },
+        destroy(id){
+            this.$emit("PleaseDeleteTask", id)
+        },
+        addTask(){
+            this.$emit("PleaseAddTask")
         }
         
 
     },
     created() {
-        this.fetch()
+       
+    },
+    mounted(){
+        
     }
 }
 </script>

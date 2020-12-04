@@ -2,16 +2,16 @@
   <div id="add-new-task">
         <img src="https://images.vexels.com/media/users/3/152299/isolated/preview/4f63af6a16633f2bfd29063205f2882c-astronaut-flying-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
         <div id="add-task-page">
-            <form id="form-add-task" class="border bg-success">
+            <form @submit.prevent="addTaskData" id="form-add-task" class="border bg-success">
                 <h2 style="text-align: center;">add-task</h2>
                 <label for="">name</label><br>
-                <input type="text" placeholder="task name here" id="add-task-fullname" required>
+                <input v-model="task.name" type="text" placeholder="task name here" id="add-task-fullname" required>
                 <br><br>
                 <label for="">description</label><br>
-                <input type="email" placeholder="task description here" id="add-task-email" required>
+                <input v-model="task.description" type="text" placeholder="task description here" id="add-task-email" required>
                 <br><br>
                 <label for="">category</label><br>
-                <select class="custom-select my-1 mr-sm-2" id="selectCategory">
+                <select v-model="task.category" class="custom-select my-1 mr-sm-2" id="selectCategory">
                     <option selected>Choose....</option>
                     <option value="Back-Log">Back-Log</option>
                     <option value="To-Do">To-Do</option>
@@ -29,6 +29,21 @@
 
 <script>
 export default {
+    name: 'RegisterTask',
+    data(){
+        return{
+            task: {
+                name: '' ,
+                description: '' ,
+                category: '' ,
+            }
+        }
+    },
+    methods: {
+        addTaskData(){
+            this.$emit("nowAddTask", this.task.name, this.task.description, this.task.category)
+        }
+    }
 
 }
 </script>
