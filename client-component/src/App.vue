@@ -1,52 +1,59 @@
 <template>
   <div>
     <RegisterPage 
-    v-if="currentPage === 'RegisterPage'" 
-    @emitChangePage="changePage"></RegisterPage>
+      v-if="currentPage === 'RegisterPage'" 
+      @emitChangePage="changePage"
+      @emitRegister="register"
+      :errors=errorRegister>
+    </RegisterPage>
 
     <LoginPage 
-    v-else-if="currentPage === 'LoginPage'" 
-    @emitChangePage="changePage"
-    @emitLogin="login"
-    :email=email
-    :password=password
-    ></LoginPage>
+      v-else-if="currentPage === 'LoginPage'" 
+      @emitChangePage="changePage"
+      @emitGetTask="getTasks"
+      @emitLogin="login"
+      :email=email
+      :password=password
+      :error=errorLogin>
+    </LoginPage>
 
-     <MainPage v-else-if="currentPage === 'MainPage'"
-     @emitLogout="logout"
-     :categories=categories
-     :tasks=tasks
-     :loggedInEmail=loggedInEmail
-     @getCategory="getCategory"
-     @emitPopulate="showEditForm"
-     @emitMoveTask="showMoveForm"
-     @emitDeleteTask="deleteTask"
-     ></MainPage>
+    <MainPage v-else-if="currentPage === 'MainPage'"
+      @emitLogout="logout"
+      :categories=categories
+      :tasks=tasks
+      :loggedInEmail=loggedInEmail
+      @getCategory="getCategory"
+      @emitPopulate="showEditForm"
+      @emitMoveTask="showMoveForm"
+      @emitDeleteTask="deleteTask">
+    </MainPage>
 
-     <addForm 
-     v-if="currentPage === 'addForm'"
-     @emitChangePage="changePage"
-     @emitAddTask="addTask"
-      ></addForm>
+    <addForm 
+      v-if="currentPage === 'addForm'"
+      @emitChangePage="changePage"
+      @emitAddTask="addTask">
+    </addForm>
 
     <editForm
      v-if="currentPage === 'editForm'"
      @emitChangePage="changePage"
      @emitEditTask="editTask"
-     :task=task
-     ></editForm>
+     :task=task>
+    </editForm>
 
-     <moveForm
+    <moveForm
      v-if="currentPage === 'moveForm'"
      @emitChangePage="changePage"
      @emitMoveTask="moveTask"
      :movedTask=movedTask
-     :categories=categories></moveForm>
+     :categories=categories>
+    </moveForm>
   </div>
 </template>
 
 <script>
 let basicUrl = "http://localhost:3000/"
+import {GoogleLogin} from 'vue-google-login';
 import addForm from "./components/addForm.vue"
 import editForm from "./components/editForm.vue"
 import moveForm from "./components/moveForm.vue"
@@ -55,8 +62,11 @@ import RegisterPage from "./components/register.vue"
 import LoginPage from "./components/loginPage.vue"
 import axios from "axios"
 export default {
+  name: "App",
   data() {
     return {
+      errorLogin: null,
+      errorRegister: null,
       currentPage: 'LoginPage',
       email: null,
       password: null,
@@ -96,13 +106,31 @@ export default {
           this.getTasks()
 
         })
-        .catch(xhr => {
-          console.log(xhr)
+        .catch(error => {
+          console.log(this.error)
         })
         .finally(() => {
           this.email = null
           this.password = null
         })
+    },
+    register(email, password){
+      axios({
+        url: `${basicUrl}user/register`,
+        method: "post",
+        data: {
+          email,
+          password
+        }
+      })
+      .then(response => {
+        this.currentPage = "LoginPage"
+        console.log(response)
+      })
+      .catch(error => {
+        this.errorRegister = error.response.data.message
+        console.log(error.response.data)
+      })
     },
     getTasks(){
       axios({
@@ -132,8 +160,8 @@ export default {
           }
           this.tasks = response.data
         })
-        .catch(xhr => {
-          console.log(xhr)
+        .catch(error => {
+          console.log(error.response.data)
         })
     },
     getCategory(CategoryId, page){
@@ -158,8 +186,9 @@ export default {
         this.currentPage = "MainPage"
         this.getTasks()
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        this.getCategory()
+        console.log(error.response.data)
       })
     },
     showEditForm(task, page){
@@ -188,8 +217,8 @@ export default {
         this.currentPage = "MainPage"
         this.getTasks()
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        console.log(error.response.data)
       })
     },
     showMoveForm(task, page){
@@ -213,8 +242,8 @@ export default {
          this.currentPage = "MainPage"
          this.getTasks()
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        console.log(error.response.data)
       })
     },
     deleteTask(task){
@@ -230,12 +259,16 @@ export default {
         this.currentPage = "MainPage"
         this.getTasks()
       })
-      .catch(err => {
-        console.log(err)
+      .catch(error => {
+        console.log(error.response.data)
       })
     },
     logout(){
       localStorage.clear()
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+      console.log('User signed out.');
+      });
       this.currentPage = "LoginPage"
     }
   },
@@ -245,7 +278,8 @@ export default {
     MainPage,
     addForm,
     editForm,
-    moveForm
+    moveForm,
+    GoogleLogin
   },
   created: function (){
     if (localStorage.getItem("access_token")){

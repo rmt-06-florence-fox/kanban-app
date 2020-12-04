@@ -1,15 +1,15 @@
 <template>
   <div class="row flex-container-kanban">
     <KanbanBoard 
-    v-for="category in categories" 
-    :key="category.id" 
-    :category="category" 
-    :tasks=tasks 
-    :loggedInEmail=loggedInEmail
-    @getCategory="getCategory"
-    @emitPopulate="emitPopulate"
-    @emitMoveTask="emitMoveTask"
-    @emitDeleteTask="emitDeleteTask"
+      v-for="category in categories" 
+      :key="category.id" 
+      :category="category" 
+      :tasks=tasks 
+      :loggedInEmail=loggedInEmail
+      @getCategory="getCategory"
+      @emitPopulate="emitPopulate"
+      @emitMoveTask="emitMoveTask"
+      @emitDeleteTask="emitDeleteTask"
     ></KanbanBoard>
    
   </div>
