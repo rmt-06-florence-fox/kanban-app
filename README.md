@@ -162,14 +162,12 @@ Request:
 
 ```json
 {
-  "treasure": {
-{
+  {
     "id": 1,
     "name": "Coding",
     "description": "Coding server configuration",
     "updatedAt": "2020-12-04T03:47:14.916Z",
     "createdAt": "2020-12-04T03:47:14.916Z"
-  }
   }
 }
 ```
@@ -199,6 +197,6 @@ Request:
 
 ```json
 {
-  "message": delete success
+  "message": "delete success"
 }
 ```
