@@ -11409,7 +11409,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 var _default = {
   name: "TaskCard",
   props: ['element'],
@@ -11474,9 +11473,7 @@ exports.default = _default;
               on: { cancelEdit: _vm.cancelEdit, changeTitle: _vm.saveEditTitle }
             })
           : _c("div", { staticClass: "card-header" }, [
-              _c("h1", [_vm._v(_vm._s(_vm.element.title))]),
-              _vm._v(" "),
-              _c("h1", [_vm._v(_vm._s(_vm.element.id))])
+              _c("h1", [_vm._v(_vm._s(_vm.element.title))])
             ]),
         _vm._v(" "),
         _c(
@@ -12511,7 +12508,8 @@ var _default = {
       console.log(data, 'login');
       (0, _axios.default)({
         method: 'post',
-        url: 'http://localhost:3000/login',
+        // url: 'http://localhost:3000/login',
+        url: 'https://kanban-server-p2.herokuapp.com/login',
         data: data
       }).then(function (resp) {
         console.log(resp.data.access_token);
@@ -12542,7 +12540,8 @@ var _default = {
       this.task = [];
       (0, _axios.default)({
         method: 'get',
-        url: 'http://localhost:3000/task/category',
+        // url : 'http://localhost:3000/task/category',
+        url: 'https://kanban-server-p2.herokuapp.com/task/category',
         headers: {
           access_token: access_token
         }
@@ -12564,7 +12563,8 @@ var _default = {
       console.log(access_token);
       (0, _axios.default)({
         method: 'post',
-        url: "http://localhost:3000/task",
+        // url: "http://localhost:3000/task",
+        url: 'https://kanban-server-p2.herokuapp.com/task',
         headers: {
           access_token: access_token
         },
@@ -12583,7 +12583,8 @@ var _default = {
       var access_token = localStorage.access_token;
       console.log('final', id);
       (0, _axios.default)({
-        url: "http://localhost:3000/task/".concat(id),
+        // url : `http://localhost:3000/task/${id}`,
+        url: "https://kanban-server-p2.herokuapp.com/task/".concat(id),
         method: 'delete',
         headers: {
           access_token: access_token
@@ -12602,7 +12603,8 @@ var _default = {
       console.log(data, 'reg');
       (0, _axios.default)({
         method: 'post',
-        url: 'http://localhost:3000/register',
+        // url: 'http://localhost:3000/register',
+        url: 'https://kanban-server-p2.herokuapp.com/register',
         data: data
       }).then(function (resp) {
         console.log('regis');
@@ -12620,7 +12622,8 @@ var _default = {
       console.log(categoryId, 'app', onId);
       var access_token = localStorage.access_token;
       (0, _axios.default)({
-        url: "http://localhost:3000/task/".concat(onId),
+        // url : `http://localhost:3000/task/${onId}`,
+        url: "https://kanban-server-p2.herokuapp.com/task/".concat(onId),
         method: 'PATCH',
         data: {
           categoryId: categoryId
@@ -12642,7 +12645,8 @@ var _default = {
       console.log(newTitle, 'app', categoryId, taskId);
       var access_token = localStorage.access_token;
       (0, _axios.default)({
-        url: "http://localhost:3000/task/".concat(taskId),
+        // url : `http://localhost:3000/task/${taskId}`,
+        url: "https://kanban-server-p2.herokuapp.com/task/".concat(taskId),
         method: 'PUT',
         headers: {
           access_token: access_token

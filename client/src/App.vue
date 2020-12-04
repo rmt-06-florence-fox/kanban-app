@@ -53,7 +53,8 @@ export default {
 
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/login',
+                // url: 'http://localhost:3000/login',
+                url : 'https://kanban-server-p2.herokuapp.com/login',
                 data: data
             })
             .then(resp =>{
@@ -88,7 +89,8 @@ export default {
             this.task = []
             axios({
                 method : 'get',
-                url : 'http://localhost:3000/task/category',
+                // url : 'http://localhost:3000/task/category',
+                url : 'https://kanban-server-p2.herokuapp.com/task/category',
                 headers : {
                     access_token  
                 }
@@ -111,7 +113,8 @@ export default {
             console.log(access_token)
             axios({
                 method : 'post',
-                url: "http://localhost:3000/task",
+                // url: "http://localhost:3000/task",
+                url : 'https://kanban-server-p2.herokuapp.com/task',
                 headers : {
                     access_token },
                 data : payload
@@ -127,7 +130,8 @@ export default {
             const access_token = localStorage.access_token
             console.log('final',id)
             axios({
-                url : `http://localhost:3000/task/${id}`,
+                // url : `http://localhost:3000/task/${id}`,
+                url : `https://kanban-server-p2.herokuapp.com/task/${id}`,
                 method : 'delete',
                 headers : {
                     access_token
@@ -143,7 +147,8 @@ export default {
             console.log(data,'reg')
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/register',
+                // url: 'http://localhost:3000/register',
+                url: 'https://kanban-server-p2.herokuapp.com/register',
                 data: data
             })
             .then(resp =>{
@@ -164,7 +169,8 @@ export default {
             const access_token = localStorage.access_token
 
             axios({
-                url : `http://localhost:3000/task/${onId}`,
+                // url : `http://localhost:3000/task/${onId}`,
+                url : `https://kanban-server-p2.herokuapp.com/task/${onId}`,
                 method : 'PATCH',
                 data : {
                     categoryId : categoryId
@@ -185,7 +191,8 @@ export default {
             console.log(newTitle,'app',categoryId,taskId)
             const access_token = localStorage.access_token
             axios({
-                url : `http://localhost:3000/task/${taskId}`,
+                // url : `http://localhost:3000/task/${taskId}`,
+                url : `https://kanban-server-p2.herokuapp.com/task/${taskId}`,
                 method : 'PUT',
                 headers : {
                     access_token

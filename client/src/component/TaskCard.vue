@@ -13,7 +13,6 @@
         
         <div  v-else class="card-header">
           <h1>{{element.title}}</h1>
-          <h1>{{element.id}}</h1>
         </div>
         <div class="card-body">
 
