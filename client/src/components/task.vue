@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <div class="card shadow mt-2">
-      <div class="card-body">
+  <div name="test" :id="task.id">
+    <div class="card shadow mt-2" >
+    <!-- <draggable group="task" @start="getTaskDataByDrag(task.id)"> -->
+      <div class="card-body" >
         <h5 class="card-title">{{ task.title }}</h5>
         <p>Username: {{ task.User.email }}</p>
         <p v-if="task.Organization.name">Organization: {{ task.Organization.name }}</p>
@@ -17,6 +18,7 @@
         ></editTaskCatagory>          
         </div>
       </div>
+    <!-- </draggable> -->
     </div>
   </div>
 </template>
@@ -25,6 +27,7 @@
 import addTask from "./addTask";
 import editTask from "./edit";
 import editTaskCatagory from './EditTaskCatagory'
+import draggable from "vuedraggable"
 
 export default {
   name: "task",
@@ -33,14 +36,19 @@ export default {
     return {
       kondisiEditForm: false,
       moveTask: false,
+      dataTask: ''
     };
   },
   components: {
     addTask,
     editTask,
-    editTaskCatagory
+    editTaskCatagory,
+    draggable
   },
   methods: {
+    getTaskDataByDrag(id){
+      this.$emit('throwTaskIdByDrag', id)
+    },
     lemparEditCategory(category){
         let payload = {
             id: this.task.id,

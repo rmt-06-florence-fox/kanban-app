@@ -4,15 +4,17 @@
         <div class="main-page-top">
           <addCategory @lemparNewCategory="lemparNewCategory"></addCategory>
         </div>
-        <div class="container mt-2">
-          <div class="row">
-            <div class="col-md-3 col-sm6 mt-2" style="display: inline; overflow: auto" v-for="(category) in categoryList" :key="category.id">
-              <div  class="p-3 bg-primary text-white">
-                {{category.title}}
+        <div class="mt-2">
+          <div class="category-list">
+            <div class="category-item m-2" style="" v-for="(category) in categoryList" :key="category.id">
+              <div  class="p-3 bg-danger text-white">
+                <p class="text-center" style="font-size: large">{{category.title}}</p>
               </div>
-              <draggable>
-                <task :categoryTitle="category.title" @lemparEditCategory="lemparEditCategory" @lemparDeleteId="terimaDeleteId" @lemparPayloadEdit="terimaPayloadEdit" @lemparNewTask="newTask" v-for="task in category.Tasks" :key="task.id" :task="task" :categoryList="categoryList"></task>
+              <div style="height:60vh; overflow-y: auto">
+              <draggable :id="category.title" group="tasks" @end="(e) => changeCategory(e)">
+                <task  :categoryTitle="category.title" @lemparEditCategory="lemparEditCategory" @lemparDeleteId="terimaDeleteId" @lemparPayloadEdit="terimaPayloadEdit" @lemparNewTask="newTask" v-for="task in category.Tasks" :key="task.id" :task="task" :categoryList="categoryList"></task>
               </draggable>        
+              </div>
                 <div class="add-Task mt-2 text-center">
                   <addTask @lemparEditCategory="lemparEditCategory" :categoryId="category.id" @lemparTitleTask="titleTask"></addTask>
                 </div>              
@@ -44,10 +46,18 @@ export default {
             kondisiRef: [],
             CategoryId: '',
             kondisiAddCategory: false,
-            CategoryTitle: ''
+            CategoryTitle: '',
+            dataTask: ''
         }
     },    
     methods: {
+      changeCategory(e) {
+        let payload = {
+          id: e.item.id,
+          CategoryTitle: e.to.id
+        }
+        this.$emit('changeCategory', payload)
+      },
       lemparEditCategory(payload){
         this.$emit('lemparEditCategory', payload)
       },
@@ -70,7 +80,6 @@ export default {
         this.$emit('lemparNewTask', payload)
       },
       titleTask(payload){
-        console.log(payload)
         this.$emit('lemparNewTask', payload)
         this.kondisiRef[payload.CategoryId-1] = false
       },
@@ -87,5 +96,14 @@ export default {
 </script>
 
 <style>
+  .category-list {
+    overflow-x: scroll;
+    width: 100vw;
+    white-space: nowrap;
+  }
 
+  .category-item {
+    min-width: 25%;
+    display: inline-block;
+  }
 </style>

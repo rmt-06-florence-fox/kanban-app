@@ -19,6 +19,9 @@ class CategoryController {
                     model: Task,
                     include: [User, Organization],
                 },
+                order: [
+                    ['id']
+                ]
             })
             res.status(200).json(data)
         } catch (error) {

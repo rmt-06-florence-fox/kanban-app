@@ -1,7 +1,7 @@
 <template>
   <div>
     <loginPage @lemparGoogleToken="googleSignin" @changeRegisterPage="changeRegisterPage" @login="loginUser" v-if="pageName == 'login page'" ></loginPage>
-    <mainPage @lemparEditCategory="editCategory" @lemparNewCategory="addCategory" @changeLoginPage="changeLoginPage" @lemparDeleteId="deleteTask" @lemparPayloadEditKeApp="editTask" @lemparNewTask="terimaNewTask" :categoryList="categories" v-else-if="pageName == 'main page'"></mainPage>
+    <mainPage @changeCategory="changeCategory" @lemparEditCategory="editCategory" @lemparNewCategory="addCategory" @changeLoginPage="changeLoginPage" @lemparDeleteId="deleteTask" @lemparPayloadEditKeApp="editTask" @lemparNewTask="terimaNewTask" :categoryList="categories" v-else-if="pageName == 'main page'"></mainPage>
     <registerPage @lemparNewOrganization="createOrganization" @registerEmit="register" :organizations="organizations" v-else-if="pageName == 'register page'"></registerPage>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       pageName: "login page",
-      url: "https://kanbanogy-server.herokuapp.com",
+      url: "http://localhost:3000",
       categories: [],
       organizations: [],
       userEmail: '',
@@ -54,12 +54,12 @@ export default {
         console.log(err)
       })
     },
-    editCategory(payload){
-        axios({
+    changeCategory(payload){
+      axios({
         url: `${this.url}/task/${payload.id}`,
         method: `PATCH`,
         data:{
-          category: payload.category
+          category: payload.CategoryTitle
         },
         headers: {
           access_token: localStorage.access_token
@@ -70,12 +70,33 @@ export default {
         this.fetchCatagory()
       })
       .catch(err => {
-        console.log(err)
         swal(`error you are not authorized`)
+        .then( () =>
+          window.history.go()
+        )
+      })
+    },
+    editCategory(payload){
+        axios({
+        url: `${this.url}/task/${payload.id}`,
+        method: `PATCH`,
+        data:{
+          category: payload.CategoryTitle
+        },
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(res => {
+        // swal(`Update Category Success`)
+        this.fetchCatagory()
+      })
+      .catch(err => {
+        console.log(err)
+        // swal(`error you are not authorized`)
       })
     },
     addCategory(title){
-      console.log(title, 'from app')
       axios({
         url: `${this.url}/category`,
         method: `POST`,
@@ -161,10 +182,10 @@ export default {
         } 
       })
       .then(res => {
+        localStorage.setItem('name', res.data.data.email.split('@')[0])
         localStorage.setItem('access_token', res.data.access_token)
         this.fetchCatagory()
         this.pageName = 'main page'
-        console.log(res)
       })
       .catch(err => {
         console.log(err)
@@ -211,10 +232,12 @@ export default {
       .then(res => {
         swal(`EDIT SUCCESS`)
         this.fetchCatagory()
-        console.log(res)
       })
       .catch(err => {
         swal(`error you are not authorized`)
+        // this.$router.push('/')
+
+        // this.fetchCatagory()
       })
     },
     fetchCatagory(){
@@ -226,7 +249,6 @@ export default {
         }
       })
       .then(res => {
-        console.log(res)
         this.categories = res.data
         this.pageName = 'main page'
       })

@@ -2,7 +2,7 @@
   <div>
     <b-button class="btn-primary" @click="showModal">Edit</b-button>
     <form @submit.prevent="lemparEditTitle">
-        <b-modal ref="my-modal" hide-footer title="add new task">
+        <b-modal ref="my-modal" hide-footer title="Edit Task">
         <div class="d-block text-center">
             <h3>Edit Task Name</h3>
             <input class="text-center" v-model="taskTitle"  type="text" required >
