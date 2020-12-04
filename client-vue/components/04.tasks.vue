@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="card-body rounded border border-primary">
-        <p class="card-text" v-text = "list.title"></p>
-        <p>made by: {{this.fullname}}</p>
+        <h6 class="card-text" v-text = "list.title"></h6>
+        <p><small>Made by: {{this.fullname}}<small></p>
         <a class="btn btn-outline-primary" @click.prevent = "edit">Edit</a>
         <a href="" class="btn btn-outline-danger" @click.prevent = "destroy">Delete</a>
       </div>

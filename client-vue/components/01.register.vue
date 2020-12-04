@@ -2,6 +2,10 @@
     <div class="row" id="registerP">
       <div class="col-sm-12 col-md-6 d-flex justify-content-center d-flex align-items-center" style="height: 100vh;">
         <div class="row">
+          <div class="col-md-12">
+            <p>Manage your time with</p>
+            <h3>The Kanban.co!</h3>
+          </div>
           <div class="col-md-12 pt-4 bg-white rounded shadow">
             <h4>Register here</h4>
             <form @submit.prevent = "requestCreate">

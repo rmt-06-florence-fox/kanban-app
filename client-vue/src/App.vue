@@ -4,6 +4,7 @@
   v-if = "page === 'login page'"
   @requestLogin = "login"
   @requestChangePage = "changePage"
+  @loginGoogle = 'loginGoogle'
   ></login>
 
   <register
@@ -30,6 +31,7 @@ import register from '../components/01.register'
 import mainPage from '../components/01.mainPage'
 import axios from 'axios'
 import $ from 'jquery'
+import GoogleLogin from 'vue-google-login'
 import 'regenerator-runtime/runtime'
 
 export default {
@@ -44,7 +46,8 @@ export default {
   components : {
     login,
     register,
-    mainPage
+    mainPage,
+    GoogleLogin
   },
   methods : {
     changePage(value) {
@@ -243,6 +246,24 @@ export default {
         
       }
       
+    },
+    async loginGoogle(googleUser){
+      try {
+        const googleToken = googleUser.xc.id_token;
+        let data = await axios({
+          url : `${this.localhost}/googleLogin`,
+          method : 'post',
+          data : {
+            googleToken
+          }
+        })
+        localStorage.setItem('access_token', data.data.access_token)
+        localStorage.setItem('fullname', data.data.fullname)
+        this.fetchTask()
+        this.changePage('main page')
+      } catch (error) {
+        console.log(error.response);
+      }
     }
   },
   created() {
