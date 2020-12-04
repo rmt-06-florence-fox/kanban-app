@@ -53,9 +53,9 @@ export default {
     }
   },
   created() {
+    console.log(localStorage.getItem('access_token'))
     if(localStorage.getItem('access_token')) {
       this.page = 'main'
-      this.getAllTask()
     } else {
       this.page = 'login'
     }
@@ -67,7 +67,8 @@ export default {
     },
     
     signinUser(data) {
-      localStorage.setItem('access_token', data.access_token)
+      console.log(data.data.access_token)
+      localStorage.setItem('access_token', data.data.access_token)
       this.changePage('main')
     },
 

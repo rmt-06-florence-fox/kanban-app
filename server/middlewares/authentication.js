@@ -9,6 +9,7 @@ const authentication = (req, res, next) => {
   } else {
     const decoded = jwt.verify(access_token, process.env.SECRET)
     req.userData = decoded
+    console.log(decoded)
     User.findByPk(decoded.id)
     .then(user => {
       if(user) {

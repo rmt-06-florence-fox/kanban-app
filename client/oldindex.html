@@ -13,7 +13,7 @@
     <div id="app">
       
       <!--LOGIN PAGE-->
-      <div class="login-page" v-if="page === 'login'">
+      <div class="login-page">
         <div class="card col-sm-4">
           <article class="card-body">
             <h2 class="card-title text-center mb-4 mt-1">Sign In</h2>
@@ -49,7 +49,7 @@
       </div>
 
       <!--REGISTER PAGE-->
-      <div class="register-page" v-else-if="page === 'register'">
+      <div class="register-page">
         <div class="card col-sm-4">
           <article class="card-body">
             <h2 class="card-title text-center mb-4 mt-1">Sign Up Account</h2>
@@ -93,7 +93,7 @@
 
       <!--MAIN PAGE-->
       
-      <div class="main-page" v-else-if="page === 'main'">
+      <div class="main-page">
 
         <!--NAVBAR-->
         <nav class="custom-navbar sticky-top">
@@ -154,8 +154,7 @@
               </div>
               <div class="card add">
                 <div class="card-body">
-                  <input class="card-title form-control" placeholder="Insert Task Title">
-                  <input class="card-subtitle mb-2 text-muted form-control" placeholder="Insert Description">
+                  <textarea class="card-title form-control" placeholder="Insert Task Title">
                   <button class="btn btn-primary">Add Task</button>
                   <button class="btn btn-danger">Cancel</button>
                 </div>

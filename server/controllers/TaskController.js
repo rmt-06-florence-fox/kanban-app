@@ -16,6 +16,20 @@ class TaskController {
     .catch(next)
   }
 
+  static getOne(req, res, next) {
+    const id = req.params.id
+
+    Task.findByPk(id)
+    .then(data => {
+      if(!data) {
+        next({name: "NOT_FOUND"})
+      } else {
+        res.status(200).json(data)
+      }
+    })
+    .catch(next)
+  }
+
   static getAll(req, res, next) {
 
     Task.findAll({

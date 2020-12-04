@@ -11,8 +11,9 @@ router.post('/google-sign-in', UserController.googleSignIn)
 
 router.use(authentication)
 
+router.get('/tasks', TaskController.getAll)
+router.get('/tasks/:id', authorization, TaskController.getOne)
 router.post('/tasks', authorization, TaskController.add)
-router.get('/tasks', authorization, TaskController.getAll)
 router.put('/tasks/:id', authorization, TaskController.edit)
 router.delete('/tasks/:id', authorization, TaskController.delete)
 
