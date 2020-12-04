@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="card border-success mb-3 shadow " style="max-width: 18rem;">
-        <div class="card-header bg-transparent border-success ">{{Task.name}}</div>
+        <div class="card-header bg-transparent border-success "><button @click="editTask" style="border-radius: 15px; background-color: white;">&#x270E;</button> {{Task.name}}</div>
             <div class="card-body text-success">
                 <h5 class="card-title"></h5>
                 <p class="card-text">{{Task.description}}</p>
@@ -64,6 +64,9 @@ export default {
         },
         destroy(){
             this.$emit("PleaseDeleteTask", this.Task.id)
+        },
+        editTask(){
+            this.$emit("PleaseEditTask")
         }
         
     },

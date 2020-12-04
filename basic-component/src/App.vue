@@ -103,8 +103,8 @@ export default {
                 url: "http://localhost:3000/task"
             })
             .then(response => {
-                this.currentPage = 'MainPage'
                 this.fetchTask()
+                this.currentPage = 'MainPage'         
                 console.log(response.data)
             })
             .catch(error => {

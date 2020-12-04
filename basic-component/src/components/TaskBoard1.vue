@@ -3,6 +3,7 @@
         <button @click="addTask" class="button-Add">+</button>
         <div class="p-2 mb-2 bg-success text-white rounded shadow">
             {{Category.name}}
+            
         </div> 
         <TaskCard 
         v-for="Task in filteredTask"
