@@ -1,11 +1,14 @@
 <template>
     <div class="nav-container">
         <button class="btn btn-primary mr-2" @click="add">Add Activity</button>
-        <button class="btn btn-danger" @click="logout">Log Out</button>
+        <div @click="logout">
+            <GoogleLogin :params="params" :logoutButton=true class="btn btn-danger">Logout</GoogleLogin>
+        </div>
     </div>
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login';
 export default {
     name: "Navbar",
     methods: {
