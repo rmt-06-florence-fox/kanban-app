@@ -1,9 +1,9 @@
-const {Task} = require('../models')
+const {Task, User} = require('../models')
 
 class TaskController{
   static async seeList(req,res,next){
     try {
-      const list = await Task.findAll()
+      const list = await Task.findAll({ include: User })
       if (list) {
         res.status(200).json(list)
       } else {
@@ -51,7 +51,7 @@ class TaskController{
   static async update(req,res,next){
     let id = req.params.id
     let obj = {
-      title : req.body.firstName,
+      title : req.body.title,
       category : req.body.category
     }
     try {
@@ -69,31 +69,11 @@ class TaskController{
     }
   }
 
-  static async patch(req,res,next){
-    let id = req.params.id
-    let obj = {
-      category : req.body.category
-    }
-    try {
-      const updated = await Task.update({category: obj.category}, {where: {id}, returning: true})
-      if (updated) {
-        res.status(200).json(updated[1][0])
-      } else {
-        throw {
-          status : 404,
-          message: `error not found`
-        }
-      }
-    } catch (error) {
-      next(error)
-    }
-  }
-
   static async delete(req,res,next){
     let id = req.params.id
     try {
       const deleted = await Task.destroy({where: {id}})
-      if (updated) {
+      if (deleted) {
         res.status(200).json({message : `Task is deleted`})
       } else {
         throw {

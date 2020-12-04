@@ -3,7 +3,6 @@ module.exports = (err, req, res, next) => {
     res.status(err.status).json(err.message)
   } else if (err.name === `SequelizeValidationError`) {
     const listErr = err.errors.map(e => e.message)
-    console.log(listErr);
     res.status(400).json({message : listErr})
   } else if (err.name === `SequelizeUniqueConstraintError`) {
     const listErr = err.errors.map(e => e.message)
