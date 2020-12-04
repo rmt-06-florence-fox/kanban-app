@@ -1,7 +1,7 @@
 <template>
   <div class="hero-body bg-img img-responsive">
     <div class="container">
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered ">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
           <form class="box">
             <figure class="image container is-64x64">
@@ -42,12 +42,14 @@
                 </span>
               </div>
             </div>
-            <div>
+            <div class="has-text-centered">
+              <small>
               <a href="#" @click.prevent="toRegister"
                 >don't have any account?</a
               >
+              </small>
             </div>
-            <div class="mt-2">
+            <div class="mt-2 has-text-centered">
               <button class="button is-success" @click.prevent="doLogin">
                 Login
               </button>

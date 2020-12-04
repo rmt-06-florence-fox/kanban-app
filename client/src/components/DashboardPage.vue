@@ -1,27 +1,24 @@
 <template>
   <div id="board" class="hero-body mt-4">
     <div class="container has-text-centered">
-      <div>
-        <button @click.prevent="toAddForm" class="button mb-5" id="add-task" type = "submit">Add Task</button>
-      </div>
       <BoardList
-        :dataTasks="dataTasks"
-        ></BoardList>
+      :dataTasks="dataTasks"
+      :addTask="addTask"
+      ></BoardList>
     </div>
   </div>
 </template>
 
 <script>
-import BoardList from "./BoardList"
+import BoardList from "./BoardList";
+import swal from 'sweetalert'
 
 export default {
   name: "DashboardPage",
   components: {
     BoardList,
   },
-  props: [ 'dataTasks'],
-  methods: {
-  }
+  props: [ "dataTasks", "addTask"],
 };
 </script>
 

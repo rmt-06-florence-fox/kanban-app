@@ -14,18 +14,17 @@
       :hasAccount="hasAccount"
     ></LandingPage>
 
-    <DashboardPage 
+    <DashboardPage
       v-if="isLogin"
       :dataTasks="dataTasks"
+      :addTask="addTask"
     ></DashboardPage>
 
     <!-- <AddForm
       v-if="isLogin"
     ></AddForm> -->
 
-    <EditForm
-      v-if="isLogin"
-    ></EditForm>
+    <EditForm v-if="isLogin"></EditForm>
 
     <Footer></Footer>
   </section>
@@ -70,11 +69,11 @@ export default {
       this.hasAccount = value;
     },
     toAddForm() {
-      this.pageName = 'addForm';
+      this.pageName = "addForm";
     },
     toEditForm(payload) {
-      this.pageName = payload.pageName
-      this.detailTasks = payload.task
+      this.pageName = payload.pageName;
+      this.detailTasks = payload.task;
     },
 
     //create
@@ -83,38 +82,40 @@ export default {
         method: "POST",
         url: "tasks",
         headers: {
-          access_token: localStorage.getItem('access_token')
+          access_token: localStorage.getItem("access_token"),
         },
         data: {
           title,
           category,
         },
       })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
+          this.getTasks();
+
           // atur page sm fetch data
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     },
 
     //read
     getTasks() {
       this.$api({
-        method: 'GET',
+        method: "GET",
         url: "tasks",
         headers: {
           access_token: localStorage.getItem("access_token"),
-        }
+        },
       })
-      .then((response) => {
-        console.log(response)
-        this.dataTasks = response.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((response) => {
+          console.log(response);
+          this.dataTasks = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     //update
@@ -123,23 +124,23 @@ export default {
         method: "PUT",
         url: `tasks/${editData.id}`,
         headers: {
-          access_token: localStorage.getItem('access_token'),
+          access_token: localStorage.getItem("access_token"),
         },
         data: {
           title: editData.title,
           category: editData.category,
-        }
+        },
       })
-      .then((response) => {
-        console.log(response)
-        // atur page
-        // 
-        // fetch
-        // this.getTasks()
-      })
-      .catch((err) => {
-        next(err)
-      })
+        .then((response) => {
+          console.log(response);
+          // atur page
+          //
+          // fetch
+          this.getTasks();
+        })
+        .catch((err) => {
+          next(err);
+        });
     },
 
     // delete
@@ -148,26 +149,26 @@ export default {
         method: "DELETE",
         url: `/tasks/${task.id}`,
         headers: {
-          access_token: localStorage.getItem('access_token')
+          access_token: localStorage.getItem("access_token"),
         },
       })
-      .then(response => {
-        console.log(response)
-        // atur page
-        // 
-        // fetch
-        // this.getTasks()
-      })
-      .catch((err) => {
-        next(err)
-      })
-    }
+        .then((response) => {
+          console.log(response);
+          // atur page
+          //
+          // fetch
+          // this.getTasks()
+        })
+        .catch((err) => {
+          next(err);
+        });
+    },
   },
 
   created() {
     if (localStorage.getItem("access_token")) {
       this.isLogin = true;
-      this.getTasks()
+      this.getTasks();
     } else {
       this.isLogin = false;
     }

@@ -1,51 +1,52 @@
 <template>
   <div class="container card-container">
-      <div class="columns">
-        <TaskBoard
-          v-for="category in categories"
-          :key="category.id"
-          :dataTasks="dataTasks"
-          :category="category"
-        ></TaskBoard>
-      </div>
+    <div class="columns">
+      <TaskBoard
+        v-for="category in categories"
+        :key="category.id"
+        :dataTasks="dataTasks"
+        :category="category"
+        :addTask="addTask"
+      >
+      </TaskBoard>
     </div>
+  </div>
 </template>
 
 <script>
-import TaskBoard from "./TaskBoard"
+import TaskBoard from "./TaskBoard";
 
 export default {
   name: "BoardList",
   components: {
-    TaskBoard
+    TaskBoard,
   },
-  props: [ 'dataTasks'],
+  props: ["dataTasks", "createTask", "addTask"],
 
   data() {
     return {
       categories: [
-        { 
-          "id": 1,
-          "name": "Backlog",
+        {
+          id: 1,
+          name: "Backlog",
         },
         {
-          "id": 2,
-          "name": "Todo",
+          id: 2,
+          name: "Todo",
         },
         {
-          "id": 3,
-          "name": "Doing",
+          id: 3,
+          name: "Doing",
         },
         {
-          "id": 4,
-          "name": "Done",
+          id: 4,
+          name: "Done",
         },
-      ]
-    }
-  }
-}
+      ],
+    };
+  },
+};
 </script>
 
 <style>
-
 </style>

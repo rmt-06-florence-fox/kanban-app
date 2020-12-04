@@ -1,15 +1,17 @@
 <template>
-  <div class="card is-shady">
-    <div class="card-image has-text-centered">
-      <i class="fa fa-paw"></i>
-    </div>
-    <div class="card-content">
-      <div class="content">
-        <h4>{{task.title}}</h4>
-        <small>author:</small>
-        <h4>{{task.User.username}}</h4>
-      </div>
-    </div>
+  <div class="card is-primary">
+    <header>
+      <button class="delete is-medium is-danger  mt-2"></button>
+    </header>
+    <div class="card-content">{{ task.title }}</div>
+    <small><i>author:</i></small>
+    <footer class="card-footer">
+      <div class="card-footer-item">{{ task.User.username }}😎</div>
+    </footer>
+    <footer class="card-footer">
+      <a class="card-footer-item">◀︎</a>
+      <a class="card-footer-item">▶︎</a>
+    </footer>
   </div>
 </template>
 

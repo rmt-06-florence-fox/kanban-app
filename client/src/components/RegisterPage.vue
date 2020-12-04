@@ -1,8 +1,8 @@
 <template>
   <div class="hero-body bg-img img-responsive">
     <div class="container">
-      <div class="columns is-centered ">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen ">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
           <form class="box">
             <figure class="image container is-64x64">
               <img
@@ -57,11 +57,17 @@
                 </span>
               </div>
             </div>
-            <div>
-              <a href="#" @click.prevent="toLogin">Already have an account?</a>
+            <div class="has-text-centered">
+              <small>
+                <a href="#" @click.prevent="toLogin"
+                  >Already have an account?</a
+                >
+              </small>
             </div>
-            <div class="mt-2">
-              <button class="button is-success" @click.prevent="onRegister">Register</button>
+            <div class="mt-2 has-text-centered">
+              <button class="button is-success" @click.prevent="onRegister">
+                Register
+              </button>
             </div>
           </form>
         </div>
@@ -71,47 +77,47 @@
 </template>
 
 <script>
-import Swal from 'sweetalert'
+import Swal from "sweetalert";
 
 export default {
- name: "registerPage",
- props: [ 'checkAcc' ],
- data() {
+  name: "registerPage",
+  props: ["checkAcc"],
+  data() {
     return {
-      username: '',
-      email: '',
-      password: '',
-      isLoading: false
-    }
+      username: "",
+      email: "",
+      password: "",
+      isLoading: false,
+    };
   },
   methods: {
     toLogin() {
-      this.checkAcc(true)
+      this.checkAcc(true);
     },
     onRegister() {
       this.$api({
-        method: 'POST',
-        url: 'register',
+        method: "POST",
+        url: "register",
         data: {
           username: this.username,
           email: this.email,
           password: this.password,
-        }
+        },
       })
-      .then(() => {
-        this.checkAcc(true)
-        swal("account registered!", { 
-          icon: 'success',
-          buttons: false,
-          timer: 1500,
+        .then(() => {
+          this.checkAcc(true);
+          swal("account registered!", {
+            icon: "success",
+            buttons: false,
+            timer: 1500,
+          });
         })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }
-  }
-}
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
