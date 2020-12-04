@@ -6,8 +6,8 @@ class TaskController {
         try {
             let obj = {
                 title: req.body.title,
-                OrganizationId: req.body.OrganizationId,
                 CategoryId: req.body.CategoryId,
+                OrganizationId: req.userOrganization,
                 UserId:req.userLoggedIn.id 
             }
             let data = await Task.create(obj)
@@ -62,7 +62,12 @@ class TaskController {
     static async updateTask(req, res, next){
         try {
             let id = req.params.id
-            let data = await Task.update({CategoryId: req.body.CategoryId}, {
+            let categoryData = await Category.findOne({
+                where:{
+                    title: req.body.category
+                }
+            })
+            let data = await Task.update({CategoryId: categoryData.id}, {
                 where: {
                     id
                 },

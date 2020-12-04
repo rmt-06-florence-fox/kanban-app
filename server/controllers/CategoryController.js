@@ -1,4 +1,4 @@
-const {Category} = require('../models/index')
+const {Task, Category, Organization, User} = require('../models/index')
 
 class CategoryController {
     static async createCategory (req, res, next) {
@@ -14,7 +14,12 @@ class CategoryController {
     }
     static async getCategory(req,res, next){
         try {
-            let data = await Category.findAll()
+            let data = await Category.findAll({
+                include: {
+                    model: Task,
+                    include: [User, Organization],
+                },
+            })
             res.status(200).json(data)
         } catch (error) {
             next(error)

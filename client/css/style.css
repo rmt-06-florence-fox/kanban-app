@@ -4,9 +4,6 @@
   font-family: 'Ubuntu', sans-serif;
 }
 
-body {
-  overflow-x: hidden;
-}
 /* REGISTER PAGE */
 /* LOGIN PAGE */
 .login-container, 
@@ -28,7 +25,7 @@ body {
   margin-top: 20px;
 }
 .login-btn {
-  margin-top: 50px;
+  margin-top: 10px;
   background-color: black;
   color: white;
   padding: 5px 10px;
@@ -71,6 +68,9 @@ nav {
   justify-content: flex-end;
   padding-right: 2rem;
 }
+.nav-right h5{
+  margin: 0 15px;
+}
 
 .nav-right button {
   padding: 10px;
@@ -80,4 +80,25 @@ nav {
   border: none;
   border-radius: 10px;
   height: 30px;
+}
+
+.main-page-top {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.addCategory {
+  height: 30px;
+  padding: 5px;
+  text-align: c;
+}
+.add-category-form {
+  margin: 0 20px;
+}
+.add-task{
+  margin: 10px 50px;
+}
+.container-button-task{
+  display: flex;
+  justify-content: space-evenly;
 }

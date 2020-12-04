@@ -17,6 +17,7 @@ module.exports = async (req, res, next) => {
                 }
             })
             if(data){   
+                req.userOrganization = data.OrganizationId
                 next()
             } else {
                 throw({
