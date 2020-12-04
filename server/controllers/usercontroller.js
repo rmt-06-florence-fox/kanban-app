@@ -2,7 +2,7 @@ const { User } = require('../models')
 const { comparePwd } = require('../helpers/password')
 const { generateToken } = require('../helpers/jwt')
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client('31610476291-ipg9c739e6kj3um420fm5h5n1emibk6g.apps.googleusercontent.com');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
 
 class UserController {
   static async signup(req, res, next) {
@@ -39,7 +39,7 @@ class UserController {
     let payload
     client.verifyIdToken({
       idToken: req.body.google_token,
-      audience: '31610476291-ipg9c739e6kj3um420fm5h5n1emibk6g.apps.googleusercontent.com'
+      audience: process.env.GOOGLE_CLIENT
     })
       .then(ticket => {
         payload = ticket.getPayload()
@@ -50,7 +50,7 @@ class UserController {
         else {
           return User.create({
             email: payload.email,
-            password: 'awasyakalian'
+            password: process.env.GOOGLE_PASSWORD
           })
         }
       })
