@@ -1,6 +1,6 @@
 <template>
   <div class="card" v-if="task.category === category">
-    <div class="card-body" v-if="displayEdit === false">
+    <div class="card-body" v-show="displayEdit">
       <h5 clss="card-title">{{task.title}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{ task.User.createdAt.slice(0, 10) }}</h6>
       <h6 class="card-subtitle text-muted">{{ task.User.email }}</h6>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <EditTaskCard
-      v-if="displayEdit === true"
+      v-show="displayEdit"
     >
     </EditTaskCard>
   </div>
@@ -26,6 +26,9 @@ import axios from 'axios'
 import EditTaskCard from './EditTaskCard.vue'
 
 export default {
+  components: {
+    EditTaskCard
+  },
   props: ['task', 'category'],
   data() {
     return {

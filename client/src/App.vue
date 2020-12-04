@@ -5,6 +5,7 @@
       @changePage="changePage"
       @signinUser="signinUser"
       @signUpForm="signUpForm"
+      @loginGoogle="loginGoogle"
       @consoleErr="consoleErr"
       >
     </SignInPage>
@@ -37,6 +38,7 @@ import SignInPage from './components/SignInPage.vue'
 import SignUpPage from './components/SignUpPage.vue'
 import MainPage from './components/MainPage.vue'
 import Footer from './components/Footer.vue'
+import GoogleLogin from 'vue-google-login'
 
 
 export default {
@@ -45,7 +47,8 @@ export default {
     SignInPage,
     SignUpPage,
     MainPage,
-    Footer
+    Footer,
+    GoogleLogin
   },
   data() {
     return {
@@ -74,6 +77,11 @@ export default {
 
     logOutUser() {
       localStorage.clear()
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+
       this.changePage('login')
     },
 
@@ -83,6 +91,12 @@ export default {
 
     signInForm() {
       this.changePage('login')
+    },
+
+    loginGoogle(data) {
+      console.log(data.data.access_token)
+      localStorage.setItem('access_token', data.data.access_token)
+      this.changePage('main')
     },
 
     consoleErr(error) {

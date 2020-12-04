@@ -13,7 +13,12 @@
         >
         </TaskCard>
       </div>
-      <button v-show="!showAdd" class="add-card-btn btn" @click="toggleAddForm"><span><i class="fa fa-plus"></i></span> Add a task</button>
+      <button v-show="!showAdd" class="add-card-btn btn"><span><i class="fa fa-plus"></i></span> Add a task</button>
+      <AddTaskCard
+        v-show="showAdd"
+        :category="category.name"
+      >
+      </AddTaskCard>
     </div>
   </div>
 </template>
@@ -23,11 +28,13 @@ import Vue from 'vue'
 import axios from 'axios'
 import SweetAlert from 'sweetalert2'
 import TaskCard from './TaskCard.vue'
+import AddTaskCard from './AddTaskCard.vue'
 
 
 export default {
   components: {
-    TaskCard
+    TaskCard,
+    AddTaskCard
   },
   props: ['category', 'task'],
   data() {

@@ -28,7 +28,7 @@
           </div>
           <p class="text-center">Don't have an account yet?<span><a href="" @click.prevent="signUpForm" id="register-button"> Register an account</a></span></p>
           <p class="text-center">or sign in with</p>
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <GoogleLogin class="d-flex justify-content-center" :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
         </form>
       </article>
     </div>
@@ -38,11 +38,24 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
+import GoogleLogin from 'vue-google-login'
 const server_url = 'http://localhost:3000'
 
 export default {
+  components: {
+    GoogleLogin
+  },
   data() {
     return {
+      params: {
+        client_id: "529209285357-d41osmq467u8omuavlk9oio2mc25o6p6.apps.googleusercontent.com"
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+          width: 250,
+          height: 50,
+          longtitle: true
+      },
       signin_email: '',
       signin_password: '',
     }
@@ -77,6 +90,25 @@ export default {
     signUpForm() {
       this.$emit('signUpForm')
     },
+
+    onSuccess(googleUser) {
+      const googleToken = googleUser.getAuthResponse().id_token;
+      console.log(googleToken)
+
+      axios({
+        url: server_url + '/google-sign-in',
+        method: "POST",
+        data: {
+          googleToken
+        }
+      })
+      .then(data => {
+        this.$emit('loginGoogle', data)
+      })
+      .catch(err => {
+        this.$emit('consoleErr', err)
+      })
+    }
   },
 }
 </script>
