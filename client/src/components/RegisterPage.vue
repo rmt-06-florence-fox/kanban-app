@@ -75,7 +75,7 @@ import Swal from 'sweetalert'
 
 export default {
  name: "registerPage",
- props: [ 'hasAcc' ],
+ props: [ 'checkAcc' ],
  data() {
     return {
       username: '',
@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     toLogin() {
-      this.hasAcc(true)
+      this.checkAcc(true)
     },
     onRegister() {
       this.$api({
@@ -99,7 +99,7 @@ export default {
         }
       })
       .then(() => {
-        this.hasAcc(true)
+        this.checkAcc(true)
         swal("account registered!", { 
           icon: 'success',
           buttons: false,

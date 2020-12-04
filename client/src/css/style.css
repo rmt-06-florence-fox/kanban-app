@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.status {
+  background-color: rgba(99, 205, 218, 0.5);
+}
+
 .status-1 {
   background-color: #f7d794;
 }
@@ -51,14 +55,14 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: auto;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
 .img-responsive {
   display: block;
   max-width: 100%;
-  height: auto;
+  min-height: auto;
 }
 
 .box {

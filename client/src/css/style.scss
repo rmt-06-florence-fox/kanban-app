@@ -2,6 +2,7 @@ $first-color: #f7d794;
 $second-color: #ea8685;
 $third-color: #786fa6;
 $fourth-color: #63cdda;
+$primary-color: #202020;
 
 @function transparent($color) {
   @return rgba($color, .5 );
@@ -20,6 +21,10 @@ $fourth-color: #63cdda;
 * {
   margin: 0;
   padding: 0;
+}
+
+.status {
+  background-color: transparent($fourth-color);
 }
 
 .status-1 {
@@ -63,14 +68,14 @@ $fourth-color: #63cdda;
   background-position: center center;
   background-repeat:  no-repeat;
   background-attachment: fixed;
-  background-size:  cover;
+  background-size: auto;
   background-color: rgba(255,255,255, 0.1);
 }
 
 .img-responsive {
-display: block; 
-max-width: 100%;
-height: auto;
+  display: block; 
+  max-width: 100%;
+  min-height: auto;
 } 
 
 .box {

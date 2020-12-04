@@ -1,7 +1,7 @@
 <template>
   <div class="hero-body bg-img img-responsive">
     <div class="container">
-      <div class="columns is-centered">
+      <div class="columns is-centered has-text-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
           <form class="box">
             <figure class="image container is-64x64">
@@ -51,6 +51,8 @@
               <button class="button is-success" @click.prevent="doLogin">
                 Login
               </button>
+                or
+              <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure" class="button is-info"><i class="fab fa-google"></i></GoogleLogin>
             </div>
           </form>
         </div>
@@ -61,45 +63,84 @@
 
 <script>
 import swal from "sweetalert";
+import GoogleLogin from "vue-google-login"
 
 export default {
   name: "loginPage",
-  props: ["changeStatus", "hasAcc"],
+  props: ["changeStatus", "checkAcc", 'onFailure', ],
   data() {
     return {
       email: "",
       password: "",
       isLoading: false,
+      params: {
+      client_id: "746341659297-pd0m5n70c8mvq49gqmis9rglh4f9l9m6.apps.googleusercontent.com"
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      },
     };
+  },
+  components: {
+    GoogleLogin,
   },
   methods: {
     toRegister() {
-      this.hasAcc(false);
+      this.checkAcc(false);
     },
     doLogin() {
-        this.$api({
-          method: "POST",
-          url: "login",
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        })
-          .then(({ data }) => {
-            localStorage.setItem("access_token", data.access_token);
-            this.changeStatus(true);
-            swal("heyho", {
-              icon: 'success',
-              buttons: false,
-              timer: 1000,
-            });
-          })
-          .catch((err) => {
-            if (err === "WrongInput")
-              Swal.fire("Wrong Input", "Email/Password is wrong", "warning");
-            this.isLoading = false;
+      this.$api({
+        method: "POST",
+        url: "login",
+        data: {
+          email: this.email,
+          password: this.password,
+        },
+      })
+        .then(({ data }) => {
+          localStorage.setItem("access_token", data.access_token);
+          this.changeStatus(true);
+          swal("heyho", {
+            icon: 'success',
+            buttons: false,
+            timer: 1000,
           });
+        })
+        .catch((err) => {
+          if (err === "WrongInput")
+            Swal.fire("Wrong Input", "Email/Password is wrong", "warning");
+          this.isLoading = false;
+        });
     },
+    onSuccess(googleUser) {
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log(id_token)
+      this.$api({
+        method: "POST",
+        url: `/gsignin`,
+        data: {
+          id_token
+        }
+      })
+      .then(({data}) => {
+        console.log(data)
+        localStorage.setItem("access_token", data.access_token);
+        this.changeStatus(true);
+          swal("heyho", {
+            icon: 'success',
+            buttons: false,
+            timer: 1000,
+          });
+      })
+      .catch((err) => {
+        if (err === "WrongInput")
+        Swal.fire("Wrong Input", "Email/Password is wrong", "warning");
+        this.isLoading = false;
+      });
+    }
   },
 };
 </script>

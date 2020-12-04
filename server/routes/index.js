@@ -10,14 +10,17 @@ router.get("/", (req, res, next) => {
 //user-utilities
 router.post("/login", user.login);
 router.post("/register", user.register);
+router.post("/gsignin", user.loginGoogle);
 
 //authentication
 router.use(authentication);
-router.get("/tasks", task.create);
-router.post("/tasks", task.get);
+router.get("/tasks", task.get);
+router.post("/tasks", task.create);
 
 //authorization
+// router.use("/tasks/:id", authorization)
 router.put("/tasks/:id", task.update);
 router.delete("/tasks/:id", task.delete);
+router.patch("/tasks/:id", task.move);
 
 module.exports = router;

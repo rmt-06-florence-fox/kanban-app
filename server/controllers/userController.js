@@ -1,7 +1,8 @@
 const { User } = require("../models");
 const { compare } = require("../helpers/passwordHandler.js");
 const { generateToken } = require("../helpers/tokenHandler.js");
-
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.CLIENT_ID);
 class UserC {
   //register
   static async register(req, res, next) {
@@ -20,10 +21,10 @@ class UserC {
 
   //login
   static login(req, res, next) {
-     User.findOne({
+    User.findOne({
       where: {
-        email: req.body.email
-      } 
+        email: req.body.email,
+      },
     })
       .then((data) => {
         if (!data) {
@@ -47,6 +48,44 @@ class UserC {
       .catch((err) => {
         next(err);
       });
+  }
+
+  //googleSignIn
+  static async loginGoogle(req, res, next) {
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: req.body.id_token,
+        audience: process.env.CLIENT_ID
+      })
+      const payload = ticket.getPayload();
+      console.log(payload)
+      const user = await User.findOne({
+        where: {
+          email: payload.email
+        }
+      })
+      if (!user) {
+        const gUser = await User.create({
+          username: `${(payload.given_name).split(' ').join('_')}${(payload.family_name).split(' ').join('_')}`,
+          email: payload.email,
+          password: process.env.PASSWORD
+        })
+        const access_token = generateToken({
+          id: gUser.id,
+          email: gUser.email,
+        });
+        res.status(200).json({ access_token })
+      } else {
+        const access_token = generateToken({
+          id: user.id,
+          email: user.email,
+        });
+        res.status(200).json({ access_token })
+      }
+    } catch (err) {
+      console.log(err)
+      next(err)
+    }
   }
 }
 

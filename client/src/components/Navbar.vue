@@ -10,7 +10,7 @@
               alt="kanban! help you organize your task!"
           /></a>
         </div>
-        
+
         <!-- outsession -->
         <div class="navbar-menu" id="navMenu" v-if="!isLogin">
           <div class="navbar-end">
@@ -35,7 +35,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </nav>
     <!-- end navbar -->
@@ -43,30 +42,30 @@
 </template>
 
 <script>
-import swal from "sweetalert"
+import swal from "sweetalert";
 
 export default {
-  props: [ 'changeStatus', 'isLogin', 'hasAccount', 'hasAcc'],
-  data() {
-    return {
-      burgerToggle: false,
-    };
-  },
+  name: "navbar",
+  props: ["changeStatus", "isLogin", "hasAccount", "checkAcc"],
   methods: {
     toRegister() {
-      this.hasAcc(false)
+      this.checkAcc(false);
     },
     toLogin() {
-      this.hasAcc(true)
+      this.checkAcc(true);
     },
     onSignOut() {
       localStorage.clear();
-      this.changeStatus(false)
-      swal("bye~", { 
-        icon: 'success',
-        buttons: false,
-        timer: 1000,
-      })
+      this.changeStatus(false);
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log("User signed out.");
+        swal("bye~", {
+          icon: "success",
+          buttons: false,
+          timer: 1000,
+        });
+      });
     },
   },
 };
