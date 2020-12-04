@@ -24,20 +24,6 @@ class TaskControl {
     }
   }
 
-  static async getDataId(req, res, next) {
-    try {
-      const id = req.params.id
-      const data = await Task.findOne({
-        where: {
-          id
-        }
-      })
-      res.status(200).json(data)
-    } catch (error) {
-      next()
-    }
-  }
-
   static async patchData(req, res, next) {
     try {
       const id = +req.params.id
@@ -59,7 +45,7 @@ class TaskControl {
       const id = +req.params.id
       const value = {
         title: req.body.title,
-        description: req.body.title,
+        description: req.body.description,
         category: req.body.category
       }
       const data = await Task.update(value, {
