@@ -75,7 +75,7 @@
 
             loginToHomePage(user) {
                 axios({
-                    url: "http://localhost:3000/login",
+                    url: "https://kanban-app-efrizal.herokuapp.com/login",
                     method: "POST",
                     data: { email: user.email, password: user.password },
                 })
@@ -98,7 +98,7 @@
 
             registerUser(user) {
                 axios({
-                    url: "http://localhost:3000/register",
+                    url: "https://kanban-app-efrizal.herokuapp.com/register",
                     method: "POST",
                     data: {
                         name: user.name,
@@ -124,7 +124,7 @@
         
             fetchTask() {
                 axios({
-                    url: "http://localhost:3000/tasks",
+                    url: "https://kanban-app-efrizal.herokuapp.com/tasks",
                     method: "GET",
                     headers: {
                         access_token: localStorage.getItem('access_token')
@@ -140,7 +140,7 @@
 
             createTask(payload) {
                 axios({
-                    url: "http://localhost:3000/tasks",
+                    url: "https://kanban-app-efrizal.herokuapp.com/tasks",
                     method: "POST",
                     data: {
                         title: payload.title,
@@ -169,7 +169,7 @@
 
             deleteTask(id) {
                 axios({
-                    url: "http://localhost:3000/tasks/"+id,
+                    url: "https://kanban-app-efrizal.herokuapp.com/tasks/"+id,
                     method: "DELETE",
                     headers: {
                         access_token: localStorage.getItem('access_token')
@@ -194,7 +194,7 @@
 
             updateForm(id) {
                 axios({
-                    url: "http://localhost:3000/tasks/"+id,
+                    url: "https://kanban-app-efrizal.herokuapp.com/tasks/"+id,
                     method: "GET",
                     headers: {
                         access_token: localStorage.getItem('access_token')
@@ -214,7 +214,7 @@
 
             updateTask(payload) {
                 axios({
-                    url: "http://localhost:3000/tasks/"+payload.id,
+                    url: "https://kanban-app-efrizal.herokuapp.com/tasks/"+payload.id,
                     method: "PUT",
                     data: {
                         title: payload.title,
@@ -244,7 +244,7 @@
             googleLogin(googleToken) {
                 axios({
                     method: "POST",
-                    url: "http://localhost:3000/googleLogin",
+                    url: "https://kanban-app-efrizal.herokuapp.com/googleLogin",
                     data: { googleToken }
                 })
                 .then(response => {
