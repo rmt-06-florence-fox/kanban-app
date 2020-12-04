@@ -21,7 +21,7 @@
       </div>
       <div class="col-6">
         <div class="mb-5 mt-5 ml-5">
-          <img src="../../assets/regist.svg" alt="" class="img-fluid mt-5 img-regist">
+          <img src="../img/regist.svg" alt="" class="img-fluid mt-5 img-regist">
         </div>
       </div>
     </div>

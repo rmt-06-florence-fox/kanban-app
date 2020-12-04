@@ -15,15 +15,20 @@
             </div>
             <button type="submit" class="btn btn-submit btn-block">Sign In</button>
           </form>
-          <h6 for="" class="mt-2 text-center">Or login with </h6>
-          <div class="container-oauth">
+          <h6 for="" class="mt-2 text-center">Or</h6>
+          <!-- LoginGoogle -->
+          <!-- <div class="container-oauth">
             <div class="g-signin2 btn btn-google rounded" data-onsuccess="onSignIn"></div>
+          </div> -->
+          <LoginGoogle @googleToken='googleToken'></LoginGoogle>
+
+          <div class="buttonRegist">
+            <button type="button" class="btn btn-light" @click="registButton"> Haven't account ? Click here !</button>
           </div>
-          <button type="button" @click="registButton"> Haven't account ? Click here !</button>
         </div>
         <div class="col-6">
-          <div class="mb-5 mt-5">
-            <img src="../../assets/login.svg" alt="" class="img-fluid mt-5 img-login">
+          <div class="mb-5 mt-5 pt-4">
+            <img src="../img/login.svg" alt="" class="img-fluid mt-5 img-login">
           </div>
         </div>
       </div>
@@ -32,6 +37,7 @@
 </template>
 
 <script>
+  import LoginGoogle from './LoginGoogle'
   export default {
     name: 'Login',
     data(){
@@ -42,9 +48,12 @@
         }
       }
     },
+    components:{ LoginGoogle },
     methods:{
+      googleToken(value){
+        this.$emit('googleToken', value)
+      },
       login(){
-        // console.log(this.user);
         this.$emit('dataLogin', this.user)
       },
       registButton(){
@@ -55,5 +64,8 @@
 </script>
 
 <style>
-
+  .buttonRegist{
+    display: flex;
+    justify-content: center;  
+  }
 </style>
