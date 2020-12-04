@@ -4,6 +4,7 @@
       <BoardList
       :dataTasks="dataTasks"
       :addTask="addTask"
+      :getTasks="getTasks"
       ></BoardList>
     </div>
   </div>
@@ -18,7 +19,7 @@ export default {
   components: {
     BoardList,
   },
-  props: [ "dataTasks", "addTask"],
+  props: [ "dataTasks", "addTask", "getTasks"],
 };
 </script>
 

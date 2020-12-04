@@ -18,7 +18,7 @@ router.get("/tasks", task.get);
 router.post("/tasks", task.create);
 
 //authorization
-// router.use("/tasks/:id", authorization)
+router.use("/tasks/:id", authorization)
 router.put("/tasks/:id", task.update);
 router.delete("/tasks/:id", task.delete);
 router.patch("/tasks/:id", task.move);

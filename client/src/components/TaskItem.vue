@@ -1,7 +1,7 @@
 <template>
   <div class="card is-primary">
     <header>
-      <button class="delete is-medium is-danger  mt-2"></button>
+      <button class="delete is-medium is-danger mt-2" @click.prevent="deleteTask"></button>
     </header>
     <div class="card-content">{{ task.title }}</div>
     <small><i>author:</i></small>
@@ -16,9 +16,35 @@
 </template>
 
 <script>
+import swal from 'sweetalert'
+
 export default {
   name: "TaskItem",
-  props: ["task"],
+  props: ["task", "getTasks"],
+  methods: {
+    
+    // delete
+    deleteTask() {
+      this.$api({
+        method: "DELETE",
+        url: `/tasks/${this.task.id}`,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          this.getTasks()
+        })
+        .catch((err) => {
+          swal('bukan punyamu mas... ', {
+            icon: "error",
+            // buttons: true,
+          })
+          // console.log(err)
+        });
+    },
+  }
 };
 </script>
 

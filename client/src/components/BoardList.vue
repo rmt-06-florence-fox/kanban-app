@@ -7,6 +7,7 @@
         :dataTasks="dataTasks"
         :category="category"
         :addTask="addTask"
+        :getTasks="getTasks"
       >
       </TaskBoard>
     </div>
@@ -21,7 +22,7 @@ export default {
   components: {
     TaskBoard,
   },
-  props: ["dataTasks", "createTask", "addTask"],
+  props: ["dataTasks", "createTask", "addTask", "getTasks"],
 
   data() {
     return {

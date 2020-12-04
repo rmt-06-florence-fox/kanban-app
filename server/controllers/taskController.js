@@ -40,11 +40,7 @@ class TaskC {
   static async delete(req, res, next) {
     try {
       const id = +req.params.id;
-      const task = await Task.findByPk({ id })
-      if (!task) throw { status: 404, message: "Data not found!" }
-      else {
-        const data = await Task.destroy({ where: { id } })
-      }
+      const data = await Task.destroy({ where: { id } })
       res.status(200).json({ data, message: "successfully deleted" })
     } catch (error) {
       next(error)

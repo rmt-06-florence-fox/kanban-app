@@ -18,6 +18,7 @@
       v-if="isLogin"
       :dataTasks="dataTasks"
       :addTask="addTask"
+      :getTasks="getTasks"
     ></DashboardPage>
 
     <!-- <AddForm
@@ -143,26 +144,7 @@ export default {
         });
     },
 
-    // delete
-    deleteTask(task) {
-      this.$api({
-        method: "DELETE",
-        url: `/tasks/${task.id}`,
-        headers: {
-          access_token: localStorage.getItem("access_token"),
-        },
-      })
-        .then((response) => {
-          console.log(response);
-          // atur page
-          //
-          // fetch
-          // this.getTasks()
-        })
-        .catch((err) => {
-          next(err);
-        });
-    },
+    
   },
 
   created() {

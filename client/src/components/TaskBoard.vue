@@ -8,8 +8,12 @@
       <span class="tag is-dark">{{ filteredData.length }}</span>
     </div>
     <div>
-    <TaskItem v-for="task in filteredData" :key="task.id" :task="task">
-    </TaskItem>
+    <TaskItem
+      v-for="task in filteredData"
+      :key="task.id"
+      :task="task"
+      :getTasks="getTasks"
+    ></TaskItem>
     </div>
     
   </div>
@@ -21,7 +25,7 @@ import swal from "sweetalert"
 
 export default {
   name: "TaskBoard",
-  props: ["dataTasks", "category", "addTask"],
+  props: ["dataTasks", "category", "addTask", "getTasks"],
   components: {
     TaskItem,
   },
