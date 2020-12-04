@@ -162,12 +162,15 @@ export default {
     },
 
     register(data) {
+      console.log(data);
+      let name = data.name;
       let email = data.email;
       let password = data.password;
       axios({
         method: "post",
         url: "http://localhost:3000/register",
         data: {
+          name,
           email,
           password,
         },

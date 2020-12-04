@@ -17,7 +17,7 @@
             {{task.description}}
           </p>
           <p>Point: {{task.point}}</p>
-          
+          <p>Created By: {{task.createdBy}}</p>
           <button
           class="btn"
           :class="category.color"
@@ -41,13 +41,6 @@
           @click="del(task.id)"
           >
           <i class="far fa-trash-alt"></i>
-          </button>
-
-          <button
-          class="btn"
-          :class="category.color"
-          >
-          <i class="fas fa-exchange-alt"></i>
           </button>
 
           <button

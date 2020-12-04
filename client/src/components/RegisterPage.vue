@@ -7,6 +7,15 @@
           <p class="form-text text-muted">Register Account</p>
         </div>
         <div class="form-group">
+          <label>Name</label>
+          <input
+            v-model="name"
+            type="text"
+            class="form-control"
+            id="name-register"
+          />
+        </div>
+        <div class="form-group">
           <label>Email address</label>
           <input
             v-model="email"
@@ -42,6 +51,7 @@ export default {
   name: "RegisterPage",
   data() {
     return {
+      name: "",
       email: "",
       password: "",
     };
@@ -49,6 +59,7 @@ export default {
   methods: {
     register(){
       let payload = {
+        name: this.name,
         email: this.email,
         password: this.password
       }
