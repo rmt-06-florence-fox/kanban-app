@@ -1,7 +1,7 @@
 <template>
    <section>
          <!-- navbar -->
-      <Navbar @getPage='changePage' :categories='categories' @addTask='addTask'></Navbar>
+      <Navbar @addCat="addCat" @getPage='changePage' :categories='categories' @addTask='addTask'></Navbar>
 
       <div class="container mt-6">
          <div class="columns has-text-centered is-multiline">
@@ -99,6 +99,10 @@ export default {
          this.$emit('addTask',data)
          //this.fetchTasks();
       },
+      addCat(data){
+         console.log('addCat HomePage')
+         this.$emit('addCat',data)
+      },
       destroy(id){
          console.log('dlete')
          this.closeModal()
@@ -131,10 +135,12 @@ export default {
       },
       postEdit(){
          const data={
-            title:this.editTitle
+            title:this.editTitle,
+            CategoryId:this.editCategories
          }
-
          this.$emit('postEdit',{data,id:this.targetTask.id})
+         this.closeModal()
+
       },
       updateStatus(target){
          let newStatus

@@ -13,6 +13,7 @@
        :tasks='tasks'
        @destroy='deleteTask'
        @postEdit='postEdit'
+       @addCat='addCategory'
       >
       </HomePage>
    </div>
@@ -212,10 +213,48 @@ export default {
                   access_token:localStorage.getItem('access_token')
                }
             })
+
             this.fetchTask()
+            Swal.fire({
+               position: 'center',
+               icon: 'success',
+               title: 'Success Edit Task',
+               showConfirmButton: false,
+               timer: 1000
+            })
             console.log(response)
          } catch (error) {
-            console.log(error)
+            Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: error.response.data.message,
+            })
+         }
+      },
+      async addCategory(data){
+         try {
+            const response = await axios({
+               url:this.baseUrl + '/categories',
+               method:'POST',
+               data,
+               headers:{
+                  access_token:localStorage.getItem('access_token')
+               }
+            })
+            Swal.fire({
+               position: 'center',
+               icon: 'success',
+               title: 'Success Create Category',
+               showConfirmButton: false,
+               timer: 1000
+            })
+            this.fetchCategories()
+         } catch (error) {
+            Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: error.response.data.message,
+            })
          }
       },
       changePage(target){
