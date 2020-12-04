@@ -10668,7 +10668,141 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"src/components/login.vue":[function(require,module,exports) {
+},{}],"src/components/errorBox.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'errorBox',
+  props: ['errorData'],
+  created: function created() {
+    this.$emit('setTime');
+  }
+};
+exports.default = _default;
+        var $e5b878 = exports.default || module.exports;
+      
+      if (typeof $e5b878 === 'function') {
+        $e5b878 = $e5b878.options;
+      }
+    
+        /* template */
+        Object.assign($e5b878, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300"
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass:
+            "alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full"
+        },
+        [
+          _c("span", { staticClass: "text-red-500" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "h-6 w-6",
+                attrs: { fill: "currentColor", viewBox: "0 0 20 20" }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "fill-rule": "evenodd",
+                    d:
+                      "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
+                    "clip-rule": "evenodd"
+                  }
+                })
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "alert-content ml-4" }, [
+        _c(
+          "div",
+          { staticClass: "alert-title font-semibold text-lg text-red-800" },
+          [_vm._v("\n\t\t\t\t\tError\n\t\t\t\t")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "alert-description text-sm text-red-600" }, [
+          _vm._v("\n\t\t\t\t\t" + _vm._s(_vm.errorData) + "\n\t\t\t\t")
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$e5b878', $e5b878);
+          } else {
+            api.reload('$e5b878', $e5b878);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/login.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10677,6 +10811,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _errorBox = _interopRequireDefault(require("./errorBox"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10736,14 +10872,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 var _default = {
   name: 'login',
+  components: {
+    errorBox: _errorBox.default
+  },
   data: function data() {
     return {
       loginForm: {
         email: '',
         password: ''
-      }
+      },
+      errorData: ''
     };
   },
   methods: {
@@ -10764,7 +10907,26 @@ var _default = {
         _this.goTo('pg-homepage');
       }).catch(function (error) {
         // handle error
-        console.log(error);
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          _this.errorData = error.response.data.error;
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
+        console.log(error.response.data.error);
       }).then(function (_) {
         // always executed
         _this.loginForm.email = '';
@@ -10773,6 +10935,14 @@ var _default = {
     },
     goTo: function goTo(page) {
       this.$emit('goTo', page);
+    },
+    setTime: function setTime() {
+      var _this2 = this;
+
+      console.log('setTime');
+      setTimeout(function (_) {
+        _this2.errorData = '';
+      }, 2000);
     }
   }
 };
@@ -10922,7 +11092,47 @@ exports.default = _default;
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c(
+              "div",
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("\n            Sign in\n            ")]
+                ),
+                _vm._v(" "),
+                _vm.errorData
+                  ? _c("errorBox", {
+                      attrs: { errorData: _vm.errorData },
+                      on: { setTime: _vm.setTime }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-sm text-center\ttext-purple-700 text-opacity-50 mt-2 mb-2"
+                  },
+                  [
+                    _vm._v(
+                      "\n                - you can also login with your google account -\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ",
+                  attrs: { "data-onsuccess": "onSignIn" }
+                })
+              ],
+              1
+            )
           ]
         )
       ])
@@ -10963,41 +11173,6 @@ var staticRenderFns = [
         )
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("\n            Sign in\n            ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "text-sm text-center\ttext-purple-700 text-opacity-50 mt-2 mb-2"
-        },
-        [
-          _vm._v(
-            "\n                - you can also login with your google account -\n            "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", {
-        staticClass:
-          "g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ",
-        attrs: { "data-onsuccess": "onSignIn" }
-      })
-    ])
   }
 ]
 render._withStripped = true
@@ -11032,7 +11207,141 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/register.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./errorBox":"src/components/errorBox.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/errorBox-reg.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'errorBox',
+  props: ['errorData'],
+  created: function created() {
+    this.$emit('setTime');
+  }
+};
+exports.default = _default;
+        var $a1c90c = exports.default || module.exports;
+      
+      if (typeof $a1c90c === 'function') {
+        $a1c90c = $a1c90c.options;
+      }
+    
+        /* template */
+        Object.assign($a1c90c, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300"
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass:
+            "alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full"
+        },
+        [
+          _c("span", { staticClass: "text-red-500" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "h-6 w-6",
+                attrs: { fill: "currentColor", viewBox: "0 0 20 20" }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    "fill-rule": "evenodd",
+                    d:
+                      "M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z",
+                    "clip-rule": "evenodd"
+                  }
+                })
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "alert-content ml-4" }, [
+        _c(
+          "div",
+          { staticClass: "alert-title font-semibold text-lg text-red-800" },
+          [_vm._v("\n\t\t\t\t\tError\n\t\t\t\t")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "alert-description text-sm text-red-600" }, [
+          _vm._v("\n\t\t\t\t\t" + _vm._s(_vm.errorData[0]) + "\n\t\t\t\t")
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$a1c90c', $a1c90c);
+          } else {
+            api.reload('$a1c90c', $a1c90c);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/register.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11041,6 +11350,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _errorBoxReg = _interopRequireDefault(require("./errorBox-reg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11104,15 +11415,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 var _default = {
   name: 'register',
+  components: {
+    errorBox: _errorBoxReg.default
+  },
   data: function data() {
     return {
       registerForm: {
         username: '',
         email: '',
         password: ''
-      }
+      },
+      errorData: null
     };
   },
   methods: {
@@ -11134,7 +11452,25 @@ var _default = {
         goTo('pg-homepage');
       }).catch(function (error) {
         // handle error
-        console.log(error);
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          _this.errorData = error.response.data.errors;
+          console.log(error.response.data.errors); // console.log(error.response.status);
+          // console.log(error.response.headers);
+          // console.log(error.response.data.error)
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
       }).then(function (_) {
         // always executed
         _this.registerForm.username = '';
@@ -11144,6 +11480,14 @@ var _default = {
     },
     goTo: function goTo(page) {
       this.$emit('goTo', page);
+    },
+    setTime: function setTime() {
+      var _this2 = this;
+
+      // console.log('setTime')
+      setTimeout(function (_) {
+        _this2.errorData = '';
+      }, 2000);
     }
   }
 };
@@ -11343,7 +11687,47 @@ exports.default = _default;
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c(
+              "div",
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("\n            Register\n            ")]
+                ),
+                _vm._v(" "),
+                _vm.errorData
+                  ? _c("errorBox", {
+                      attrs: { errorData: _vm.errorData },
+                      on: { setTime: _vm.setTime }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "text-sm text-center\ttext-purple-700 text-opacity-50 mt-2 mb-2"
+                  },
+                  [
+                    _vm._v(
+                      "\n                - you can also login with your google account -\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ",
+                  attrs: { "data-onsuccess": "onSignIn" }
+                })
+              ],
+              1
+            )
           ]
         )
       ])
@@ -11380,41 +11764,6 @@ var staticRenderFns = [
         )
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("\n            Register\n            ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "text-sm text-center\ttext-purple-700 text-opacity-50 mt-2 mb-2"
-        },
-        [
-          _vm._v(
-            "\n                - you can also login with your google account -\n            "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", {
-        staticClass:
-          "g-signin2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ",
-        attrs: { "data-onsuccess": "onSignIn" }
-      })
-    ])
   }
 ]
 render._withStripped = true
@@ -11449,7 +11798,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/taskOption.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./errorBox-reg":"src/components/errorBox-reg.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/taskOption.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12472,6 +12821,273 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/modalError.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'modalError',
+  props: ['errorData'],
+  methods: {
+    closeError: function closeError() {
+      this.$emit('closeError');
+    }
+  }
+};
+exports.default = _default;
+        var $c6ca73 = exports.default || module.exports;
+      
+      if (typeof $c6ca73 === 'function') {
+        $c6ca73 = $c6ca73.options;
+      }
+    
+        /* template */
+        Object.assign($c6ca73, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "fixed z-10 inset-0 overflow-y-auto" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "hidden sm:inline-block sm:align-middle sm:h-screen",
+            attrs: { "aria-hidden": "true" }
+          },
+          [_vm._v("​")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
+            attrs: {
+              role: "dialog",
+              "aria-modal": "true",
+              "aria-labelledby": "modal-headline"
+            }
+          },
+          [
+            _c("div", { staticClass: "flex flex-col w-full h-auto " }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex w-full h-auto justify-between items-center bg-gradient-to-r from-red-800 to-pink-600"
+                },
+                [
+                  _c("div", {
+                    staticClass:
+                      "flex w-1/12 h-auto justify-center cursor-pointer"
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex w-10/12 h-auto py-3 justify-center items-center text-2xl font-bold text-white"
+                    },
+                    [_vm._v("\n            Error!\n      ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex w-1/12 h-auto justify-center cursor-pointer text-white",
+                      on: { click: _vm.closeError }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "feather feather-x",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "24",
+                            height: "24",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            "stroke-width": "2",
+                            "stroke-linecap": "round",
+                            "stroke-linejoin": "round"
+                          }
+                        },
+                        [
+                          _c("line", {
+                            attrs: { x1: "18", y1: "6", x2: "6", y2: "18" }
+                          }),
+                          _c("line", {
+                            attrs: { x1: "6", y1: "6", x2: "18", y2: "18" }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex w-full h-auto py-10 px-2 justify-center items-center text-2xl bg-gray-300 rounded font-bold text-center text-red-500"
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "w-8 h-8",
+                      attrs: {
+                        fill: "none",
+                        stroke: "currentColor",
+                        viewBox: "0 0 24 24",
+                        xmlns: "http://www.w3.org/2000/svg"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          "stroke-linecap": "round",
+                          "stroke-linejoin": "round",
+                          "stroke-width": "2",
+                          d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v("\n          " + _vm._s(_vm.errorData) + "\n      ")
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "fixed inset-0 transition-opacity",
+        attrs: { "aria-hidden": "true" }
+      },
+      [_c("div", { staticClass: "absolute inset-0 bg-gray-500 opacity-75" })]
+    )
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$c6ca73', $c6ca73);
+          } else {
+            api.reload('$c6ca73', $c6ca73);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/homepage.vue":[function(require,module,exports) {
 "use strict";
 
@@ -12486,8 +13102,11 @@ var _board = _interopRequireDefault(require("./board"));
 
 var _modalEdit = _interopRequireDefault(require("./modalEdit"));
 
+var _modalError = _interopRequireDefault(require("./modalError"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
 //
 //
 //
@@ -12658,13 +13277,16 @@ var _default = {
   name: 'homepage',
   components: {
     board: _board.default,
-    modalEdit: _modalEdit.default
+    modalEdit: _modalEdit.default,
+    modalError: _modalError.default
   },
-  props: ['organization', 'categories'],
+  props: ['organization', 'categories', 'errorData', 'activeUser'],
   data: function data() {
     return {
       onEdit: false,
-      taskOnEdit: ''
+      taskOnEdit: '',
+      onError: false,
+      toggleOptionUser: false
     };
   },
   methods: {
@@ -12705,10 +13327,18 @@ var _default = {
       };
       console.log(data);
       this.$emit('commitEdit', data);
+    },
+    clearError: function clearError() {
+      this.$emit('clearError');
+    },
+    logout: function logout() {
+      console.log('logout');
+      this.$emit('logout');
     }
   },
   created: function created() {
     this.$emit('getData');
+    this.$emit('getUser');
   },
   computed: {
     checkIndex: function checkIndex() {
@@ -12746,45 +13376,68 @@ exports.default = _default;
             _vm._v(" "),
             _c("div", { staticClass: "hidden md:block" }, [
               _c("div", { staticClass: "ml-4 flex items-center md:ml-6" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  },
-                  [
-                    _c("span", { staticClass: "sr-only" }, [
-                      _vm._v("View notifications")
-                    ]),
-                    _vm._v(" "),
+                _c("div", { staticClass: "ml-3 relative" }, [
+                  _c("div", [
                     _c(
-                      "svg",
+                      "button",
                       {
-                        staticClass: "h-6 w-6",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          fill: "none",
-                          viewBox: "0 0 24 24",
-                          stroke: "currentColor",
-                          "aria-hidden": "true"
+                        staticClass:
+                          "max-w-xs  py-1 px-3 text-white bg-gray-800 rounded-md flex items-center  font-bold focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-900 focus:bg-gray-900",
+                        attrs: { id: "user-menu", "aria-haspopup": "true" },
+                        on: {
+                          click: function($event) {
+                            _vm.toggleOptionUser = true
+                          }
                         }
                       },
                       [
-                        _c("path", {
-                          attrs: {
-                            "stroke-linecap": "round",
-                            "stroke-linejoin": "round",
-                            "stroke-width": "2",
-                            d:
-                              "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                          }
-                        })
+                        _c("span", { staticClass: "sr-only text-white" }, [
+                          _vm._v("Open user menu")
+                        ]),
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.activeUser.username) +
+                            "\n                  "
+                        )
                       ]
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(1)
+                  ]),
+                  _vm._v(" "),
+                  _vm.toggleOptionUser
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5",
+                          attrs: {
+                            role: "menu",
+                            "aria-orientation": "vertical",
+                            "aria-labelledby": "user-menu"
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
+                              attrs: { href: "#", role: "menuitem" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.logout($event)
+                                },
+                                blur: function($event) {
+                                  _vm.toggleOptionUser = false
+                                }
+                              }
+                            },
+                            [_vm._v("Log out")]
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -12854,13 +13507,13 @@ exports.default = _default;
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "hidden md:hidden" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "pt-4 pb-3 border-t border-gray-700" }, [
             _c("div", { staticClass: "flex items-center px-5" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "button",
@@ -12901,7 +13554,7 @@ exports.default = _default;
               )
             ]),
             _vm._v(" "),
-            _vm._m(5)
+            _vm._m(4)
           ])
         ])
       ]),
@@ -12960,6 +13613,13 @@ exports.default = _default;
               },
               postEdit: _vm.commitEdit
             }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.errorData
+        ? _c("modalError", {
+            attrs: { errorData: _vm.errorData },
+            on: { closeError: _vm.clearError }
           })
         : _vm._e()
     ],
@@ -13036,69 +13696,6 @@ var staticRenderFns = [
           )
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ml-3 relative" }, [
-      _c("div", [
-        _c(
-          "button",
-          {
-            staticClass:
-              "max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white",
-            attrs: { id: "user-menu", "aria-haspopup": "true" }
-          },
-          [
-            _c("span", { staticClass: "sr-only" }, [_vm._v("Open user menu")]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "h-8 w-8 rounded-full",
-              attrs: {
-                src:
-                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-                alt: ""
-              }
-            })
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5",
-          attrs: {
-            role: "menu",
-            "aria-orientation": "vertical",
-            "aria-labelledby": "user-menu"
-          }
-        },
-        [
-          _c(
-            "a",
-            {
-              staticClass:
-                "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-              attrs: { href: "#", role: "menuitem" }
-            },
-            [_vm._v("Your Profile")]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
-              attrs: { href: "#", role: "menuitem" }
-            },
-            [_vm._v("Log out")]
-          )
-        ]
-      )
     ])
   },
   function() {
@@ -13259,7 +13856,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./board":"src/components/board.vue","./modalEdit":"src/components/modalEdit.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./board":"src/components/board.vue","./modalEdit":"src/components/modalEdit.vue","./modalError":"src/components/modalError.vue","_css_loader":"C:/Users/wicak/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13298,6 +13895,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
 // import login from './components/login'
 var _default = {
   name: 'App',
@@ -13305,7 +13907,9 @@ var _default = {
     return {
       showPage: 'pg-login',
       organization: '',
-      categories: []
+      categories: [],
+      errorData: '',
+      activeUser: ''
     };
   },
   components: {
@@ -13343,7 +13947,24 @@ var _default = {
         // this.tasks = res.data
       }).catch(function (error) {
         // handle error
-        console.log(error);
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
       }).then(function (_) {// always executed
       });
     },
@@ -13369,7 +13990,24 @@ var _default = {
         _this2.getTaskList();
       }).catch(function (error) {
         // handle error
-        console.log(error);
+        // handle error
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+
+        console.log(error.config);
       }).then(function (_) {// always executed
       });
     },
@@ -13413,6 +14051,7 @@ var _default = {
         }
 
         console.log(error.config);
+        _this3.errorData = JSON.parse(error.request.responseText).error;
       }).then(function (_) {// always executed
       });
     },
@@ -13449,6 +14088,7 @@ var _default = {
         }
 
         console.log(error.config);
+        _this4.errorData = JSON.parse(error.request.responseText).error;
       }).then(function (_) {// always executed
       });
     },
@@ -13471,25 +14111,67 @@ var _default = {
         _this5.getTaskList();
       }).catch(function (error) {
         // handle error
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-        }
-
-        console.log(error.config);
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
+        _this5.errorData = JSON.parse(error.request.responseText).error;
+        console.log(JSON.parse(error.request.responseText).error);
       }).then(function (_) {// always executed
       });
+    },
+    getUser: function getUser() {
+      var _this6 = this;
+
+      (0, _axios.default)({
+        method: 'get',
+        url: "http://localhost:3000/user",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(function (res) {
+        // handle success
+        _this6.activeUser = res.data;
+        console.log(res);
+      }).catch(function (error) {
+        // handle error
+        // if (error.response) {
+        // // The request was made and the server responded with a status code
+        // // that falls out of the range of 2xx
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // } else if (error.request) {
+        // // The request was made but no response was received
+        // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // // http.ClientRequest in node.js
+        // console.log(error.request);
+        // } else {
+        // // Something happened in setting up the request that triggered an Error
+        // console.log('Error', error.message);
+        // }
+        // console.log(error.config);
+        _this6.errorData = JSON.parse(error.request.responseText).error;
+        console.log(JSON.parse(error.request.responseText).error);
+      }).then(function (_) {// always executed
+      });
+    },
+    logout: function logout() {
+      console.log('logout');
+      localStorage.removeItem('access_token');
+      this.showPage = 'pg-login';
     }
   },
   created: function created() {
@@ -13528,14 +14210,21 @@ exports.default = _default;
         ? _c("homepage", {
             attrs: {
               organization: _vm.organization,
-              categories: _vm.categories
+              categories: _vm.categories,
+              errorData: _vm.errorData,
+              activeUser: _vm.activeUser
             },
             on: {
               getData: _vm.getTaskList,
               createNewTask: _vm.postTask,
               commitEdit: _vm.commitEditTask,
               deleteThisTask: _vm.commitDeleteTask,
-              commitPatch: _vm.commitPatchTask
+              commitPatch: _vm.commitPatchTask,
+              clearError: function($event) {
+                _vm.errorData = ""
+              },
+              getUser: _vm.getUser,
+              logout: _vm.logout
             }
           })
         : _vm._e()

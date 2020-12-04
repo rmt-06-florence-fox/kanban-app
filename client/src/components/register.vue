@@ -46,7 +46,10 @@
             <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Register
             </button>
-
+            <errorBox v-if="errorData"
+                        :errorData="errorData"
+                        @setTime="setTime"
+            ></errorBox>
             <div class="text-sm text-center	text-purple-700 text-opacity-50 mt-2 mb-2">
                 - you can also login with your google account -
             </div>
@@ -60,16 +63,21 @@
 
 <script>
 import axios from 'axios';
+import errorBox from './errorBox-reg'
 
 export default {
     name: 'register',
+    components: {
+        errorBox
+    },
     data () {
         return {
             registerForm: {
                 username: '',
                 email: '',
                 password: ''
-            }
+            },
+            errorData: null
         }
     },
     methods: {
@@ -92,7 +100,25 @@ export default {
               })
               .catch((error) => {
                 // handle error
-                console.log(error);
+                // handle error
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    this.errorData = error.response.data.errors
+                    console.log(error.response.data.errors);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // console.log(error.response.data.error)
+                    } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    }
+                    console.log(error.config);
               })
               .then(_=> {
                 // always executed
@@ -103,6 +129,12 @@ export default {
         },
         goTo (page) {
             this.$emit('goTo',page)
+        },
+        setTime () {
+            // console.log('setTime')
+            setTimeout(_=> {
+                this.errorData = ''
+            }, 2000)
         }
     }
 }

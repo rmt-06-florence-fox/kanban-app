@@ -26,20 +26,15 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-              <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span class="sr-only">View notifications</span>
-                <!-- Heroicon name: bell -->
-                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-              </button>
+              
   
               <!-- Profile dropdown -->
               <div class="ml-3 relative">
                 <div>
-                  <button class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-haspopup="true">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  <button @click="toggleOptionUser = true" 
+                  class="max-w-xs  py-1 px-3 text-white bg-gray-800 rounded-md flex items-center  font-bold focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-900 focus:bg-gray-900" id="user-menu" aria-haspopup="true">
+                    <span class="sr-only text-white">Open user menu</span>
+                    {{activeUser.username}}
                   </button>
                 </div>
                 <!--
@@ -52,10 +47,11 @@
                     From: "transform opacity-100 scale-100"
                     To: "transform opacity-0 scale-95"
                 -->
-                <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
+                <div v-if="toggleOptionUser"
+                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                  <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a> -->
   
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Log out</a>
+                  <a href="#" @click.prevent="logout" @blur="toggleOptionUser = false" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Log out</a>
                 </div>
               </div>
             </div>
@@ -160,6 +156,11 @@
                 :task="taskOnEdit"
                 @postEdit="commitEdit">
     </modalEdit>
+
+    <modalError v-if="errorData"
+                :errorData="errorData"
+                @closeError="clearError">
+    </modalError>
     
 </div>
 </template>
@@ -168,18 +169,22 @@
 import axios from 'axios';
 import board from './board'
 import modalEdit from './modalEdit'
+import modalError from './modalError'
 
 export default {
     name: 'homepage',
     components: {
         board,
-        modalEdit
+        modalEdit,
+        modalError
     },
-    props: ['organization', 'categories'],
+    props: ['organization', 'categories', 'errorData', 'activeUser'],
     data () {
         return {
             onEdit: false,
-            taskOnEdit: ''
+            taskOnEdit: '',
+            onError: false,
+            toggleOptionUser: false
         }
     },
     methods: {
@@ -220,10 +225,18 @@ export default {
             }
             console.log(data)
             this.$emit('commitEdit', data)
+        },
+        clearError () {
+          this.$emit('clearError')
+        },
+        logout () {
+          console.log('logout')
+          this.$emit('logout')
         }
     },
     created: function () {
         this.$emit('getData')
+        this.$emit('getUser')
     },
     computed: {
       checkIndex () {

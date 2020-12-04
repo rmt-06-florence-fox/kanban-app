@@ -13,9 +13,14 @@
                     @createNewTask="postTask"
                     @commitEdit="commitEditTask"
                     @deleteThisTask="commitDeleteTask"
-                    @commitPatch="commitPatchTask">
+                    @commitPatch="commitPatchTask"
+                    :errorData="errorData"
+                    @clearError="errorData = ''"
+                    @getUser="getUser"
+                    :activeUser="activeUser"
+                    @logout="logout">
+                    
         </homepage>
-        
     </div>
 </template>
 
@@ -32,7 +37,9 @@ export default {
         return {
             showPage: 'pg-login',
             organization: '',
-            categories: []
+            categories: [],
+            errorData: '',
+            activeUser: ''
         }
     },
     components: {
@@ -73,7 +80,23 @@ export default {
                 })
                 .catch((error) => {
                 // handle error
-                console.log(error);
+                // handle error
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    }
+                    console.log(error.config);
                 })
                 .then(_=> {
                 // always executed
@@ -100,7 +123,24 @@ export default {
                 })
                 .catch((error) => {
                 // handle error
-                    console.log(error);
+                    // handle error
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                    } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+                    
                 })
                 .then(_=> {
                 // always executed
@@ -144,6 +184,7 @@ export default {
                     console.log('Error', error.message);
                     }
                     console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
                 })
                 .then(_=> {
                 // always executed
@@ -181,6 +222,7 @@ export default {
                     console.log('Error', error.message);
                     }
                     console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
                 })
                 .then(_=> {
                 // always executed
@@ -194,7 +236,7 @@ export default {
                     access_token: localStorage.getItem('access_token')
                 },
                 data: {
-                    CategoryId: catId
+                    CategoryId: catId,
                 }
                 })
                 .then((res) => {
@@ -204,26 +246,71 @@ export default {
                 })
                 .catch((error) => {
                 // handle error
-                    if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                    } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
-                    console.log(error.request);
-                    } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error.message);
-                    }
-                    console.log(error.config);
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
+                    console.log(JSON.parse(error.request.responseText).error)
                 })
                 .then(_=> {
                 // always executed
                 });
+        },
+        getUser () {
+            axios({
+                method: 'get',
+                url: `http://localhost:3000/user`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                })
+                .then((res) => {
+                // handle success
+                    this.activeUser = res.data
+                    console.log(res)
+                })
+                .catch((error) => {
+                // handle error
+                    // if (error.response) {
+                    // // The request was made and the server responded with a status code
+                    // // that falls out of the range of 2xx
+                    // console.log(error.response.data);
+                    // console.log(error.response.status);
+                    // console.log(error.response.headers);
+                    // } else if (error.request) {
+                    // // The request was made but no response was received
+                    // // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // // http.ClientRequest in node.js
+                    // console.log(error.request);
+                    // } else {
+                    // // Something happened in setting up the request that triggered an Error
+                    // console.log('Error', error.message);
+                    // }
+                    // console.log(error.config);
+                    this.errorData = JSON.parse(error.request.responseText).error
+                    console.log(JSON.parse(error.request.responseText).error)
+                })
+                .then(_=> {
+                // always executed
+                });
+        },
+        logout () {
+            console.log('logout')
+            localStorage.removeItem('access_token')
+            this.showPage = 'pg-login'
         }
     },
     created: function () {

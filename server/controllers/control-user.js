@@ -52,6 +52,19 @@ class ControllerUser {
         }
     }
 
+    static async getUser (req, res, next) {
+        try {
+            const user = await User.findOne({
+                where: {
+                    id: req.loggedUser.id
+                }
+            })
+            res.status(201).json({id: user.id, username: user.username})
+        } catch (err) {
+            next(err)
+        }
+    }
+
 }
 
 
