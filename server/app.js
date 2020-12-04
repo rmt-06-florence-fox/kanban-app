@@ -8,7 +8,6 @@
   const port = process.env.PORT || 3000
   const router = require ("./routes")
   const errorhandler = require ('./middlewares/errorhandler.js')
-  const axios = require ('axios')
   
   app.use(cors())
   app.use (express.urlencoded({extended:false}))

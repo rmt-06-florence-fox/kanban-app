@@ -1,4 +1,4 @@
-const { Task } = require ("../models/index.js")
+const { Task } = require ("../models")
 
 module.exports = async (req, res, next) => {
     try {
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
             if (!task) {
                throw {
-                    status : 401,
+                    status : 404,
                     msg : "Task Not Found"
                 }
             }

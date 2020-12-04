@@ -1,5 +1,5 @@
 const { verifyToken } = require ('../helpers/jwt.js')
-const { User } = require ("../models/index")
+const { User } = require ("../models")
 
 module.exports = async (req, res, next) => {
     try {
