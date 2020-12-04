@@ -9,7 +9,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="text" class="form-control" name="password" id="password-input" placeholder="password" v-model="user.password">
+                <input type="password" class="form-control" name="password" id="password-input" placeholder="password" v-model="user.password">
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
             <a class="btn btn-outline-primary" role="button" @click.prevent="register">Register</a><br>

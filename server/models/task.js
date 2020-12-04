@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           message: 'desc is required'
         },
-        isEmail: true
       }},
     UserId: DataTypes.INTEGER
   }, {

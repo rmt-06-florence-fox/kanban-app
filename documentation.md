@@ -43,7 +43,10 @@
  
 * **Error Response:**
 
-  <!-- { status: 401, message: 'invalid email/password' } -->
+    status 401
+{
+    "message": "email is already used"
+}
 
   OR
 
@@ -250,6 +253,11 @@
     status 500
 {
     "message": "internal server error"
+}
+    OR
+    status 400
+{
+    "message": "Validation error: Validation notEmpty on title failed,\nValidation error: Validation notEmpty on category failed,\nValidation error: Validation notEmpty on desc failed,\nValidation error: Validation isEmail on desc failed"
 }
 
 
