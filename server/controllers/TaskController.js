@@ -1,12 +1,9 @@
 const { Task, User } = require("../models")
 
 class TaskController {
-    static getTaskBacklog(req, res, next) {
+    static getAllTask(req, res, next) {
         Task.findAll(
             {
-                where: {
-                    category: "Backlog"
-                },
                 include: {
                     model: User,
                     attributes: ["email"]
@@ -15,85 +12,31 @@ class TaskController {
         )
             .then(data => {
                 if (data.length === 0) {
-                    res.status(404).json({msg: "DataNotFound"})
+                    next({name: "DataNotFound"})
+                    // res.status(404).json({msg: "DataNotFound"})
                 } else {
                     res.status(200).json(data)
                 }
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 
-    static getTaskTodo(req, res, next) {
-        Task.findAll(
-            {
-                where: {
-                    category: "Todo"
-                },
-                include: {
-                    model: User,
-                    attributes: ["email"]
-                }
+    static getTaskById(req, res, next) {
+        const id = req.params.id
+        Task.findOne({
+            where: {
+                id
             }
-        )
+        })
             .then(data => {
-                if (data.length === 0) {
-                    res.status(404).json({msg: "DataNotFound"})
-                } else {
-                    res.status(200).json(data)
-                }
+                res.status(201).json(data)
             })
             .catch(err => {
-                res.status(500).json(err)
-            })
-    }
-
-    static getTaskDoing(req, res, next) {
-        Task.findAll(
-            {
-                where: {
-                    category: "Doing"
-                },
-                include: {
-                    model: User,
-                    attributes: ["email"]
-                }
-            }
-        )
-            .then(data => {
-                if (data.length === 0) {
-                    res.status(404).json({msg: "DataNotFound"})
-                } else {
-                    res.status(200).json(data)
-                }
-            })
-            .catch(err => {
-                res.status(500).json(err)
-            })
-    }
-
-    static getTaskDone(req, res, next) {
-        Task.findAll(
-            {
-                where: {
-                    category: "Done"
-                },
-                include: {
-                    model: User,
-                    attributes: ["email"]
-                }
-            }
-        )
-            .then(data => {
-                if (data.length === 0) {
-                    res.status(404).json({msg: "DataNotFound"})
-                } else {
-                    res.status(200).json(data)
-                }
-            })
-            .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 
@@ -108,7 +51,8 @@ class TaskController {
                 res.status(201).json(data)
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 
@@ -126,10 +70,15 @@ class TaskController {
             returning: true
         })
             .then(data => {
-                res.status(200).json(data[1][0])
+                if (data[1][0]) {
+                    res.status(200).json(data[1][0])
+                } else {
+                    next({name: "DataNotFound"})
+                }
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 
@@ -144,7 +93,8 @@ class TaskController {
                 res.status(200).json({msg: "Success Delete"})
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 }

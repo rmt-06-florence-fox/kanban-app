@@ -13,18 +13,35 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <span @click="changePage" class="btn btn-primary">Register</span>
-            <!-- <div class="g-signin2" data-onsuccess="onSignIn">Sign In</div> -->
         </form>
+        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
     </div>
 </template>
 
 <script>
+import Vue from "vue"
+
+import GoogleLogin from 'vue-google-login';
+import { LoaderPlugin } from 'vue-google-login';
+Vue.use(LoaderPlugin, {
+    client_id: "586270695185-joif162benhcpmgvhkckso4olas9bdqq.apps.googleusercontent.com"
+});
+
 export default {
     name: "Login",
     data () {
         return {
             email: "",
-            password: ""
+            password: "",
+            params: {
+                client_id: "586270695185-joif162benhcpmgvhkckso4olas9bdqq.apps.googleusercontent.com"
+            },
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
+            }
         }
     },
     methods: {
@@ -37,8 +54,17 @@ export default {
                 password: this.password
             }
             this.$emit("loginpage", payload)
+        },
+        onSuccess(googleUser) {
+            // console.log(googleUser);
+ 
+            // This only gets the user information: id, name, imageUrl and email
+            // console.log(googleUser.getBasicProfile().du);
+            this.$emit("GoogleLogin", googleUser.getBasicProfile().du)
         }
-
+    },
+    components: {
+        GoogleLogin
     }
 }
 </script>

@@ -1,11 +1,13 @@
 <template>
     <div>
         <NavBar
+            :logoutbtn="pageName"
             @logout="logout"
         ></NavBar>
         <Login v-if="pageName === 'Login Page'"
             @RegisterPage="changePage"
             @loginpage="login"
+            @GoogleLogin="googleLogin"
         ></Login>
         <Register v-else-if="pageName === 'Register Page'"
             @LoginPage="changePage"
@@ -13,19 +15,21 @@
         ></Register>
         <AddForm v-else-if="pageName === 'Add Form'"
             @MainPage="changePage"
-            @createTask="createTask"
+            @CreateTask="createTask"
+            :category="category"
         ></AddForm>
         <EditForm v-else-if="pageName === 'Edit Form'"
             @MainPage="changePage"
-            :titleTask="task.title"
-            :categoryTask="task.category"
-            :idTask="task.id"
+            @EditPage="edit"
+            :task="task"
         ></EditForm>
         <Task v-else-if="pageName === 'Main Page'"
-            @EditPage="editPage"
             @AddPage="changePage"
             @DeleteTask="deleteTask"
+            @ToEditPage="getTodoById"
+            @EditTask="editPage"
             :tasks="tasks"
+            :category="category"
         ></Task>
     </div>
 </template>
@@ -47,16 +51,34 @@ export default {
             pageName: "Login Page",
             url: "http://localhost:3000/",
             tasks: [],
-            task: {
-                title: "",
-                category: "",
-                id: ""
-            }
+            task: "",
+            category: ['Backlog', 'Todo', 'Doing', 'Done']
         }
     },
     methods: {
+        edit(page, payload, id) {
+            // console.log(page, payload, id)
+            axios({
+                url: this.url + "task/" + id,
+                method: "PUT",
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                },
+                data: {
+                    title: payload.title,
+                    category: payload.category
+                }
+            })
+                .then(response => {
+                    this.pageName = page
+                    this.getAllTask()
+                })
+                .catch(err => {
+                    console.log(err.response.data.msg)
+                })
+        },
         deleteTask(id) {
-            // console.log(id)
+            // console.log(id, "dari app")
             axios({
                 url: this.url + "task/" + id,
                 method: "DELETE",
@@ -66,22 +88,21 @@ export default {
             })
                 .then(response => {
                     this.pageName = "Main Page"
-                    this.fetchBacklog()
-                    console.log(response.data.msg)
+                    this.getAllTask()
+                    // console.log(response.data.msg)
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    console.log(err.response.data.msg)
                 })
         },
-        editPage(page, task) {
+        editPage(page,task) {
             // console.log(page, task)
+            this.task = task
+            // console.log(this.task)
             this.pageName = page
-            this.task.title = task.title
-            this.task.category = task.category
-            this.task.id = task.id
         },
         changePage(page) {  
-            console.log(page)
+            // console.log(page)
             this.pageName = page
         },
         login(payload) {
@@ -95,13 +116,34 @@ export default {
                 }
             })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     localStorage.setItem("access_token", response.data.access_token)
                     this.pageName = "Main Page"
+                    this.getAllTask()
                 })
                 .catch(err => {
                     console.log(err.response)
                 })
+        },
+        googleLogin(googleEmail) {
+            // console.log("hello google", googleEmail)
+            axios({
+                url: this.url + "googleLogin",
+                method: "POST",
+                data: {
+                    email: googleEmail
+                }
+            })
+                .then(response => {
+                    // console.log(response.data.access_token)
+                    localStorage.setItem("access_token", response.data.access_token)
+                    this.getAllTask()
+                    this.pageName = "Main Page"
+                })
+                .catch(err => {
+                    console.log(err.response.data.msg)
+                })
+
         },
         register(payload) {
             // console.log(payload)
@@ -126,24 +168,9 @@ export default {
             this.pageName = page
             // console.log(page)
         },
-        fetchBacklog() {
-            axios({
-                url: "http://localhost:3000/backlog",
-                method: "GET",
-                headers: {
-                    access_token: localStorage.getItem("access_token")
-                }
-            })
-                .then(response => {
-                    this.tasks = response.data
-                    console.log(this.tasks)
-                })
-                .catch(err => {
-                    console.log(err.response)
-                })
-        },
         createTask(payload) {
-            console.log(payload)
+            // console.log(payload)
+            // console.log("halooo")
             axios({
                 url: this.url + "task",
                 method: "POST",
@@ -157,12 +184,46 @@ export default {
                 
             })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.pageName = "Main Page"
-                    this.fetchBacklog()
+                    this.getAllTask()
                 })
                 .catch(err => {
                     console.log(err.response)
+                })
+        },
+        getAllTask() {
+            axios({
+                url: this.url + "task",
+                method: "GET",
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                }
+            })
+                .then(response => {
+                    // console.log(response.data)
+                    this.tasks = response.data
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        },
+        getTodoById(page, id) {
+            // console.log(id, page, 'vue app')
+            axios({
+                url: this.url + "task/" + id,
+                method: "GET",
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                }
+            })
+                .then(response => {
+                    console.log(response.data)
+                    this.pageName = page
+                    this.task = response.data
+                })
+                .catch(err => {
+                    console.log(err.response.data.msg)
                 })
         }
     },
@@ -177,7 +238,7 @@ export default {
     created () {
         if(localStorage.getItem("access_token")) {
             this.pageName = "Main Page"
-            this.fetchBacklog()
+            this.getAllTask()
         } else {
             this.pageName = "Login Page"
         }

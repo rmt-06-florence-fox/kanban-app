@@ -9,14 +9,12 @@ router.post("/login", UserController.login)
 router.post("/googleLogin", UserController.googleLogin)
 
 router.use(Authenticate)
-router.get("/backlog", TaskController.getTaskBacklog)
-router.get("/todo", TaskController.getTaskTodo)
-router.get("/doing", TaskController.getTaskDoing)
-router.get("/done", TaskController.getTaskDone)
+router.get("/task", TaskController.getAllTask)
 router.post("/task", TaskController.createTaks)
 
-router.use("/task/:id", Authorization)
-router.put("/task/:id", TaskController.updateTask)
-router.delete("/task/:id", TaskController.deleteTask)
+// router.use("/task/:id", Authorization)
+router.get("/task/:id",Authorization, TaskController.getTaskById)
+router.put("/task/:id", Authorization, TaskController.updateTask)
+router.delete("/task/:id", Authorization, TaskController.deleteTask)
 
 module.exports = router

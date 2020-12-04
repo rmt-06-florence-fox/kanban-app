@@ -6,7 +6,13 @@
                 <label for="">Title</label>
                 <input v-model="title" type="text" class="form-control" id="email-register" aria-describedby="emailHelp">
             </div>
-            <input type="text" :value="backlog" hidden>
+            <div class="col-auto my-1">
+            <label class="sr-only" for="inlineFormCustomSelect">Preference</label>
+            <select v-model="categori" class="custom-select" id="inlineFormCustomSelect">
+                <option selected disabled>Choose</option>
+                <option :value="item" v-for="item in category" :key="item.id">{{item}}</option>
+            </select>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <span @click="mainPage" class="btn btn-primary">Back</span>
         </form>
@@ -16,10 +22,11 @@
 <script>
 export default {
     name: "AddForm",
+    props: ["category"],
     data() {
         return {
             title: "",
-            backlog: "Backlog"
+            categori: ""
         }
     },
     methods: {
@@ -29,9 +36,10 @@ export default {
         newTask() {
             const payload = {
                 title: this.title,
-                category: this.backlog
+                category: this.categori
             }
-            this.$emit("createTask", payload)
+            // console.log(payload)
+            this.$emit("CreateTask", payload)
         }
     }
 }

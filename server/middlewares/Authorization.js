@@ -9,13 +9,21 @@ module.exports = (req, res, next) => {
         }
     })
         .then(data => {
-            if (data.UserId === req.LoginUser.id) {
-                next()
+            if(data) {
+                if (data.UserId === req.LoginUser.id) {
+                    next()
+                } else {
+                    next({
+                        name: "Authorized"
+                    })
+                    // res.status(401).json({msg: "Authorized"})
+                }
             } else {
-                res.status(401).json({msg: "Authorized"})
+                next({name: "DataNotFound"})
             }
         })
         .catch(err => {
-            res.status(500).json(err)
+            next(err)
+            // res.status(500).json(err)
         })
 }

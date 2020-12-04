@@ -2,6 +2,7 @@ const { User } = require("../models")
 const { comparePass } = require("../helper/hashPassword")
 const { getToken } = require("../helper/generateToken")
 const {OAuth2Client} = require('google-auth-library');
+const TaskController = require("./TaskController");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class UserController {
@@ -16,7 +17,8 @@ class UserController {
                 res.status(201).json({id: data.id, email: data.email})
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 
@@ -29,43 +31,44 @@ class UserController {
         })
             .then(data => {
                 if(!data) {
-                    res.status(404).json({
-                        msg: "Invalid Account"
+                    next({
+                        name: "Invalid Account"
                     })
+                    // res.status(404).json({
+                    //     msg: "Invalid Account"
+                    // })
                 } else {
                     const access_token = getToken({id: data.id, email: data.email})
                     if(comparePass(req.body.password, data.password)) {
                         res.status(200).json({access_token})
                     } else {
-                        res.status(404).json({msg: "DataNotFound"})
+                        next({
+                            name: "DataNotFound"
+                        })
+                        // res.status(404).json({msg: "DataNotFound"})
                     }
                 }
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
+                // res.status(500).json(err)
             })
     }
 
     static googleLogin(req, res, next) {
-        let payload
-        client.verifyIdToken({
-            idToken: req.body.googleToken,
-            audience: process.env.GOOGLE_CLIENT_ID
+        User.findOne({
+            where: {
+                email: req.body.email
+            }
         })
-            .then(ticket => {
-                payload = ticket.getPayload()
-                // console.log(payload)
-                return User.findOne({
-                    where: {
-                        email: payload.email
-                    }
-                })
-            })
             .then(user => {
                 if (user) {
                     return user
                 } else {
-                    return User.create({email: payload.email, password: process.env.GOOGLE_PASSWORD})
+                    return User.create({
+                        email: req.body.email,
+                        password: process.env.GOOGLE_PASSWORD
+                    })
                 }
             })
             .then(data => {
@@ -73,10 +76,41 @@ class UserController {
                 res.status(201).json({access_token})
             })
             .catch(err => {
-                res.status(500).json(err)
-                // console.log(err)
+                next(err)
             })
     }
+
+    // static googleLogin(req, res, next) {
+    //     let payload
+    //     client.verifyIdToken({
+    //         idToken: req.body.googleToken,
+    //         audience: process.env.GOOGLE_CLIENT_ID
+    //     })
+    //         .then(ticket => {
+    //             payload = ticket.getPayload()
+    //             // console.log(payload)
+    //             return User.findOne({
+    //                 where: {
+    //                     email: payload.email
+    //                 }
+    //             })
+    //         })
+    //         .then(user => {
+    //             if (user) {
+    //                 return user
+    //             } else {
+    //                 return User.create({email: payload.email, password: process.env.GOOGLE_PASSWORD})
+    //             }
+    //         })
+    //         .then(data => {
+    //             const access_token = getToken({id: data.id, email: data.email})
+    //             res.status(201).json({access_token})
+    //         })
+    //         .catch(err => {
+    //             res.status(500).json(err)
+    //             // console.log(err)
+    //         })
+    // }
 }
 
 module.exports = UserController
