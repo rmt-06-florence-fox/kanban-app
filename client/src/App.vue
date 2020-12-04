@@ -15,7 +15,8 @@
     <KanbanPage 
       v-else-if="pageName == 'kanban-page'"
       @emit-change-page='changePage'
-      :loggedInUser='loggedInUser'
+      :categories='categories'
+      :tasks='tasks'
     ></KanbanPage>
 
     <ErrorPage 
@@ -35,9 +36,6 @@ export default {
   data() {
     return {
       pageName: 'login-page',
-      loggedInUser: {
-
-      },
       tasks: [],
       categories: []
     }
@@ -88,7 +86,7 @@ export default {
         headers: {access_token: token}
       })
       .then((result) => {
-        console.log(result.data)
+        this.tasks = result.data
       }).catch((err) => {
         console.log(err);
       });
@@ -101,14 +99,17 @@ export default {
         headers: {access_token: token}
       })
       .then((result) => {
-        console.log(result.data)
+        this.categories = result.data
       }).catch((err) => {
         console.log(err)
       });
     }
   },
   created() {
-    if (localStorage.access_token) {
+    const token = localStorage.getItem('access_token')
+    if (token) {
+      this.fetchCategory()
+      this.fetchTask()
       this.pageName = 'kanban-page'
     } else {
       this.pageName = 'login-page'
