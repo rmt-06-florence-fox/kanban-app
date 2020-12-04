@@ -52,7 +52,7 @@ export default {
         })
          .catch(err => {
                 console.log(err.response);
-                let message = err.response.data
+                let message = err.response.statusText
                 Swal.fire({
                     title: message,
                     icon: 'error',
@@ -97,7 +97,7 @@ export default {
         })
         .catch(err => {
                 console.log(err.response);
-                let message = err.response.data
+                let message = err.response.statusText
                 Swal.fire({
                     title: message,
                     icon: 'error',
