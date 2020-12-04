@@ -46,7 +46,7 @@ export default {
     login(loginData) {
       axios({
         method: "POST",
-        url: "http://localhost:3000/users/login",
+        url: "https://adhim1st-kanban-app.herokuapp.com/users/login",
         data: {
           email: loginData.email,
           password: loginData.password,
@@ -66,7 +66,7 @@ export default {
     register(registerData) {
       axios({
         method: "POST",
-        url: "http://localhost:3000/users/register",
+        url: "https://adhim1st-kanban-app.herokuapp.com/users/register",
         data: {
           email: registerData.email,
           password: registerData.password,
@@ -83,7 +83,7 @@ export default {
     fetchData() {
       axios({
         method: "GET",
-        url: "http://localhost:3000/tasks",
+        url: "https://adhim1st-kanban-app.herokuapp.com/tasks",
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -100,7 +100,7 @@ export default {
       console.log(payload, "dari app");
       axios({
         method: "POST",
-        url: "http://localhost:3000/tasks",
+        url: "https://adhim1st-kanban-app.herokuapp.com/tasks",
         data: payload,
         headers: {
           access_token: localStorage.getItem("access_token"),
@@ -118,7 +118,7 @@ export default {
       console.log(payload, id, "dari app");
       axios({
         method: "PUT",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://adhim1st-kanban-app.herokuapp.com/tasks/${id}`,
         data: payload,
         headers: {
           access_token: localStorage.getItem("access_token"),
@@ -132,7 +132,7 @@ export default {
       console.log(id, "dari app");
       axios({
         method: "DELETE",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://adhim1st-kanban-app.herokuapp.com/tasks/${id}`,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
