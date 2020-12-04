@@ -9,7 +9,7 @@
       :key="task.id"
       :task="task"
     >
-      <div class="card mb-3" :class="category.color" style="max-width: 18rem">
+      <div class="card mb-3" :class="category.color">
         <div class="card-header">Assigned To : {{task.assignedto}}</div>
         <div class="card-body">
           <h5 class="card-title">{{task.title}}</h5>
@@ -17,24 +17,30 @@
             {{task.description}}
           </p>
           <p>Point: {{task.point}}</p>
+          
           <button
           class="btn"
           :class="category.color"
+          @click="edit(task.id)"
           >
           <i class="far fa-edit"></i>
           </button>
+          
           <button
           class="btn"
           :class="category.color"
+          @click="del(task.id)"
           >
           <i class="far fa-trash-alt"></i>
           </button>
+
           <button
           class="btn"
           :class="category.color"
           >
           <i class="fas fa-exchange-alt"></i>
           </button>
+
         </div>
       </div>
     </div>
@@ -45,6 +51,14 @@
 export default {
   name: "TaskItem",
   props: ["category", "tasks"],
+  methods: {
+    edit(id){
+      this.$emit("getEdit", id)
+    },
+    del(id){
+      this.$emit("deleteTask", id)
+    }
+},
   computed: {
     filteredTask() {
       return this.tasks.filter((e) => e.status === this.category.name);

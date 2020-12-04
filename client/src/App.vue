@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Navbar :page="currentPage" @addTask="changePage" @logout="changePage">
+    <Navbar 
+      :page="currentPage" 
+      @addTask="changePage" 
+      @logout="changePage">
     </Navbar>
     <LoginPage
       v-if="currentPage == 'Login Page'"
@@ -20,6 +23,8 @@
     v-if="currentPage === 'Main Page'"
     :categories="categories"
     :tasks="tasks"
+    @getEdit="getEdit"
+    @deleteTask="deleteTask"
     >
     </TaskBoard>
     <AddTaskPage
@@ -27,7 +32,12 @@
       @mainPage="changePage"
       @addTaskData="add"
     ></AddTaskPage>
-    <!-- <EditTaskPage v-if="currentPage === 'Edit Task Page'"></EditTaskPage> -->
+    <EditTaskPage 
+    v-if="currentPage === 'Edit Task Page'"
+    :task="task"
+    @editTaskData="editPost"
+    @mainPage="changePage"
+    ></EditTaskPage>
   </div>
 </template>
 
@@ -67,7 +77,8 @@ export default {
           label: 'Done'
         },
       ],
-      tasks: []
+      tasks: [],
+      task: {}
     };
   },
   methods: {
@@ -81,7 +92,7 @@ export default {
     login(data) {
       let email = data.email;
       let password = data.password;
-      console.log(email, password);
+
       axios({
         method: "post",
         url: "http://localhost:3000/login",
@@ -124,7 +135,6 @@ export default {
         },
       })
         .then((response) => {
-          console.log(response.data.access_token, "ini response");
           localStorage.setItem("access_token", response.data.access_token);
           Swal.fire({
             icon: "success",
@@ -223,9 +233,118 @@ export default {
           });
         })
         .finally((_) => {
-          this.email = "";
-          this.password = "";
+          this.title = "";
+          this.description = "";
+          this.point = "";
+          this.assignedto = "";
+          this.status = "";
         });
+    },
+
+    getEdit(id){
+      axios({
+        method: "get",
+        url: "http://localhost:3000/tasks/" + id,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        data: {
+          id
+        },
+      })
+        .then((response) => {
+          this.task = response.data.task
+          this.changePage('Edit Task Page')
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Get Task Failed!",
+            text: error.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+    },
+
+    editPost(data) {
+      let id = data.id;
+      let title = data.title;
+      let description = data.description;
+      let point = data.point;
+      let assignedto = data.assignedto;
+      let status = data.status;
+      axios({
+        method: "put",
+        url: "http://localhost:3000/tasks/" + id,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        data: {
+          title,
+          description,
+          point,
+          assignedto,
+          status,
+        },
+      })
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "Edit Task Success!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.changePage('Main Page')
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Task Failed!",
+            text: error.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .finally((_) => {
+          this.title = "";
+          this.description = "";
+          this.point = "";
+          this.assignedto = "";
+          this.status = "";
+        });
+    },
+
+    deleteTask(id){
+      axios({
+        method: "delete",
+        url: "http://localhost:3000/tasks/" + id,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        data: {
+          id
+        },
+      })
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "Delete Task Success!",
+            text: response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.changePage('Main Page')
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Delete Task Failed!",
+            text: error.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
     },
 
     fetchTask(){

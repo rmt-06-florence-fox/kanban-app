@@ -44,10 +44,11 @@
           class="form-control" 
           v-model="status"
           >
+            <option value="">Select Status:</option>
             <option value="backlog">Backlog</option>
             <option value="todo">Todo</option>
             <option value="doing">Doing</option>
-            <option value="done" selected>Done</option>
+            <option value="done">Done</option>
           </select>
         </div>
         <button type="submit" class="btn btn-form">Submit</button>

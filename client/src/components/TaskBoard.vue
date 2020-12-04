@@ -6,6 +6,8 @@
       :key="i"
       :category="category"
       :tasks="tasks"
+      @getEdit="getEdit"
+      @deleteTask="deleteTask"
       >
       </TaskItem>
 
@@ -17,6 +19,14 @@ import TaskItem from "./TaskItem";
 export default {
   name: "TaskBoard",
   props: ["categories", "tasks"],
+  methods: {
+    getEdit(id){
+      this.$emit("getEdit", id)
+    },
+    deleteTask(id){
+      this.$emit("deleteTask", id)
+    }
+  },
   components: {
     TaskItem,
   },
