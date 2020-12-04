@@ -1,10 +1,28 @@
-const { Task } = require('../models')
+const { Task, User } = require('../models')
 
 class TaskController {
     static async fetchAll(req, res, next) {
         try {
-            const tasks = await Task.findAll()
-            res.status(200).json({tasks})
+            const tasks = await Task.findAll({
+                include: {
+                    model: User
+                },
+                order: [['updatedAt', 'DESC']]
+            })
+            const output = []
+            for (let i = 0; i < tasks.length; i++) {
+                const task = tasks[i];
+                output.push({
+                    id: task.id,
+                    title: task.title,
+                    category: task.category,
+                    UserId: task.UserId,
+                    createdAt: task.createdAt,
+                    updatedAt: task.updatedAt,
+                    UserEmail: task.User.email
+                })
+            }
+            res.status(200).json({tasks:output})
         } catch (error) {
             next(error)
         }
