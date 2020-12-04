@@ -19,21 +19,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 543px;
-    border: solid 1px black;
+    height: 575px;
+    /* border: solid 1px black; */
 }
 
 .register-card {
     width: 350px;
     height: 370px;
+    margin: 100px auto 0 auto;
     /* border: black 1px solid; */
 }
 
 .login-card {
     width: 350px;
     height: 370px;
+    margin: 100px auto 0 auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     /* border: black 1px solid; */
 }
+
 
 #login-form {
     padding: 10px;
@@ -44,10 +49,6 @@
 }
 
 /* Main Page */
-#main-page {
-
-}
-
 #backlog {
     height: 450px;
     overflow: scroll;

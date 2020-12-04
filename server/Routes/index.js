@@ -9,7 +9,10 @@ router.post("/login", UserController.login)
 router.post("/googleLogin", UserController.googleLogin)
 
 router.use(Authenticate)
-router.get("/task", TaskController.getAllTask)
+router.get("/backlog", TaskController.getTaskBacklog)
+router.get("/todo", TaskController.getTaskTodo)
+router.get("/doing", TaskController.getTaskDoing)
+router.get("/done", TaskController.getTaskDone)
 router.post("/task", TaskController.createTaks)
 
 router.use("/task/:id", Authorization)

@@ -1,9 +1,84 @@
 const { Task, User } = require("../models")
 
 class TaskController {
-    static getAllTask(req, res, next) {
+    static getTaskBacklog(req, res, next) {
         Task.findAll(
             {
+                where: {
+                    category: "Backlog"
+                },
+                include: {
+                    model: User,
+                    attributes: ["email"]
+                }
+            }
+        )
+            .then(data => {
+                if (data.length === 0) {
+                    res.status(404).json({msg: "DataNotFound"})
+                } else {
+                    res.status(200).json(data)
+                }
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
+    }
+
+    static getTaskTodo(req, res, next) {
+        Task.findAll(
+            {
+                where: {
+                    category: "Todo"
+                },
+                include: {
+                    model: User,
+                    attributes: ["email"]
+                }
+            }
+        )
+            .then(data => {
+                if (data.length === 0) {
+                    res.status(404).json({msg: "DataNotFound"})
+                } else {
+                    res.status(200).json(data)
+                }
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
+    }
+
+    static getTaskDoing(req, res, next) {
+        Task.findAll(
+            {
+                where: {
+                    category: "Doing"
+                },
+                include: {
+                    model: User,
+                    attributes: ["email"]
+                }
+            }
+        )
+            .then(data => {
+                if (data.length === 0) {
+                    res.status(404).json({msg: "DataNotFound"})
+                } else {
+                    res.status(200).json(data)
+                }
+            })
+            .catch(err => {
+                res.status(500).json(err)
+            })
+    }
+
+    static getTaskDone(req, res, next) {
+        Task.findAll(
+            {
+                where: {
+                    category: "Done"
+                },
                 include: {
                     model: User,
                     attributes: ["email"]

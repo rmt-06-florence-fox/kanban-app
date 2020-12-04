@@ -28,11 +28,17 @@ class UserController {
             }
         })
             .then(data => {
-                const access_token = getToken({id: data.id, email: data.email})
-                if(comparePass(req.body.password, data.password)) {
-                    res.status(200).json({access_token})
+                if(!data) {
+                    res.status(404).json({
+                        msg: "Invalid Account"
+                    })
                 } else {
-                    res.status(404).json({msg: "DataNotFound"})
+                    const access_token = getToken({id: data.id, email: data.email})
+                    if(comparePass(req.body.password, data.password)) {
+                        res.status(200).json({access_token})
+                    } else {
+                        res.status(404).json({msg: "DataNotFound"})
+                    }
                 }
             })
             .catch(err => {
