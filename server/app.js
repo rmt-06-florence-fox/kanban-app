@@ -5,9 +5,9 @@ const app = express();
 const PORT = process.env.PORT || 3000
 const cors = require('cors')
 const indexRouter = require('./routes/indexRouter')
-app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.use(cors())
 
 app.get('/test',(req,res) => {
    res.status(200).json({data:'Hello'})

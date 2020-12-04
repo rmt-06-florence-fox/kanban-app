@@ -84,6 +84,7 @@ export default {
             localStorage.setItem('userId',response.data.userId)
             localStorage.setItem('access_token',response.data.access_token)
             console.log(response.data)
+            console.log('login google')
             this.changePage('homePage')
          }catch (error) {
             console.log(error)
