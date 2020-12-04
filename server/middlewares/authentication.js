@@ -1,18 +1,31 @@
 const { User } = require('../models')
 const { verifyToken } = require('../helpers/jwt')
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     const access_token = req.headers.access_token
     try {
         if (!access_token) {
             throw {
-                status: 403,
+                status: 401,
                 message: `Please Login First`
             }
         } else {
             const decoded = verifyToken(access_token)
-            req.loggedIn = decoded
-            next()
+            const user = await User.findOne({
+                where: {
+                    id: decoded.id
+                }
+            })
+
+            if (user) {
+                req.loggedIn = decoded
+                next()
+            } else {
+                throw {
+                    status: 401,
+                    message: `Please Login First`
+                }
+            }
         }
     } catch (error) {
         next(error)
