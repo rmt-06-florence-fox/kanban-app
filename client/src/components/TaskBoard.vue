@@ -3,8 +3,14 @@
     <div class="tags has-addons">
       <span class="tag">{{category.name}}</span>
       <span class="tag is-dark">{{category.id}}</span>
-      <TaskItem></TaskItem>
+        <!-- {{dataTasks}} -->
     </div>
+      <TaskItem
+        v-for="task in filteredData"
+        :key="task.id"
+        :task="task"
+      >
+      </TaskItem>
   </div>
 </template>
 
@@ -12,13 +18,15 @@
 import TaskItem from "./TaskItem"
 
 export default {
-  name: "taskBoard",
-  props: ["dataTasks", "category"],
+  name: "TaskBoard",
+  props: [ "dataTasks", "category"],
   components: {
     TaskItem
   },
   computed: {
-    
+    filteredData() {
+      return this.dataTasks.filter(el => el.category === this.category.name)
+    }
   }
 };
 </script>
