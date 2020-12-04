@@ -9,7 +9,7 @@
                 </ul>
                 <div>
                   <form class="form-inline my-2 my-lg-0">
-                    <button @click.prevent="ready" class="btn my-2 my-lg-6 btn-outline btn-danger" id="add-task" type = "submit">Logout</button>
+                    <button @click.prevent="logout" class="btn my-2 my-lg-6 btn-outline btn-danger" id="add-task" type = "submit">Logout</button>
                   </form>
                 </div>
             </nav><br><br>
@@ -56,6 +56,9 @@ export default {
         },
         cancelButton() {
             this.$emit('cancelButton')
+        },
+        logout() {
+            this.$emit('logout')
         }
     }
 }

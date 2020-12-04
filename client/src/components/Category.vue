@@ -3,7 +3,7 @@
     <div class = "container-navbar">
         <div class = "item-box flexbox-item-1 rounded mt-2">{{kategoriDetail.kategori}}</div>
     </div>
-     <div class="black"></div>
+     <div class="black mt-2"></div>
         <div class = "category"> 
         <div class="card" style="width: 18rem;">
     <div class="card-body anyClass">

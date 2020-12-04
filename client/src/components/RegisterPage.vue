@@ -3,7 +3,7 @@
         <img src="../image/logo.png" width="600px" height="250px">
         <div class="col-5 mt-5">
         <h3 class="display-3 font-weight-bold">Register</h3>
-        <form @submit.prevent="register()">
+        <form @submit.prevent="register">
             <div class="form-group">
             <label for="email">Email</label>
             <input v-model="inputRegisterEmail" type="email" class="form-control">
@@ -34,6 +34,13 @@ export default {
     methods: {
         toLogin() {
             this.$emit('toLogin')
+        },
+        register() {
+            let payload= {
+                email: this.inputRegisterEmail,
+                password: this.inputRegisterPassword
+            }
+            this.$emit('register', payload)
         }
     }
 }

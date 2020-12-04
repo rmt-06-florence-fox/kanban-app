@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mt-2">
   <div class="card-body">
     <h5 class="card-title">{{task.title}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{new Date(task.createdAt).toISOString().split('T')[0]}}</h6>

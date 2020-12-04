@@ -8,7 +8,7 @@
             <a class="nav-link" href="#"><span class="sr-only"></span></a>
         </ul>
           <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-outline btn-danger" id = "tombol-logout" type="submit">Logout</button>
+            <button @click.prevent="logout" class="btn btn-outline btn-danger" id = "tombol-logout" type="submit">Logout</button>
           </form>
         </nav>
             <div class="container col-4 ">
@@ -56,6 +56,9 @@ export default {
                 category : this.selected
             }
             this.$emit('editTask', payload)
+        },
+        logout() {
+            this.$emit('logout')
         }
     }
 }

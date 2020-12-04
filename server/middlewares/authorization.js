@@ -13,7 +13,7 @@ async function authorization (req, res, next) {
         }
         else {
             throw {
-                message: 'Not Authorized', status: 401
+                message: 'it is not yours, yo do not have authorization', status: 401
             }
         }
     }

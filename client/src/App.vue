@@ -9,6 +9,7 @@
   <RegisterPage
     v-else-if = "atPage === 'registerPage'"
     @toLogin="toLogin"
+    @register="register"
   ></RegisterPage>
     
   <HomePage
@@ -25,6 +26,7 @@
     v-else-if = "atPage === 'addForm'"
      @cancelButton="cancelButton"
      @addTodo="addTodo"
+     @logout="logout"
   ></AddForm>
 
   <EditForm
@@ -32,6 +34,7 @@
     :detailTask="detailTask"
     @cancelButton="cancelButton"
     @editTask="editTask"
+    @logout="logout"
   ></EditForm>
   </div>
 </template>
@@ -44,6 +47,7 @@ import AddForm from './components/AddForm'
 import EditForm from './components/EditForm'
 import Category from './components/Category'
 import axios from './config/axios'
+import swal from 'sweetalert';
 
 export default {
   name: 'App',
@@ -90,6 +94,13 @@ export default {
       this.atPage= 'homePage'
     },
     logout() {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'thank you',
+        title: 'Good Bye!',
+        showConfirmButton: false,
+        timer: 1500
+        })
       localStorage.clear()
       this.ready()
     },
@@ -124,6 +135,13 @@ export default {
         }
       })
       .then(data => {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your just logged in!',
+        showConfirmButton: false,
+        timer: 1500
+        })
         console.log(this.tasks)
         localStorage.setItem('access_token', data.data.access_token)
         this.atPage= 'homePage'
@@ -131,6 +149,11 @@ export default {
         this.fetchTask()
       })
       .catch(err => {
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
         console.log(err)
       })
     },
@@ -144,10 +167,22 @@ export default {
         }
       })
       .then(data => {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'Welcome home',
+        title: 'you just success registered!',
+        showConfirmButton: false,
+        timer: 1500
+        })
         this.ready()
       })
       .catch(err=> {
-        console.log(err)
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
+        console.log(err.response.data.message, 'nyampe sini kan')
       })
     },
     destroy(payload) {
@@ -156,14 +191,26 @@ export default {
         method: 'DELETE',
         headers: {
           access_token: localStorage.getItem('access_token')
-        }
+        },
       })
       .then(data => {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your just deleted your plan!',
+        showConfirmButton: false,
+        timer: 1500
+        })
         this.ready()
         this.fetchTask()
       })
       .catch(err => {
-        console.log(err)
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
+        console.log(err.response)
       })
     },
     editTask(payload) {
@@ -179,11 +226,23 @@ export default {
         }
       })
       .then(_=> {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your just updated your plan!',
+        showConfirmButton: false,
+        timer: 1500
+        })
         this.ready()
         this.fetchTask()
         this.atPage= 'homePage'
       })
       .catch(err => {
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err.response.data.message,
+      })
         console.log(err)
       })
     },
@@ -216,9 +275,17 @@ export default {
         }
       })
       .then((data) => {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your just added your plan!',
+        showConfirmButton: false,
+        timer: 1500
+        })
         this.ready()
         this.fetchTask()
         this.atPage='homePage'
+        
       })
       .catch(err => {
         console.log(err)
