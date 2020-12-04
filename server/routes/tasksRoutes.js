@@ -7,6 +7,7 @@ router.use(authentication)
 router.get('/', TaskController.readTask)
 router.post('/', TaskController.addTask)
 router.delete('/:id', authorization, TaskController.deleteTask)
+router.put('/:id', authorization, TaskController.updateTask)
 
 
 
