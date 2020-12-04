@@ -94,6 +94,7 @@ class UserController{
       }
     } catch (err) {
       res.status(500).json()
+      console.log(err);
     }
   }
 }

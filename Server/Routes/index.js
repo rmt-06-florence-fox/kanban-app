@@ -9,11 +9,10 @@ const authorization = require('../middleware/authorization')
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/googleLogin', UserController.googleLogin)
+router.get('/tasks/', TaskController.getAllTask)
 
 router.use(authentication)
-
 router.post('/tasks/', TaskController.createTask)
-router.get('/tasks/', TaskController.getAllTask)
 router.get('/tasks/:id', TaskController.getTaskById)
 
 router.use('/tasks/:id', authorization)

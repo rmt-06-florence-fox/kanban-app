@@ -59,8 +59,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     deadline: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
+      isDate: true,
       validate: {
         notEmpty:{
           args: true,

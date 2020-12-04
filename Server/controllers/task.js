@@ -4,14 +4,7 @@ class TaskController{
 
   static async getAllTask(req, res, next){
     try {
-      const UserId = req.userLoggedIn.id
-      console.log(UserId + "ini usernya");
-      const tasks = await Task.findAll({
-        where: {
-          UserId
-        }
-      })
-      console.log(tasks);
+      const tasks = await Task.findAll()
       res.status(200).json(tasks)
 
     } catch (err) {
