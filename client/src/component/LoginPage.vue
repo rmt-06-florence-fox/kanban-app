@@ -68,7 +68,8 @@ export default {
             console.log(googleUser);
             console.log(googleUser.xc.id_token);
             console.log(googleUser.getBasicProfile());
-            const google_token = googleUser.xc.id_token
+            const google_token = googleUser.getAuthResponse().id_token
+
             axios({
                 url : 'https://kanban-server-p2.herokuapp.com/googlelogin',
                 method : 'POST',
