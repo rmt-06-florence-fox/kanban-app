@@ -10,7 +10,7 @@
       </MainPage>
       <RegisterPage
         v-else-if="currentPage === 'RegisterPage'"
-        @PleaseChangePage="changePage"
+        @PleaseChangePage="changePage">
       ></RegisterPage>
       
   </div>
@@ -21,6 +21,7 @@ import LoginPage from "./components/loginPage"
 import Navbar from "./components/navbar"
 import MainPage from "./components/mainPage"
 import RegisterPage from "./components/registerPage"
+import axios from "axios"
 
 
 export default {
@@ -33,9 +34,22 @@ export default {
         
     },
     methods: {
+        
         changePage(page){
             this.currentPage = page
             console.log(this.currentPage)
+        },
+        addNewTask(){
+
+        },
+        deleteTask(){
+
+        },
+        editCategory(){
+
+        },
+        editTask(){
+
         }
     },
     components: {

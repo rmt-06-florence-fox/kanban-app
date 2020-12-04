@@ -5,6 +5,7 @@ const { generateToken } = require("../helpers/jwt")
 
 class ControllerUser {
     static register(req,res,next){
+        console.log("masuk register 1")
         const obj = {
             name: req.body.name,
             email: req.body.email,
@@ -13,6 +14,7 @@ class ControllerUser {
         console.log(obj)
         User.create(obj)
         .then(data => {
+            console.log("masuk register")
             res.status(201).json({
                 id: data.id,
                 name: data.name,
@@ -21,11 +23,13 @@ class ControllerUser {
             })
         })
         .catch(error => {
+            console.log("masuk eror")
             next(error)
         })
     }
 
     static login(req,res,next){
+        console.log(req.body)
         User.findOne({where: {email: req.body.email}})
         .then(data => {        
             if(data) {
@@ -47,6 +51,7 @@ class ControllerUser {
             }
         })
         .catch(error => {
+            console.log(error)
             next(error)
         })
     }

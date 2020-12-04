@@ -1,28 +1,64 @@
 <template>
-  <div id="register" v-if="pageName == 'Register Page'">
+  <div id="register">
         <img src="https://images.vexels.com/media/users/3/152641/isolated/preview/2b3d63661f0d7fe62c36168604985f26-space-cosmonaut-cartoon-by-vexels.png" style="width: 400px; position: absolute; margin-left: 8%; margin-top: 8%;" alt="">
         <div id="register-page">
-            <form id="form-register" class="border bg-success">
+            <form @submit.prevent="register"  id="form-register" class="border bg-success">
                 <h2 style="text-align: center;">register</h2>
                 <label for="">fullname</label><br>
-                <input type="text" placeholder="your fullname here" id="register-fullname" required>
+                <input v-model="user.name" type="text" placeholder="your fullname here" id="register-fullname" required>
                 <br><br>
                 <label for="">email</label><br>
-                <input type="email" placeholder="your email here" id="register-email" required>
+                <input v-model="user.email" type="email" placeholder="your email here" id="register-email" required>
                 <br><br>
                 <label for="">password</label><br>
-                <input type="password" placeholder="your password here" id="register-password" required>
+                <input v-model="user.password" type="password" placeholder="your password here" id="register-password" required>
                 <br><br>
-                <button onsubmit="" id="register-btn">register</button>
-                <p style="padding-top: 20%;">already have an account? <a href="" style="color: rgb(23, 26, 29);">login</a></p>   
+                <button type="submit" id="register-btn">register</button>
+                <p style="padding-top: 20%;">already have an account? <a style="cursor: pointer; color:black;" @click="changePage" style="color: rgb(23, 26, 29);">login</a></p>   
             </form>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
+
 export default {
-    name: "RegisterPage"
+    name: "RegisterPage",
+    data(){
+        return {
+            user:{
+                name:"",
+                email:"",
+                password:"" 
+            }
+            
+        }
+    },
+    methods: {
+        register(){
+            axios({
+                method: "POST",
+                url: "http://localhost:3000/register",
+                data: {
+                    name: this.user.name,
+                    email: this.user.email,
+                    password: this.user.password,
+                }
+            })      
+            .then((response) => {
+                console.log(response.data)
+                this.$emit("PleaseChangePage", "LoginPage")
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        },
+        changePage(){
+            this.$emit("PleaseChangePage", "LoginPage")
+        }
+    }
 }
 </script>
 

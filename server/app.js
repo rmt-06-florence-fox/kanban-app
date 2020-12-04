@@ -5,11 +5,15 @@ const port = 3000
 const cors = require('cors')
 const routes = require('./routes/index')
 const errorHandler = require('./middlewares/errorHandler')
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json();
+
+app.use(jsonParser);
 
 app.use(cors())
 app.use(express.urlencoded({extended:true}))
 
-app.use("/", routes)
+app.use("/",jsonParser, routes)
 
 
 app.use(errorHandler)

@@ -10,14 +10,17 @@
                 <label for="">password</label><br>
                 <input v-model="user.password" type="password" placeholder="your password here" id="login-password" required>
                 <br><br>
-                <button id="login-btn" @click="login">login</button>
-                <p style="padding-top: 20%;">dont have an account? <a href="#" @click="changePage" style="color: rgb(23, 26, 29);">register</a></p>   
+                <button id="login-btn" type="submit">login</button>
+                <p style="padding-top: 20%;">dont have an account? <a style="cursor: pointer; color:black;" @click="changePage" style="color: rgb(23, 26, 29);">register</a></p>   
             </form>
         </div>
     </div>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
     name: "LoginPage",
     data(){
@@ -30,8 +33,21 @@ export default {
     },
     methods: {
         login(){
-            localStorage.setItem('access_token', this.user.email)
-            this.$emit("PleaseChangePage", "MainPage")
+            axios({
+                method: "POST",
+                url: "http://localhost:3000/login",
+                data: {
+                    email: this.user.email,
+                    password: this.user.password,
+                }
+            })
+            .then((response) => {
+                localStorage.setItem('access_token', response.data.access_token)
+                this.$emit("PleaseChangePage", "MainPage")
+            })
+            .catch(error => {
+                console.log("error.data")
+            })
         },
         changePage(){
             this.$emit("PleaseChangePage", "RegisterPage")
