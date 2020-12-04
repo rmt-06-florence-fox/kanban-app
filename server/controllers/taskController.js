@@ -45,7 +45,7 @@ class TaskController {
    static async updateTask(req,res){
       const payload={
          title:req.body.title,
-         CategoryId:req.body.categoryId,
+         CategoryId:req.body.CategoryId,
          UserId:req.loggedIn.id
       }
 

@@ -16,7 +16,7 @@ class Controller {
          if(user){
             if(compare(payload.password,user.password)){
                const access_token = tokenize({id:user.id,email:user.email})
-               res.status(200).json({access_token})
+               res.status(200).json({access_token,userId:user.id})
             }else{
                throw({
                   status:400,
@@ -70,7 +70,7 @@ class Controller {
             audience:process.env.GOOGLE_CLIENT_ID
          })
          const payload = ticket.getPayload()
-         let user = User.findOne({where:{email:payload.email}})
+         let user = await User.findOne({where:{email:payload.email}})
          if(!user){
             user = await User.create({
                email:payload.email,
@@ -80,7 +80,8 @@ class Controller {
             })
          }
          const access_token = tokenize({id:user.id,email:user.email})
-         res.status(200).json({access_token})
+         console.log(user)
+         res.status(200).json({access_token,userId:user.id})
       } catch (error) {
          console.log(error)
       }
