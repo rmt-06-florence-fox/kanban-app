@@ -7,7 +7,7 @@ const authorization = require("../middlewares/authorization");
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 
-//router.use(authentication);
+router.use(authentication);
 router.get("/tasks", taskController.viewAllTask);
 router.post("/tasks", taskController.addTask);
 router.put("/tasks/:id", authorization, taskController.updateTask);

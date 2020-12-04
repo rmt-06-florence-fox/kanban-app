@@ -8902,37 +8902,13 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {};
+var _default = {
+  methods: {
+    logout: function logout() {
+      this.$emit('setLogout');
+    }
+  }
+};
 exports.default = _default;
         var $dc0b41 = exports.default || module.exports;
       
@@ -8946,85 +8922,31 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+    [
+      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+        _vm._v("K A N B A N")
+      ]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "navbar-nav" }, [
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: { href: "#" },
+              on: { click: _vm.logout }
+            },
+            [_vm._v("Logout")]
+          )
+        ])
+      ])
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
-      [
-        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-          _vm._v("K A N B A N")
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "navbar-toggler",
-            attrs: {
-              type: "button",
-              "data-toggle": "collapse",
-              "data-target": "#navbarNav",
-              "aria-controls": "navbarNav",
-              "aria-expanded": "false",
-              "aria-label": "Toggle navigation"
-            }
-          },
-          [_c("span", { staticClass: "navbar-toggler-icon" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "collapse navbar-collapse",
-            attrs: { id: "navbarNav" }
-          },
-          [
-            _c("ul", { staticClass: "navbar-nav" }, [
-              _c("li", { staticClass: "nav-item active" }, [
-                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                  _vm._v("Home "),
-                  _c("span", { staticClass: "sr-only" }, [_vm._v("(current)")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                  _vm._v("Features")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                  _vm._v("Pricing")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link disabled",
-                    attrs: {
-                      href: "#",
-                      tabindex: "-1",
-                      "aria-disabled": "true"
-                    }
-                  },
-                  [_vm._v("Disabled")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -9057,7 +8979,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/ErrorMessage.vue":[function(require,module,exports) {
+},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/AddTask.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9068,21 +8990,152 @@ exports.default = void 0;
 //
 //
 //
-var _default = {};
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  props: ["reloadTask"],
+  data: function data() {
+    return {
+      title: ""
+    };
+  },
+  methods: {
+    addTask: function addTask() {
+      var _this = this;
+
+      console.log("Add Task Started");
+      var payload = {
+        title: this.title,
+        category: "Backlog"
+      };
+      this.$api({
+        method: "POST",
+        url: "/tasks",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          title: payload.title,
+          category: payload.category
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        //this.reloadTask();
+        _this.$emit("afterAdd", data.result);
+
+        _this.$emit("toggleAddForm");
+      }).catch(function (error) {
+        console.log(error);
+      }).finally(function () {
+        _this.title = "";
+      });
+    },
+    toggleAddForm: function toggleAddForm() {
+      this.$emit("toggleAddForm");
+    }
+  }
+};
 exports.default = _default;
-        var $81336b = exports.default || module.exports;
+        var $220404 = exports.default || module.exports;
       
-      if (typeof $81336b === 'function') {
-        $81336b = $81336b.options;
+      if (typeof $220404 === 'function') {
+        $220404 = $220404.options;
       }
     
         /* template */
-        Object.assign($81336b, (function () {
+        Object.assign($220404, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Error!")])
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "card mt-4 col-4", staticStyle: { width: "18rem" } },
+      [
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addTask($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.title,
+                      expression: "title"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.title = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    attrs: { id: "emailHelp" }
+                  },
+                  [_vm._v("What do you want to do?")]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-sm",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Go")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger btn-sm",
+                  on: { click: _vm.toggleAddForm }
+                },
+                [_vm._v("Cancel")]
+              )
+            ]
+          )
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9104,9 +9157,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$81336b', $81336b);
+            api.createRecord('$220404', $220404);
           } else {
-            api.reload('$81336b', $81336b);
+            api.reload('$220404', $220404);
           }
         }
 
@@ -9117,7 +9170,859 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/EditTask.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  props: ['data'],
+  data: function data() {
+    return {
+      title: this.data.title,
+      category: this.data.category
+    };
+  },
+  methods: {
+    editTask: function editTask() {
+      this.$api({
+        method: "POST",
+        url: "/tasks",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          title: payload.title,
+          category: payload.category
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+};
+exports.default = _default;
+        var $312033 = exports.default || module.exports;
+      
+      if (typeof $312033 === 'function') {
+        $312033 = $312033.options;
+      }
+    
+        /* template */
+        Object.assign($312033, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "card mt-4 col-4", staticStyle: { width: "18rem" } },
+      [
+        _c("div", { staticClass: "card-body" }, [
+          _c("form", [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.category,
+                      expression: "category"
+                    }
+                  ],
+                  staticClass: "custom-select",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.category = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "Backlog" } }, [
+                    _vm._v("Backlog")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "To-Do" } }, [
+                    _vm._v("To-Do")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "On-Going" } }, [
+                    _vm._v("On-Going")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Done" } }, [_vm._v("Done")])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-sm",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("Done")]
+            ),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-danger btn-sm" }, [
+              _vm._v("Cancel")
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "label",
+        { staticClass: "input-group-text", attrs: { for: "category" } },
+        [_vm._v("Category")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$312033', $312033);
+          } else {
+            api.reload('$312033', $312033);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/TaskCard.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _EditTask = _interopRequireDefault(require("./EditTask"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  data: function data() {
+    return {
+      showEditForm: false
+    };
+  },
+  components: {
+    EditForm: _EditTask.default
+  },
+  props: ['taskData'],
+  methods: {
+    deleteTask: function deleteTask() {
+      var _this = this;
+
+      var id = this.taskData.id;
+      console.log(id);
+      this.$api({
+        method: 'DELETE',
+        url: "/tasks/".concat(id),
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      }).then(function (response) {
+        _this.$emit('afterDelete', id);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    toggleEditForm: function toggleEditForm() {
+      this.showEditForm = !this.showEditForm;
+    }
+  }
+};
+exports.default = _default;
+        var $b00593 = exports.default || module.exports;
+      
+      if (typeof $b00593 === 'function') {
+        $b00593 = $b00593.options;
+      }
+    
+        /* template */
+        Object.assign($b00593, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.showEditForm == false
+        ? _c(
+            "div",
+            { staticClass: "card mt-4 col-4", staticStyle: { width: "18rem" } },
+            [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
+                  _vm._v(_vm._s(_vm.taskData.title))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "card-link",
+                    attrs: { href: "#" },
+                    on: { click: _vm.toggleEditForm }
+                  },
+                  [_vm._v("Edit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "card-link",
+                    attrs: { href: "#" },
+                    on: { click: _vm.deleteTask }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            ]
+          )
+        : _vm.showEditForm
+        ? _c("EditForm", { attrs: { data: _vm.taskData } })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$b00593', $b00593);
+          } else {
+            api.reload('$b00593', $b00593);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./EditTask":"src/components/EditTask.vue","_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/LoginForm.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  data: function data() {
+    return {
+      loginEmail: 'user@gmail.com',
+      loginPassword: '12345'
+    };
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      var payload = {
+        email: this.loginEmail,
+        password: this.loginPassword
+      };
+      this.$api({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        localStorage.setItem("access_token", data.access_token);
+
+        _this.$emit('setLogin');
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+};
+exports.default = _default;
+        var $18f586 = exports.default || module.exports;
+      
+      if (typeof $18f586 === 'function') {
+        $18f586 = $18f586.options;
+      }
+    
+        /* template */
+        Object.assign($18f586, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.login($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "loginEmail" } }, [
+              _vm._v("Email address")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.loginEmail,
+                  expression: "loginEmail"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "email", "aria-describedby": "emailHelp" },
+              domProps: { value: _vm.loginEmail },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.loginEmail = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "loginPassword" } }, [
+              _vm._v("Password")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.loginPassword,
+                  expression: "loginPassword"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "password" },
+              domProps: { value: _vm.loginPassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.loginPassword = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Submit")]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$18f586', $18f586);
+          } else {
+            api.reload('$18f586', $18f586);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Home.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Navbar = _interopRequireDefault(require("./Navbar"));
+
+var _AddTask = _interopRequireDefault(require("./AddTask"));
+
+var _TaskCard = _interopRequireDefault(require("./TaskCard"));
+
+var _LoginForm = _interopRequireDefault(require("./LoginForm"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  data: function data() {
+    return {
+      errorMessage: "",
+      tasks: [],
+      isLogin: false,
+      pageName: "Login-Page",
+      showAddForm: false
+    };
+  },
+  components: {
+    Navbar: _Navbar.default,
+    AddTask: _AddTask.default,
+    TaskCard: _TaskCard.default,
+    Login: _LoginForm.default
+  },
+  methods: {
+    fetchTask: function fetchTask() {
+      var _this = this;
+
+      console.log("Fetch Task Started!");
+      this.$api({
+        method: "GET",
+        url: "/tasks",
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        }
+      }).then(function (response) {
+        _this.tasks = response.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    setLogin: function setLogin() {
+      this.isLogin = true;
+      this.fetchTask();
+      this.pageName = "Home-Page";
+    },
+    toggleAddForm: function toggleAddForm() {
+      this.showAddForm = !this.showAddForm;
+    },
+    logout: function logout() {
+      localStorage.removeItem("access_token");
+      this.pageName = "Login-Page";
+    },
+    updateAfterDelete: function updateAfterDelete(id) {
+      console.log("ID = ", id);
+      var index = this.tasks.findIndex(function (el) {
+        return el.id === id;
+      });
+      console.log("INI INDEX : ", index);
+      this.tasks.splice(index, 1);
+    },
+    afterAdd: function afterAdd(result) {
+      this.tasks.push(result);
+    }
+  }
+};
+exports.default = _default;
+        var $a23e2c = exports.default || module.exports;
+      
+      if (typeof $a23e2c === 'function') {
+        $a23e2c = $a23e2c.options;
+      }
+    
+        /* template */
+        Object.assign($a23e2c, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.pageName == "Home-Page"
+        ? _c("Navbar", { on: { setLogout: _vm.logout } })
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _vm.pageName == "Login-Page"
+            ? _c("Login", { on: { setLogin: _vm.setLogin } })
+            : _vm.pageName == "Home-Page"
+            ? _c(
+                "div",
+                [
+                  _c("h1", [_vm._v("HomePage")]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    _vm._l(_vm.tasks, function(task, i) {
+                      return _c("TaskCard", {
+                        key: i,
+                        attrs: { taskData: task },
+                        on: { afterDelete: _vm.updateAfterDelete }
+                      })
+                    }),
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.showAddForm == false
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary btn-sm mt-4",
+                          on: { click: _vm.toggleAddForm }
+                        },
+                        [_vm._v("\n        Add Task\n      ")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.showAddForm == true
+                    ? _c("AddTask", {
+                        attrs: { reloadTask: _vm.fetchTask },
+                        on: {
+                          toggleAddForm: _vm.toggleAddForm,
+                          afterAdd: _vm.afterAdd
+                        }
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$a23e2c', $a23e2c);
+          } else {
+            api.reload('$a23e2c', $a23e2c);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./Navbar":"src/components/Navbar.vue","./AddTask":"src/components/AddTask.vue","./TaskCard":"src/components/TaskCard.vue","./LoginForm":"src/components/LoginForm.vue","_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Home = _interopRequireDefault(require("./components/Home"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+var _default = {
+  components: {
+    Home: _Home.default
+  }
+};
+exports.default = _default;
+        var $0907cc = exports.default || module.exports;
+      
+      if (typeof $0907cc === 'function') {
+        $0907cc = $0907cc.options;
+      }
+    
+        /* template */
+        Object.assign($0907cc, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_c("Home")], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$0907cc', $0907cc);
+          } else {
+            api.reload('$0907cc', $0907cc);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./components/Home":"src/components/Home.vue","_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/bootstrap/dist/css/bootstrap.css":[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -10901,354 +11806,7 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/components/AddTask.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _axios = _interopRequireDefault(require("axios"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  data: function data() {
-    return {
-      title: ''
-    };
-  },
-  methods: {
-    addTask: function addTask() {
-      var payload = {
-        title: this.title,
-        category: 'Backlog'
-      };
-      console.log(payload);
-      (0, _axios.default)({
-        method: 'POST',
-        url: 'http://localhost:3000/tasks',
-        data: {
-          title: payload.title,
-          category: payload.category
-        }
-      }).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }
-};
-exports.default = _default;
-        var $220404 = exports.default || module.exports;
-      
-      if (typeof $220404 === 'function') {
-        $220404 = $220404.options;
-      }
-    
-        /* template */
-        Object.assign($220404, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h1", [_vm._v("Add new Task")]),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.addTask($event)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.title,
-                expression: "title"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text" },
-            domProps: { value: _vm.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.title = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "small",
-            { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-            [_vm._v("What do you want to do?")]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Go")]
-        )
-      ]
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: null,
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$220404', $220404);
-          } else {
-            api.reload('$220404', $220404);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"axios":"node_modules/axios/index.js","_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/Home.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _ErrorMessage = _interopRequireDefault(require("./ErrorMessage"));
-
-var _AddTask = _interopRequireDefault(require("./AddTask"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  data: function data() {
-    return {
-      errorMessage: ''
-    };
-  },
-  components: {
-    ErrorNotification: _ErrorMessage.default,
-    AddTask: _AddTask.default
-  }
-};
-exports.default = _default;
-        var $a23e2c = exports.default || module.exports;
-      
-      if (typeof $a23e2c === 'function') {
-        $a23e2c = $a23e2c.options;
-      }
-    
-        /* template */
-        Object.assign($a23e2c, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.errorMessage.length > 0
-        ? _c("ErrorNotification", [_vm._v(_vm._s(_vm.errorMessage))])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("h1", [_vm._v("Ini Home")]),
-      _vm._v(" "),
-      _c("AddTask")
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: null,
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$a23e2c', $a23e2c);
-          } else {
-            api.reload('$a23e2c', $a23e2c);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"./ErrorMessage":"src/components/ErrorMessage.vue","./AddTask":"src/components/AddTask.vue","_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/App.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Navbar = _interopRequireDefault(require("./components/Navbar"));
-
-var _Home = _interopRequireDefault(require("./components/Home"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  components: {
-    Navbar: _Navbar.default,
-    Home: _Home.default
-  }
-};
-exports.default = _default;
-        var $0907cc = exports.default || module.exports;
-      
-      if (typeof $0907cc === 'function') {
-        $0907cc = $0907cc.options;
-      }
-    
-        /* template */
-        Object.assign($0907cc, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("Navbar"), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("Home")],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container bg-dark" }, [
-      _c("h1", { staticClass: "text-white" }, [_vm._v("Hello from Vue")])
-    ])
-  }
-]
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: null,
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$0907cc', $0907cc);
-          } else {
-            api.reload('$0907cc', $0907cc);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"./components/Navbar":"src/components/Navbar.vue","./components/Home":"src/components/Home.vue","_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/bootstrap/dist/css/bootstrap.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/main.js":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -11257,14 +11815,24 @@ var _App = _interopRequireDefault(require("./App.vue"));
 
 require("bootstrap/dist/css/bootstrap.css");
 
+var _axios = _interopRequireDefault(require("axios"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue.default.use({
+  install: function install(Vue) {
+    Vue.prototype.$api = _axios.default.create({
+      baseURL: 'http://localhost:3000'
+    });
+  }
+});
 
 new _vue.default({
   render: function render(h) {
     return h(_App.default);
   }
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css"}],"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./App.vue":"src/App.vue","bootstrap/dist/css/bootstrap.css":"node_modules/bootstrap/dist/css/bootstrap.css","axios":"node_modules/axios/index.js"}],"C:/Users/Normandia Akbar/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11292,7 +11860,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13494" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1351" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,6 +1,6 @@
 const { Task } = require("../models");
 
-class taskController{
+class taskController {
     static async viewAllTask(request, response) {
         const userId = +request.loggedInUser.id;
         try {
@@ -8,19 +8,20 @@ class taskController{
                 order: [["updatedAt", "ASC"]]
             });
             response.status(200).json(data);
-        }catch(error) {
+        } catch (error) {
+            console.log(error);
             next(error);
         }
     }
 
     static async addTask(request, response) {
-        //const userId = +request.loggedInUser.id;
+        const userId = +request.loggedInUser.id;
         console.log(request.body.title);
         console.log(request.body);
         const newData = {
             title: request.body.title,
             category: request.body.category,
-            //UserId: userId
+            UserId: userId
         }
         console.log(newData);
         try {
@@ -32,10 +33,10 @@ class taskController{
                 "category": data.category,
                 "UserId": data.UserId
             }
-            response.status(201).json({result});
+            response.status(201).json({ result });
         } catch (error) {
             console.log(error);
-            //`next(error);
+            next(error);
         }
     }
 
@@ -55,7 +56,7 @@ class taskController{
             response.status(200).json(data[1][0]);
         } catch (error) {
             console.log(error);
-            next(error)            
+            next(error)
         }
     }
 
@@ -71,22 +72,18 @@ class taskController{
             response.status(200).json(data[1][0]);
         } catch (error) {
             console.log(error);
-            next(error)            
+            next(error)
         }
     }
 
-    static async delete(request, response) {
+    static async delete(request, response, next) {
         try {
             const taskId = +request.params.id;
             const deleteTask = await Task.destroy({
-                where: {id: taskId},
+                where: { id: taskId },
                 returning: true
             });
-            if(!deleteTask) {
-                throw { message: 'NotFound'}
-            } else {
-                response.status(201).json({ message: 'Item successfully deleted!'})
-            }
+            response.status(201).json({ message: 'Item successfully deleted!' })
         } catch (error) {
             console.log(error);
             next(error);

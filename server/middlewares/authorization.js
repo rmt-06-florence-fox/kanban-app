@@ -1,8 +1,10 @@
 const { Task } = require("../models");
 
 async function authorization(request, response, next) {
+    console.log("Masuk Authorization");
     try {
         const id = +request.params.id;
+        console.log(id);
         const data = await Task.findByPk(id);
         if(!data) {
             throw{ name: 'NotFound' }
@@ -12,6 +14,7 @@ async function authorization(request, response, next) {
             throw{ name: 'Unauthorized' }
         }
     } catch(error) {
+        console.log(error);
         next(error);
     }
 }

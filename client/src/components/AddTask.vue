@@ -1,51 +1,63 @@
 <template>
-  <div class="container">
-    <h1>Add new Task</h1>
-    <form @submit.prevent="addTask">
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" class="form-control" v-model="title"/>
-        <small id="emailHelp" class="form-text text-muted"
-          >What do you want to do?</small
-        >
+  <div>
+    <div class="card mt-4 col-4" style="width: 18rem">
+      <div class="card-body">
+        <form @submit.prevent="addTask">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" v-model="title" />
+            <small id="emailHelp" class="form-text text-muted"
+              >What do you want to do?</small
+            >
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Go</button>
+          <button @click="toggleAddForm" class="btn btn-danger btn-sm">Cancel</button>
+        </form>
       </div>
-      <button type="submit" class="btn btn-primary">Go</button>
-    </form>
-  </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
-    data() {
-        return {
-            title: ''
-        }
+  props: ["reloadTask"],
+  data() {
+    return {
+      title: "",
+    };
+  },
+  methods: {
+    addTask() {
+      console.log("Add Task Started");
+      const payload = {
+        title: this.title,
+        category: "Backlog",
+      };
+      this.$api({
+        method: "POST",
+        url: "/tasks",
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        data: {
+          title: payload.title,
+          category: payload.category,
+        },
+      })
+        .then(({data}) => {
+          //this.reloadTask();
+          this.$emit("afterAdd", data.result)
+          this.$emit("toggleAddForm");
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.title = "";
+        });
     },
-    methods: {
-        addTask() {
-            const payload = {
-                title: this.title,
-                category: 'Backlog'
-            }
-            console.log(payload);
-            axios({
-                method: 'POST',
-                url: 'http://localhost:3000/tasks',
-                data: {
-                    title: payload.title,
-                    category: payload.category
-                }
-            })
-            .then(response=> {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
-    }
+    toggleAddForm() {
+      this.$emit("toggleAddForm");
+    },
+  },
 };
 </script>
 
