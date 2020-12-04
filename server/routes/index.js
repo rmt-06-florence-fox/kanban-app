@@ -8,11 +8,12 @@ router.post("/login", Controller.login)
 router.post("/googleLogin", Controller.googleLogin)
 
 router.use(authentication)
-router.post("/tasks", Controller.newTask)
+router.post("/tasks", Controller.addTask)
 router.post("/categories", Controller.newCategory)
 router.put("/categories/:id", Controller.updateCategoryName)
 
 router.get("/tasks", Controller.getAllTask)
+router.get("/tasksById", Controller.getTaskById)
 router.put("/tasks/:id", authorization, Controller.updateTask)
 router.patch("/tasks/:id", authorization, Controller.updateCategory)
 router.delete("/tasks/:id", authorization, Controller.deleteTask)

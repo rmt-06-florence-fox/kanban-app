@@ -3,6 +3,7 @@ const { verifyToken } = require("../helpers/jwt")
 
 module.exports = async (req, res, next) => {
     try {
+        console.log("masuk auten");
         const { access_token } = req.headers
         
         if (!access_token) {

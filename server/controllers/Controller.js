@@ -35,7 +35,7 @@ class Controller {
                     email: user.email
                 }
                 const access_token = generateToken(payload)
-                res.status(200).json({ access_token })
+                res.status(200).json({ access_token, name: user.name })
             } else {
                 throw{
                     status: 400,
@@ -49,7 +49,7 @@ class Controller {
     static async googleLogin(req, res, next) {
         let payload;
         client.verifyIdToken({
-            idToken: req.body.googleToken,
+            idToken: req.body.idToken,
             audience: process.env.GID
         })
         .then(ticket => {
@@ -66,7 +66,7 @@ class Controller {
                         return user
                     } else {
                         return User.create({
-                            full_name: payload.name,
+                            name: payload.email,
                             email: payload.email,
                             password: process.env.G_PASS
                         })
@@ -74,7 +74,7 @@ class Controller {
                 })
                 .then(user => {
                     console.log("masuk2");
-                    const access_token = generateToken({ email: user.email, id: user.id, name: user.full_name })
+                    const access_token = generateToken({ email: user.email, id: user.id, name: user.name })
                     res.status(200).json({ access_token })
                 })
         })
@@ -83,20 +83,48 @@ class Controller {
         })
     }
     //==================================to table task
-    static async newTask(req, res, next) { //create task - post
+    static async addTask(req, res, next) { //create task - post
+        console.log("masuk controler", req.body);
+        
         try {
             const UserId = req.loggedInUser.id
             const { title } = req.body
             const input = { title, UserId }
             const task = await Task.create(input, { returning: true })
+            console.log("mdsfasdf", task);
             res.status(201).json(task)
         } catch (err) {
             next(err)
         }
     }
     static async getAllTask(req, res, next) { //show all task - post
+        // try {
+        //     const task = await Task.findAll({include: [User, Category]})
+        //     res.status(200).json(task)
+        // } catch (err) {
+        //     next(err)
+        // }
+        let dataTask
+        Task.findAll({include: [User, Category]})
+        .then(task => {
+            dataTask = task
+            return Category.findAll()
+        })
+        .then(cat => {
+            res.status(200).json({dataTask, cat})
+        })
+        .catch(err => {
+            next(err)
+        });
+    }
+    static async getTaskById(req, res, next) { //show all task - post
         try {
-            const task = await Task.findAll({include: [User, Category]})
+            const task = await Task.findAll({
+                where: {
+                    UserId: req.loggedInUser.id
+                },
+                include: [User, Category]
+            })
             res.status(200).json(task)
         } catch (err) {
             next(err)
