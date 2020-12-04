@@ -14,7 +14,9 @@
             <button class="btn btn-primary" type="submit">Submit</button>
             <a class="btn btn-outline-primary" role="button" @click.prevent="register">Register</a><br>
             <small>or you want to sign in with google</small>
-            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
+            <GoogleLogin 
+                :params="params" :renderParams="renderParams" :onSuccess="onSuccess"
+            ></GoogleLogin>
         </form>
     </div>
   </div>

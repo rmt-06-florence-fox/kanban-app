@@ -1,17 +1,27 @@
 <template>
   <div>
-      <LoginPage v-if="currentPage == 'login'" 
-      @changeCurrentPage="changePage"></LoginPage>
-      <RegisterPage v-else-if="currentPage == 'register'" 
-      @changeCurrentPage="changePage"></RegisterPage>
-      <MainPage v-else-if="currentPage == 'main'" 
-      @changeCurrentPage="changePage"
-      @edit='edit'></MainPage>
-      <AddPage v-else-if="currentPage == 'add'"
-      @changeCurrentPage="changePage"></AddPage>
-      <EditPage v-else-if="currentPage == 'editPage'"
-      :editTask='filter'
-      @changeCurrentPage="changePage"></EditPage>
+      <LoginPage 
+        v-if="currentPage == 'login'" 
+        @changeCurrentPage="changePage"
+      ></LoginPage>
+      <RegisterPage 
+        v-else-if="currentPage == 'register'" 
+        @changeCurrentPage="changePage"
+      ></RegisterPage>
+      <MainPage 
+        v-else-if="currentPage == 'main'" 
+        @changeCurrentPage="changePage"
+        @edit='edit'
+      ></MainPage>
+      <AddPage 
+        v-else-if="currentPage == 'add'"
+        @changeCurrentPage="changePage"
+      ></AddPage>
+      <EditPage 
+        v-else-if="currentPage == 'editPage'"
+        :editTask='filter'
+        @changeCurrentPage="changePage"
+      ></EditPage>
   </div>
 </template>
 

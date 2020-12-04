@@ -1,24 +1,20 @@
 <template>
   <div>
       <Navbar 
-      @logout='logout'
-      @addPage='addPage'
+        @logout='logout'
+        @addPage='addPage'
       ></Navbar>
       <div class="container mt-4">
         <div class="row">
-            <div class="col-md-3 col-sm-6 mt-3" v-for="category in categories" :key="category.id">
-                <div class="p-3 bg-primary text-white rounded">
-                    {{ category.name }}
-                </div>
-                <div class="card mt-3 shadow" v-for="data in filterTask(category.name)" :key="data.id">
-                    <TaskList 
-                    @edit='edit'
-                    @deleteId='deleteId'
-                    :listData='data'
-                    @patchLeft='patchLeft'
-                    @patchRight='patchRight'></TaskList>
-                </div>
-            </div>
+            <TaskBoard  
+                v-for="category in categories" :key="category.id"
+                :category='category'
+                :listTask='listTask'
+                @edit='edit'
+                @deleteId='deleteId'
+                @patchLeft='patchLeft'
+                @patchRight='patchRight'
+            ></TaskBoard>
         </div>
     </div>
   </div>
@@ -26,7 +22,7 @@
 
 <script>
 import Navbar from "./navbar"
-import TaskList from "./taskList"
+import TaskBoard from "./TaskBoard"
 import axios from "axios"
 export default {
     name: "MainPage",
@@ -55,11 +51,6 @@ export default {
         }
     },
     methods: {
-        filterTask(category){
-            // console.log(category)
-            // console.log(listTask)
-            return this.listTask.filter(task => task.category == category)
-        },
         logout(){
             // console.log('masuk sini')
             // console.log(gapi)
@@ -176,7 +167,7 @@ export default {
     },
     components:{
         Navbar,
-        TaskList
+        TaskBoard
     },
     created: function(){
         this.fetch()
