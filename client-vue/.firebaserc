@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "kanban-app-client",
+    "kanban-app": "kanbanp2"
+  }
+}

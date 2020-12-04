@@ -66,16 +66,9 @@ export default {
         },
         onSuccess(googleUser) {
             console.log(googleUser);
-            console.log(googleUser.xv.access_token);
+ 
+            // This only gets the user information: id, name, imageUrl and email
             console.log(googleUser.getBasicProfile());
-
-            // axios({
-            //     url : 'https://kanban-server-p2.herokuapp.com/category/googlelogin',
-            //     method : 'POST',
-            //     data : {
-
-            //     }
-            // })
         }
     },
     components : {
