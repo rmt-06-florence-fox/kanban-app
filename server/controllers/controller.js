@@ -67,44 +67,6 @@ class Controller {
     }
 
 
-    static googleLogin(req, res, next) {
-        let payload
-        client.verifyIdToken({
-            idToken: req.body.googleToken,
-            audience: "994279102205-ha32cicdqvcdpmkggvbl5k2b58r03qar.apps.googleusercontent.com",
-        })
-        .then(ticket => {
-            console.log('MASUK TICKET');
-            payload = ticket.getPayload()
-            return User.findOne({
-                where: {
-                    email: payload.email
-                }
-            })
-        })
-        .then(user => {
-            if (user) {
-                return user
-            } else {
-                console.log('MASUK CREATE')
-                // console.log(payload);
-                return User.create({
-                    email: payload.email,
-                    password: "-UmFTa8dEi8kUemEB99mPb3j",
-                })
-            }
-        })
-        .then(user => {
-            console.log('MASUK FINAL');
-            const access_token = jwt.sign({id: user.id, username: user.username, email: user.email}, 'hiha')
-            res.status(200).json({access_token})
-        })
-        .catch(err => {
-            console.log(err);
-            next(err)
-        })
-    }
-
 
     static updateTask(req, res) {
         let obj = {

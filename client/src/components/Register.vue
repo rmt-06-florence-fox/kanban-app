@@ -7,7 +7,7 @@
         <div class="col-md-8 col-10 my-5">
             <form @submit.prevent="register">
                 <div class="form-group">
-                    <label class="form-control-label text-muted">Username</label>
+                    <label class="form-control-label text-muted">Email</label>
                     <input v-model="email" type="text" id="email" name="email" placeholder="Enter your email" class="form-control"> </div>
                 <div class="form-group">
                     <label class="form-control-label text-muted">Password</label>
