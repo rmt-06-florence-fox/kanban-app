@@ -22,6 +22,7 @@
   import Navbar from './components/navbar.vue';
   import Register from './components/register.vue';
   import Taskboard from './components/taskboard.vue';
+  import swal from 'sweetalert'
 
   export default {
     name: 'App',
@@ -69,8 +70,21 @@
         })
           .then(response =>{
             this.pageName = 'Login Page'
+            swal({
+              title: 'Good Job !',
+              text: 'Please log in now !',
+              icon: 'success'
+            })
           })
-          .catch(err => console.log(err))
+          .catch(err =>{
+            console.log(err.response.data.messages, '<<< error')
+            let errMessages = err.response.data.messages.map(e => e.message)
+            swal({
+              title: 'ERROR !!!',
+              text: errMessages.join(' , '),
+              icon: 'error'
+            })
+          })
       },
       login(data){
         axios({
@@ -84,8 +98,21 @@
             localStorage.setItem('email', response.data.email)
             localStorage.setItem('id', response.data.id)
             this.pageName = 'Home Page'
+            this.fetchData()
+            swal({
+              title: 'Welcome !',
+              text: `Have a nice day, ${response.data.name} !`,
+              icon: 'success'
+            })
           })
-          .catch(err => console.log(err))
+          .catch(err =>{
+            console.log(err)
+            swal({
+              title: 'ERROR !!!',
+              text: err.response.data.message,
+              icon: 'error'
+            })
+          })
       },
       logout(){
         localStorage.removeItem('access_token')
@@ -122,16 +149,34 @@
           .catch(err => console.log(err))
       },
       deleteData(id){
-        console.log(id, '<< id untuk delete di app');
-        axios({
-          url: this.baseUrl + 'tasks/' + id,
-          method: 'DELETE',
-          headers:{
-            access_token: localStorage.getItem('access_token')
-          }
+        // console.log(id, '<< id untuk delete di app');
+        swal({
+          title: 'Delete ?',
+          text: 'Once deleted, you will not be able to recover this task !',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
         })
-          .then(response => this.fetchData())
-          .catch(err => console.log(err))
+        .then((willDelete)=>{
+          if(willDelete){
+            axios({
+              url: this.baseUrl + 'tasks/' + id,
+              method: 'DELETE',
+              headers:{
+                access_token: localStorage.getItem('access_token')
+              }
+            })
+              .then(response =>{
+                this.fetchData()
+                swal({
+                  title: 'Deleted',
+                  text: 'Successfully deleted your task',
+                  icon: 'success'
+                })
+              })
+              .catch(err => console.log(err))
+          }else swal('Well... okay...')
+        })
       },
       createTask(data){
         // console.log(data, '<<< data untuk di tambahkan ada di app');
@@ -162,8 +207,8 @@
     },
     created(){
       if(localStorage.getItem('access_token')){
-        this.pageName = 'Home Page'
         this.fetchData()
+        this.pageName = 'Home Page'
       }else this.pageName = 'Login Page'
     }
   }

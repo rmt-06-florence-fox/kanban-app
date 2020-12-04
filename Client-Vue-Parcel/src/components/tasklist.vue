@@ -25,7 +25,7 @@
       </form>
     </div>
     <!-- Form Edit -->
-    <div class="edit-task-page" v-if="dataForEdit.id === dataList.id && pageEdit">
+    <div class="edit-task-page" v-if="pageEdit && (currentDataEditId === 'none' || currentDataEditId == dataForEdit.id)">
       <form action="" @submit.prevent='updateData(dataList.id)'>
         <textarea class ="edit-task" name="edit-backlog" v-model="editTask"></textarea>
         <button type="submit" class="btn btn-add-task fas fa-check"><label class="ml-2">Edit Task</label></button>
@@ -45,6 +45,7 @@
         pagePatch: false,
         patchCategory: '',
         dataForEdit: {},
+        currentDataEditId: 'none',
         dataUser:{
           id: +localStorage.getItem('id'),
           email: localStorage.getItem('email')
@@ -57,10 +58,15 @@
         if(email === this.dataUser.email) return true
         else return false
       },
+      editToggleStatus(value){
+        this.currentDataEditId = value
+      },
       editData(data){
         this.editTask = data.title
         this.dataForEdit = data
         this.pageEdit = !this.pageEdit
+        this.editToggleStatus('none')
+        this.editToggleStatus(data.id)
       },
       deleteData(id){
         this.$emit('idDelete', id)
@@ -95,6 +101,6 @@
   .patchData{
     display: flex;
     justify-content: center;
-    font-size: 15px;
+    /* font-size: 15px; */
   }
 </style>
