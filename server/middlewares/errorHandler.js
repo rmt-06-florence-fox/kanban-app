@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next) {
+    console.log(err);
     if (err.status) {
         res.status(err.status).json({ message: err.message });
     } else if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError" ) {
@@ -27,6 +28,8 @@ function errorHandler(err, req, res, next) {
                 errors.push(tempMessage);
             }
         res.status(400).json({ messages: errors });
+    } else if (err.name === 'TokenExpiredError') {
+        res.status(401).json({ message: "Your session is expired."});
     } else {
         res.status(500).json({ message: "Internal Server Error" });
     }

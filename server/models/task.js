@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     static associate(models) {
       this.belongsTo(models.User);
+      this.belongsTo(models.Category);
     }
   };
   Task.init({
@@ -24,20 +25,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: DataTypes.STRING,
-    category: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          args: true,
-          msg: "Category is required."
-        },
-        notEmpty: {
-          args: true,
-          msg: "Category is required."
-        }
-      }
-    },
     due_date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
@@ -56,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
     },
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    CategoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Task',
