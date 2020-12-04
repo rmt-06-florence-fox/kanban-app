@@ -35,7 +35,7 @@ export default {
     fetchCategories(){
       axios({
         method: "GET",
-        url: "http://localhost:3000/categories",
+        url: "https://kanban-server-apps.herokuapp.com/categories",
         headers: {
           access_token: localStorage.getItem('access_token')
         }
