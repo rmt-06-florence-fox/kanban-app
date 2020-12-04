@@ -11069,14 +11069,19 @@ var _default = {
   name: "EditTask",
   data: function data() {
     return {
-      title: titleEdit
+      title: this.titleEdit,
+      categoryid: this.categoryId
     };
   },
-  props: ['titleEdit'],
+  props: ['titleEdit', 'categoryId', 'taskId'],
   methods: {
     cancelEdit: function cancelEdit() {
       console.log('cancel');
       this.$emit('cancelEdit', 0);
+    },
+    saveEditTitle: function saveEditTitle(newTitle) {
+      console.log(newTitle, 'editTask', this.categoryid, this.taskId);
+      this.$emit('changeTitle', newTitle, this.categoryid, this.taskId);
     }
   }
 };
@@ -11098,12 +11103,39 @@ exports.default = _default;
       _c("div", { staticClass: "card-header" }, [
         _c("div", { staticClass: "edit-task" }, [
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.title,
+                expression: "title"
+              }
+            ],
             attrs: { placeholder: "task title", type: "text" },
-            domProps: { value: _vm.title }
+            domProps: { value: _vm.title },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.title = $event.target.value
+              }
+            }
           }),
           _c("br"),
           _vm._v(" "),
-          _c("button", { staticClass: "btn btn-primary" }, [_vm._v(" edit")]),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              on: {
+                click: function($event) {
+                  return _vm.saveEditTitle(_vm.title)
+                }
+              }
+            },
+            [_vm._v(" edit")]
+          ),
           _vm._v(" "),
           _c(
             "button",
@@ -11148,6 +11180,157 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/ChangeCategory.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "ChangeCategory",
+  methods: {
+    cancelEdit: function cancelEdit() {
+      this.$emit('cancelEdit', 0);
+    },
+    changeCategory: function changeCategory(categoryId) {
+      console.log(categoryId);
+      this.$emit("changeCategory", categoryId);
+    }
+  }
+};
+exports.default = _default;
+        var $5864fd = exports.default || module.exports;
+      
+      if (typeof $5864fd === 'function') {
+        $5864fd = $5864fd.options;
+      }
+    
+        /* template */
+        Object.assign($5864fd, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "change-category" }, [
+    _c("ul", [
+      _c(
+        "a",
+        {
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              return _vm.changeCategory(1)
+            }
+          }
+        },
+        [_c("li", [_vm._v("Move to Backlog")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              return _vm.changeCategory(2)
+            }
+          }
+        },
+        [_c("li", [_vm._v("Move to Todo")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              return _vm.changeCategory(3)
+            }
+          }
+        },
+        [_c("li", [_vm._v("Move to Doing")])]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              return _vm.changeCategory(4)
+            }
+          }
+        },
+        [_c("li", [_vm._v("Move to Done")])]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      { staticClass: "btn btn-danger", on: { click: _vm.cancelEdit } },
+      [_vm._v(" Cancel")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$5864fd', $5864fd);
+          } else {
+            api.reload('$5864fd', $5864fd);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/TaskCard.vue":[function(require,module,exports) {
 "use strict";
 
@@ -11158,8 +11341,22 @@ exports.default = void 0;
 
 var _EditTask = _interopRequireDefault(require("./EditTask"));
 
+var _ChangeCategory = _interopRequireDefault(require("./ChangeCategory"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11190,7 +11387,8 @@ var _default = {
   props: ['element'],
   data: function data() {
     return {
-      editedTaskId: ""
+      editedTaskId: "",
+      changeCategoryId: ""
     };
   },
   methods: {
@@ -11199,15 +11397,25 @@ var _default = {
       this.editedTaskId = id;
     },
     cancelEdit: function cancelEdit(id) {
-      this.editedTaskId = '';
+      this.editedTaskId = id;
+      this.changeCategoryId = id;
     },
     deleteTask: function deleteTask(id) {
       console.log('trey delete', id);
       this.$emit('deleteTask', id);
+    },
+    changeCategory: function changeCategory(categoryId) {
+      console.log(categoryId, 'cardtask', this.changeCategoryId);
+      this.$emit("changeCategory", categoryId, this.changeCategoryId);
+    },
+    saveEditTitle: function saveEditTitle(newTitle, categoryId, taskId) {
+      console.log(newTitle, 'taskCard', categoryId, taskId);
+      this.$emit('changeTitle', newTitle, categoryId, taskId);
     }
   },
   components: {
-    EditTask: _EditTask.default
+    EditTask: _EditTask.default,
+    ChangeCategory: _ChangeCategory.default
   }
 };
 exports.default = _default;
@@ -11230,8 +11438,12 @@ exports.default = _default;
       [
         _vm.editedTaskId == _vm.element.id
           ? _c("EditTask", {
-              attrs: { titleEdit: _vm.element.title },
-              on: { cancelEdit: _vm.cancelEdit }
+              attrs: {
+                titleEdit: _vm.element.title,
+                categoryId: _vm.element.CategoryId,
+                taskId: _vm.element.id
+              },
+              on: { cancelEdit: _vm.cancelEdit, changeTitle: _vm.saveEditTitle }
             })
           : _c("div", { staticClass: "card-header" }, [
               _c("h1", [_vm._v(_vm._s(_vm.element.title))]),
@@ -11239,53 +11451,69 @@ exports.default = _default;
               _c("h1", [_vm._v(_vm._s(_vm.element.id))])
             ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", [
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.editedTaskId = _vm.element.id
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c("div", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.editedTaskId = _vm.element.id
+                    }
                   }
-                }
-              },
-              [_c("i", { staticClass: "fa fa-pencil" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.deleteTask(_vm.element.id)
+                },
+                [_c("i", { staticClass: "fa fa-pencil" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteTask(_vm.element.id)
+                    }
                   }
-                }
-              },
-              [_c("i", { staticClass: "fa fa-trash-o" })]
-            ),
+                },
+                [_c("i", { staticClass: "fa fa-trash-o" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      _vm.changeCategoryId = _vm.element.id
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-arrows" })]
+              )
+            ]),
             _vm._v(" "),
-            _vm._m(0)
-          ])
-        ])
+            _vm.changeCategoryId == _vm.element.id
+              ? _c("ChangeCategory", {
+                  on: {
+                    cancelEdit: _vm.cancelEdit,
+                    changeCategory: _vm.changeCategory
+                  }
+                })
+              : _vm._e()
+          ],
+          1
+        )
       ],
       1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fa fa-arrows" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -11318,7 +11546,7 @@ render._withStripped = true
       
       }
     })();
-},{"./EditTask":"src/component/EditTask.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/TaskBoard.vue":[function(require,module,exports) {
+},{"./EditTask":"src/component/EditTask.vue","./ChangeCategory":"src/component/ChangeCategory.vue","_css_loader":"../../../../../../.nvm/versions/node/v12.18.4/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/TaskBoard.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11347,6 +11575,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 var _default = {
   name: "TaskBoard",
   props: ['task'],
@@ -11358,6 +11589,14 @@ var _default = {
     deleteTask: function deleteTask(id) {
       console.log('board delete', id);
       this.$emit('deleteTask', id);
+    },
+    changeCategory: function changeCategory(categoryId, onId) {
+      console.log(categoryId, 'taskboard', onId);
+      this.$emit("changeCategory", categoryId, onId);
+    },
+    saveEditTitle: function saveEditTitle(newTitle, categoryId, taskId) {
+      console.log(newTitle, 'taskboard', categoryId, taskId);
+      this.$emit('changeTitle', newTitle, categoryId, taskId);
     }
   }
 };
@@ -11385,7 +11624,11 @@ exports.default = _default;
           return _c("TaskCard", {
             key: index,
             attrs: { element: element },
-            on: { deleteTask: _vm.deleteTask }
+            on: {
+              deleteTask: _vm.deleteTask,
+              changeCategory: _vm.changeCategory,
+              changeTitle: _vm.saveEditTitle
+            }
           })
         })
       ],
@@ -11458,8 +11701,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: "KanbanBoard",
+  data: function data() {
+    return {
+      categoryid: ""
+    };
+  },
   props: ['taskData'],
   components: {
     TaskBoard: _TaskBoard.default
@@ -11468,6 +11718,14 @@ var _default = {
     deleteTask: function deleteTask(id) {
       console.log('deletes', id);
       this.$emit('deleteTask', id);
+    },
+    changeCategory: function changeCategory(categoryId, onId) {
+      console.log(categoryId, 'kanban board', onId);
+      this.$emit("changeCategory", categoryId, onId);
+    },
+    saveEditTitle: function saveEditTitle(newTitle, categoryId, taskId) {
+      console.log(newTitle, 'kanbanboard', categoryId, taskId);
+      this.$emit('changeTitle', newTitle, categoryId, taskId);
     }
   }
 };
@@ -11493,7 +11751,11 @@ exports.default = _default;
           return _c("TaskBoard", {
             key: task.id,
             attrs: { task: task },
-            on: { deleteTask: _vm.deleteTask }
+            on: {
+              deleteTask: _vm.deleteTask,
+              changeCategory: _vm.changeCategory,
+              changeTitle: _vm.saveEditTitle
+            }
           })
         }),
         1
@@ -11818,6 +12080,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 var _default = {
   name: "MainPage",
   data: function data() {
@@ -11847,6 +12113,14 @@ var _default = {
     deleteTask: function deleteTask(id) {
       console.log(id, 'here');
       this.$emit('deleteTask', id);
+    },
+    changeCategory: function changeCategory(categoryId, onId) {
+      console.log(categoryId, 'main page', onId);
+      this.$emit("changeCategory", categoryId, onId);
+    },
+    saveEditTitle: function saveEditTitle(newTitle, categoryId, taskId) {
+      console.log(newTitle, 'main', categoryId, taskId);
+      this.$emit('changeTitle', newTitle, categoryId, taskId);
     }
   }
 };
@@ -11871,7 +12145,11 @@ exports.default = _default;
       _vm.onPage == "kanbanBoard"
         ? _c("KanbanBoard", {
             attrs: { taskData: _vm.taskData },
-            on: { deleteTask: _vm.deleteTask }
+            on: {
+              deleteTask: _vm.deleteTask,
+              changeCategory: _vm.changeCategory,
+              changeTitle: _vm.saveEditTitle
+            }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -12185,6 +12463,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: "App",
   data: function data() {
@@ -12302,6 +12585,51 @@ var _default = {
       //     this.email = ""
       //     this.password = ""
       // })
+    },
+    changeCategory: function changeCategory(categoryId, onId) {
+      var _this6 = this;
+
+      console.log(categoryId, 'app', onId);
+      var access_token = localStorage.access_token;
+      (0, _axios.default)({
+        url: "http://localhost:3000/task/".concat(onId),
+        method: 'PATCH',
+        data: {
+          categoryId: categoryId
+        },
+        headers: {
+          access_token: access_token
+        }
+      }).then(function (res) {
+        console.log(res);
+
+        _this6.fethcData();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    saveEditTitle: function saveEditTitle(newTitle, categoryId, taskId) {
+      var _this7 = this;
+
+      console.log(newTitle, 'app', categoryId, taskId);
+      var access_token = localStorage.access_token;
+      (0, _axios.default)({
+        url: "http://localhost:3000/task/".concat(taskId),
+        method: 'PUT',
+        headers: {
+          access_token: access_token
+        },
+        data: {
+          title: newTitle,
+          categoryId: categoryId
+        }
+      }).then(function (res) {
+        console.log(res, 'sukses');
+
+        _this7.fethcData();
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
   },
   components: {
@@ -12353,7 +12681,9 @@ exports.default = _default;
               logout: _vm.logout,
               changePage: _vm.changePage,
               addTask: _vm.addTask,
-              deleteTask: _vm.deleteTask
+              deleteTask: _vm.deleteTask,
+              changeCategory: _vm.changeCategory,
+              changeTitle: _vm.saveEditTitle
             }
           })
         : _vm._e()
@@ -12436,7 +12766,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42267" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44005" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

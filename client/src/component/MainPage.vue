@@ -10,6 +10,9 @@
     v-if="onPage == 'kanbanBoard'"
     :taskData="taskData"
     @deleteTask='deleteTask'
+    @changeCategory="changeCategory"
+    @changeTitle="saveEditTitle"
+
     ></KanbanBoard>
 
 
@@ -17,6 +20,7 @@
     v-if="onPage == 'addPage'"
     @changePage="changePage"
     @addTask ="addTask"
+
     ></AddTask>
   </div>
 </template>
@@ -55,6 +59,14 @@ export default {
       deleteTask(id){
         console.log(id,'here')
         this.$emit('deleteTask',id)
+      },
+      changeCategory(categoryId,onId){
+      console.log(categoryId,'main page',onId)
+      this.$emit("changeCategory",categoryId,onId)
+      },
+      saveEditTitle(newTitle,categoryId,taskId){
+        console.log(newTitle,'main',categoryId,taskId)
+        this.$emit('changeTitle',newTitle,categoryId,taskId)
       }
     }
 }

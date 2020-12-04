@@ -16,10 +16,15 @@
 
         <MainPage
         v-if="onPage == 'kanbanBoard' || onPage == 'addPage'"
+   
         @logout="logout"
         @changePage="changePage"
         @addTask="addTask"
         @deleteTask='deleteTask'
+        @changeCategory="changeCategory"
+        @changeTitle="saveEditTitle"
+
+
         :onPage="onPage"
         :taskData="task"
         ></MainPage>
@@ -42,6 +47,7 @@ export default {
         }
     },
     methods : {
+
         login(data){
             console.log(data,'login')
 
@@ -152,6 +158,48 @@ export default {
             //     this.password = ""
 
             // })
+        },
+        changeCategory(categoryId,onId){
+            console.log(categoryId,'app',onId)
+            const access_token = localStorage.access_token
+
+            axios({
+                url : `http://localhost:3000/task/${onId}`,
+                method : 'PATCH',
+                data : {
+                    categoryId : categoryId
+                },
+                headers : {
+                    access_token
+                },
+            }).then(res =>{
+                console.log(res)
+                this.fethcData()
+            }).catch(err =>{
+                console.log(err)
+            })
+
+
+        },
+        saveEditTitle(newTitle,categoryId,taskId){
+            console.log(newTitle,'app',categoryId,taskId)
+            const access_token = localStorage.access_token
+            axios({
+                url : `http://localhost:3000/task/${taskId}`,
+                method : 'PUT',
+                headers : {
+                    access_token
+                },
+                data : {
+                    title : newTitle,
+                    categoryId : categoryId
+                }
+            }).then(res =>{
+                console.log(res,'sukses')
+                this.fethcData()
+            }).catch(err =>{
+                console.log(err)
+            })
         }
     },
     components : {

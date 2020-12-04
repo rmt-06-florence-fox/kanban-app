@@ -5,7 +5,10 @@
         <EditTask 
         v-if="editedTaskId == element.id"
         :titleEdit="element.title"
+        :categoryId="element.CategoryId"
+        :taskId="element.id"
         @cancelEdit='cancelEdit'
+        @changeTitle="saveEditTitle"
         ></EditTask>
         
         <div  v-else class="card-header">
@@ -13,11 +16,20 @@
           <h1>{{element.id}}</h1>
         </div>
         <div class="card-body">
+
             <div>
                 <a @click.prevent="editedTaskId = element.id" href="#"> <i  class="fa fa-pencil"></i></a>
+
                 <a @click="deleteTask(element.id)" href="#"><i class="fa fa-trash-o"></i></a>
-                <a href="#"><i class="fa fa-arrows"></i></a>
+
+                <a @click="changeCategoryId = element.id" href="#"><i class="fa fa-arrows"></i></a>
             </div>
+
+            <ChangeCategory
+            v-if="changeCategoryId == element.id"
+            @cancelEdit='cancelEdit'
+            @changeCategory="changeCategory"
+            ></ChangeCategory>
         </div>
     </div>
   </div>
@@ -25,13 +37,15 @@
 
 <script>
 import EditTask from "./EditTask"
+import ChangeCategory from "./ChangeCategory"
 
 export default {
   name : "TaskCard",
   props : ['element'],
   data(){
     return {
-      editedTaskId : ""
+      editedTaskId : "",
+      changeCategoryId :""
     }
   },
   methods:{
@@ -40,15 +54,25 @@ export default {
       this.editedTaskId = id
     },
     cancelEdit(id){
-      this.editedTaskId = ''
+      this.editedTaskId = id
+      this.changeCategoryId = id
     },
     deleteTask(id){
       console.log('trey delete',id)
       this.$emit('deleteTask',id)
+    },
+    changeCategory(categoryId){
+    console.log(categoryId,'cardtask',this.changeCategoryId)
+    this.$emit("changeCategory", categoryId,this.changeCategoryId)
+    },
+    saveEditTitle(newTitle,categoryId,taskId){
+      console.log(newTitle,'taskCard',categoryId,taskId)
+      this.$emit('changeTitle', newTitle,categoryId,taskId)
     }
   },
   components: {
-    EditTask
+    EditTask,
+    ChangeCategory
   }
 }
 </script>

@@ -26,9 +26,13 @@ async function authorization(req,res,next){
                     ]
                 }
             })
+            console.log('============ ')
+            console.log(owner)
             if(owner){
+                console.log('sini')
                 next()
             }else {
+                console.log('else==========')
                 throw {
                     code : 401,
                     msg : 'Unauhtorize access'
