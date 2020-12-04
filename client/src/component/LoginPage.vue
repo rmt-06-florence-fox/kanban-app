@@ -66,16 +66,21 @@ export default {
         },
         onSuccess(googleUser) {
             console.log(googleUser);
-            console.log(googleUser.xv.access_token);
+            console.log(googleUser.xc.id_token);
             console.log(googleUser.getBasicProfile());
-
-            // axios({
-            //     url : 'https://kanban-server-p2.herokuapp.com/category/googlelogin',
-            //     method : 'POST',
-            //     data : {
-
-            //     }
-            // })
+            const google_token = googleUser.xc.id_token
+            axios({
+                url : 'https://kanban-server-p2.herokuapp.com/googlelogin',
+                method : 'POST',
+                data : {
+                    google_token
+                }
+            }).done ( res =>{
+                console.log('google login kirim ke server')
+                localStorage.setItem('access_token',resp)
+            }).fail(err =>[
+                console.log(err)
+            ])
         }
     },
     components : {
