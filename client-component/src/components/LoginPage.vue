@@ -37,7 +37,7 @@ export default {
         },
         login() {
             axios({
-                url: 'http://localhost:3000/user/login',
+                url: 'https://kanban-app-florencefox.herokuapp.com/user/login',
                 method: 'post',
                 data: {
                     email: this.email,

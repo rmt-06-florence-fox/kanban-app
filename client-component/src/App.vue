@@ -71,7 +71,7 @@ export default {
         },
         fetchTasks() {
             axios({
-                url: 'http://localhost:3000/tasks',
+                url: 'https://kanban-app-florencefox.herokuapp.com/tasks',
                 method: 'get',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -104,7 +104,7 @@ export default {
         },
         addTask(task) {
             axios({
-                url: 'http://localhost:3000/tasks',
+                url: 'https://kanban-app-florencefox.herokuapp.com/tasks',
                 method: 'post',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -123,9 +123,8 @@ export default {
             })
         },
         updateTask(task) {
-            console.log(task, 'OOOOOOOOOOOOOOOOOOOOOOOOOOOOo')
             axios({
-                url: 'http://localhost:3000/tasks/' + localStorage.getItem('updateId'),
+                url: 'https://kanban-app-florencefox.herokuapp.com/tasks/' + localStorage.getItem('updateId'),
                 method: 'put',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -146,7 +145,7 @@ export default {
         },
         deleteTask(id) {
             axios({
-                url: 'http://localhost:3000/tasks/' + id,
+                url: 'https://kanban-app-florencefox.herokuapp.com/tasks/' + id,
                 method: 'delete',
                 headers: {
                     access_token: localStorage.getItem('access_token')

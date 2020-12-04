@@ -30,7 +30,7 @@ export default {
     methods: {
         register() {
             axios({
-                url: 'http://localhost:3000/user/register',
+                url: 'https://kanban-app-florencefox.herokuapp.com/user/register',
                 method: 'post',
                 data: {
                     email: this.email,
