@@ -6,6 +6,7 @@
     <div class="card-header">{{ task.name }}</div>
     <div class="card-body">
       <h5 class="card-title">{{ task.title }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
       <div>
         <div>
           <!-- <b-button v-b-modal="task.id + ''">Launch demo modal</b-button> -->
@@ -62,11 +63,9 @@
 </template>
 <script>
 import axios from "axios";
-import UpdateTask from "./UpdateTask";
 
 export default {
   components: {
-    UpdateTask,
   },
   props: ["task", "reloadTasks"],
   data() {
@@ -79,7 +78,8 @@ export default {
       taskEdit: {
         name: "",
         title: "",
-        id:""
+        id:"",
+        category:""
       },
       //   ,
       //   category: this.category
@@ -96,12 +96,12 @@ export default {
   methods: {
     populate(task) {
       console.log("di populate");
-      console.log(task.title);
+      console.log(task);
       this.taskEdit.title = task.title;
       this.name = task.name;
       this.taskEdit.name = task.name;
       this.taskEdit.id = task.id
-      console.log(this.taskEdit);
+      this.taskEdit.category = task.category
     },
     destroy(id) {
       axios({
@@ -146,17 +146,18 @@ export default {
       if (!this.checkFormValidity()) {
         return;
       }
-      console.log(this.taskEdit.name, this.taskEdit.title, "<<<<");
+      console.log(this.taskEdit.name, this.taskEdit.title, "<<<<hoo");
+      console.log(this.taskEdit.id, '???');
       axios({
         method: "PUT",
-        url: "http://localhost:3000/tasks" + taskEdit.id,
+        url: "http://localhost:3000/tasks/" + this.taskEdit.id,
         headers: {
-          access_token: localStorage.access_token,
+          access_token: localStorage.getItem('access_token')
         },
         data: {
-          name: this.name,
-          title: this.title,
-          category: this.category,
+          name: this.taskEdit.name,
+          title: this.taskEdit.title,
+          category: this.taskEdit.category,
           UserId: localStorage.UserId,
         },
       })
@@ -169,7 +170,7 @@ export default {
         })
         .finally(() => {
           this.$nextTick(() => {
-            this.$bvModal.hide("modal-prevent-closing");
+            this.$bvModal.hide(this.taskEdit.id+'');
           });
         });
     },

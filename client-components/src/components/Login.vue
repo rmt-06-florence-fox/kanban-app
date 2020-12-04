@@ -42,7 +42,13 @@
               </form>
               <br />
               <p class="text-left">Or continue with Google</p>
-              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              <GoogleLogin
+                :params="params"
+                :renderParams="renderParams"
+                :onSuccess="onSuccess"
+                
+              ></GoogleLogin>
+              <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
             </div>
           </div>
         </div>
@@ -53,17 +59,52 @@
 
 <script>
 import axios from "axios";
+import GoogleLogin from "vue-google-login";
 
 export default {
+  components: {
+    GoogleLogin,
+  },
   props: ["dataTasks"],
   name: "Login-Page",
   data() {
     return {
       email: "",
       password: "",
+      params: {
+        client_id:
+          "166375431684-efkve6dh1ehpk1ic1m0sd818as9bpf78.apps.googleusercontent.com",
+      },
+      // only needed if you want to render the button with the google ui
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true,
+      },
     };
   },
   methods: {
+    onSuccess(googleUser) {
+      let googleToken = googleUser.getAuthResponse().id_token;
+      console.log(googleToken);
+      axios({
+        method:'POST',
+        url: 'http://localhost:3000/googleLogin',
+        data: {
+          googleToken
+        }
+      })
+        .then(response=>{
+          // console.log(response.data, '<<');
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$emit("changePage", "main page");
+          this.dataTasks();
+
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
     login() {
       axios({
         method: "POST",
@@ -90,13 +131,6 @@ export default {
     register() {
       localStorage.setItem("register", 123);
       this.$emit("changePage", "register");
-    },
-    onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log("Name: " + profile.getName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
     },
   },
 };

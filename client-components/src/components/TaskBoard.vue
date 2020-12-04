@@ -71,18 +71,10 @@
 <script>
 import TaskItem from "./TaskItem";
 import axios from 'axios'
-import AddTaskBacklog from "./AddTaskBacklog";
-import AddTaskTodo from "./AddTaskTodo";
-import AddTaskDoing from "./AddTaskDoing";
-import AddTaskDone from "./AddTaskDone";
 export default {
   props: ["dataTasks", "reloadTasks", "category"],
     components: {
-      TaskItem,
-      AddTaskBacklog,
-      AddTaskTodo,
-      AddTaskDoing,
-      AddTaskDone,
+      TaskItem
     },
   data() {
     return {

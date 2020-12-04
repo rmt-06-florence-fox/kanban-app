@@ -3,7 +3,7 @@
     <Login v-if="page == 'login'" @changePage="change" :dataTasks="fetchTasks"></Login>
     <Register v-else-if="page == 'register'" @changePage="change"></Register>
     <div v-else>
-      <Navbar @changePage="change"></Navbar>
+      <Navbar @changePage="change" id="navbar"></Navbar>
       <BoardList :dataTasks="tasks" :reloadTasks="fetchTasks"></BoardList>
     </div>
   </div>
@@ -50,6 +50,7 @@ export default {
           console.log(err);
         });
     },
+    
   },
   created() {
     if (localStorage.getItem("access_token")) {
@@ -73,5 +74,10 @@ body {
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
+}
+
+#navbar{
+  /* position:fixed; */
+  widows: 100%;
 }
 </style>

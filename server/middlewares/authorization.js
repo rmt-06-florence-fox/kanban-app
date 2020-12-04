@@ -7,8 +7,8 @@ function authorization(req, res, next){
     Task.findOne({where: {
         id: req.params.id
     }})
-        .then(todo => {
-            if(todo.UserId == req.userLogIn.id && todo){
+        .then(task => {
+            if(task.UserId == req.userLogIn.id && task){
                 next()
             } else {
                 throw{

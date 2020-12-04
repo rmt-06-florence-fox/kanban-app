@@ -1,109 +1,74 @@
 <template>
   <div>
-    <a href="#" v-b-modal.modal-prevent-closing><i class="fa fa-plus"> </i></a>
-    <b-modal
-      id="modal-prevent-closing"
-      ref="modal"
-      title="Add Card"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group :state="nameState" label="Name" label-for="name-input">
-          <b-form-input
-            id="name-input"
-            v-model="name"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          :state="titleState"
-          label="Title"
-          label-for="title-input"
-          invalid-feedback="Name and Title is required"
+      <div class="col-sm text-center">
+        <div
+          style="width: 400px"
+          class="p-3 m-3 mb-2 rounded bg-warning text-dark"
         >
-          <b-form-input
-            id="title-input"
-            v-model="title"
-            :state="titleState"
-            required
-          ></b-form-input>
-        </b-form-group>
-      </form>
-    </b-modal>
+          <div class="d-flex justify-content-between">
+            <p></p>
+            <h6>Todo</h6>
+            <!-- modal -->
+            <AddTaskTodo category="todo" :reloadTasks="reloadTasks"></AddTaskTodo>
+          </div>
+        </div>
+        <div v-for="task in dataTasks.data" :key="task.id">
+          <TaskItem
+            :reloadTasks="reloadTasks"
+            :task="task"
+            v-if="task.category == 'todo'"
+          ></TaskItem>
+        </div>
+      </div>
+      <div class="col-sm text-center">
+        <div
+          style="width: 400px"
+          class="p-3 m-3 mb-2 rounded bg-info text-white"
+        >
+          <div class="d-flex justify-content-between">
+            <p></p>
+            <h6>Doing</h6>
+            <!-- modal -->
+            <AddTaskDoing category="doing" :reloadTasks="reloadTasks" modalId="doing"></AddTaskDoing>
+          </div>
+        </div>
+        <div v-for="task in dataTasks.data" :key="task.id">
+          <TaskItem
+            :reloadTasks="reloadTasks"
+            :task="task"
+            v-if="task.category == 'doing'"
+          ></TaskItem>
+        </div>
+      </div>
+      <div class="col-sm text-center">
+        <div
+          style="width: 400px"
+          class="p-3 m-3 mb-2 rounded bg-success text-white"
+        >
+          <div class="d-flex justify-content-between">
+            <p></p>
+            <h6>Done</h6>
+            <!-- modal -->
+            <AddTaskDone category="done" :reloadTasks="reloadTasks" modalId="done"></AddTaskDone>
+          </div>
+        </div>
+        <div v-for="task in dataTasks.data" :key="task.id">
+          <TaskItem
+            :reloadTasks="reloadTasks"
+            :task="task"
+            v-if="task.category == 'done'"
+          ></TaskItem>
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  props: ["category", "reloadTasks"],
-  data() {
-    return {
-      name: "",
-      nameState: null,
-      title: "",
-      titleState: null,
-      //   ,
-      //   category: this.category
-    };
-  },
-  methods: {
-    checkFormValidity() {
-      const valid = this.$refs.form.checkValidity();
-      this.nameState = valid;
-      this.titleState = valid;
-      return valid;
-    },
-    resetModal() {
-      this.name = "";
-      this.nameState = null;
-      this.title = "";
-      this.titleState = null;
-    },
-    handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      // Trigger submit handler
-      this.handleSubmit();
-    },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return;
-      }
-      axios({
-        method: "POST",
-        url: "http://localhost:3000/tasks",
-        headers: {
-          access_token: localStorage.access_token,
-        },
-        data: {
-          name: this.name,
-          title: this.title,
-          category: this.category,
-          UserId: localStorage.UserId,
-        },
-      })
-        .then((response) => {
-        //   console.log(response);
-          this.reloadTasks()
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          this.$nextTick(() => {
-            this.$bvModal.hide("modal-prevent-closing");
-          });
-        });
-    },
-  },
-};
+
+}
 </script>
 
 <style>
+
 </style>
