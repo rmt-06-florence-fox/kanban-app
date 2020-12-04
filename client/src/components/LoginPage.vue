@@ -124,11 +124,12 @@ export default {
       .then(({data}) => {
         localStorage.setItem("access_token", data.access_token);
         this.changeStatus(true);
-          swal("heyho", {
-            icon: 'success',
-            buttons: false,
-            timer: 1000,
-          });
+        this.getTasks()
+        swal("heyho", {
+          icon: 'success',
+          buttons: false,
+          timer: 1000,
+        });
       })
       .catch((err) => {
         swal('unexpected error!', {
