@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <title>Kanban Awesome</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"> -->
+    <style>
+      *{
+         margin: 0;
+         padding: 0;
+      }
+      body {
+         height: 100%;
+         width: 100%;
+      }
+      
+      .navbar {
+         background: #214252;
+      }
+
+      .home-page{
+         background: #214252;
+
+      }
+      .navbar-item:hover{
+        
+      }
+
+      section{
+         
+      }
+
+      .columns {
+         height:100vh;
+         margin: 0;
+         padding: 0;
+      }
+
+      .loginpage{
+         background: #214252;
+         
+      }
+      
+      
+
+      .registerpage{
+         background: #30475e;
+      }
+      
+      #right-landing-page{
+         background-image: url('./assets/images/gsd.jpg');
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center;
+      }
+      
+      .img-login {
+         background-image: url('./assets/images/login.jpg');
+         background-size: cover;
+         height: 100%;
+         background-position: center;
+      }
+
+      .img-register {
+         background-image: url('./assets/images/register.jpg');
+         background-size: cover;
+         height: 100%;
+         background-position: center;
+      }
+
+      
+
+      .card-foooter {
+         margin-bottom: 10px;
+      }
+
+   
+    </style>
+  </head>
+  <body>
+
+      <div id="app">
+         <section v-if="currpage === 'homePage'">
+            <!-- navbar -->
+            <nav class="navbar p-3" role="navigation" aria-label="main navigation">
+               <div class="navbar-brand ">
+               <a class="navbar-item" href="#">
+                  <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+                  <h4 class="title has-text-white">Kanban Awesome</h4>
+               </a>
+            
+               <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+               </a>
+               </div>
+            
+               <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-start">
+                     <a class="navbar-item is-size-5 has-text-white">
+                        <i class="fas fa-home"></i>Home
+                     </a>
+                     <a @click='loadAddTaskPage' class="navbar-item is-size-5 has-text-white">
+                        Add Task
+                     </a>
+                     <!--          
+                     <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                        More
+                        </a>
+               
+                        <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                           About
+                        </a>
+                        <a class="navbar-item">
+                           Jobs
+                        </a>
+                        <a class="navbar-item">
+                           Contact
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">
+                           Report an issue
+                        </a>
+                     </div> -->
+                     </div>
+               </div>
+            
+               <div class="navbar-end">
+                  <div class="navbar-item">
+                     <div class="buttons">
+                     <a class="button is-primary">
+                        <strong>Sign up</strong>
+                     </a>
+                     <a class="button is-light">
+                        Log in
+                     </a>
+                     <a class="button is-danger" id="logout-btn">Logout</a>
+                     </div>
+                  </div>
+               </div>
+               
+            </nav>
+
+            <div class="container mt-6">
+               <div class="columns has-text-centered">
+                  <div class="column">
+                     <p class="subtitle has-background-primary p-3" id="backlog-card">Backlog</p>
+                     <div class="card">
+                        <!-- <header class="card-header">
+                        <p class="card-header-title">
+                           Component
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                           <span class="icon">
+                              <i class="fas fa-angle-down" aria-hidden="true"></i>
+                           </span>
+                        </a>
+                        </header> -->
+                        <div class="card-content">
+                           <div class="content">
+                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                 <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                                 <br>
+                                 <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                           </div>
+                        </div>
+                        <footer class="card-footer">
+                           <a href="#" class="card-footer-item">Edit</a>
+                           <a href="#" class="card-footer-item">Delete</a>
+                        </footer>
+                     </div>
+                  </div>
+                  <div class="column">
+                     <p class="subtitle has-background-link p-3" id="todo-card">Todo</p>
+                     <div class="card">
+                        <!-- <header class="card-header">
+                        <p class="card-header-title">
+                           Component
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                           <span class="icon">
+                              <i class="fas fa-angle-down" aria-hidden="true"></i>
+                           </span>
+                        </a>
+                        </header> -->
+                        <div class="card-content">
+                           <div class="content">
+                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                 <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                                 <br>
+                                 <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                           </div>
+                        </div>
+                        <footer class="card-footer">
+                        <a href="#" class="card-footer-item">Edit</a>
+                        <a href="#" class="card-footer-item">Delete</a>
+                        </footer>
+                     </div>
+                  </div>
+                  <div class="column">
+                     <p class="subtitle has-background-info p-3" id="doing-card">Doing</p>
+                     <div class="card">
+                        <!-- <header class="card-header">
+                        <p class="card-header-title">
+                           Component
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                           <span class="icon">
+                              <i class="fas fa-angle-down" aria-hidden="true"></i>
+                           </span>
+                        </a>
+                        </header> -->
+                        <div class="card-content">
+                           <div class="content">
+                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                 <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                                 <br>
+                                 <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                           </div>
+                        </div>
+                        <footer class="card-footer">
+                        <a href="#" class="card-footer-item">Edit</a>
+                        <a href="#" class="card-footer-item">Delete</a>
+                        </footer>
+                     </div>
+                  </div>
+                  <div class="column">
+                     <p class="subtitle has-background-success p-3" id="done-card">Done</p>
+                     <div class="card">
+                        <!-- <header class="card-header">
+                        <p class="card-header-title">
+                           Component
+                        </p>
+                        <a href="#" class="card-header-icon" aria-label="more options">
+                           <span class="icon">
+                              <i class="fas fa-angle-down" aria-hidden="true"></i>
+                           </span>
+                        </a>
+                        </header> -->
+                        <div class="card-content">
+                           <div class="content">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                              <br>
+                              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                           </div>
+                        </div>
+                        <footer class="card-footer">
+                           <a href="#" class="card-footer-item">Edit</a>
+                           <a href="#" class="card-footer-item">Delete</a>
+                        </footer>
+
+                        <div class="card">
+                           <!-- <header class="card-header">
+                           <p class="card-header-title">
+                              Component
+                           </p>
+                           <a href="#" class="card-header-icon" aria-label="more options">
+                              <span class="icon">
+                                 <i class="fas fa-angle-down" aria-hidden="true"></i>
+                              </span>
+                           </a>
+                           </header> -->
+                           <div class="card-content">
+                              <div class="content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                    <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                                    <br>
+                                    <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                              </div>
+                           </div>
+                           <footer class="card-footer">
+                              <a href="#" class="card-footer-item">Edit</a>
+                              <a href="#" class="card-footer-item">Delete</a>
+                           </footer>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- home page -->
+         <section v-else-if="currpage === 'landingPage'" >
+            <div class="home-page">
+               <div class="columns is-align-items-center is-align-content-center" >
+                  <div class="column has-text-centered is-align-self-center">
+                     <h1 class="title has-text-white">Kanban Awesome</h1>
+                     <a  @click='loadRegisterPage' class="button is-primary">
+                        <strong>Sign up</strong>
+                     </a>
+                     <a  @click='loadLoginPage' class="button is-light">
+                        Log in
+                     </a>
+                  </div>
+                  <div class="column is-align-self-stretch" id="right-landing-page">
+                     <!-- <figure class="image" style="height: 100%;">
+                        <img id="right-landingpage" src="./assets/images/login.jpg" alt="">
+                     </figure> -->
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- register form -->
+         
+         <section v-else-if="currpage === 'registerPage'" class="registerpage">
+
+            <div class="columns has-text-centered m-0 ">
+      
+
+               <div class="column is-align-self-center">
+                  
+                  <h1 class="title is-2 has-text-white">Kanban Awesome</h1>
+                  <h1 class="title is-3 has-text-white">Register</h1>
+                  
+                  <div class="field">
+                     <p class="control has-icons-left has-icons-right">
+                     <input v-model="registerEmail" class="input" type="email" placeholder="Email">
+                     <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                     </span>
+                     <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                     </span>
+                     </p>
+                  </div>
+                  <form @submit.prevent='register' >
+                     <div class="field">
+                        <p class="control has-icons-left">
+                        <input v-model="registerPassword" class="input" type="password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                           <i class="fas fa-lock"></i>
+                        </span>
+                        </p>
+                     </div>
+                     <div class="field">
+                        <p class="control">
+                           <button class="button is-success">
+                              Register
+                           </button>
+                           <button @click='loadLandingPage'class="button is-danger btn-back">
+                              Cancel
+                           </button>
+                        </p>
+                     </div>
+                  </form>
+               </div>
+
+                  <div class="column p-0 img-register">
+                     <!-- <figure class="image is-5by3">
+                        <img src="./assets/images/register.jpg" alt="">
+                     </figure> -->
+                  </div>
+            </div>
+
+         </section>
+         
+         <section v-else-if="currpage==='loginPage'">
+            
+            <div class="columns loginpage has-text-centered m-0">
+
+               <div class="column is-align-self-center">
+                     
+                  <h1 class="title has-text-white">Login</h1>
+                  
+                  <form @submit.prevent='login'>
+                     <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                        <input v-model='loginEmail' class="input" type="email" placeholder="Email">
+                        <span class="icon is-small is-left">
+                           <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                           <i class="fas fa-check"></i>
+                        </span>
+                        </p>
+                     </div>
+                     <div class="field">
+                        <p class="control has-icons-left">
+                        <input v-model="loginPassword"class="input" type="password" placeholder="Password">
+                        <span class="icon is-small is-left">
+                           <i class="fas fa-lock"></i>
+                        </span>
+                        </p>
+                     </div>
+                     <div class="field">
+                        <p class="control">
+                        <button class="button is-success">
+                           Login
+                        </button>
+                        <button @click='loadLandingPage' class="button is-danger btn-back">
+                           Cancel
+                        </button>
+                        </p>
+                     </div>
+                  </form>
+               </div>
+
+               <div class="column img-login">
+                  <!-- <figure class="image">
+                     <img src="./assets/images/login.jpg" alt="" class="is-align-self-stretch">
+                  </figure> -->
+               </div>
+            </div>
+         </section>
+
+         <section  v-else-if="currpage === 'addPage'">
+            <nav class="navbar p-3" role="navigation" aria-label="main navigation">
+               <div class="navbar-brand ">
+               <a class="navbar-item" href="#">
+                  <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+                  <h4 class="title has-text-white">Kanban Awesome</h4>
+               </a>
+            
+               <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+               </a>
+               </div>
+            
+               <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-start">
+                     <a @click='loadHomePage'class="navbar-item is-size-5 has-text-white">
+                        <i class="fas fa-home"></i>Home
+                     </a>
+                     <!--          
+                     <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                        More
+                        </a>
+               
+                        <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                           About
+                        </a>
+                        <a class="navbar-item">
+                           Jobs
+                        </a>
+                        <a class="navbar-item">
+                           Contact
+                        </a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">
+                           Report an issue
+                        </a>
+                     </div> -->
+                     </div>
+               </div>
+            
+               <div class="navbar-end">
+                  <div class="navbar-item">
+                     <div class="buttons">
+                     <a class="button is-primary">
+                        <strong>Sign up</strong>
+                     </a>
+                     <a class="button is-light">
+                        Log in
+                     </a>
+                     <a class="button is-danger" id="logout-btn">Logout</a>
+                     </div>
+                  </div>
+               </div>
+               
+            </nav>
+            <div class="hero-body">
+               <div class="container">
+                  <h1 class="title">Add Task</h1>
+                  <form @submit.prevent='addTask'>
+                     <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                        <input v-model='addTitle' class="input" type="text" placeholder="Create Login Feature">
+                        </div>
+                     </div>
+
+                     <div class="field">
+                        <label class="label">Category</label>
+                        <div class="control">
+                        <div class="select">
+                           <select v-model='addCategories'>
+                              <option value="">Select dropdown</option>
+                              <option v-for="(item,index) in categories" :value="item.id">{{item.name}}</option>
+                           </select>
+                        </div>
+                        </div>
+                     </div>
+
+                     <div class="field is-grouped">
+                        <div class="control">
+                        <button type="submit" class="button is-link">Submit</button>
+                        </div>
+                        <div class="control">
+                        <button class="button is-danger">Cancel</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </section>
+      </div>
+      
+      <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="./assets/main.js"></script>
+   </body>
+</html>

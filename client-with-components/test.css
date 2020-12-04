@@ -1,0 +1,66 @@
+*{
+   margin: 0;
+   padding: 0;
+}
+body {
+   height: 100%;
+   width: 100%;
+}
+
+.navbar {
+   background: #214252;
+}
+
+.home-page{
+   background: #214252;
+
+}
+.navbar-item:hover{
+  
+}
+
+section{
+   
+}
+
+.columns {
+   height:100vh;
+   margin: 0;
+   padding: 0;
+}
+
+.loginpage{
+   background: #214252;
+   
+}
+
+.registerpage{
+   background: #30475e;
+}
+
+#right-landing-page{
+   background-image: url('./images/gsd.jpg');
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+}
+
+.img-login {
+   background-image: url('./images/login.jpg');
+   background-size: cover;
+   height: 100%;
+   background-position: center;
+}
+
+.img-register {
+   background-image: url('./images/register.jpg');
+   background-size: cover;
+   height: 100%;
+   background-position: center;
+}
+
+
+
+.card-foooter {
+   margin-bottom: 10px;
+}
