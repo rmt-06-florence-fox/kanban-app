@@ -1,6 +1,9 @@
 <template>
   <div>
-    <RegisterPage v-if="currentPage === 'RegisterPage'" @emitChangePage="changePage"></RegisterPage>
+    <RegisterPage 
+    v-if="currentPage === 'RegisterPage'" 
+    @emitChangePage="changePage"></RegisterPage>
+
     <LoginPage 
     v-else-if="currentPage === 'LoginPage'" 
     @emitChangePage="changePage"
@@ -8,6 +11,7 @@
     :email=email
     :password=password
     ></LoginPage>
+
      <MainPage v-else-if="currentPage === 'MainPage'"
      @emitLogout="logout"
      :categories=categories
@@ -16,18 +20,22 @@
      @getCategory="getCategory"
      @emitPopulate="showEditForm"
      @emitMoveTask="showMoveForm"
+     @emitDeleteTask="deleteTask"
      ></MainPage>
+
      <addForm 
      v-if="currentPage === 'addForm'"
      @emitChangePage="changePage"
      @emitAddTask="addTask"
       ></addForm>
+
     <editForm
      v-if="currentPage === 'editForm'"
      @emitChangePage="changePage"
      @emitEditTask="editTask"
      :task=task
      ></editForm>
+
      <moveForm
      v-if="currentPage === 'moveForm'"
      @emitChangePage="changePage"
@@ -204,6 +212,23 @@ export default {
         console.log(response)
          this.currentPage = "MainPage"
          this.getTasks()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    deleteTask(task){
+      axios({
+        url: `${basicUrl}tasks/${task.id}`,
+        method: "delete",
+        headers : {
+          access_token: localStorage.getItem("access_token")
+        }
+      })
+      .then(response => {
+        console.log(response)
+        this.currentPage = "MainPage"
+        this.getTasks()
       })
       .catch(err => {
         console.log(err)

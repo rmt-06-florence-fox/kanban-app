@@ -12,7 +12,8 @@
             :task=task 
             :loggedInEmail=loggedInEmail
             @emitPopulate="emitPopulate"
-            @emitMoveTask="emitMoveTask"></taskcard>
+            @emitMoveTask="emitMoveTask"
+            @emitDeleteTask="emitDeleteTask"></taskcard>
           </div>
         </div>
     </div>
@@ -41,6 +42,10 @@ export default {
     },
     emitMoveTask(task, page){
       this.$emit('emitMoveTask', task, page)  
+    },
+    emitDeleteTask(task){
+      console.log(task + " <<< ini dari kanban board")
+      this.$emit('emitDeleteTask', task)
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="card text-white mt-3 board-items">
     <div class="card-header">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-if="task.createdBy === loggedInEmail">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-if="task.createdBy === loggedInEmail" @click="$emit('emitDeleteTask', task)">
           <span aria-hidden="true">&times;</span>
       </button>
       <p><strong>{{task.name}}</strong></p>

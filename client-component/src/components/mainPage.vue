@@ -8,6 +8,7 @@
     @getCategory="getCategory"
     @emitPopulate="emitPopulate"
     @emitMoveTask="emitMoveTask"
+    @emitDeleteTask="emitDeleteTask"
     >
     </Board>
   </div>
@@ -40,6 +41,10 @@ export default {
     },
     emitMoveTask(task, page){
       this.$emit('emitMoveTask', task, page)
+    },
+    emitDeleteTask(task){
+      console.log(task + " <<< ini dari MainPage")
+      this.$emit('emitDeleteTask', task)
     }
   }
 };
