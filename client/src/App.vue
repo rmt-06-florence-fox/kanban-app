@@ -8,13 +8,13 @@
 
     <LoginPage 
       v-else-if="pageName == 'login-page'"
-      @login='login'
+      @emit-login='login'
       @emit-change-page='changePage'
     ></LoginPage>
 
     <KanbanPage 
       v-else-if="pageName == 'kanban-page'"
-      @changePage='changePage'
+      @emit-change-page='changePage'
       :loggedInUser='loggedInUser'
     ></KanbanPage>
 
@@ -56,7 +56,6 @@ export default {
         data: payload
       })
       .then((result) => {
-        console.log(result.data)
         this.pageName = 'login-page'
       }).catch((err) => {
         console.log(err)
@@ -75,6 +74,8 @@ export default {
         const token = result.data.access_token
         localStorage.setItem('access_token', token)        
         this.pageName = 'kanban-page'
+        this.fetchTask()
+        this.fetchCategory()
       }).catch((err) => {
         console.log(err)
       });

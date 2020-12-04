@@ -23,7 +23,7 @@
                   <i class="material-icons">exit_to_app</i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a href="#" class="dropdown-item">Log Out</a>
+                  <a @click.prevent="logout" href="#" class="dropdown-item">Log Out</a>
                 </div>
               </div>
             </div>
@@ -152,32 +152,12 @@ export default {
     }
   },
   methods: {
-    fetchTasks() {
-      axios({
-        methods: 'GET',
-        url: 'http://localhost:3000/tasks'
-      })
-      .then((result) => {
-        console.log(result.data);
-      }).catch((err) => {
-        console.log(err);
-      });
-    },
-    fetchCategory() {
-      axios({
-        methods: 'GET',
-        url: 'http://localhost:3000/categories'
-      })
-      .then((result) => {
-        console.log(result.data)
-      }).catch((err) => {
-        console.log(err)
-      });
+    logout() {
+      localStorage.removeItem('access_token')
+      this.$emit('emit-change-page', 'login-page')
     }
   },
   created() {
-    this.fetchTasks()
-    this.fetchCategory()
   }
 }
 </script>

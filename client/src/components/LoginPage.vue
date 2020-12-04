@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     login() {
-      this.$emit('login', this.user)
+      this.$emit('emit-login', this.user)
     },
     register() {
       this.$emit('emit-change-page', 'register-page')
