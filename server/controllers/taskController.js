@@ -1,13 +1,12 @@
-const {Task} = require("../models/index")
+const {Task, User} = require("../models/index")
 
 class TaskController{
     static getTasks(req, res, next){
         Task.findAll({
-            where:{
-                UserId: req.loginUser.id
-            }
+            include: User
         })
         .then(data=>{
+            // console.log(data)
             res.status(200).json(data)
         })
         .catch(e=>{
@@ -68,6 +67,56 @@ class TaskController{
                 }
             } else {
                 res.status(200).json(data)
+            }
+        })
+        .catch(e=>{
+            next(e)
+        })
+    }
+    static deleteId(req, res, next){
+        const id = req.params.id
+        Task.destroy({
+            where:{
+                id
+            }
+        })
+        .then(data=>{
+            if(!data){
+                throw {
+                    status: 404,
+                    message: `data not found`
+                }
+            } else {
+                res.status(200).json({message: `task success to delete`})
+            }
+        })
+        .catch(e=>{
+            next(e)
+        })
+    }
+
+    static patchCategory(req, res, next){
+        console.log(req.body)
+        const id = req.params.id
+        const obj = {
+            category: req.body.category
+        }
+        console.log(id, obj)
+        Task.update(obj,{
+            where:{
+                id
+            },
+            returning:true
+        })
+        .then(data=>{
+            console.log(data)
+            if(!data || data[0] == 0){
+                throw {
+                    status: 404,
+                    message: `data not found`
+                }
+            } else {
+                res.status(200).json(data[1][0])
             }
         })
         .catch(e=>{

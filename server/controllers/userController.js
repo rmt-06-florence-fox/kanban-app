@@ -1,6 +1,8 @@
 const {User} = require("../models/index")
 const Helper = require("../helper/Helper")
 const bcrypt = require('bcryptjs')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class UserController{
     static register(req, res, next){
@@ -39,6 +41,45 @@ class UserController{
         .catch(e=>{
             console.log(e)
             res.status(500).json({message: 'internal server error'})
+        })
+    }
+    static googleLogin(req, res, next){
+        let payload
+        client.verifyIdToken({
+            idToken: req.body.id_token,
+            audience: process.env.GOOGLE_CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+            // Or, if multiple clients access the backend:
+            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        })
+        .then(ticket=>{
+            payload = ticket.getPayload()
+            return User.findOne({
+                where:{
+                    email: payload.email
+                }
+            })
+        })
+        .then(user=>{
+            if (user){
+                return user
+            } else {
+                console.log("access user create")
+                return User.create({
+                    first_name: payload.given_name,
+                    last_name: payload.family_name,
+                    email: payload.email,
+                    password: process.env.GOOGLE_PASSWORD
+                })
+            }
+        })
+        .then(user=>{
+            console.log(user)
+            const access_token = Helper.generateToken({id: user.id, email: user.email})
+            res.status(200).json( {access_token} )
+        })
+        .catch(e=>{
+            console.log(e)
+            res.status(500).json(e)
         })
     }
 }

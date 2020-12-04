@@ -17,13 +17,13 @@ var app = new Vue({
             category: '',
             desc: ''
         },
-        // filterData: {
-        //     id: '',
-        //     title: '',
-        //     category: '',
-        //     desc: '',
-        //     userId: '',
-        // },
+        filterData: {
+            id: '',
+            title: '',
+            category: '',
+            desc: '',
+            userId: '',
+        },
         filterData: {},
         listTask: []
     },
@@ -61,7 +61,6 @@ var app = new Vue({
             })
             .then(response=>{
                 this.pageName = 'Login Page'
-                this.fetch()
             })
             .catch(e=>{
                 console.log(e)
