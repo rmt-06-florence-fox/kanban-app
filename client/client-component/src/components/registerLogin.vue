@@ -50,7 +50,7 @@ export default {
         registerData() {
             this.$emit("changePage")
             this.$emit("register", this.firstName, this.lastName, this.email, this.password)
-            
+      
         }
     }
 }
