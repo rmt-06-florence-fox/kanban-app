@@ -97,7 +97,7 @@ export default {
 
       axios({
         method: "post",
-        url: "http://localhost:3000/login",
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/login",
         data: {
           email,
           password,
@@ -131,7 +131,7 @@ export default {
     loginGoogle(googleToken) {
       axios({
         method: "post",
-        url: "http://localhost:3000/googlelogin",
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/googlelogin",
         data: {
           googleToken,
         },
@@ -168,7 +168,7 @@ export default {
       let password = data.password;
       axios({
         method: "post",
-        url: "http://localhost:3000/register",
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/register",
         data: {
           name,
           email,
@@ -207,7 +207,7 @@ export default {
       let status = data.status;
       axios({
         method: "post",
-        url: "http://localhost:3000/tasks",
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/tasks",
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -249,7 +249,7 @@ export default {
     getEdit(id){
       axios({
         method: "get",
-        url: "http://localhost:3000/tasks/" + id,
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/tasks/" + id,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -281,7 +281,7 @@ export default {
       let status = data.status;
       axios({
         method: "put",
-        url: "http://localhost:3000/tasks/" + id,
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/tasks/" + id,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -333,7 +333,7 @@ export default {
       }
       axios({
         method: "patch",
-        url: "http://localhost:3000/tasks/" + id,
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/tasks/" + id,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -372,7 +372,7 @@ export default {
     deleteTask(id){
       axios({
         method: "delete",
-        url: "http://localhost:3000/tasks/" + id,
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/tasks/" + id,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -404,7 +404,7 @@ export default {
     fetchTask(){
       axios({
         method: "get",
-        url: "http://localhost:3000/tasks",
+        url: "https://kanban-taufiq-ismail-server.herokuapp.com/tasks",
         headers: {
           access_token: localStorage.getItem("access_token"),
         }
