@@ -1,0 +1,18 @@
+.container {
+    text-align: center;
+}
+
+.custom-navbar {
+    background-color: turquoise;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-navbar {
+    text-decoration: none;
+    margin: 10px;
+    color: white;
+}
+
