@@ -66,13 +66,21 @@ function showListPage(response) {
                         <div class="card-body">
                             <h4 class="card-title">${task.title}</h4>
                             <p class="card-text">${task.category}</p>
-                            <a href="#" class="btn btn-primary">Link</a>
+                            <button class="btn btn-primary" onclick="editTask(${task.id})">Edit</button>
+                            <button class="btn btn-primary" onclick="deleteTask(${task.id})">Delete</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="p-3 bg-secondary rounded">
                         Todo
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4 class="card-title">Card Title</h4>
+                            <p class="card-text">abcabcabc</p>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
                     </div>
                     <div class="card shadow">
                         <div class="card-body">
@@ -116,7 +124,7 @@ function showEditPage(task) {
     $("#main-page").hide()
     $("#btn-logout").show()
     $("#add-form-page").hide()
-    $("#list-page").show() 
+    $("#list-page").hide() 
     $("#navbar").show() 
     $("#back-navbar").show()
     $("#btn-show").hide()   
