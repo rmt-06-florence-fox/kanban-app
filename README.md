@@ -4,8 +4,8 @@
 <!-- --- -->
 # URL
 ```
-Client URL : http://localhost:8080
-Server URL : http://localhost:3000
+Client URL : https://canbanapp.web.app/
+Server URL : http://canbanapp.herokuapp.com/
 ```
 
 ### POST /register
@@ -221,7 +221,7 @@ _Response(500)_
 
 ### PATCH /tasks/:id
 
->Update status by Id
+>Update category by Id
 _Request Header_
 ```
  access_token: token

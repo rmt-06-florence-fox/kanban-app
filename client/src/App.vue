@@ -94,7 +94,7 @@ export default {
 
     addTask() {
       this.$api({
-        methods: "POST",
+        method: "POST",
         url: "tasks",
       })
         .then((Response) => {
