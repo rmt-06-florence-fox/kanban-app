@@ -39,7 +39,7 @@ export default {
     return {
       message : 'Hello world',
       page : 'login page',
-      localhost : 'http://localhost:3000',
+      localhost : 'https://glacial-ravine-47067.herokuapp.com',
       tasks : []
     };
   },
