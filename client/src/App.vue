@@ -4,6 +4,7 @@
         v-if="pageName === 'Login-register-page'"
         @login="loginToHomePage"
         @register="registerUser"
+        @googleToken="googleLogin"
     ></LoginRegisterPage>
     <HomePage
         @fetchTask="fetchTask"
@@ -184,9 +185,6 @@
             },
 
             updateTask(payload) {
-                console.log(payload)
-                console.log(payload.id)
-
                 axios({
                     url: "http://localhost:3000/tasks/"+payload.id,
                     method: "PUT",
@@ -206,29 +204,30 @@
                 .catch(error => {
                     console.log(error)
                 })
-            }
+            },
+
+            googleLogin(googleToken) {
+                axios({
+                    method: "POST",
+                    url: "http://localhost:3000/googleLogin",
+                    data: { googleToken }
+                })
+                .then(response => {
+                    localStorage.setItem('access_token', response.data.access_token)
+                    localStorage.setItem("name", response.data.user.name)
+                    this.pageName = "Home-page"
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            },
+
 
         }
     }
 
     
-                // onSignIn(googleUser) {
-            //     // const googleToken = googleUser.getAuthResponse().id_token;
-            //     console.log(googleUser);
-            //     // axios({
-            //     //     method: "POST",
-            //     //     url: "http://localhost:3000/googleLogin",
-            //     //     data: { googleToken }
-            //     // })
-            //     // .then(response => {
-            //     //     console.log(response)
-            //     //     // localStorage.setItem('access_token', response.access_token)
-            //     // })
-            //     // .catch(error => {
-            //     //     console.log(error)
-            //     // })
-            //     },
-            //
+            
 
 
 </script>

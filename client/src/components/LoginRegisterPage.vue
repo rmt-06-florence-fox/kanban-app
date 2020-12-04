@@ -24,10 +24,9 @@
             </ul>
 
             <h5 class="mb-4 text-center"><b>H8 Kanban</b></h5>
-            <div
+            <div v-if="formName === 'Login-form'"
               id="login"
               @submit.prevent="login"
-              v-if="formName === 'Login-form'"
             >
               <form>
                 <div class="form-group">
@@ -52,11 +51,11 @@
                   Submit
                 </button>
               </form>
+              <button v-google-signin-button="clientId" class="google-signin-button btn-center mt-2"> Google Sign In</button>
             </div>
-            <div
+            <div v-if="formName === 'Register-form'"
               id="register"
               @submit.prevent="register"
-              v-if="formName === 'Register-form'"
             >
               <form>
                 <div class="form-group">
@@ -91,15 +90,6 @@
                 </button>
               </form>
             </div>
-            <div
-              id="google-login"
-              class="mt-3"
-              v-if="formName === 'Login-form'"
-            >
-              <p class="text-center">Login with google account</p>
-              <div class="g-signin2 btn-center"
-              data-onsuccess="onSignIn"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -118,6 +108,7 @@ export default {
         email: "",
         password: "",
       },
+      clientId: '1024931171908-id407jfg6qs7cislh5ko8rik2hletc57.apps.googleusercontent.com'
     };
   },
   methods: {
@@ -130,12 +121,25 @@ export default {
     register() {
       this.$emit("register", this.user)
     },
-    onSignIn(googleUser) {
-      this.$emit("google-login", googleUser)
-    }
+    OnGoogleAuthSuccess (idToken) {
+      this.$emit('googleToken', idToken)
+      // Receive the idToken and make your magic with the backend
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
+    },
   }
 };
 </script>
 
 <style>
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
 </style>

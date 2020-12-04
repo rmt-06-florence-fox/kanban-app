@@ -39,7 +39,7 @@ class UserController {
         let payload;
         client.verifyIdToken({
             idToken: req.body.googleToken,
-            audience: 1024931171908-id407jfg6qs7cislh5ko8rik2hletc57.apps.googleusercontent.com
+            audience: process.env.GOOGLE_CLIENT_ID
         })
         .then(ticket => {
             payload = ticket.getPayload()
@@ -54,10 +54,9 @@ class UserController {
         })
         .then(user => {
             const access_token = generateToken({ email:user.email, id: user.id })
-            res.status(200).json({access_token})
+            res.status(200).json({access_token, user})
         })
         .catch(error => {
-            console.log(error.details)
             next(error)
         })
     }
