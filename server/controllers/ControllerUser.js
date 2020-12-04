@@ -90,7 +90,7 @@ class ControllerUser {
                 } else {
                     const newUser = {
                         username: generatedData.given_name,
-                        password: generatedData.family_name,
+                        password: '1234567',
                         email: generatedData.email
                     }
                     return User.create(newUser)
