@@ -7,6 +7,8 @@
             :key="Category.id"
             :Task="Task"
             :Category="Category"
+            :fetch="fetch"
+            @PleaseEditCategory="back"
             ></TaskBoard1>
         </div>    
     </div>
@@ -20,12 +22,18 @@ import TaskBoard1 from "./TaskBoard1"
 
 export default {
     name: "BoardList",
-    props: ['Task', 'Category'],
+    props: ['Task', 'Category', 'fetch'],
     components: {
         TaskBoard1,
-        // TaskBoard2,
-        // TaskBoard3,
-        // TaskBoard4,
+        
+    },
+    methods: {
+        back(category,id){
+            this.$emit("PleaseEditCategory", category, id)
+        }
+    },
+    created(){
+        this.fetch
     }
 }
 </script>

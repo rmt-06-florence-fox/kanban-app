@@ -7,7 +7,9 @@
         v-for="Task in filteredTask"
         :key="Task.id"
         :Task="Task"
+        :fetch="fetch"
         :Category="Category.name"
+        @PleaseEditCategory="back"
         ></TaskCard>
     </div>
 </template>
@@ -22,7 +24,12 @@ export default {
             tasks: []
         }
     },
-    props: ['Task', 'Category'],
+    props: ['Task', 'Category','fetch'],
+    methods: {
+        back(category,id){
+            this.$emit("PleaseEditCategory", category, id)
+        }
+    },
     computed: {
         filteredTask(){
             return this.tasks.filter(task => task.category === this.Category.name)
@@ -32,8 +39,8 @@ export default {
         TaskCard
     },
     created(){
-        console.log(this.tasks)
         this.tasks = this.Task
+        this.fetch
     }
     
 }

@@ -7,8 +7,14 @@
                 <p class="card-text">{{Task.description}}</p>
             </div>
         <div class="card-footer bg-transparent border-success">
-            <ButtonBack v-if="Category !== 'Back-Log'"></ButtonBack>
-            <ButtonDone v-if="Category !== 'Done'"></ButtonDone>
+            <ButtonBack @PleaseEditCategory="back"
+             v-if="Category !== 'Back-Log'"
+             :fetch="fetch"
+             ></ButtonBack>
+            <ButtonDone 
+            v-if="Category !== 'Done'"
+            :fetch="fetch"
+            ></ButtonDone>
            <button class="btn-delete" style="font-size: 15px; border-radius: 15px; border: none; outline: none;">x</button>
         </div>
     </div>
@@ -24,32 +30,30 @@ import axios from 'axios'
 
 export default {
     name: "TaskCard",
-    props: [ 'Task', 'Category' ],
+    props: [ 'Task', 'Category','fetch' ],
+    taskCategory: '',
     components: {
         ButtonBack,
         ButtonDone
     },
     methods: {
-        // dataCreator(data){
-        //     console.log(data)
-        //     axios({
-        //         method: "GET",
-        //         url: "http://localhost:3000/user",
-        //         headers: {
-        //             id: data
-        //         }
-        //     })
-        //     .then((response) => {
-        //        console.log(response)
-        //     })
-        //     .catch(error => {
-        //         console.log("error.data")
-        //     })
-        // }
+        back(){
+            if(this.Task.category == 'To-Do'){
+                this.taskCategory = 'Back-Log'
+            }else if(this.Task.category == 'Doing'){
+                this.taskCategory = 'To-Do'
+            }else if(this.Task.category == 'Done'){
+                this.taskCategory = "Doing"
+            }
+            
+
+            this.$emit("PleaseEditCategory", this.taskCategory, this.Task.id)
+        }
         
     },
     created(){
         // this.dataCreator()
+        this.fetch
     }
     
 }

@@ -4,8 +4,10 @@
         @PleaseChangePage="changePage">
         ></Navbar>
         <BoardList
+        :fetch="fetch"
         :Task="Task"
         :Category="Category"
+        @PleaseEditCategory="back"
         ></BoardList>
 </template>
 
@@ -16,7 +18,7 @@ import axios from "axios"
 
 export default {
     name: "MainPage",
-    props: [ 'Task' ],
+    props: [ 'Task', 'fetch' ],
     data(){
         return {
             Category: [
@@ -46,12 +48,15 @@ export default {
     methods: {
         changePage(page){
             this.$emit("PleaseChangePage", page)
+        },
+        back(category,id){
+            this.$emit("PleaseEditCategory", category, id)
         }
         
 
     },
     created() {
-        
+        this.fetch()
     }
 }
 </script>

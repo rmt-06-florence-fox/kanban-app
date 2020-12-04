@@ -7,7 +7,9 @@
       <MainPage
         v-else-if="currentPage === 'MainPage'"
         :Task="Tasks"
-        @PleaseChangePage="changePage">
+        :fetch="fetchTask"
+        @PleaseChangePage="changePage"
+        @PleaseEditCategory="back">
       </MainPage>
       <RegisterPage
         v-else-if="currentPage === 'RegisterPage'"
@@ -40,7 +42,7 @@ export default {
             axios({
                 method: "GET",
                 headers: {
-                    access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0b21teXN1c2FudG83N0BnbWFpbC5jb20iLCJpYXQiOjE2MDcwMTYwODl9.P9-4N77hklstE4YpMuwiA08YYwnRRreGqEU80dtGlrc"
+                    access_token: localStorage.getItem('access_token')
                 },
                 url: "http://localhost:3000/task"
             })
@@ -62,8 +64,24 @@ export default {
         deleteTask(){
 
         },
-        editCategory(){
-
+        back(category,id){
+          axios({
+                method: "PATCH",
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data:{
+                  category: category
+                },
+                url: "http://localhost:3000/task/" + id
+            })
+            .then(response => {
+                this.fetchTask
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
         },
         editTask(){
 
@@ -78,6 +96,7 @@ export default {
     created() {
         if(localStorage.getItem("access_token")){
           this.fetchTask()
+          this.changePage("MainPage")
           this.currentPage = "MainPage"
         } else {
           this.currentPage = "LoginPage"

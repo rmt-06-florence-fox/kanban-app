@@ -4,7 +4,11 @@
 
 <script>
 export default {
-    name: "ButtonDone"
+    name: "ButtonDone",
+    props: [ 'fetch' ],
+    created(){
+        this.fetch
+    }
 }
 </script>
 
