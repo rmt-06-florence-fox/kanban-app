@@ -49,7 +49,7 @@ class TaskController {
             .then(data => {
                 console.log(data);
                 res.status(200).json({
-                    data
+                    message: "task success to delete"
                 })
             })
             .catch(err => {
