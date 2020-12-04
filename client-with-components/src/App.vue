@@ -32,7 +32,7 @@ export default {
       return {
          message:'Test',
          currPage:'landingPage',
-         baseUrl:'https://kanban-awesome-server.herokuapp.com',
+         baseUrl:'http://localhost:3000',
          categories:[],
          tasks:[]
       }
@@ -51,10 +51,23 @@ export default {
                method:'POST',
                data
             })
-           this.changePage('loginPage')
+         
+            Swal.fire({
+               position: 'center',
+               icon: 'success',
+               title: 'Register Success',
+               showConfirmButton: false,
+               timer: 1500
+            })
+            this.changePage('loginPage')
          // console.log(data)
         }catch (error) {
-           console.log(error)
+           console.log(error.response)
+           Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: error.response.data.message,
+            })
         }
       },
       async login(data){
@@ -64,11 +77,22 @@ export default {
                method:'POST',
                data
             })
+            Swal.fire({
+               position: 'center',
+               icon: 'success',
+               title: 'Login Success',
+               showConfirmButton: false,
+               timer: 1000
+            })
             localStorage.setItem('userId',response.data.userId)
             localStorage.setItem('access_token',response.data.access_token)
             this.changePage('homePage')
          }catch (error) {
-            console.log(error)
+            Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: error.response.data.message,
+            })
          }
       },
       async googleLogin(googleToken){
@@ -85,6 +109,13 @@ export default {
             localStorage.setItem('access_token',response.data.access_token)
             console.log(response.data)
             console.log('login google')
+            Swal.fire({
+               position: 'center',
+               icon: 'success',
+               title: 'Login Success',
+               showConfirmButton: false,
+               timer: 1000
+            })
             this.changePage('homePage')
          }catch (error) {
             console.log(error)
@@ -121,11 +152,21 @@ export default {
                data
             })
             
-            Swal.fire('succcess')
+            Swal.fire({
+               position: 'center',
+               icon: 'success',
+               title: 'Success Create Task',
+               showConfirmButton: false,
+               timer: 1000
+            })
             this.fetchTask()
             //this.changePage('homePage')
          } catch (error) {
-            console.log(error)
+            Swal.fire({
+               icon: 'error',
+               title: 'Oops...',
+               text: error.response.data.message,
+            })
          }
       },
       async fetchTask(){

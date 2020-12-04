@@ -6,7 +6,7 @@ class TaskController {
          const tasks = await Task.findAll();
          res.status(200).json({data:tasks})
       } catch (error) {
-         console.log(error)
+         res.status(500).json({message:'Server Error'})
       }
    }
 
@@ -21,7 +21,13 @@ class TaskController {
          let task = await Task.create(payload,{returning:true})
          res.status(201).json({data:task})
       } catch (error) {
-         console.log(error)
+         if(error.status){
+            res.status(error.status).json({message:error.message})
+         }else if(error.name ==='SequelizeValidationError'){
+            res.status(400).json({message:error.errors[0].message})
+         }else{
+            res.status(500).json({message:'Server Error'})
+         } 
       }
    }
 
@@ -38,7 +44,13 @@ class TaskController {
          else
             res.status(200).json({data:deleted,message:'resource deleted sucessfully'})
       } catch (error) {
-         console.log(error)
+         if(error.status){
+            res.status(error.status).json({message:error.message})
+         }else if(error.name ==='SequelizeValidationError'){
+            res.status(400).json({message:error.errors[0].message})
+         }else{
+            res.status(500).json({message:'Server Error'})
+         } 
       }
    }
 
@@ -62,7 +74,13 @@ class TaskController {
          else
             res.status(200).json({data:updated})
       } catch (error) {
-         console.log(error);
+         if(error.status){
+            res.status(error.status).json({message:error.message})
+         }else if(error.name ==='SequelizeValidationError'){
+            res.status(400).json({message:error.errors[0].message})
+         }else{
+            res.status(500).json({message:'Server Error'})
+         } 
       }
    }
 

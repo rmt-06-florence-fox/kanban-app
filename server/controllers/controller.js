@@ -30,7 +30,13 @@ class Controller {
             })
          }
       } catch (error) {
-         console.log(error)
+         if(error.status){
+            res.status(error.status).json({message:error.message})
+         }else if(error.name ==='SequelizeValidationError'){
+            res.status(400).json({message:error.errors[0].message})
+         }else{
+            res.status(500).json({message:'Server Error'})
+         }
       }
 
    }
@@ -51,9 +57,11 @@ class Controller {
          let user = await User.create(payload,{returning:true})
          res.status(201).json({data:user})
       } catch (error) {
-         console.log(error);
+         console.log(error.name);
          if(error.status){
             res.status(error.status).json({message:error.message})
+         }else if(error.name ==='SequelizeValidationError'){
+            res.status(400).json({message:error.errors[0].message})
          }else{
             res.status(500).json({message:'Server Error'})
          }
@@ -83,7 +91,13 @@ class Controller {
          console.log(user)
          res.status(200).json({access_token,userId:user.id})
       } catch (error) {
-         console.log(error)
+         if(error.status){
+            res.status(error.status).json({message:error.message})
+         }else if(error.name ==='SequelizeValidationError'){
+            res.status(400).json({message:error.errors[0].message})
+         }else{
+            res.status(500).json({message:'Server Error'})
+         }
       }
    }
 }
