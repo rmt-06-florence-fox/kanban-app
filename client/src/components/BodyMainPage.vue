@@ -1,8 +1,43 @@
 <template>
   <div class="container-fluid" style="height: 93%">
-    <div class="d-flex flex-row" style="height: 97%">
+    <div class="d-flex" style="height: 97%">
+      
       <CardState v-for="(val,key) in tasks" :key="key" :tasks="val" :name="key" @showAdd="showAdd" @showEdit="showEdit"></CardState>
     </div>
+    <!-- <div class="row d-flex">
+        <div class="col-3 bg-dark">
+      <draggable
+            class="list-group kanban-column"
+            :list="tasks.Done"
+            group="tasks"
+          >
+            <div
+              class="list-group-item"
+              v-for="element in tasks.Done" 
+              :key="element.id"
+            >
+              {{ element.title }}
+            </div>
+          </draggable>
+
+        </div>
+        <div class="col-3 bg-success">
+
+      <draggable
+            class="list-group kanban-column"
+            :list="tasks.Todo"
+            group="tasks"
+          >
+            <div
+              class="list-group-item"
+              v-for="element in tasks.Todo"
+              :key="element.id"
+            >
+              {{ element.title }}
+            </div>
+          </draggable>
+        </div>
+      </div> -->
     <div>
       <b-modal id="addForm" hide-footer>
         <form @submit.prevent="addTask">
@@ -52,11 +87,11 @@ export default {
       editTaskId: NaN,
       editState:'',
       state: '',
-      Backlog: this.tasks.Backlog,
-      Todo: this.tasks.Todo,
-      Doing: this.tasks.Doing,
-      Done: this.tasks.Done,
-      isDragging : false
+      // Backlog: this.tasks.Backlog,
+      // Todo: this.tasks.Todo,
+      // Doing: this.tasks.Doing,
+      // Done: this.tasks.Done,
+      // isDragging : false
     };
   },
   methods:{
