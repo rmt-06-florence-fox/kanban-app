@@ -55,7 +55,7 @@ export default {
 
         login(email, password) {
             axios({
-                    url: 'http://localhost:3000/users/login',
+                    url: 'https://kanban-hcktv8ffx.herokuapp.com/users/login',
                     method: 'POST',
                     data: {
                         email: email,
@@ -88,7 +88,7 @@ export default {
         googleLogin(token) {
           console.log(token);
           axios({
-            url: 'http://localhost:3000/users/googleLogin',
+            url: 'https://kanban-hcktv8ffx.herokuapp.com/users/googleLogin',
             method: 'POST',
             data: {
               token
@@ -100,6 +100,7 @@ export default {
               icon: 'success',
               confirmButtonText: 'Proceed'
             })
+            localStorage.setItem('access_token', response.data.access_token)
             this.pageName = 'homepage'
           })
           .catch(err => {
@@ -110,7 +111,7 @@ export default {
         register(username, email, password, rPassword) {
             if (password === rPassword) {
                 axios({
-                        url: 'http://localhost:3000/users/register',
+                        url: 'https://kanban-hcktv8ffx.herokuapp.com/users/register',
                         method: 'POST',
                         data: {
                             username,
@@ -150,7 +151,7 @@ export default {
 
         getTasks() {
             axios({
-                    url: 'http://localhost:3000/tasks/',
+                    url: 'https://kanban-hcktv8ffx.herokuapp.com/tasks/',
                     method: 'GET',
                     headers: {
                         access_token: localStorage.getItem('access_token')
@@ -173,7 +174,7 @@ export default {
 
         addTask(input, category) {
           axios({
-            url: 'http://localhost:3000/tasks/',
+            url: 'https://kanban-hcktv8ffx.herokuapp.com/tasks/',
             method: 'POST',
             data: {
               title: input,
@@ -205,7 +206,7 @@ export default {
 
         editTask(id, editValues) {
           axios({
-            url: `http://localhost:3000/tasks/${id}`,
+            url: `https://kanban-hcktv8ffx.herokuapp.com/tasks/${id}`,
             method: 'PUT',
             data: {
               title: editValues[0],
@@ -241,7 +242,7 @@ export default {
             const newCategories = this.categories[currentCatIndex+1]
 
             axios({
-              url: `http://localhost:3000/tasks/${id}`,
+              url: `https://kanban-hcktv8ffx.herokuapp.com/tasks/${id}`,
               method: 'PATCH',
               data: {
                 category: newCategories.toLowerCase()
@@ -274,7 +275,7 @@ export default {
 
         deleteTask(id) {
           axios({
-            url: `http://localhost:3000/tasks/${id}`,
+            url: `https://kanban-hcktv8ffx.herokuapp.com/tasks/${id}`,
             method: 'DELETE',
             headers: {
                 access_token: localStorage.getItem('access_token')

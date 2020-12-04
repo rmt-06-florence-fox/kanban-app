@@ -27,8 +27,7 @@
         },
         methods: {
             logout() {
-                localStorage.clear()
-
+                
                 var auth2 = gapi.auth2.getAuthInstance();
                 if (auth2) {
                     auth2.signOut().then(function () {
@@ -36,6 +35,7 @@
                     });
                 }
 
+                localStorage.clear()
                 Swal.fire({
                     title: 'Logout',
                     text: `You've been logout successfully!`,

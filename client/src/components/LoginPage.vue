@@ -47,7 +47,7 @@
         data() {
             return{
                 params: {
-                    client_id: '177968975168-pqc9g4co9d1q8u4193dkpufbdbsna4jm.apps.googleusercontent.com'
+                    client_id: '177968975168-k4rm36q3onilohv0f7a2euqm5blg54h2.apps.googleusercontent.com'
                 },
                 email: '',
                 password: ''
