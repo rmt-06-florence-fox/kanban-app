@@ -14,6 +14,6 @@ module.exports = (err, req, res, next) => {
             message: "Email already taken! Please input another email" 
         });
     } else {
-        res.status(500).json(err)
+        res.status(500).json({message: err.message})
     }
 }

@@ -2,13 +2,14 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 10%;
     margin-bottom: 5%;
 }
 
 .main {
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+    margin-top: 5%;
 }
 
 .register {
