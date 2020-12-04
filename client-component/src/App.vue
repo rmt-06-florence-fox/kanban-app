@@ -41,7 +41,7 @@ export default {
         },
         submitRegister(name, email, password, organization) {
             axios({
-                url: 'http://localhost:3000/register',
+                url: 'https://kanban-it-app.herokuapp.com/register',
                 method: 'POST',
                 data: {
                     name,
@@ -60,7 +60,7 @@ export default {
         },
         submitLogin(email, password) {
             axios({
-                url: 'http://localhost:3000/login',
+                url: 'https://kanban-it-app.herokuapp.com/login',
                 method: 'POST',
                 data: {
                     email,
@@ -81,7 +81,7 @@ export default {
         },
         addCategory(name) {
             axios({
-                url: 'http://localhost:3000/category',
+                url: 'https://kanban-it-app.herokuapp.com/category',
                 method: 'POST',
                 data: {
                     name
@@ -102,7 +102,7 @@ export default {
         },
         fetchTask() {
             axios({
-                url: 'http://localhost:3000/task',
+                url: 'https://kanban-it-app.herokuapp.com/task',
                 method: 'GET',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -119,7 +119,7 @@ export default {
         },
         fetchCategory() {
             axios({
-                url: 'http://localhost:3000/category',
+                url: 'https://kanban-it-app.herokuapp.com/category',
                 method: 'GET',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -139,7 +139,7 @@ export default {
         },
         submitKanban(title, due_date) {
             axios({
-                url: 'http://localhost:3000/task',
+                url: 'https://kanban-it-app.herokuapp.com/task',
                 method: 'POST',
                 data: {
                     title,
@@ -167,7 +167,7 @@ export default {
         },
         getDetailTask() {
             axios({
-                url: 'http://localhost:3000/task/' + this.id,
+                url: 'https://kanban-it-app.herokuapp.com/task/' + this.id,
                 method: 'GET',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -185,7 +185,7 @@ export default {
         },
         deleteKanban(id) {
             axios({
-                url: 'http://localhost:3000/task/' + id,
+                url: 'https://kanban-it-app.herokuapp.com/task/' + id,
                 method: 'DELETE',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -205,7 +205,7 @@ export default {
             console.log(due_date)
             console.log(CategoryId)
             axios({
-                url: 'http://localhost:3000/task/' + this.id,
+                url: 'https://kanban-it-app.herokuapp.com/task/' + this.id,
                 method: 'PUT',
                 headers: {
                     access_token: localStorage.getItem('access_token')
@@ -228,7 +228,7 @@ export default {
         },
         OnGoogleAuthSuccess (idToken) {
             axios({
-                url: 'http://localhost:3000/googleLogin',
+                url: 'https://kanban-it-app.herokuapp.com/googleLogin',
                 method: 'POST',
                 data: {
                     googleToken: idToken
