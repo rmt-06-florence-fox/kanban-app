@@ -17,7 +17,7 @@
       <div class="card-list-footer">
         <button class="btn btn-link btn-sm text-small" data-toggle="modal" data-target="#task-add-modal">Add task</button>
       </div>
-      <form class="modal fade" id="task-add-modal" tabindex="-1" aria-hidden="true">
+      <form @submit.prevent="addTask" class="modal fade" id="task-add-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -32,7 +32,7 @@
                 <div class="tab-pane fade show active" id="task-add-details" role="tabpanel">
                   <div class="form-group row align-items-center">
                     <label class="col-3">Name</label>
-                    <input class="form-control col" type="text" placeholder="Task name" name="task-name" />
+                    <input v-model="newTask.title" class="form-control col" type="text" placeholder="Task name" name="task-name" />
                   </div>
                 </div>
               </div>
@@ -58,6 +58,12 @@ export default {
   components: {Task},
   data() {
     return {
+      newTask: {title: ''}
+    }
+  },
+  methods: {
+    addTask() {
+      this.$emit('addTask', this.newTask)
     }
   },
   computed: {

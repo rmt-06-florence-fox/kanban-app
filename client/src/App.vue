@@ -17,6 +17,7 @@
       @emit-change-page='changePage'
       :categories='categories'
       :tasks='tasks'
+      @addTask="addTask"
     ></KanbanPage>
 
     <ErrorPage 
@@ -100,6 +101,19 @@ export default {
       })
       .then((result) => {
         this.categories = result.data
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
+    addTask(payload) {
+      const token = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: '/tasks',
+        data: payload
+      })
+      .then((result) => {
+        console.log(result.data)
       }).catch((err) => {
         console.log(err)
       });

@@ -43,6 +43,7 @@
               :key="category.id"
               :category="category"
               :tasks="tasks"
+              @addTask="addTask"
             ></Category>
           </div>
         </div>
@@ -65,6 +66,9 @@ export default {
     logout() {
       localStorage.removeItem('access_token')
       this.$emit('emit-change-page', 'login-page')
+    },
+    addTask() {
+      this.$emit('addTask', 'payload')
     }
   }
 }
