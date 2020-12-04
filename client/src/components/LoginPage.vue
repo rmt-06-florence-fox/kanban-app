@@ -78,12 +78,6 @@ export default {
       params: {
       client_id: "746341659297-pd0m5n70c8mvq49gqmis9rglh4f9l9m6.apps.googleusercontent.com"
       },
-      // only needed if you want to render the button with the google ui
-      renderParams: {
-        width: 250,
-        height: 50,
-        longtitle: true
-      },
     };
   },
   components: {

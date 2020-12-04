@@ -5,7 +5,7 @@ import axios from 'axios'
 Vue.use({
   install(Vue) {
     Vue.prototype.$api = axios.create({
-      baseURL: 'http://localhost:3000/'
+      baseURL: 'https://kanban-icanq.herokuapp.com/'
     })
   }
 })
