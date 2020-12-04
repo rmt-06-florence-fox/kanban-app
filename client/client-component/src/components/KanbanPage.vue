@@ -6,13 +6,9 @@
         <div class="container mt-4">
             <div class="row">
                 <KanbanBoard v-for="category in categories" 
-                    :key="category.id" 
-                    :category="category"
-                    :tasks="tasks"
-                    @edit="edit"
-                    @cancel="cancel"
-                    @deleteData="deleteData"
-                >
+                :key="category.id" :category="category"
+                :tasks="tasks" @edit="edit"
+                @cancel="cancel" @deleteData="deleteData">
                 </KanbanBoard>
             </div>
         </div>
@@ -49,13 +45,11 @@ export default {
     methods: {
         edit(objEdit) {
             this.$emit("edit", objEdit)
-            // console.log(objEdit, "ini dari edit")
         },
         cancel() {
             this.$emit("cancel")
         },
         formAdd() {
-            // console.log("-----")
             this.$emit("changePage", "form-add")
         },
         deleteData(id) {

@@ -1,7 +1,5 @@
 <template>
 <div>
-        <!-- {{ categories }} -->
-        <!-- {{task.id === id}} -->
     <div v-if="!editMode" class="card mt-2" >
         <div class="card-body">
             <h5 class="card-title">{{task.title}}</h5>
@@ -10,12 +8,8 @@
         </div>
     </div>
     <div v-else>
-        <!-- {{task}} -->
         <div class="container">
-            <!-- <form @submit.prevent="editTask({{task.id}})"><br><br><br> -->
-                <!-- {{categories[0].name}} -->
             <form @submit.prevent="editTask(task.id)">
-                <!-- {{ dataEdit }} -->
                 <h3>Edit Task</h3>
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -70,7 +64,6 @@ export default {
             this.dataEdit = null
         },
         deleteData(id) {
-            // console.log(id)
             this.$emit("deletData", id)
         }
     }

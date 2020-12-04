@@ -2,7 +2,6 @@
     <div>
         <div class="container mt-4">
             <div class="col-6">
-    
             </div>
             <div class="col-6">
                 <h2>Register</h2>
@@ -23,12 +22,11 @@
                             <input v-model="email" type="email" class="form-control" id="email-register">
                         </div>
                         <div class="form-group">
-                        <label for="inputPassword4">Password</label>
-                        <input v-model="password"  type="password" class="form-control" id="password-register">
-                        </div>
-                        
+                            <label for="inputPassword4">Password</label>
+                            <input v-model="password"  type="password" class="form-control" id="password-register">
+                        </div> 
                         <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>

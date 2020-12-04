@@ -4,14 +4,10 @@
             {{ category.name }}
         </div>
         <div>
-            <!-- {{tasks, 'ini tasks'}} -->
-            <!-- {{category, 'ini category'}} -->
-            <!-- {{tasks.filter(el => (el.category === category.name.toLowerCase))}} -->
-        <KanbanItem :tasks="tasks" v-for="task in filterByCategory" :key="task.id" :task="task" 
-        :category="category" @edit="edit" 
-        @cancel="cancel" @deletData="deleteData"
-        >
-        </KanbanItem>
+            <KanbanItem :tasks="tasks" v-for="task in filterByCategory" :key="task.id" 
+            :task="task" :category="category" @edit="edit" 
+            @cancel="cancel" @deletData="deleteData">
+            </KanbanItem>
         </div>
     </div>
 </template>
@@ -32,11 +28,8 @@ export default {
     methods: {
         edit(objEdit) {
             this.$emit("edit", objEdit)
-            // console.log("edit", objEdit)
-            // console.log("------------")
         },
         cancel() {
-            // console.log("-----------------")
             this.$emit("cancel")
         },
         deleteData(id) {

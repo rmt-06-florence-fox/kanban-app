@@ -16,8 +16,6 @@ export default {
     name: "NavbarLogout",
     methods: {
         logOut() {
-        // localStorage.clear()
-        //   this.changePage("home-page")
         this.$emit("logOut", "home-page")
         }
     }
@@ -35,19 +33,16 @@ export default {
         display: flex;
         justify-content: space-between;
     }
-
     .right-navbar {
         display: flex;
         list-style: none;
         margin: 0%;
         padding: 0%;
     }
-
     .right-navbar a {
         color: white;
         padding: 10px;
     }
-
     .right-navbar li {
         margin: 8px;
     }

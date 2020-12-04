@@ -2,8 +2,7 @@
     <div>
         <div class="custom-navbar">
             <div>
-                <img src="../../assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">
-                
+                <img src="../../assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">        
             </div>
             <div>
                 <ul class="center-navbar">
@@ -24,13 +23,11 @@
 </template>
 
 <script>
-
 export default {
     name: "Navbar",
     methods: {
         changePage(page) {
             this.$emit("changePage", page)
-            // console.log(page, "ini dari navbar")
         }
     }
 }
