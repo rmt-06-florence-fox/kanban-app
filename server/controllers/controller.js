@@ -5,7 +5,7 @@ const axios = require('axios')
 
 
 class Controller {
-    static register(req, res) {
+    static register(req, res, next) {
         console.log('masuk');
         let obj = {
             email: req.body.email,
@@ -18,12 +18,12 @@ class Controller {
             
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({err})
+            next(err)
+            
         })
     }
 
-    static login(req, res) {
+    static login(req, res, next) {
         User.findOne({where: {email: req.body.email}})
         .then( data => {
             const access_token = jwt.sign({ id: data.id, email: data.email }, 'hiha');
@@ -34,13 +34,12 @@ class Controller {
             }
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({msg: 'Salah nih datanya'})
+            next(err)
         })
 
     }
 
-    static addTasks(req, res) {
+    static addTasks(req, res, next) {
         let obj = {
             title: req.body.title,
             category: req.body.category,
@@ -52,23 +51,23 @@ class Controller {
             res.status(201).json({data})
         })
         .catch(err => {
-            res.status(500).json({err})
+            next(err)
         })
     }
     
-    static taskList(req, res) {
+    static taskList(req, res, next) {
         Task.findAll()
         .then( data => {
             res.status(200).json({data})
         })
         .catch(err => {
-            res.status(500).json({err})
+            next(err)
         })
     }
 
 
 
-    static updateTask(req, res) {
+    static updateTask(req, res, next) {
         let obj = {
             title: req.body.title,
             category: req.body.category
@@ -86,11 +85,11 @@ class Controller {
             res.status(200).json({result})
         })
         .catch(err => {
-            res.status(500).json({err})
+            next(err)
         })
     }
 
-    static deleteTask(req, res) {
+    static deleteTask(req, res, next) {
         let id = req.params.id
         Task.destroy({where: {id}})
         .then(data => {
@@ -101,7 +100,7 @@ class Controller {
             }
         })
         .catch(err => {
-            res.status(500).json({err})
+            next(err)
         })
     }
 }

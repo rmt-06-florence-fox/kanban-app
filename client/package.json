@@ -10,10 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sweetalert2/theme-dark": "^4.0.1",
     "axios": "^0.21.0",
     "bootstrap-vue": "^2.20.1",
     "jquery": "^3.5.1",
     "moment": "^2.29.1",
+    "sweetalert2": "^10.11.1",
     "vue": "^2.6.12",
     "vue-google-login": "^2.0.5",
     "vue-hot-reload-api": "^2.3.4",

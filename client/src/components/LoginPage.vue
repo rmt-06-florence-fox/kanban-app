@@ -107,7 +107,31 @@ export default {
             })
             .then(response => {
                 localStorage.setItem('access_token', response.data.access_token)
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully'
+                })
                 this.$emit('changePage', 'home')
+            })
+            .catch(err => {
+                let message = err.response.data
+                Swal.fire({
+                    title: message,
+                    icon: 'error',
+                
+                })
             })
             
         },

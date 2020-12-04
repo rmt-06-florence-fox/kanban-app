@@ -40,7 +40,7 @@ export default {
         register() {
             axios({
                 method: 'post',
-                    url: 'https://kanbaban.herokuapp.com/register',
+                    url: 'http://localhost:3000/register',
                     data: {
                         email: this.email,
                         password: this.password
@@ -49,6 +49,17 @@ export default {
             .then(response => {
                 localStorage.setItem('access_token', this.password)
                 this.$emit('changePage', 'home')
+            })
+            .catch(err => {
+                let message = err.response.data
+                if (message === 'email must be unique') {
+                    message = 'Email has been taken'
+                }
+                Swal.fire({
+                    title: message,
+                    icon: 'error',
+                
+                })
             })
         },
     }

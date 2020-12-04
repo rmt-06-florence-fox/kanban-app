@@ -15,6 +15,9 @@ import RegisterPage from './components/Register'
 import MainPage from './components/MainPage'
 import UpdateForm from './components/UpdateForm'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+
+
 
 export default {
   name: "App",
@@ -46,8 +49,9 @@ export default {
         .then(response => {
           this.allTasks = response
           location.reload()
+        })
+        .catch(error => {
           
-
         })
     },
     reload() {
