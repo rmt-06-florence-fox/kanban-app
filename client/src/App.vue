@@ -162,7 +162,6 @@ export default {
     },
 
     register(data) {
-      console.log(data);
       let name = data.name;
       let email = data.email;
       let password = data.password;
