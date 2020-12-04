@@ -36,8 +36,8 @@ export default {
     data() {
         return {
             PageName: 'login',
-            // server: 'https://khanban-hisyam.herokuapp.com',
-            server: 'http://localhost:3000',
+            server: 'https://new-khanban.herokuapp.com',
+            // server: 'http://localhost:3000',
             tasks: []
         }
     },
