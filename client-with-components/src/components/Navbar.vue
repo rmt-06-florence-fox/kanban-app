@@ -1,48 +1,32 @@
 <template>
    <nav class="navbar p-3" role="navigation" aria-label="main navigation">
       <div class="navbar-brand ">
-      <a class="navbar-item" href="#">
-         <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
-         <h4 class="title has-text-white">Kanban Awesome</h4>
-      </a>
-   
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-         <span aria-hidden="true"></span>
-         <span aria-hidden="true"></span>
-         <span aria-hidden="true"></span>
-      </a>
+         <a class="navbar-item" href="#">
+            <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+            <h4 class="title has-text-white">Kanban Awesome</h4>
+         </a>
+      
+         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+         </a>
       </div>
    
       <div id="navbarBasicExample" class="navbar-menu">
          <div class="navbar-start">
             <a class="navbar-item is-size-5 has-text-white">
-               <i class="fas fa-home"></i>Home
+               Home
             </a>
             <a @click='loadAddTaskPage' class="navbar-item is-size-5 has-text-white">
                Add Task
             </a>
-            <!--          
-            <div class="navbar-item has-dropdown is-hoverable">
-               <a class="navbar-link">
-               More
-               </a>
-      
-               <div class="navbar-dropdown">
-               <a class="navbar-item">
-                  About
-               </a>
-               <a class="navbar-item">
-                  Jobs
-               </a>
-               <a class="navbar-item">
-                  Contact
-               </a>
-               <hr class="navbar-divider">
-               <a class="navbar-item">
-                  Report an issue
-               </a>
-            </div> -->
-            </div>
+            <a @click='loadAddCatPage' class="navbar-item is-size-5 has-text-white">
+               Add Category
+            </a>
+            
+         
+         </div>
       </div>
    
       <div class="navbar-end">
@@ -97,6 +81,35 @@
             </form>
          </div>
       </div>
+
+       <div class="modal" :class="{'is-active':active2}">
+         <div class="modal-background"></div>
+         <div class="modal-card">
+            <header class="modal-card-head">
+               <p class="modal-card-title">Add Category</p>
+               <button @click='closeModal' class="delete" aria-label="close"></button>
+            </header>
+            <form @submit.prevent='addCategory'>
+               <section class="modal-card-body">
+                  <!-- Content ... -->
+               
+                  <div class="field">
+                     <label class="label">Title</label>
+                     <div class="control">
+                     <input v-model="addCatName" class="input" type="text" placeholder="New Category">
+                     </div>
+                  </div>
+
+                     <!-- <button class="button is-link">Add Task</button>
+                     <button @click='closeModal' class="button">Cancel</button> -->
+               </section>
+               <footer class="modal-card-foot">
+                  <button class="button is-link">Add Category</button>
+                  <button @click='closeModal' class="button is-danger">Cancel</button>
+               </footer>
+            </form>
+         </div>
+      </div>
       
    </nav>
 
@@ -108,8 +121,10 @@ export default {
    data(){
       return{
          active:false,
+         active2:false,
          addTitle:"",
-         addCategories:""
+         addCategories:"",
+         addCatName:""
       }
    },
    props:[
@@ -120,17 +135,23 @@ export default {
       loadAddTaskPage(){
          this.active=true
       },
+      loadAddCatPage(){
+         this.active2=true
+      },
       closeModal(){
          this.active=false
+         this.active2=false
       },
       logout(){
          console.log('masuk logout')
          console.log('logout')
+         localStorage.clear()
+         console.log(gapi.auth2.getAuthInstance())
          var auth2 = gapi.auth2.getAuthInstance();
+         console.log(auth2)
          auth2.signOut().then(function () {
             console.log('User signed out.');
          });
-         localStorage.clear()
          this.$emit('getPage','landingPage')
       },
       addTask(){
@@ -144,6 +165,15 @@ export default {
          this.addCategories=""
          this.$emit('addTask',data)
       },
+      addCategory(){
+         console.log('addCat');
+         const data={
+            name:this.addCatName
+         }
+         this.closeModal()
+         this.addCatName=""
+         this.$emit('addCat',data)
+      }
    }
 
 }

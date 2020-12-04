@@ -34,6 +34,12 @@ export default {
    },
    computed:{
       bgColor:function(){
+         let choices = [
+            'has-background-danger',
+            'has-background-info',
+            'has-background-dark',
+            'has-background-primary',
+         ]
          let bg = '';
          if(this.category.name==='backlog')
             bg='has-background-primary'
@@ -43,6 +49,9 @@ export default {
             bg='has-background-info'
          else if(this.category.name ==='done')
             bg='has-background-success'
+         else
+            bg=choices[Math.floor(Math.random()*choices.length)]
+
 
          return bg
       },
