@@ -13,7 +13,7 @@ class UserController {
             const data = await User.create(newUser)
             res.status(201).json({id: data.id, email: data.email})
         } catch (error) {
-            res.status(400).json({message: 'Invalid email or password!'})
+            res.status(400).json({message: 'Invalid email or password, email must be unique!'})
         }
     }
 

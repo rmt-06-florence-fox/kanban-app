@@ -20,7 +20,7 @@
 .nav-list {
     display: flex;
     list-style: none;
-    align-items: center;
+    /* align-items: center; */
     height: 100%;
 }
 
@@ -35,4 +35,10 @@
     align-items: center;
     height: 100%;
     font-family: cursive;
+}
+
+.register-form {
+    width: 50%;
+    background-color: rgb(211, 208, 208);
+    border-radius: 20px;
 }

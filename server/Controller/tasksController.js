@@ -25,6 +25,19 @@ class TasksController {
         }
     }
 
+    static async getTaskById(req, res) {
+        try {
+            let id = req.params.id
+            const data = await Task.findByPk(id)
+            if(!data) res.status(404).json({message: "Data not found!"})
+            else {
+                res.status(200).json({data})
+            }
+        } catch (error) {
+            res.status(500).json({message: "Internal server error"})
+        }
+    }
+
     static async editTask(req, res) {
         try {
             let editedTask = {

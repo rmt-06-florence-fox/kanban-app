@@ -1,5 +1,5 @@
 ***server*** :
-1. API documentation []
+1. API documentation [x]
 2. routes REST API [x]
 3. CRUD [x]
 4. Register & login [x]
