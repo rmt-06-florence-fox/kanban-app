@@ -80,9 +80,11 @@
 
 <script>
 import GoogleLogin from "vue-google-login";
+import axios from 'axios'
 
 export default {
   name: "Navbar",
+  props: ["reloadTasks"],
   components: {
     GoogleLogin,
   },
@@ -123,7 +125,6 @@ export default {
     handleOk(bvModalEvt) {
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-      console.log(this.category, this.color, '<<<');
       // Trigger submit handler
       this.handleSubmit();
     },
@@ -137,11 +138,29 @@ export default {
         color: this.color
       }
       console.log(newCtgr);
-      // this.$emit('addCtgr', newCtgr)
-      this.$root.$emit('addCtgr', newCtgr);
-      this.$nextTick(() => {
-        this.$bvModal.hide("addCategory");
-      });
+       axios({
+        method: "POST",
+        url: "http://localhost:3000/categories",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          name: newCtgr.name,
+          color: newCtgr.color
+        }
+      })
+        .then((response) => {
+          console.log('BERHASIL TAMBAH CATEGORY');
+          this.reloadTasks()
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(()=>{
+          this.$nextTick(() => {
+            this.$bvModal.hide("addCategory");
+          });
+        })
     },
     handleCancel(){
         console.log('gak jadi');

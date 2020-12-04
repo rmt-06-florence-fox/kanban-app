@@ -1,10 +1,22 @@
 const {
-    Task
+    Task, Category
 } = require('../models')
 
 class TaskController {
     static allTasks(req, res, next) {
         Task.findAll()
+            .then(data => {
+                res.status(200).json({
+                    data
+                })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static allCategories(req, res, next) {
+        Category.findAll()
             .then(data => {
                 res.status(200).json({
                     data
@@ -23,6 +35,22 @@ class TaskController {
             UserId: req.userLogIn.id
         }
         Task.create(obj)
+            .then(data => {
+                res.status(201).json({
+                    data
+                })
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
+    static addCategory(req, res, next) {
+        const obj = {
+            name: req.body.name,
+            color: req.body.color
+        }
+        Category.create(obj)
             .then(data => {
                 res.status(201).json({
                     data

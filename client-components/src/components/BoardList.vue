@@ -1,10 +1,10 @@
 <template>
   <main>
-    <div class="row d-flex flex-nowrap overflow-auto ">
+    <div class="row d-flex flex-nowrap overflow-auto">
       <TaskBoard
         :dataTasks="dataTasks"
         :reloadTasks="reloadTasks"
-        v-for="(category, i) in categories"
+        v-for="(category, i) in dataCategories"
         :key="i"
         :category="category"
       ></TaskBoard>
@@ -14,39 +14,38 @@
 
 <script>
 import TaskBoard from "./TaskBoard";
+
 export default {
-  props: ["dataTasks", "reloadTasks"],
+  props: ["dataTasks", "reloadTasks", "dataCategories"],
   components: {
-    TaskBoard,
+    TaskBoard
   },
   data() {
     return {
-      categories: [
-        {
-          name: "backlog",
-          color: "red",
-        },
-        {
-          name: "todo",
-          color: "black",
-        },
-         {
-          name: "doing",
-          color: "blue",
-        },
-         {
-          name: "done",
-          color: "green",
-        }
-      ],
+      categories: this.dataCategories
+      // [
+      //   {
+      //     name: "backlog",
+      //     color: "red",
+      //   },
+      //   {
+      //     name: "todo",
+      //     color: "black",
+      //   },
+      //    {
+      //     name: "doing",
+      //     color: "blue",
+      //   },
+      //    {
+      //     name: "done",
+      //     color: "green",
+      //   }
+      // ],
     };
   },
-  mounted() {
-    this.$root.$on('addCtgr', newCtgr => {
-        console.log(newCtgr,'ini di boardlist');
-        this.categories.push(newCtgr)
-    });
-}
+  created(){
+    console.log(this.dataCategories, 'ini di boardlist list cat');
+  }
 };
 </script>
 

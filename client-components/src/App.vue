@@ -3,8 +3,8 @@
     <Login v-if="page == 'login'" @changePage="change" :dataTasks="fetchTasks"></Login>
     <Register v-else-if="page == 'register'" @changePage="change"></Register>
     <div v-else>
-      <Navbar @changePage="change"  id="navbar"></Navbar>
-      <BoardList :dataTasks="tasks" :reloadTasks="fetchTasks"></BoardList>
+      <Navbar :reloadTasks="fetchTasks" @changePage="change"  id="navbar" ></Navbar>
+      <BoardList :dataTasks="tasks" :reloadTasks="fetchTasks" :dataCategories="listCategories"></BoardList>
     </div>
   </div>
 </template>
@@ -27,10 +27,29 @@ export default {
   data() {
     return {
       page: "login",
-      tasks: []
+      tasks: [],
+      listCategories: []
     };
   },
   methods: { 
+    fetchCategories(){
+      axios({
+        method: "GET",
+        url: "http://localhost:3000/categories",
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then((response) => {
+          console.log(response.data.data,'??');
+          console.log(this.listCategories, 'ini sebelum listcategories');
+          this.listCategories = response.data.data
+          console.log(this.listCategories, 'ini listcategories');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     change(page) {
       this.page = page;
     },
@@ -56,6 +75,7 @@ export default {
     if (localStorage.getItem("access_token")) {
       this.page = "main page";
       this.fetchTasks();
+      this.fetchCategories()
     } else if (localStorage.getItem("register")) {
       this.page = "register";
     } else {
