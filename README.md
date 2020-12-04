@@ -2,8 +2,8 @@
 
 ## URL
 ```JS
-Client : http://localhost:1234/
-Server : http://localhost:3000/
+Client : https://kanbanbylitha.web.app/
+Server : https://kanban-by-litha.herokuapp.com/
 ```
 #
 ## ROUTE
@@ -358,6 +358,34 @@ Server : http://localhost:3000/
 ```JS
 {
     "message": 'Internal Server Error'
+}
+```
+#
+### POST /googleLogin
+> login with google account
+- Request Body
+```JS
+{
+  googleToken = "user google token"
+}
+```
+#
+##### SUCCESS 
+- Response *(200)*
+```JS
+{
+  "id": 2,
+  "email": "user@gmail.com",
+  "name": "user",
+  "access_token": "eyJhb..."
+}
+```
+#
+##### ERROR *`'Internal Server Error'`*
+- Response *(500)*
+```JS
+{
+  "message": 'Internal Server Error'
 }
 ```
 #

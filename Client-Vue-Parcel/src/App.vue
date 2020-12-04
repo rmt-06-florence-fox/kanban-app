@@ -24,7 +24,7 @@
   import Taskboard from './components/Taskboard';
   import swal from 'sweetalert'
 
-  const baseUrl = 'http://localhost:3000/'
+  const baseUrl = 'https://kanban-by-litha.herokuapp.com/'
 
   export default {
     name: 'App',
