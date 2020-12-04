@@ -7,6 +7,7 @@
     :loggedInEmail=loggedInEmail
     @getCategory="getCategory"
     @emitPopulate="emitPopulate"
+    @emitMoveTask="emitMoveTask"
     >
     </Board>
   </div>
@@ -36,6 +37,9 @@ export default {
     }, 
     emitPopulate(task, page){
       this.$emit('emitPopulate', task, page)
+    },
+    emitMoveTask(task, page){
+      this.$emit('emitMoveTask', task, page)
     }
   }
 };

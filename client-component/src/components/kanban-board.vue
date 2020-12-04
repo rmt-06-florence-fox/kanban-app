@@ -11,7 +11,8 @@
             v-if="task.categoryName === category.name" 
             :task=task 
             :loggedInEmail=loggedInEmail
-            @emitPopulate="emitPopulate"></taskcard>
+            @emitPopulate="emitPopulate"
+            @emitMoveTask="emitMoveTask"></taskcard>
           </div>
         </div>
     </div>
@@ -36,8 +37,10 @@ export default {
   },
   methods: {
     emitPopulate(task, page){
-      this.$emit('emitPopulate', task, page)
-      
+      this.$emit('emitPopulate', task, page)  
+    },
+    emitMoveTask(task, page){
+      this.$emit('emitMoveTask', task, page)  
     }
   }
 };

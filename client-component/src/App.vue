@@ -15,6 +15,7 @@
      :loggedInEmail=loggedInEmail
      @getCategory="getCategory"
      @emitPopulate="showEditForm"
+     @emitMoveTask="showMoveForm"
      ></MainPage>
      <addForm 
      v-if="currentPage === 'addForm'"
@@ -27,6 +28,12 @@
      @emitEditTask="editTask"
      :task=task
      ></editForm>
+     <moveForm
+     v-if="currentPage === 'moveForm'"
+     @emitChangePage="changePage"
+     @emitMoveTask="moveTask"
+     :movedTask=movedTask
+     :categories=categories></moveForm>
   </div>
 </template>
 
@@ -34,6 +41,7 @@
 let basicUrl = "http://localhost:3000/"
 import addForm from "./components/addForm.vue"
 import editForm from "./components/editForm.vue"
+import moveForm from "./components/moveForm.vue"
 import MainPage from "./components/mainPage.vue"
 import RegisterPage from "./components/register.vue"
 import LoginPage from "./components/loginPage.vue"
@@ -55,7 +63,8 @@ export default {
         title: null,
         due_date: null,
         CategoryId: null
-      }
+      },
+      movedTask: null
     };
   },
   methods: {
@@ -175,6 +184,31 @@ export default {
         console.log(err)
       })
     },
+    showMoveForm(task, page){
+       console.log(task, page)
+       this.movedTask = task
+       this.currentPage = page
+    },
+    moveTask(TaskId, CategoryId){
+      axios({
+        url: `${basicUrl}tasks/${TaskId}`,
+        method: "patch",
+        headers : {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: {
+          CategoryId
+        }
+      })
+      .then(response => {
+        console.log(response)
+         this.currentPage = "MainPage"
+         this.getTasks()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
     logout(){
       localStorage.clear()
       this.currentPage = "LoginPage"
@@ -185,7 +219,8 @@ export default {
     LoginPage,
     MainPage,
     addForm,
-    editForm
+    editForm,
+    moveForm
   },
   created: function (){
     if (localStorage.getItem("access_token")){
