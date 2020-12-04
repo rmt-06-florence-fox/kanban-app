@@ -25,6 +25,8 @@
     :tasks="tasks"
     @getEdit="getEdit"
     @deleteTask="deleteTask"
+    @moveLeft="updateStatus"
+    @moveRight="updateStatus"
     >
     </TaskBoard>
     <AddTaskPage
@@ -301,6 +303,55 @@ export default {
           Swal.fire({
             icon: "error",
             title: "Edit Task Failed!",
+            text: error.response.data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .finally((_) => {
+          this.title = "";
+          this.description = "";
+          this.point = "";
+          this.assignedto = "";
+          this.status = "";
+        });
+    },
+
+    updateStatus(id, status, move) {
+      let updateStatus 
+      for (let i = 0; i < this.categories.length; i++) {
+        if(status == this.categories[i].name){
+          if(move == 'prev'){
+            updateStatus = this.categories[i-1].name
+          } else if(move == 'next'){
+            updateStatus = this.categories[i+1].name
+          }
+        }
+      }
+      axios({
+        method: "patch",
+        url: "http://localhost:3000/tasks/" + id,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        data: {
+          status: updateStatus
+        },
+      })
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            title: "Move Task Success!",
+            text: "Task moved to " + updateStatus,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.changePage('Main Page')
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Move Task Failed!",
             text: error.response.data.message,
             showConfirmButton: false,
             timer: 1500,

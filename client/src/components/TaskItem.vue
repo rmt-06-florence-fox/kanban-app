@@ -21,6 +21,15 @@
           <button
           class="btn"
           :class="category.color"
+          v-if="category.label != 'Backlog'"
+          @click="moveLeft(task.id, task.status)"
+          >
+          <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <button
+          class="btn"
+          :class="category.color"
           @click="edit(task.id)"
           >
           <i class="far fa-edit"></i>
@@ -41,6 +50,15 @@
           <i class="fas fa-exchange-alt"></i>
           </button>
 
+          <button
+          class="btn"
+          :class="category.color"
+          v-if="category.label != 'Done'"
+          @click="moveRight(task.id, task.status)"
+          >
+          <i class="fas fa-chevron-right"></i>
+          </button>
+          
         </div>
       </div>
     </div>
@@ -57,6 +75,12 @@ export default {
     },
     del(id){
       this.$emit("deleteTask", id)
+    },
+    moveLeft(id, status){
+      this.$emit("moveLeft", id, status, 'prev')
+    },
+    moveRight(id, status){
+      this.$emit("moveRight", id, status, 'next')
     }
 },
   computed: {
