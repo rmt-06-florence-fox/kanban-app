@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Kanban</title>
+</head>
+<body>
+
+    <!-- VueJs -->
+    <div id="app">
+        
+        <!-- Home-Page -->
+        <div id="home-page" v-if="pageName === 'home-page'">
+            <div class="custom-navbar">
+                <div>
+                    <img src="./assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">
+                    
+                </div>
+                <div>
+                    <ul class="center-navbar">
+                        <li><a @click="changePage('home-page')" href="#">Home</a></li>
+                        <li><a href="#">Info</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="right-navbar">
+                        <li class="btn btn-outline-primary"><a @click="changePage('form-login')" href="#">Login</a></li>
+                        <li class="btn btn-info"><a @click="changePage('form-register')" href="#">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-7 pading-1">
+                    <div class="jumbotron background-page">
+                        <h1> < HOME PAGE > </h1>
+                        <p>Welcome to application Kanban. For more details, <br> you can click option
+                            <b>"Info"</b> in navbar for information what thats kanban.</p>
+                    </div>
+                </div>
+                <div class="col-5 image-home">
+                    <img src="./assets/kanban-project-management.jpg" alt="kanban" height="450px" width="451px">
+                </div>
+            </div>
+        </div>
+       
+        <!-- Form Register -->
+        <div v-else-if="pageName === 'form-register'">
+            <div class="custom-navbar">
+                <div>
+                    <img src="./assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">
+                    
+                </div>
+                <div>
+                    <ul class="center-navbar">
+                        <li><a @click="changePage('home-page')" href="#">Home</a></li>
+                        <li><a href="#">Info</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="right-navbar">
+                        <li class="btn btn-outline-primary"><a @click="changePage('form-login')" href="#">Login</a></li>
+                        <li class="btn btn-info"><a @click="changePage('form-register')" href="#">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <div class="col-6">
+        
+                </div>
+                <div class="col-6">
+                    <h2>Register</h2>
+                    <div class="mt-3">
+                        <form @submit.prevent="registerData()">
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="inputEmail4">First name</label>
+                                <input v-model="dataUserRegister.firstName" type="text" class="form-control" id="firstName-register">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Last name</label>
+                                <input v-model="dataUserRegister.lastName"  type="text" class="form-control" id="lastName-register">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail4">Email</label>
+                                <input v-model="dataUserRegister.email" type="email" class="form-control" id="email-register">
+                            </div>
+                            <div class="form-group">
+                            <label for="inputPassword4">Password</label>
+                            <input v-model="dataUserRegister.password"  type="password" class="form-control" id="password-register">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Register</button>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Login -->
+        <div v-else-if="pageName === 'form-login'">
+            <div class="custom-navbar">
+                <div>
+                    <img src="./assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">
+                    
+                </div>
+                <div>
+                    <ul class="center-navbar">
+                        <li><a @click="changePage('home-page')" href="#">Home</a></li>
+                        <li><a href="#">Info</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="right-navbar">
+                        <li class="btn btn-outline-primary"><a @click="changePage('form-login')" href="#">Login</a></li>
+                        <li class="btn btn-info"><a @click="changePage('form-register')" href="#">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container mt-4">
+                <div class="col-6">
+        
+                </div>
+                <div class="col-6">
+                    <h2>Login</h2>
+                    <!-- Jangan lupa pakai v-on buat trigger si form, kalau form jangan lupa pakai submit, terus jangan lupa di prevent -->
+                    <form @submit.prevent="loginData()">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <!-- Kalau mau dapet value dari input jangan lupa tambahin v-model -->
+                          <input v-model="dataUser.email" type="email" class="form-control" id="email-login" aria-describedby="emailHelp">
+                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input v-model="dataUser.password" type="password" class="form-control" id="password-email">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Page  -->
+        <div v-else-if="pageName === 'kanban-page'">
+            <div class="custom-navbar">
+                <div>
+                    <img src="./assets/Screenshot from 2020-12-02 08-34-34.jpg" alt="logo" width="115px">     
+                </div>
+                <div>
+                    <ul class="right-navbar">
+                        <li class="btn btn-danger"><a @click="logOut()" href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-primary text-white rounded">    
+                            Backlog
+                        </div>
+                        <div class="card mt-2">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                              <p class="card-text"></p>
+                              <div>
+                                  <div class="">
+
+                                  </div>
+                                  <div class="col-"> 
+                                      <a href="#" class="card-link button-right">Kanan</a>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-warning rounded">
+                            Product
+                        </div>
+                        <div class="card mt-2">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                              <p class="card-text"></p>
+                              <a href="#" class="card-link">Kiri</a>
+                              <a href="#" class="card-link">Kanan</a>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-info text-white rounded">
+                            Development
+                        </div>
+                        <div class="card mt-2">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                              <p class="card-text"></p>
+                              <a href="#" class="card-link">Kiri</a>
+                              <a href="#" class="card-link">Kanan</a>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="p-3 bg-success rounded">
+                            Done
+                        </div>
+                        <div class="card mt-2">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                              <p class="card-text"></p>
+                              <a href="#" class="card-link">Kiri</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
