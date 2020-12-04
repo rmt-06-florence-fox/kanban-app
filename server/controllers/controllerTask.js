@@ -9,13 +9,14 @@ class ControllerTask {
             category: req.body.category,
             UserId: req.loggedInUser.id
         }
+        
         Task.create(obj)
         .then(data => {
             res.status(201).json({
                 name: data.name,
                 description: data.description,
                 category: data.category,
-                UserId: data.loggedInUser.id
+                UserId: data.UserId
             })
         })
         .catch(error => {

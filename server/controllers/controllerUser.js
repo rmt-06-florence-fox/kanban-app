@@ -1,4 +1,4 @@
-const { User } = require("../models/user")
+const { User } = require("../models")
 const { compare } = require("../helpers/bcrypt")
 const { generateToken } = require("../helpers/jwt")
 
@@ -10,7 +10,7 @@ class ControllerUser {
             email: req.body.email,
             password: req.body.password
         }
-
+        console.log(obj)
         User.create(obj)
         .then(data => {
             res.status(201).json({
@@ -27,11 +27,12 @@ class ControllerUser {
 
     static login(req,res,next){
         User.findOne({where: {email: req.body.email}})
-        .then(data => {
+        .then(data => {        
             if(data) {
                 if(compare(req.body.password, data.password)){
                     const access_token = generateToken({id: data.id, email: data.email})
-                    res.status(200).json({access_token})
+                    res.status(200).json( {access_token} )
+                    
                 } else {
                     throw{
                         status: 404,

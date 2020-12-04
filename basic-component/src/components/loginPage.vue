@@ -10,8 +10,8 @@
                 <label for="">password</label><br>
                 <input v-model="user.password" type="password" placeholder="your password here" id="login-password" required>
                 <br><br>
-                <button id="login-btn" @click="logout">login</button>
-                <p style="padding-top: 20%;">dont have an account? <a href="" style="color: rgb(23, 26, 29);">register</a></p>   
+                <button id="login-btn" @click="login">login</button>
+                <p style="padding-top: 20%;">dont have an account? <a href="#" @click="changePage" style="color: rgb(23, 26, 29);">register</a></p>   
             </form>
         </div>
     </div>
@@ -30,7 +30,11 @@ export default {
     },
     methods: {
         login(){
-            console.log(this.user.email, this.user.password)
+            localStorage.setItem('access_token', this.user.email)
+            this.$emit("PleaseChangePage", "MainPage")
+        },
+        changePage(){
+            this.$emit("PleaseChangePage", "RegisterPage")
         }
     }
 }
