@@ -2,4 +2,4 @@
 
 url-deploy: 
 
-https://new-normal-kanban.web.app/
+https://gutest-kanban.web.app/
