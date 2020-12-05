@@ -201,9 +201,6 @@ export default {
             })
         },
         submitUpdateKanban(title, due_date, CategoryId) {
-            console.log(title)
-            console.log(due_date)
-            console.log(CategoryId)
             axios({
                 url: 'http://localhost:3000/task/' + this.id,
                 method: 'PUT',
