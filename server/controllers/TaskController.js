@@ -1,13 +1,14 @@
 const { Task } = require("../models");
+const { User } = require("../models");
 
 class TaskController {
     static add(req, res, next) {
         const obj = {
             title: req.body.title,
             description: req.body.description,
-            category: req.body.category,
             due_date: req.body.due_date,
-            UserId: req.loggedInUser.id
+            UserId: req.loggedInUser.id,
+            CategoryId: req.body.CategoryId
         }
         Task.create(obj)
             .then((data) => {
@@ -20,7 +21,10 @@ class TaskController {
 
     static read(req, res, next) {
         Task.findAll({
-            order: [["createdAt", "DESC"]]
+            order: [["updatedAt", "DESC"]],
+            include: {
+                model: User
+            }
         })
             .then((data) => {
                 res.status(200).json(data);
@@ -47,9 +51,9 @@ class TaskController {
             const obj = {
                 title: req.body.title,
                 description: req.body.description,
-                category: req.body.category,
                 due_date: req.body.due_date,
-                UserId: req.loggedInUser.id
+                UserId: req.loggedInUser.id,
+                CategoryId: req.body.CategoryId
             }
             const result = await Task.update(obj, {
                 where: {

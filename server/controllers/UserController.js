@@ -35,7 +35,7 @@ class UserController {
                     }
                 } else if (compare(req.body.password, data.password)) {
                         const access_token = sign(data.id, data.email);
-                        res.status(200).json({ access_token, fullName: data.getFullName()});
+                        res.status(200).json({ access_token, fullName: data.getFullName() });
                 } else {
                     throw {
                         status: 401,

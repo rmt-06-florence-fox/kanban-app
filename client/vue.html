@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="pageName == 'Login Page'">
+            <h2>{{pageName}}</h2>
+            <button @click="changePage('Other Page')">Change Page</button>
+            <!-- <button v-on:click-"nambahCounter"></button>
+            <button @click-"resetCounter"></button> -->
+            <form @submit.prevent="login">
+            <input type="text" v-model="message">
+            <button type="submit">Submit</button>
+                <div v-if="invalid">
+                    <h1 style="color:red">{{errMessage}}</h1>
+                </div>
+            </form>
+        </div>
+
+        <div v-else-if="pageName == 'Home Page'">
+            <h2>{{pageName}}</h2>
+            <button @click="changePage('Home Page')">Change Page</button>
+            <ul>
+                <li v-for="(ranger, index) in rangers" :key="index">{{ranger.name}}</li>
+            </ul>
+        </div>
+
+        <div v-for="(ranger, index) in rangers" :key="index">
+            <img v-bind:src=:ranger.imgUrl>
+            <div>{{ranger.name}}</div>
+            <div></div>
+            <button @click.prevent="getOneRanger(ranger)"></button>
+        </div>
+
+
+        <!-- <div v-if-"pageName === 'Home Page'">
+            <h2>{{pageName}}</h2>
+        </div>
+        <div v-else-if-"pageName == 'Other Page'">
+            <h2>{{pageName}}</h2>
+        </div>
+        <div v-else>
+            {{pageName}}
+            <h2>Ini random page</h2>
+        </div> -->
+
+        <!-- <h1 v-text="message"></h1>
+        <h2>{{message}}</h2>
+        <div v-html="nama"></div> -->
+
+        <div v-if=:
+    </div>
+
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<div>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    </div>
+</body>
+</html>

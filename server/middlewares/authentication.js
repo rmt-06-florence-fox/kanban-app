@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
             })
             
             if (user) {
-                
+    
                 next();
             } else {
                 throw {

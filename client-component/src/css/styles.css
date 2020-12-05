@@ -85,9 +85,9 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
    border: solid black 0.1rem;
 }
 
-#google.btn {
+/* #google.btn {
    border: solid black 0.1rem;
-}
+} */
 
 #login-register-btn {
    width: 100%;
@@ -416,10 +416,3 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
     font-weight: 500;
     align-items: center;
 }
-
-
-
-
-
-
-
