@@ -1,4 +1,4 @@
-import Vue from "vue";
+const {Vue} = require('vue')
 import App from  "./components/App.vue"
 console.log(Vue)
 new Vue({
