@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal fade" id="delete-task-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    <div class="modal fade" id="delete-task-confirm" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
               aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -14,8 +14,8 @@
                     <p>Are you sure you want to delete this task?</p>
                 </div>
                 <div class="modal-footer">
-                    <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
-                    <button @click="deleteTask" data-dismiss="modal" type="button" class="btn btn-danger" id="delete-confirm-btn">Delete</button>
+                    <button @click="$emit('close-delete-task-confirmation')" type="button" class="btn btn-secondary">Cancel</button>
+                    <button @click="deleteTask" type="button" class="btn btn-danger" id="delete-confirm-btn">Delete</button>
                 </div>
             </div>
         </div>
@@ -42,8 +42,10 @@ export default {
           },
       })
       .then(({data}) => {
-          this.$emit("changePage", "main-page");
-          this.$emit("fetchCategories", "fetchTasks");
+          this.$emit("fetchCategories");
+          this.$emit("fetchTasks");
+          this.$emit("close-delete-task-confirmation");
+          this.$emit("close-task-details");
           Swal.fire (
               "Deleted",
               data.message,

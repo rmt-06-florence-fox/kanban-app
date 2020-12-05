@@ -3,7 +3,6 @@
     <LoginPage v-if="pageName === 'login-page'" @changePage="changePage"></LoginPage>
     <RegisterPage v-else-if="pageName === 'register-page'" @changePage="changePage"></RegisterPage>
     <MainPage v-else-if="pageName === 'main-page'" @changePage="changePage" @setTaskId="setTaskId" @setTaskEditData="setTaskEditData"></MainPage>
-    <TaskDetails v-else-if="pageName === 'task-details'" :TaskId="TaskId" :taskEditData="taskEditData" @changePage="changePage"></TaskDetails>
   </div>
 </template>
 
@@ -11,7 +10,7 @@
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import MainPage from "./components/MainPage";
-import TaskDetails from "./components/TaskDetails";
+
 export default {
   name: "App",
   data() {
@@ -41,8 +40,7 @@ export default {
   components: {
     LoginPage,
     RegisterPage,
-    MainPage,
-    TaskDetails
+    MainPage
   },
   created() {
     if (localStorage.getItem("access_token")) {

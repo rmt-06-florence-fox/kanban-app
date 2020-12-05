@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal fade" id="add-task-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="add-task-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
   
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -23,7 +23,7 @@
                         <input v-model="task.due_date" type="date" class="form-control" id="add-task-due_date" name="due_date">
                     </div>
                     <button type="submit" @click.prevent="addTask" class="btn mt-4 add-edit-task-btn">Add</button>
-                    <button data-dismiss="modal" type="button" class="btn mt-2 add-edit-cancel-btn">Cancel</button>
+                    <button data-dismiss="modal" @click="$emit('close-add-task-form')" type="button" class="btn mt-2 add-edit-cancel-btn">Cancel</button>
                 </form>
               </div>
           </div>
@@ -58,9 +58,9 @@ export default {
           data: this.task
       })
       .then(({data}) => {
-          $("#add-task-modal").modal("hide");
           this.$emit("fetchCategories");
           this.$emit("fetchTasks");
+          this.$emit("close-add-task-form");
           Swal.fire (
               "Added",
               "A new task has been added.",
@@ -74,8 +74,6 @@ export default {
           this.task.title = "";
           this.task.description = "";
           this.task.due_date = "";
-          this.task.CategoryId = 0;
-          this.CategoryId = 0;
       });
     }
   }

@@ -6,7 +6,7 @@
     </div>
     <div class="task-bottom-container">
       <div class="due-date">{{ formatDueDate(task.due_date) }}</div>
-      <button @click="showEditTaskForm(task.id)" type="button" class="btn mt-2 btn-sm task-edit-icon"><img src="../assets/task-content.svg" width="20" height="20"></button>
+      <button @click="showTaskDetails(task.id)" type="button" class="btn mt-2 btn-sm task-edit-icon"><img src="../assets/task-content.svg" width="20" height="20"></button>
     </div>
     <div class="task-updatedAt">{{ formatUpdatedAt(task.updatedAt) }}</div>
   </div>
@@ -19,11 +19,15 @@ export default {
   data() {
     return {
       TaskId: 0,
-      taskEditData: {}
+      taskEditData: {
+        title: "",
+        description: "",
+        due_date: ""
+      }
     }
   },
   methods: {
-    showEditTaskForm(TaskId) {
+    showTaskDetails(TaskId) {
       this.TaskId = TaskId;
       this.fetchEditData(TaskId);
     },
@@ -108,7 +112,7 @@ export default {
           this.taskEditData.due_date = data.due_date;
           this.$emit("setTaskId", this.TaskId);
           this.$emit("setTaskEditData", this.taskEditData);
-          this.$emit("changePage", "task-details");
+          this.$emit("show-task-details");
       })
       .catch((err) => {
           console.log(err);

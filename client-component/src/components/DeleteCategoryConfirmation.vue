@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal fade" id="delete-category-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    <div class="modal fade" id="delete-category-confirm" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
               aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -15,7 +15,7 @@
                   <p>All tasks in this category will also be deleted.</p>
               </div>
               <div class="modal-footer">
-                  <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
+                  <button @click="$emit('close-delete-category-confirmation')" type="button" class="btn btn-secondary">Cancel</button>
                   <button @click="deleteCategory" type="button" class="btn btn-danger" id="delete-confirm-btn">Delete</button>
               </div>
           </div>
@@ -43,8 +43,9 @@ export default {
           }
       })
       .then(({data}) => {
-          $("#delete-category-confirm").modal("hide");
-          this.$emit("fetchCategories", "fetchTasks");
+          this.$emit("close-delete-category-confirmation");
+          this.$emit("fetchCategories");
+          this.$emit("fetchTasks");
           Swal.fire (
               "Deleted",
               data.message,

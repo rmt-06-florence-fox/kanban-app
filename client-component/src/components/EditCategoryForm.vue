@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal fade" id="edit-category-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="edit-category-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
   
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -28,7 +28,7 @@
                   </div>
                   <div class="category-form-btn-container">
                       <button @click.prevent="editCategory" type="submit" class="btn mt-4 add-edit-category-btn">Edit</button>
-                      <button data-dismiss="modal" type="button" class="btn mt-2 category-cancel-btn">Cancel</button>
+                      <button @click="$emit('close-edit-category-form')" type="button" class="btn mt-2 category-cancel-btn">Cancel</button>
                   </div>
                   </form>
               </div>
@@ -45,8 +45,8 @@ export default {
   data() {
     return {
       category: {
-        name: this.categoryEditData.name,
-        color: this.categoryEditData.color
+        name: "",
+        color: ""
       }
     }
   },
@@ -61,8 +61,9 @@ export default {
           data: this.category
       })
       .then(({data}) => {
-          $("#edit-category-modal").modal("hide");
-          this.$emit("fetchCategories", "fetchTasks");
+          this.$emit("fetchCategories");
+          this.$emit("fetchTasks");
+          this.$emit("close-edit-category-form");
           Swal.fire (
               "Edited",
               "The category has been edited.",
@@ -72,11 +73,6 @@ export default {
       .catch((err) => {
           console.log(err);
       })
-      .finally(() => {
-          this.category.name = "";
-          this.category.color ="#ff3b30";
-          this.CategoryId = 0;
-      });
     }
   }
 }

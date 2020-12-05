@@ -64,8 +64,6 @@ export default {
           localStorage.setItem("access_token", data.access_token);
           localStorage.setItem("fullName", data.fullName);
           this.changePage("main-page");
-          // this.fetchCategories();
-          // this.fetchTasks();
           Swal.fire(
               'Logged In!',
               "Welcome!",
@@ -81,9 +79,7 @@ export default {
       });
     },
     onSuccess(googleUser) {
-      console.log(googleUser);
       var googleToken = googleUser.getAuthResponse().id_token;
-      console.log(googleToken)
       axios({
           url: "http://localhost:3000/googleLogin",
           method: "POST",

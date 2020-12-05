@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal fade" id="add-category-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="add-category-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -29,7 +29,7 @@
                       </div>
                       <div class="category-form-btn-container">
                         <button @click.prevent="addCategory" type="submit" class="btn mt-4 add-edit-category-btn">Add</button>
-                        <button data-dismiss="modal" type="button" class="btn mt-2 category-cancel-btn">Cancel</button>
+                        <button @click="$emit('close-add-category-form')" data-dismiss="modal" type="button" class="btn mt-2 category-cancel-btn">Cancel</button>
                       </div>  
                   </form>
               </div>
@@ -61,8 +61,9 @@ export default {
           data: this.category
       })
       .then(({data}) => {
-          $("#add-category-modal").modal("hide");
-          this.$emit("fetchCategories", "fetchTasks");
+          this.$emit("fetchCategories");
+          this.$emit("fetchTasks");
+          this.$emit("close-add-category-form");
           Swal.fire (
               "Added",
               "A new category has been added.",

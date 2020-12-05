@@ -1,39 +1,44 @@
 <template>
   <div>
-    <div class="add-edit-task-form-content" style="width:30rem;height:37rem">
-      <div class="add-edit-task-form-title">
-          <h1>Task Details</h1>
+    <div class="modal fade" id="edit-task-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+  
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content" style="background-color:transparent;border:none">
+              <div class="add-edit-task-form-content">
+                  <div class="add-edit-task-form-title">
+                      <h1>Task Details</h1>
+                  </div>
+                  <form class="add-edit-task-form">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input v-model="task.title" type="text" class="form-control" id="add-task-title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Description</label>
+                        <textarea v-model="task.description" class="form-control text-area"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="due_date">Due Date</label>
+                        <input v-model="task.due_date" type="date" class="form-control" id="add-task-due_date" name="due_date">
+                    </div>
+                    <button type="submit" @click.prevent="editTask" class="btn mt-4 add-edit-task-btn">Edit</button>
+                    <button @click="showDeleteTaskConfirmation" type="button" class="btn btn-danger mt-2 delete-task-btn">Delete</button>
+                    <button @click="$emit('close-task-details')" type="button" class="btn mt-2 add-edit-cancel-btn">Close</button>
+                </form>
+              </div>
+          </div>
       </div>
-      <form class="add-edit-task-form">
-          <div class="form-group">
-              <label for="title">Title</label>
-              <input v-model="task.title" type="text" class="form-control edit-task-title" name="title">
-          </div>
-          <div class="form-group">
-              <label for="message-text" class="col-form-label">Description</label>
-              <textarea v-model="task.description" class="form-control text-area"></textarea>
-          </div>
-          <div class="form-group">
-              <label for="due_date">Due Date</label>
-              <input v-model="task.due_date" type="date" class="form-control edit-task-due_date" name="due_date">
-          </div>
-          <button type="submit" @click.prevent="editTask" class="btn mt-4 add-edit-task-btn">Edit</button>
-          <button data-toggle="modal" data-target="#delete-task-confirm" type="button" class="btn btn-danger mt-2 delete-task-btn">Delete</button>
-          <button @click="changePage" type="button" class="btn mt-2 add-edit-cancel-btn">Close</button>
-      </form>
-      <DeleteTaskConfirmation :TaskId="TaskId" @fetchCategories="fetchCategories" @fetchTasks="fetchTasks" @changePage="changePage"></DeleteTaskConfirmation>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-import DeleteTaskConfirmation from "../components/DeleteTaskConfirmation";
 export default {
-  name: "EditTaskForm",
+  name: "TaskDetails",
   props: ["TaskId", "taskEditData"],
   data() {
     return {
-      TaskDetailId: this.TaskId,
       task: {
         title: this.taskEditData.title,
         description: this.taskEditData.description,
@@ -52,8 +57,9 @@ export default {
           data: this.task
       })
       .then(({data}) => {
-          this.$emit("fetchCategories", "fetchTasks");
-          this.$emit("changePage", "main-page")
+          this.$emit("fetchCategories");
+          this.$emit("fetchTasks");
+          this.$emit("close-task-details");
           Swal.fire (
               "Edited",
               "The task has been edited.",
@@ -70,13 +76,11 @@ export default {
     fetchTasks() {
       this.$emit("fetchTasks");
     },
-    changePage() {
-      this.$emit("changePage", "main-page");
+    showDeleteTaskConfirmation() {
+      this.$emit("show-delete-task-confirmation");
+      this.$emit("setTaskId", this.TaskId);
     }
-  },
-  components: {
-    DeleteTaskConfirmation
-  },
+  }
 }
 </script>
 <style>
