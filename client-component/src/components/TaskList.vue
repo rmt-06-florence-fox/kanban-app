@@ -5,11 +5,11 @@
                 <div class="p-3 bg-primary rounded">{{ category.name }}</div>
                 <div class="card" v-for="data in filteredTask(category.name)" :key="data.id">
                     <tasklist 
-                        :dataList="data"
+                        :dataList='data'
                         :dataEdit='dataEdit'
-                        @idEdit='editData'
-                        @idDelete='deleteData'
-                        @idPatch='patchData'
+                        @idEdit='editTask'
+                        @idDelete='deleteTask'
+                        @idPatch='patchTask'
                         @updateTask='updateTask'
                         @updateCategory='updateCategory'>
                     </tasklist>  
@@ -48,29 +48,29 @@ export default {
         filteredTask(category) {
             return this.dataTasks.filter(e => e.category === category)
         },
-        editTask(id){
+        editTask(id) {
             this.$emit('idEdit', id)
         },
-        deleteTask(id){
+        deleteTask(id) {
             this.$emit('idDelete', id)
         },
-        patchTask(id){
+        patchTask(id) {
             this.$emit('idPatch', id)
         },
-        updateTask(newData, id){
-            this.$emit('updateTask', newData, id)
+        updateTask(newTask, id) {
+            this.$emit('updateTask', newTask, id)
         },
-        updateCategory(newData, id){
-            this.$emit('updateCategory', newData, id)
+        updateCategory(newTask, id) {
+            this.$emit('updateCategory', newTask, id)
         },
-        showAdd(category){
+        showAdd(category) {
             console.log(category);
-            this.pageAdd = category
+            this.addPage = category
         },
-        addTask(category){
+        addTask(category) {
             const newTask = {
-            title: this.createTask,
-            category: category
+                title: this.createTask,
+                category: category
             }
             this.$emit('createTask', newTask)
             this.createTask = ''
