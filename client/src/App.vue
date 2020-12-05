@@ -48,7 +48,7 @@ export default {
         },
         requestLogin(payload) {
             axios({
-                url: "http://localhost:3000/login",
+                url: "https://kanban-app-deploy.herokuapp.com/login",
                 method: "POST",
                 data: payload
             })
@@ -65,7 +65,7 @@ export default {
         requestRegister(payload) {
             console.log(payload)
             axios({
-                url: "http://localhost:3000/register",
+                url: "https://kanban-app-deploy.herokuapp.com/register",
                 method: "POST",
                 data: payload
             })
@@ -79,7 +79,7 @@ export default {
         },
         googleLogin(idToken) {
             axios({
-                url: "http://localhost:3000/googleLogin",
+                url: "https://kanban-app-deploy.herokuapp.com/googleLogin",
                 method: "POST",
                 data: {
                     googleToken:idToken
@@ -98,7 +98,7 @@ export default {
         fetchTask() {
             const access_token = localStorage.getItem("access_token")
             axios({
-                url: "http://localhost:3000/tasks",
+                url: "https://kanban-app-deploy.herokuapp.com/tasks",
                 method: "GET",
                 headers: {
                     access_token
@@ -116,7 +116,7 @@ export default {
             console.log('masuk add <<<<')
             const access_token = localStorage.getItem("access_token")
             axios ({
-                url: "http://localhost:3000/tasks",
+                url: "https://kanban-app-deploy.herokuapp.com/tasks",
                 method: "POST",
                 data: payload,
                 headers: {
@@ -134,7 +134,7 @@ export default {
             console.log('masuk delete')
             const access_token = localStorage.getItem("access_token")
             axios ({
-                url: `http://localhost:3000/tasks/${id}`,
+                url: `https://kanban-app-deploy.herokuapp.com/tasks/${id}`,
                 method: "DELETE",
                 headers: {
                     access_token
