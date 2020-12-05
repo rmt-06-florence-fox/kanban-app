@@ -7,7 +7,7 @@
             <h1 class="main-title">Welcome to Kanban App</h1>
         </div>
         <div class="nav-right">
-            <button type="submit" class="btn btn-danger"  @click.prevent="logout">logout</button>
+            <button  type="submit" class="btn btn-danger"  @click="logout">logout</button>
             <!-- <ul class="nav-list" >
                 <li ><a href="#"><i class="fa fa-toggle-right" style="font-size:24px" @click.prevent="logout" ></i></a></li>
             </ul> -->

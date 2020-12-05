@@ -6,9 +6,9 @@
                 <h5 class="text-center"> {{category.name}}</h5>
             </div>
             <div>
-                <taskItem v-for="data in filteredTask(category.name)" :key="data.id" :data="data" @deleteId='deleteData'></taskItem>
+                <taskItem v-for="data in filteredTask(category.name)" :key="data.id" :data="data" @deleteId='deleteData' @editId='editData'></taskItem>
             </div>
-            <div class="rounded task-bottom mb-2">
+            <div class="rounded task-bottom mb-2"  id="btn-add">
                 <a href="#" @click.prevent="showAdd(category.name)" class="btn btn-secondary">Add</a>
             </div>
         <!-- form Add -->
@@ -44,14 +44,18 @@ export default {
             this.pageAdd = value
             this.$emit('createTask', newData)
         },
-        deteteData(id) {
+        deleteData(id) {
             console.log('di tasakboar');
-            this.$emit('idDelete', id)
+            this.$emit('deleteId', id)
         }
     }
 }
 </script>
 
 <style>
-
+#btn-add {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
 </style>

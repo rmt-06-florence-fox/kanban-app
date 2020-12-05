@@ -36,6 +36,8 @@ export default {
       register() {
         console.log(this.registerUser);
         this.$emit('dataRegister', this.registerUser)
+        // this.registerUser.email = ''
+        // this.password = ''
       },
       login(){
         this.$emit('changePage', 'loginPage')

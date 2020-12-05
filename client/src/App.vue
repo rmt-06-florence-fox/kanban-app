@@ -1,9 +1,9 @@
 <template>
   <div>
-    <navbar @logout="logout"></navbar>
+    <navbar @logout="logout" @changePage="changePage"></navbar>
     <registerPage v-if="currentPage === 'registerPage'" @changePage="changePage" @dataRegister="register"></registerPage>
     <loginPage v-else-if="currentPage === 'loginPage'" @changePage="changePage" @dataLogin="login"></loginPage>
-    <boardList v-else-if="currentPage === 'boardList'" @changePage='changePage' :dataTasks='dataTasks' @createTask="createTask" @deleteid="deleteData"></boardList>
+    <boardList v-else-if="currentPage === 'boardList'" @changePage='changePage' :dataTasks='dataTasks' @createTask="createTask" @deleteId="deleteData"></boardList>
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
         localStorage.removeItem('access_token')
         localStorage.removeItem('email')
         localStorage.removeItem('id')
-        this.currentPage = 'LoginPage'
+        this.currentPage = 'loginPage'
     },
     fetchData() {
      axios({
@@ -104,6 +104,7 @@ export default {
       })
     },
     deleteData(id) {
+      console.log('di app');
       axios({
         url: baseUrl + 'tasks/' + id,
         method: "DELETE",

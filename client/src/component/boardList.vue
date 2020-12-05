@@ -42,6 +42,7 @@ export default {
             this.$emit('createTask', newData)
         },
         deleteData(id) {
+            console.log('board');
             this.$emit('deleteId', id)
         }
     }

@@ -34,7 +34,7 @@ export default {
                 category: category
             }
             console.log(newData);
-            this.$emit('createTask', newData, this.pageAdd)
+            this.$emit('createTask', newData)
             this.title = ''
             this.description = ''
         },
