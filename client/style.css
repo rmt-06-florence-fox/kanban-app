@@ -1,0 +1,322 @@
+body{
+    /* background-image: url("https://preview.pixlr.com/images/800wm/1312/2/1312135524.jpg"); */
+    font-family: 'Balsamiq Sans', cursive;
+}
+
+/* ----logout btn---- */
+#logout-btn {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+#logout-btn:hover {
+    opacity: 1
+}
+
+/* ----login page---- */
+#login-page{
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 40%;
+    margin-right: 35%;
+    color: honeydew;  
+}
+/* ----login form---- */
+#form-login{  
+    padding-top: 20%;
+    padding-bottom: 20%;
+    padding-left: 60px;
+    padding-right: 50px;
+    border-radius: 15px;
+    box-shadow: 4px 12px 12px 4px #999;
+}
+#login-email{
+    border-radius: 15px
+}
+#login-password{
+    border-radius: 15px
+}
+input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    outline: none;
+}
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    outline: none;
+}
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    outline: none;
+}
+/* ----login btn---- */
+#login-btn {
+    margin-left: 10%;
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    width: 80%;
+}
+#login-btn:hover {
+    background-color: #3e8e41
+}
+#login-btn:active {
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
+
+/* ----register page---- */
+#register-page{
+    
+    margin-top: 10%;
+    margin-bottom: 40%;
+    margin-left: 40%;
+    margin-right: 35%;
+    color: honeydew;    
+}
+/* ----register form---- */
+#form-register{  
+    padding-top: 20%;
+    padding-bottom: 20%;
+    padding-left: 60px;
+    padding-right: 50px;
+    border-radius: 15px;
+    box-shadow: 4px 12px 12px 4px #999;
+}
+#register-fullname{
+    border-radius: 15px
+}
+#register-email{
+    border-radius: 15px
+}
+#register-password{
+    border-radius: 15px
+}
+
+/* ----register btn---- */
+#register-btn {
+    margin-left: 10%;
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    width: 80%;
+}
+#register-btn:hover {
+    background-color: #3e8e41
+}
+#register-btn:active {
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
+
+
+/* ----main page---- */
+#form-card-1{
+    background-color: rgba(212, 209, 209, 0.212);
+}
+#form-card-2{
+    background-color: rgba(212, 209, 209, 0.212);
+}
+#form-card-3{
+    background-color: rgba(212, 209, 209, 0.212);
+}
+#form-card-4{
+    background-color: rgba(212, 209, 209, 0.212);
+}
+.btn-done {
+    margin-left: 5%;
+    display: inline-block;
+    padding: 3px 3px 3px 3px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px #999;
+    width: 20%;
+}
+.btn-done:hover {
+    background-color: #3e8e41
+}
+.btn-done:active {
+background-color: #3e8e41;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
+.btn-delete {
+    margin-left: 5%;
+    display: inline-block;
+    padding: 3px 3px 3px 3px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #df1616;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px #999;
+    width: 20%;
+}
+.btn-delete:hover {
+    background-color: #df1616
+}
+.btn-delete:active {
+background-color:#df1616;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
+
+.btn-back {
+    margin-left: 5%;
+    display: inline-block;
+    padding: 3px 3px 3px 3px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #aaaaaa;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px #999;
+    width: 20%;
+}
+.btn-back:hover {
+    background-color: #aaaaaa
+}
+.btn-back:active {
+background-color:#aaaaaa;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
+
+
+
+/* ----add-task page---- */
+#add-task-page{
+    
+    margin-top: 10%;
+    margin-bottom: 40%;
+    margin-left: 40%;
+    margin-right: 35%;
+    color: honeydew;    
+}
+/* ----add-task form---- */
+#form-add-task{  
+    padding-top: 20%;
+    padding-bottom: 20%;
+    padding-left: 60px;
+    padding-right: 50px;
+    border-radius: 15px;
+    box-shadow: 4px 12px 12px 4px #999;
+}
+#add-task-fullname{
+    border-radius: 15px
+}
+#add-task-email{
+    border-radius: 15px
+}
+#add-task-password{
+    border-radius: 15px
+}
+
+/* ----add-task btn---- */
+#add-task-btn {
+    margin-left: 10%;
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    width: 80%;
+}
+#add-task-btn:hover {
+    background-color: #3e8e41
+}
+#add-task-btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+/* cancel-task */
+
+.btn-delete-task {
+    margin-left: 35%;
+    display: inline-block;
+    padding: 3px 3px 3px 3px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #df1616;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px #999;
+    width: 30%;
+}
+.btn-delete-task:hover {
+    background-color: #df1616
+}
+.btn-delete-task:active {
+background-color:#df1616;
+box-shadow: 0 5px #666;
+transform: translateY(4px);
+}
