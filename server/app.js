@@ -1,5 +1,8 @@
+if (process.env.NODE_ENV === 'development') {
+    require('dotenv').config();
+}
+
 const cors = require('cors');
-require('dotenv').config();
 const express = require('express');
 const routes = require('./routes/index.js');
 const app = express();
