@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "password",
     "database": "database_kanban",
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "dialect": "postgres"
   },
   "test": {
@@ -14,6 +14,6 @@
     "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL"
+    "use_env_variable":"DATABASE_URL"
   }
 }
