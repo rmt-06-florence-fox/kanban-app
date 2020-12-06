@@ -8,12 +8,12 @@
                 <!-- Loop Task Item -->
 
                 <div class="card" v-for="data in filteredTask(category.name)" :key="data.id">
-                  <tasklist 
+                  <task-item 
                     :dataList="data"
                     @idDelete='deleteData'
                     @updateData='updateData'
                     @updateCategory='updateCategory'>
-                  </tasklist>  
+                  </task-item>  
                 </div>
 
             </div>
@@ -45,7 +45,7 @@ export default {
       }
     },
   props: ['categories', 'dataTasks'],
-  components: { tasklist },
+  components: { TaskItem },
   methods: {
     filteredTask(category) {
       return this.dataTasks.filter(e => e.category === category)

@@ -16,6 +16,7 @@ class UserController {
       res.status(201).json({data})
     }
     catch(err) {
+      console.log(err)
       if(err.name === 'SequelizeValidationError') {
         next({
           name: 'Validation Error',
@@ -30,6 +31,7 @@ class UserController {
 
   static async login (req, res, next) {
     try {
+      console.log(req)
       const findUser = await User.findOne({
         where: {
           email: req.body.email
@@ -61,6 +63,7 @@ class UserController {
       }
     }
     catch(err) {
+      console.log(err)
       next(err)
     }
   }

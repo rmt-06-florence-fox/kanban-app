@@ -1,8 +1,9 @@
 # kanban-app
 
 * **REGISTER**
+Method: 'POST'
 
-
+Success Response :
 ```
 {
     "data": {
@@ -18,6 +19,9 @@
 
 * **LOGIN**
 
+Method: 'POST'
+
+SUCCESS RESPONSE :
 ```
 {
     "id": 1,
@@ -26,3 +30,23 @@
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQG1haWwuY29tIiwiaWF0IjoxNjA2OTY4NDI4fQ.rcA9UFIL1DxCjDA_nbqKAyqb-son9CTSU92pB9oOom4"
 }
 ```
+
+* **CREATE TASK**
+
+Method: 'POST'
+
+* **READ TASK**
+
+Method: 'GET'
+
+* **EDIT TASK**
+
+Method: 'PUT'
+
+* **UPDATE TASK**
+
+Method: 'PATCH'
+
+* **DELETE TASK**
+
+Method: 'DELETE'

@@ -2,9 +2,10 @@
   "name": "client",
   "version": "1.0.0",
   "description": "",
-  "main": "mainn.js",
+  "main": "main.js",
   "dependencies": {
     "axios": "^0.21.0",
+    "mdbvue": "^6.7.2",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.12",
     "vue-hot-reload-api": "^2.3.4"

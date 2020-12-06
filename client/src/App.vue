@@ -1,34 +1,27 @@
 <template>
-  <div>
-  <Navbar :pageName="pageName" @logoutButton='logout' ></Navbar>
-    <login v-if="pageName === 'Login Page'" @changePage='changePage' @dataLogin='login'></login>
-    <register v-if="pageName === 'Register Page'" @dataRegist='regist'></register>
-    <TaskBoard 
-      v-if="pageName === 'Home Page'" 
-      :categories="categories"
-      :dataTasks='dataTasks'
-      @idDelete='deleteData'
-      @createTask='createTask'
-      @updateData='updateData'
-      @updateCategory='updateCategory'>
-    </TaskBoard>
+  <div class="app">
+    <Login v-if="pageName === 'Login'" v-on:login="login" v-on:register="register"></Login>
+    <NavBar v-if="pageName === 'Kanban'"></NavBar>
   </div>
 </template>
 
+<style scoped>
+  .app {
+    min-height: 100vh;
+  }
+</style>
+
 <script>
 import Login from "./components/Login";
-import Register from "./components/Register";
 import NavBar from "./components/NavBar";
-import BoardList from "./components/BoardList";
-import TaskBoard from "./components/TaskBoard";
-import TaskItem from "./components/TaskItem";
 import axios from "axios";
 import swal from "sweetalert";
+
 export default {
   data() {
     return {
-      baseUrl : 'httpK//localhost:3000/',
-      pageName: 'Login Page',
+      baseUrl : 'http://localhost:3000/',
+      pageName: 'Login',
       categories: [
         {
           id: 1,
@@ -51,21 +44,22 @@ export default {
     }
   },
   components: {
-    NavBar, BoardList, TaskBoard, TaskItem
+    Login, NavBar
   },
   methods: {
-    changePage(page) {
-      this.pageName = page
-    },
+    // switchPage(page) {
+    //   this.pageName = page
+    // },
 
     register(data) {
+      console.log("Register here");
       axios({
-        url: `${baseUrl}/register`,
+        url: `${this.baseUrl}register`,
         method: 'POST',
         data: data
       })
       .then(res => {
-        this.pageName = 'Login Page'
+        this.pageName = 'Login'
         swal({
           title: 'Registry Success !',
           text: 'You can login now !',
@@ -86,17 +80,21 @@ export default {
     },
 
     login(data) {
+      console.log(data)
       axios({
-        url: `${baseUrl}/login`,
+        url: `${this.baseUrl}login`,
         method: 'POST',
         data: data
       })
       .then(res => {
+
+        console.log(res)
         localStorage.setItem('access_token', res.data.access_token)
         localStorage.setItem('id', res.data.id)
+        localStorage.setItem('username', res.data.username)
         localStorage.setItem('email', res.data.email)
-        this.pageName = 'Home Page'
-        this.fetchData()
+        this.pageName = 'Kanban'
+        // this.fetchData()
         swal({
           title: `Hello !`,
           text: `Be Ready, ${res.data.username}`,
@@ -107,127 +105,127 @@ export default {
         console.log(err)
         swal({
           title: 'You Have Encountered an Error !',
-          text: err.res.data.messages,
+          text: err.res.messages,
           icon: 'error'
         })
       })
     },
-    logout() {
-      localStorage.removeItem('access_token')
-      localStorage.removeItem('id')
-      localStorage.removeItem('email')
-      this.pageName = 'Login Page'
-    },
-    fetchData() {
-      axios({
-        url: `${baseUrl}/tasks`,
-        method: 'GET',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
-      })
-      .then(res => {
-        this.taskData.push(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
+    // logout() {
+    //   localStorage.removeItem('access_token')
+    //   localStorage.removeItem('id')
+    //   localStorage.removeItem('email')
+    //   this.pageName = 'Login Page'
+    // },
+    // fetchData() {
+    //   axios({
+    //     url: `${baseUrl}/tasks`,
+    //     method: 'GET',
+    //     headers: {
+    //       access_token: localStorage.getItem('access_token')
+    //     }
+    //   })
+    //   .then(res => {
+    //     this.taskData.push(res.data)
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    // },
 
-    updateData(newData, id) {
-      axios({
-        url: `${baseUrl}/tasks/${id}`,
-        method: 'PUT',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        },
-        data: newData
-      })
-      .then(res => {
-        this.fetchData()
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
+    // updateData(newData, id) {
+    //   axios({
+    //     url: `${baseUrl}/tasks/${id}`,
+    //     method: 'PUT',
+    //     headers: {
+    //       access_token: localStorage.getItem('access_token')
+    //     },
+    //     data: newData
+    //   })
+    //   .then(res => {
+    //     this.fetchData()
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    // },
 
-    delete(id) {
-      swal({
-        title: 'Are You Sure ?',
-        text: `You won't be able to recover this task once deleted`,
-        icon: 'warning',
-        buttons: true,
-        dangerMode: true  
-      })
-      .then((willDelete) => {
-        if(willDelete) {
-          axios({
-            url: `${baseUrl}/tasks/${id}`,
-            method: 'DELETE',
-            headers: {
-              access_token: localStorage.getItem('access_token')
-            }
-          })
-          .then(res => {
-            this.fetchData()
-            swal({
-              title: 'Succesfully Deleted !',
-              text: `Selected task has been deleted`,
-              icon: 'success'
-            })
-          })
-          .catch(err => {
-            console.log(err)
-          })
-        } else {
-          swal({
-            text: "Your file is safe !"
-          })
-        }
-      })
-    },
+    // delete(id) {
+    //   swal({
+    //     title: 'Are You Sure ?',
+    //     text: `You won't be able to recover this task once deleted`,
+    //     icon: 'warning',
+    //     buttons: true,
+    //     dangerMode: true  
+    //   })
+    //   .then((willDelete) => {
+    //     if(willDelete) {
+    //       axios({
+    //         url: `${baseUrl}/tasks/${id}`,
+    //         method: 'DELETE',
+    //         headers: {
+    //           access_token: localStorage.getItem('access_token')
+    //         }
+    //       })
+    //       .then(res => {
+    //         this.fetchData()
+    //         swal({
+    //           title: 'Succesfully Deleted !',
+    //           text: `Selected task has been deleted`,
+    //           icon: 'success'
+    //         })
+    //       })
+    //       .catch(err => {
+    //         console.log(err)
+    //       })
+    //     } else {
+    //       swal({
+    //         text: "Your file is safe !"
+    //       })
+    //     }
+    //   })
+    // },
 
-    addTask(data) {
-      axios({
-        url: `${baseUrl}/tasks`,
-        method: 'POST',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        },
-        data: data
-      })
-      .then(res => {
-        this.fetchData()
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    },
+    // addTask(data) {
+    //   axios({
+    //     url: `${baseUrl}/tasks`,
+    //     method: 'POST',
+    //     headers: {
+    //       access_token: localStorage.getItem('access_token')
+    //     },
+    //     data: data
+    //   })
+    //   .then(res => {
+    //     this.fetchData()
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    // },
 
-    updateCateegory(data) {
-      axios({
-        url: `${baseUrl}/tasks`,
-        method: 'PATCH',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        },
-        data: data
-      })
-      .then(res => {
-        this.fetchData()
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
+    // updateCateegory(data) {
+    //   axios({
+    //     url: `${baseUrl}/tasks`,
+    //     method: 'PATCH',
+    //     headers: {
+    //       access_token: localStorage.getItem('access_token')
+    //     },
+    //     data: data
+    //   })
+    //   .then(res => {
+    //     this.fetchData()
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    // }
   },
   created() {
-    if(localStorage.getItem('access_token')) {
-      this.fetchData()
-      this.pageName = 'Home Page'
-    } else {
-      this.pageName = 'Login Page'
-    }
+    // if(localStorage.getItem('access_token')) {
+    //   this.fetchData()
+    //   this.pageName = 'Home Page'
+    // } else {
+    //   this.pageName = 'Login Page'
+    // }
   }
 };
 </script>
