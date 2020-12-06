@@ -30,6 +30,15 @@ class ControllerOrganization {
             next(err)
         }
     }
+
+    static async addOrg (req, res, next) {
+        try {
+            const newOrg = await Organization.create (req.body)
+            res.status(201).json(newOrg)
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = ControllerOrganization

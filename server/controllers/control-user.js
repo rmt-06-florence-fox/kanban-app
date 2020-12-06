@@ -125,9 +125,9 @@ class ControllerUser {
                     id: newUser.id,
                     username: newUser.username,
                     email: newUser.email,
-                    OrganizationId: newUser.OrganizationId
 			});
-			res.status(201).json({ access_token });
+            res.status(201).json({ access_token });
+            console.log(access_token)
 			}
         } catch (err) {
             next (err)

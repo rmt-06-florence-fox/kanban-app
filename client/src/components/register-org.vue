@@ -26,7 +26,7 @@
                             @chooseOrg="chooseOrg">
                 </registerOrgData>
                 
-                <div class="cursor-pointer mb-5">
+                <div class="cursor-pointer mb-5" @click="goto('pg-registerOrgAdd')">
                     <div class="inset-0 opacity-25 rounded-lg shadow-2xl"></div>
                     <div class=" inset-0 transform hover:-translate-y-6 transition duration-300">
                     <div class="h-full w-full text-white bg-gray-900 rounded-lg shadow-2xl text-center flex place-content-center items-center font-bold
@@ -37,6 +37,17 @@
                 
             </div>
         </div>
+        <div class="absolute top-10 right-16">
+        <button class="transform  bg-gray-800 py-2 px-5 text-white font-bold rounded-md hover:shadow-lg hover:translate-y-1 transition duration-200"
+            v-if="activeUser.OrganizationId" @click="cancelSelect">
+            Cancel
+        </button>
+        <button class="transform  bg-red-500 py-2 px-5 text-white font-bold rounded-md hover:shadow-lg hover:translate-y-1 transition duration-200"
+            @click="logout">
+            Log Out
+        </button>
+        </div >
+        
     </div>
 </template>
 
@@ -45,7 +56,7 @@ import registerOrgData from './register-orgData'
 
 export default {
     name: 'registerOrg',
-    props: ['orgData'],
+    props: ['orgData', 'activeUser'],
     components: {
         registerOrgData
     },
@@ -53,6 +64,15 @@ export default {
         chooseOrg(orgId) {
             console.log(orgId)
             this.$emit('chooseOrg', orgId)
+        },
+        goto(value) {
+            this.$emit('goTo', value)
+        },
+        cancelSelect() {
+            this.$emit('cancelSelect')
+        },
+        logout(){
+            this.$emit('logout')
         }
     },
     created: function () {

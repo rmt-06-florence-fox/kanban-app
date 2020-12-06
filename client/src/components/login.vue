@@ -88,7 +88,7 @@ export default {
                 password: ''
             },
             errorData: '',
-            clientId: '703333232257-cuta7ffl0i72sd5e3nhvk0q1lhutqvms.apps.googleusercontent.com'
+            clientId: '933751725142-r6kigcfiggubij3u1jl3t87rfrshe5mg.apps.googleusercontent.com'
         }
     },
     methods: {

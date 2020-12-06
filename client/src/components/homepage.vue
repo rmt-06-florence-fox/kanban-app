@@ -47,7 +47,7 @@
                     From: "transform opacity-100 scale-100"
                     To: "transform opacity-0 scale-95"
                 -->
-                <div v-if="toggleOptionUser"
+                <div v-if="toggleOptionUser" v-on-clickaway="away" 
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                   <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a> -->
   
@@ -128,9 +128,10 @@
   
     <header class="bg-white shadow sticky left-0">
       <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-xl font-bold leading-tight text-gray-900">
+        <span class="text-xl font-bold leading-tight text-gray-900">
           {{organization.name}}'s Kanban Board
-        </h1>
+        </span>
+        <button class="ml-2 mx-auto bg-gray-900 py-1 px-4 rounded-md text-white font-medium hover:bg-gray-400 hover:text-gray-900" @click="goTo('pg-regOrg')">Change</button>
       </div>
     </header>
     <main class="pt-8">
@@ -145,9 +146,18 @@
                     @catDownBoard="catDownHome"
                     @deleteThisBoard="deleteThisHome"
                     @editThisBoard="editThisHome"
-                    @catUpBoard="catUpHome">
+                    @catUpBoard="catUpHome"
+                    @editBoardName="editBoardName"
+                    @updateCat="updateCat"
+                    @deleteCat="deleteCat">
             </board>
-            
+
+            <div class="flex-none  mb-4 max-w-xs bg-white shadow overflow-hidden sm:rounded-lg rounded shadow-md hover:shadow-2xl hover:bg-gray-50 lg:mb-0 " >
+              <button class="self-center py-2.5 px-4 text-base leading-6 font-semibold bg-gray-900 text-white text-center hover:bg-white hover:text-black"
+                      @click="onAddCat = true">
+                Add Board
+              </button>
+            </div>
         </div>
     </main>
     
@@ -162,6 +172,11 @@
                 @closeError="clearError">
     </modalError>
     
+    <modalAddCat v-if="onAddCat"
+                  @cancelAdd="onAddCat = false"
+                  @addCat="addCat">
+    </modalAddCat>
+
 </div>
 </template>
 
@@ -170,21 +185,30 @@ import axios from 'axios';
 import board from './board'
 import modalEdit from './modalEdit'
 import modalError from './modalError'
+import { directive as onClickaway } from 'vue-clickaway';
+import draggable from 'vuedraggable'
+import modalAddCat from './modalAddCat'
 
 export default {
     name: 'homepage',
     components: {
         board,
         modalEdit,
-        modalError
+        modalError,
+        draggable,
+        modalAddCat
     },
     props: ['organization', 'categories', 'errorData', 'activeUser'],
+    directives: {
+    onClickaway: onClickaway,
+    },
     data () {
         return {
             onEdit: false,
             taskOnEdit: '',
             onError: false,
-            toggleOptionUser: false
+            toggleOptionUser: false,
+            onAddCat: false
         }
     },
     methods: {
@@ -232,6 +256,24 @@ export default {
         logout () {
           console.log('logout')
           this.$emit('logout')
+        },
+        away () {
+          this.toggleOptionUser = false
+        },
+        editBoardName (newName, id) {
+          this.$emit('editBoardName', newName, id)
+        },
+        updateCat(taskId, catId) {
+          this.$emit('updateCat', taskId, catId)
+        },
+        goTo(val) {
+          this.$emit('goTo', val)
+        },
+        addCat(val) {
+          this.$emit('addCat', val)
+        },
+        deleteCat(val) {
+          this.$emit('deleteCat', val)
         }
     },
     created: function () {

@@ -18,17 +18,31 @@
                     @deleteThisTask="commitDeleteTask"
                     @commitPatch="commitPatchTask"
                     :errorData="errorData"
-                    @clearError="errorData = ''"
+                    @clearError="clearErrorData"
                     @getUser="getUser"
                     :activeUser="activeUser"
-                    @logout="logout">
+                    @logout="logout"
+                    @editBoardName="editBoardName"
+                    @updateCat="commitPatchTask"
+                    @goTo="goTo"
+                    @addCat="addCat"
+                    @deleteCat="deleteCat">
                     
         </homepage>
         <registerOrg    v-if="showPage == 'pg-regOrg' "
                         @getOrgData="getOrgData"
                         :orgData="orgData"
-                        @chooseOrg="chooseOrg">
+                        @chooseOrg="chooseOrg"
+                        @goTo="goTo"
+                        :activeUser="activeUser"
+                        @cancelSelect="choosePage"
+                        @logout="logout">
         </registerOrg>
+        <registerOrgAdd v-if="showPage == 'pg-registerOrgAdd' "
+                        @addNewOrg="addNewOrg"
+                        @cancelSelect="choosePage"
+                        @logout="logout">
+        </registerOrgAdd>
     </div>
 </template>
 
@@ -38,6 +52,7 @@ import login from './components/login.vue'
 import register from './components/register.vue'
 import homepage from './components/homepage.vue'
 import registerOrg from './components/register-org'
+import registerOrgAdd from './components/registerOrg'
 import axios from 'axios';
 
 export default {
@@ -56,7 +71,8 @@ export default {
         login,
         register,
         homepage,
-        registerOrg
+        registerOrg,
+        registerOrgAdd
     },
     methods: {
         goTo (page) {
@@ -478,7 +494,103 @@ export default {
             .then(_=> {
 
             })
-        }   
+        },
+        addNewOrg (value) {
+            axios({
+                method:'post',
+                url: 'http://localhost:3000/org/add',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    name: value.name
+                }
+            })
+            .then(res=> {
+                value.board.forEach(el => {
+                    el.OrganizationId = res.data.id
+                })
+                console.log(value.board)
+                return axios({
+                    method:'post',
+                url: 'http://localhost:3000/categories/bulk',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    name: value.board
+                }
+                })
+            })
+            .then (res=> {
+               return this.chooseOrg(res.data[0].OrganizationId)
+            })
+            .then (res => {
+                this.choosePage()
+                console.log(res.data)
+            })
+        },
+        editBoardName (newName, id) {
+            axios({
+                method: 'patch',
+                url: `http://localhost:3000/categories/${id}`,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    name: newName
+                }
+            })
+            .then(res => {
+                console.log(res.data)
+                this.getTaskList()
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+        },
+        addCat(val) {
+            axios({
+                method: 'post',
+                url: 'http://localhost:3000/categories',
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    name: val,
+                    OrganizationId: this.organization.id
+                }
+            })
+            .then(res=> {
+                console.log(res.data)
+                this.categories = []
+                this.getTaskList()
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+        },
+        deleteCat(val) {
+            axios({
+                method: 'delete',
+                url: `http://localhost:3000/categories/${val}`,
+                headers: {
+                     access_token: localStorage.getItem('access_token')
+                },
+            })
+            .then(res => {
+                console.log(res.data)
+                this.categories = []
+                this.getTaskList()
+            })
+            .catch(err=> {
+                console.log(err)
+            })
+        },
+        clearErrorData() {
+            this.errorData = ''
+            this.getTaskList()
+        }
     },
     created: function () {
         if (localStorage.getItem('access_token')) {

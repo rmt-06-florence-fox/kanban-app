@@ -3,7 +3,7 @@ const org = require('express').Router()
 
 
 org.get('/', ControllerOrganization.getOrgList)
-// org.get('/', ControllerOrganization.getOrg)
+org.post('/add', ControllerOrganization.addOrg)
 
 
 
