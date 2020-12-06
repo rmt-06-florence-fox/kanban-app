@@ -2,7 +2,7 @@
    <section class="container"> 
         <div class="row mt-4">
             <div class="col-md-3 col-sm-6" v-for="category in categories" :key="category.id">
-                <div class="p-3 bg-primary rounded">{{ category.name }}</div>
+                <div class="p-3 bg-info rounded">{{ category.name }}</div>
                 <div class="card" v-for="data in filteredTask(category.name)" :key="data.id">
                     <tasklist 
                         :dataList='data'
@@ -15,15 +15,15 @@
                     </tasklist>  
                 </div>
                 <div class="rounded">
-                    <button type="button" class="btn btn-add" @click="showAdd(category.name)">Add Task</button>
+                    <button type="button" class="btn btn-primary" @click="showAdd(category.name)">Add Task</button>
                 </div>
 
                 <!-- Form Add -->
                 <div class="form-group" v-if="addPage === category.name">
                     <form @submit.prevent="addTask(category.name)">
-                        <textarea v-model="createTask" name="add-backlog"></textarea>
-                        <button type="submit" class="btn btn-add-task"><label>Add Task</label></button>
-                        <button type="button" class="btn btn-cancel"><label>Cancel</label></button>
+                        <textarea class="mt-3" v-model="createTask" name="add-backlog"></textarea><br>
+                        <button type="submit" class="btn btn-primary"><label>Add</label></button>
+                        <button type="button" class="btn btn btn-secondary"><label>Cancel</label></button>
                     </form>
                 </div>
             </div>

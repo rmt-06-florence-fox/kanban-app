@@ -2,12 +2,12 @@
     <div class="card shadow">
         <div class="card-body">
             <h4 class="card-title">{{ dataList.title }}</h4>
-            <p class="card-text text-right"><i>Author: {{ dataList.User.name }} </i></p>
+            <p class="card-text text-right"><b>User: {{ dataList.User.name }} </b></p>
         </div>
         <div class="card-footer container-button-task">
-            <button type="button" class="btn far fa-edit" @click.prevent="editTask(dataList.id)"></button>
-            <button type="button" class="btn far fa-trash-alt" @click.prevent="deleteTask(dataList.id)"></button>
-            <button type="button" class="btn fas fa-arrows-alt" @click.prevent="patchTask(dataList.id)" ></button>
+            <button type="button" class="btn" @click.prevent="editTask(dataList.id)"></button>
+            <button type="button" class="btn" @click.prevent="deleteTask(dataList.id)"></button>
+            <button type="button" class="btn" @click.prevent="patchTask(dataList.id)" ></button>
         </div>
         <!-- Moving Category -->
         <div class="container" v-if="pagePatch">
@@ -19,16 +19,16 @@
                 <option v-if="dataList.category !== 'Doing'" value="Doing"> Move To Doing</option>
                 <option v-if="dataList.category !== 'Done'" value="Done"> Move To Done</option>
                 </select>
-                <button type="submit" class="btn btn-add-task fas fa-check"><label class="ml-2">Move</label></button>
-                <button type="button" class="btn btn-cancel fas fa-times" @click="cancelButton()"><label class="ml-2">Cancel</label></button>
+                <button type="submit" class="btn"><label class="ml-2">Move</label></button>
+                <button type="button" class="btn" @click="cancelButton()"><label class="ml-2">Cancel</label></button>
             </form>
         </div>
         <!-- Form Edit -->
         <div class="form-group" v-if="dataEdit.id === dataList.id && pageEdit">
             <form action="" @submit.prevent='updateTask(dataEdit.id)'>
                 <textarea class ="edit-task" name="edit-backlog" v-model="editTask"></textarea>
-                <button type="submit" class="btn btn-add-task fas fa-check"><label class="ml-2">Edit Task</label></button>
-                <button type="button" class="btn btn-cancel fas fa-times" @click="cancelButton()"><label class="ml-2">Cancel</label></button>
+                <button type="submit" class="btn"><label class="ml-2">Edit Task</label></button>
+                <button type="button" class="btn" @click="cancelButton()"><label class="ml-2">Cancel</label></button>
             </form>
         </div>
     </div>
@@ -47,22 +47,22 @@ export default {
     },
     props: ['dataList', 'dataEdit'],
     methods:{
-        editTask(id){
+        editTask(id) {
             console.log(id);
             this.$emit('idEdit', id)
             this.editTask = this.dataEdit.title
             this.pageEdit = true
             this.pagePatch = true
         },
-        deleteTask(id){
+        deleteTask(id) {
             console.log(id);
             this.$emit('idDelete', id)
         },
-        patchTask(id){
+        patchTask(id) {
             console.log(id);
             this.$emit('idPatch', id)
         },
-        updateTask(id){
+        updateTask(id) {
         const newTask = {
             title: this.editTask,
             category: this.dataEdit.category
@@ -73,10 +73,10 @@ export default {
             this.editTask = ''
             this.pageEdit = false
         },
-        cancelButton(){
+        cancelButton() {
             this.pageEdit = false
         },
-        updateCategory(id){
+        updateCategory(id) {
             console.log(this.patchCategory, id);
             const newTask = {category: this.patchCategory }
             this.$emit('updateCategory', newTask, id)

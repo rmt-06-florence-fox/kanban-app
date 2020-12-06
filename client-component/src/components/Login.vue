@@ -40,10 +40,10 @@ export default {
         }
     },
     methods: {
-        login(){
+        login() {
             this.$emit('dataLogin', this.user)
         },
-        toRegister(){
+        toRegister() {
             this.$emit('changePage', 'Register Page')
         }
     }

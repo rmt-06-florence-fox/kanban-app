@@ -28,8 +28,8 @@
 
 <script>
   export default {
-    name: 'Register',
-    data(){
+    name: "Register",
+    data() {
       return{
         registUser: {
           email: '',
@@ -38,7 +38,7 @@
       }
     },
     methods:{
-        regist(){
+        regist() {
             this.$emit('dataRegist', this.registUser)
         },
         toLogin() {

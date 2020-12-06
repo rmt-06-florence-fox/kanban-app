@@ -19,14 +19,14 @@
 </template>
 
 <script>
-  import Login from './components/LoginPage';
-  import Navbar from './components/Navbar';
-  import Register from './components/RegisterPage';
-  import TaskList from './components/TaskList';
+  import Login from './components/Login.vue';
+  import Navbar from './components/Navbar.vue';
+  import Register from './components/Register.vue';
+  import TaskList from './components/TaskList.vue';
   import axios from 'axios';
 
   export default {
-    name: 'App',
+    name: "App",
     data() {
       return {
         baseUrl: 'http://localhost:3000/',
@@ -70,10 +70,10 @@
           method: 'POST',
           data: data
         })
-        .then(response =>{
+        .then(response => {
           this.pageName = 'Login Page'
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       },
       login(data) {
         axios({
@@ -82,11 +82,11 @@
           data: data
         })
         .then(response => {
-          console.log(response)
-          localStorage.setItem('access_token', response.access_token)
+          console.log(response.data)
+          localStorage.setItem('access_token', response.data.access_token)
           this.pageName = 'Home Page'
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       },
       logout() {
         localStorage.removeItem('access_token')
@@ -96,15 +96,15 @@
         axios({
           url: this.baseUrl + 'tasks',
           method: 'GET',
-          headers:{
+          headers: {
             access_token: localStorage.getItem('access_token')
           }
         })
-        .then(response =>{
-          this.dataTasks = response
+        .then(response => {
+          this.dataTasks = response.data
           console.log(this.dataTasks);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       },
       editTask(id) {
         console.log(id);
@@ -115,15 +115,15 @@
             access_token: localStorage.getItem('access_token')
           }
         })
-        .then(response =>{
+        .then(response => {
           this.dataEdit = response.data
           console.log(this.dataEdit);
         })
         .catch(err =>{
-          console.log(err)
+          console.log(err.response.data)
         })
       },
-      updateTask(newData, id){
+      updateTask(newData, id) {
         axios({
           url: this.baseUrl + 'tasks/' + id,
           method: 'PUT',
@@ -132,10 +132,10 @@
           },
           data: newData
         })
-        .then(response =>{
+        .then(response => {
           this.fetchTask()
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       },
       deleteTask(id) {
         console.log(id);
@@ -147,12 +147,12 @@
           }
         })
         .then(response => this.fetchData())
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       },
       patchTask(id) {
         console.log(id);
       },
-      createTask(data){
+      createTask(data) {
         axios({
           url: this.baseUrl + 'tasks',
           method: 'POST',
@@ -162,7 +162,7 @@
           data: data
         })
         .then(response => this.fetchTask())
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       },
       updateCategory(data, id){
         console.log(data, id);
@@ -179,7 +179,7 @@
       }
     },
     created() {
-      if(localStorage.getItem('access_token')){
+      if (localStorage.getItem('access_token')){
         this.pageName = 'Home Page'
         this.fetchTask()
       } else this.pageName = 'Login Page'
