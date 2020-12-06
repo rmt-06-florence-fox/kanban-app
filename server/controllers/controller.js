@@ -75,7 +75,26 @@ class Controller {
         })
     }
 
-
+    static patchTask(req, res, next) {
+        let obj = {
+            category: req.body.category
+        }
+        let id = req.params.id
+        Task.update(obj, {where: {id}})
+        .then(data => {
+            if (data != 0) {
+                return Task.findOne({where: {id}})
+            } else {
+                res.status(401).json({msg: 'Ga ada datanya'})
+            }
+        })
+        .then(result => {
+            res.status(200).json({result})
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
 
     static updateTask(req, res, next) {
         let obj = {

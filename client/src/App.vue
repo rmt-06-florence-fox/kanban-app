@@ -2,7 +2,7 @@
   <div class="container">
     <LoginPage v-if="currentPage === 'login'" @changePage="changePage"></LoginPage>
     <RegisterPage v-else-if="currentPage === 'register'" @changePage="changePage"></RegisterPage>
-    <MainPage v-else-if="currentPage === 'home'" @changePage="changePage" @deleteTask="deleteTask" @editTask="editTask"></MainPage>
+    <MainPage v-else-if="currentPage === 'home'" @changePage="changePage" @deleteTask="deleteTask" @editTask="editTask" @patchLeft="patchLeft" @patchRight="patchRight"></MainPage>
     <UpdateForm v-else-if="currentPage === 'update'" :taskData="taskData" @changePage="changePage" @update="update"></UpdateForm>
   </div>
   
@@ -31,6 +31,79 @@ export default {
     };
   },
   methods: {
+    patchLeft(category, id) {
+        console.log(category, id);
+         axios({
+          method: 'patch',
+          url: 'https://kanbaban.herokuapp.com/tasks/' + id,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+          data: {
+            category
+          }
+        })
+        .then(response => {
+          this.currentPage = 'home'
+        })
+        .catch(err => {
+                console.log(err.response);
+                let message = err.response.statusText
+                  const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: message
+                })
+          })
+    },
+    patchRight(category, id) {
+        console.log(category, id);
+        axios({
+          method: 'patch',
+          url: 'https://kanbaban.herokuapp.com/tasks/' + id,
+          headers: {
+            access_token: localStorage.getItem("access_token")
+          },
+          data: {
+            category
+          }
+        })
+        .then(response => {
+        
+          this.currentPage = 'home'
+        })
+        .catch(err => {
+                console.log(err.response);
+                let message = err.response.statusText
+                  const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: message
+                })
+          })
+    },
     changePage(page) {
       this.currentPage = page
     },
@@ -50,7 +123,7 @@ export default {
           this.allTasks = response
           location.reload()
         })
-         .catch(err => {
+        .catch(err => {
                 console.log(err.response);
                 let message = err.response.statusText
                 Swal.fire({
@@ -58,7 +131,7 @@ export default {
                     icon: 'error',
                 
                 })
-            })
+        })
     },
     reload() {
       this.$forceUpdate();

@@ -18,7 +18,7 @@
           </div>
         </div>
       
-      <Category  :allTasks="allTasks" @editTask="editTask" @deleteTask="deleteTask" v-for="(category, i) in categories" :key="i" :category="category" @changePage="changePage"></Category>
+      <Category @patchLeft="patchLeft" @patchRight="patchRight" :allTasks="allTasks" @editTask="editTask" @deleteTask="deleteTask" v-for="(category, i) in categories" :key="i" :category="category" @changePage="changePage"></Category>
     
   </div>
 </template>
@@ -62,6 +62,12 @@ export default {
   },
   methods: {
     //add new tasks method
+    patchLeft(category, id) {
+        this.$emit('patchLeft', category, id)
+    },
+    patchRight(category, id) {
+        this.$emit('patchRight', category, id)
+    },
     add() {
       if (this.newTask) {
         axios({

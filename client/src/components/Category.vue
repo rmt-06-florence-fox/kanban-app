@@ -9,7 +9,7 @@
                 group="tasks"
             >
                 <Task :allTasks="allTasks" :category="category" @changePage="changePage"  v-for="(element, i) in filteredTask"
-                :key="i" :task="element" @deleteTask="deleteTask" @editTask="editTask"></Task>
+                :key="i" :task="element" @deleteTask="deleteTask" @editTask="editTask" @patchLeft="patchLeft" @patchRight="patchRight"></Task>
             </draggable>
             </div>
         </div>
@@ -41,6 +41,12 @@ export default {
         },
         editTask(task) {
             this.$emit('editTask', task)
+        },
+        patchLeft(category, id) {
+            this.$emit('patchLeft', category, id)
+        },
+        patchRight(category, id) {
+            this.$emit('patchRight', category, id)
         }
     },
     computed: {
