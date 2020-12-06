@@ -11,7 +11,13 @@
                     <input v-model="title" type="text" id="email" name="email" class="form-control"> </div>
                 <div class="form-group">
                     <label class="form-control-label text-muted">Category</label>
-                    <input v-model="category" type="text" id="psw" name="psw" placeholder="Enter your password" class="form-control"> </div>
+                    <select v-model="category" id="psw" name="psw" class="form-control" id="exampleFormControlSelect1">
+                        <option value="backlog">backlog</option>
+                        <option value="todo">todo</option>
+                        <option value="doing">doing</option>
+                        <option value="done">done</option>
+                    </select>
+                </div>
                 <div class="row justify-content-center my-3 px-3">
                     <button class="btn-block btn-color">Update</button>
                 </div>
