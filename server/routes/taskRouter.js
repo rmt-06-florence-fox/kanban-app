@@ -12,6 +12,7 @@ taskRouter.get('/', TaskController.showTask);
 taskRouter.use('/:id', authorization)
 taskRouter.get('/:id', TaskController.showTaskById);
 taskRouter.put('/:id', TaskController.replaceTask);
+taskRouter.patch('/:id', TaskController.modifyTask);
 taskRouter.delete('/:id', TaskController.deleteTask);
 
 

@@ -81,6 +81,24 @@ class TaskController {
         });        
     }
 
+    static modifyTask(req, res, next) {
+        const updatedCategory = {
+            category: req.body.category
+        }
+        Task.update(updatedCategory, {
+            where: {
+                id: req.params.id
+            },
+            returning: true
+        })
+        .then(data => {
+            res.status(200).json(data[1][0])
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
     static deleteTask(req, res, next) {
         Task.destroy({ where: { id: req.params.id } })
         .then(data => {

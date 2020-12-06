@@ -4,7 +4,7 @@
             <div class="col-md-3 col-sm-6" v-for="category in categories" :key="category.id">
                 <div class="p-3 bg-info rounded">{{ category.name }}</div>
                 <div class="card" v-for="data in filteredTask(category.name)" :key="data.id">
-                    <tasklist 
+                    <TaskCard 
                         :dataList='data'
                         :dataEdit='dataEdit'
                         @idEdit='editTask'
@@ -12,7 +12,7 @@
                         @idPatch='patchTask'
                         @updateTask='updateTask'
                         @updateCategory='updateCategory'>
-                    </tasklist>  
+                    </TaskCard>  
                 </div>
                 <div class="rounded">
                     <button type="button" class="btn btn-primary" @click="showAdd(category.name)">Add Task</button>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import TaskCard from "./TaskCard"
+import TaskCard from './TaskCard'
 
 export default {
     name: "TaskList",

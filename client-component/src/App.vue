@@ -123,14 +123,14 @@
           console.log(err.response.data)
         })
       },
-      updateTask(newData, id) {
+      updateTask(newTask, id) {
         axios({
           url: this.baseUrl + 'tasks/' + id,
           method: 'PUT',
           headers:{
             access_token: localStorage.getItem('access_token')
           },
-          data: newData
+          data: newTask
         })
         .then(response => {
           this.fetchTask()
@@ -175,11 +175,11 @@
           data: data
         })
         .then(response => this.fetchData())
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response.data))
       }
     },
     created() {
-      if (localStorage.getItem('access_token')){
+      if (localStorage.getItem('access_token')) {
         this.pageName = 'Home Page'
         this.fetchTask()
       } else this.pageName = 'Login Page'
