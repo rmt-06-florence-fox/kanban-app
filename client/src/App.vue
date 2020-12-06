@@ -2,7 +2,7 @@
   <div class="container">
     <LoginPage v-if="currentPage === 'login'" @changePage="changePage"></LoginPage>
     <RegisterPage v-else-if="currentPage === 'register'" @changePage="changePage"></RegisterPage>
-    <MainPage v-else-if="currentPage === 'home'" @changePage="changePage" @deleteTask="deleteTask" @editTask="editTask" @patchLeft="patchLeft" @patchRight="patchRight"></MainPage>
+    <MainPage v-else-if="currentPage === 'home'" :allTasks="allTasks" @changePage="changePage" @deleteTask="deleteTask" @editTask="editTask" @patchLeft="patchLeft" @patchRight="patchRight"></MainPage>
     <UpdateForm v-else-if="currentPage === 'update'" :taskData="taskData" @changePage="changePage" @update="update"></UpdateForm>
   </div>
   
@@ -44,7 +44,7 @@ export default {
           }
         })
         .then(response => {
-          this.currentPage = 'home'
+          this.fetchTasks()
         })
         .catch(err => {
                 console.log(err.response);
@@ -80,8 +80,8 @@ export default {
           }
         })
         .then(response => {
-        
           this.currentPage = 'home'
+          this.fetchTasks()
         })
         .catch(err => {
                 console.log(err.response);
@@ -150,7 +150,7 @@ export default {
         .then(response => {
           let data = response.data.data
           this.allTasks = data;
-          // this.currentPage = 'home'
+          
         })
     },
     update(title, category, id) {

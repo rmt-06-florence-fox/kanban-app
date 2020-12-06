@@ -60,6 +60,7 @@ export default {
       arrDone: []
     };
   },
+  props: ["allTasks"],
   methods: {
     //add new tasks method
     patchLeft(category, id) {
