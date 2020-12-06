@@ -9,6 +9,9 @@ class TaskController {
             UserId: req.loggedInUser.id
         }
         try {
+            if (obj.due_date === '') {
+                obj.due_date = null
+            }
             const data = await Task.create(obj)
             res.status(201).json({message: 'Create Task Successful!!'})
         } catch (error) {
