@@ -4,12 +4,12 @@
         <form @submit.prevent="register">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="registerUser.email" required>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Input Your email here" aria-describedby="emailHelp" v-model="registerUser.email" required>
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" v-model="registerUser.password" required>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Input Your password here" v-model="registerUser.password" required>
             </div>
             <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1" required>

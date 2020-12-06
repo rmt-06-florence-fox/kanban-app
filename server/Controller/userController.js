@@ -37,6 +37,33 @@ class UserController {
             res.status(500).json(error)
         }
     }
+
+    static async googleLogin(req,res, next) {
+        try {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.googleToken,
+                audience: process.env.CLIENT_ID
+            });
+            const payload = ticket.getPayload()
+            const user = await User.findOne({
+                where: {
+                    email: payload.email
+                }
+            })
+            if(user)  {
+                await user
+            } else {
+                user = await User.create({
+                    email: payload.email,
+                    password: process.env.GOOGLE_SECRETKEY
+                })
+            }
+            const access_token = generateToken({id: user.id, email:user.email})
+            res.status(200).json({access_token})
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = UserController

@@ -8,6 +8,6 @@
 7. Deploy server (heroku) []
 
 ***Client*** :
-1. vue component []
-2. SPA []
+1. vue component [x]
+2. SPA [x]
 3. Deploy client (firebase) []

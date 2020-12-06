@@ -4,12 +4,12 @@
         <form @submit.prevent="login">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="loginUser.email" required>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Input Your email here" aria-describedby="emailHelp" v-model="loginUser.email" required>
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" v-model="loginUser.password" required> 
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Input Your password here" v-model="loginUser.password" required> 
             </div>
             <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
@@ -18,9 +18,12 @@
             <a href="" @click.prevent='register'>Register Here!</a><br><br>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+          <br><googleLogin @googleToken="googleToken"></googleLogin> 
+    </div>
 </template>
 
 <script>
+  import googleLogin from './loginGoogle'
 export default {
     name: 'loginPage',
     data() {
@@ -31,6 +34,9 @@ export default {
           }
         }
     },
+    components: {
+      googleLogin
+    },
     methods: {
         login() {
             console.log(this.loginUser);
@@ -38,6 +44,9 @@ export default {
         },
         register() {
           this.$emit('changePage', 'registerPage')
+        },
+        googleToken(value) {
+          this.$emit('googleToken', value)
         }
     }
 }

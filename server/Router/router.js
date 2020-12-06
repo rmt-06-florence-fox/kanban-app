@@ -6,6 +6,7 @@ const authorization = require('../midlleware/authorization')
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/googleLogin', UserController.googleLogin)
 
 router.use(authentication)
 router.get('/tasks', TasksController.getTask)

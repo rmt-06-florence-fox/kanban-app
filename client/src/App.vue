@@ -2,7 +2,7 @@
   <div>
     <navbar @logout="logout" @changePage="changePage"></navbar>
     <registerPage v-if="currentPage === 'registerPage'" @changePage="changePage" @dataRegister="register"></registerPage>
-    <loginPage v-else-if="currentPage === 'loginPage'" @changePage="changePage" @dataLogin="login"></loginPage>
+    <loginPage v-else-if="currentPage === 'loginPage'" @changePage="changePage" @dataLogin="login"  @googleToken='googleToken'></loginPage>
     <boardList v-else-if="currentPage === 'boardList'" @changePage='changePage' :dataTasks='dataTasks' @createTask="createTask" @deleteId="deleteData" @editTask="editTask"></boardList>
   </div>
 </template>
@@ -54,16 +54,33 @@ export default {
         data: data
       })
       .then(response => {
-        console.log(response);
+        // console.log(response);
+        this.currentPage = 'boardList'
         localStorage.setItem('access_token', response.data.access_token)
         localStorage.setItem('email', response.data.email)
         localStorage.setItem('id', response.data.id)
-        this.currentPage = 'boardList'
       })
       .catch(err => {
         console.log(err);
       })
     },
+    // googleToken(value) {
+    //   axios({
+    //     url: baseUrl + 'googleLogin',
+    //     method: 'POST',
+    //     data: value
+    //   })
+    //   .then(response =>{
+    //     localStorage.setItem('access_token', response.data.access_token)
+    //     localStorage.setItem('email', response.data.email)
+    //     localStorage.setItem('id', response.data.id)
+    //     this.pageName = 'boardList'
+    //     this.fetchData()
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+    // },
     logout() {
         localStorage.removeItem('access_token')
         localStorage.removeItem('email')
