@@ -100,7 +100,7 @@ export default {
             console.log('login pak eko');
             axios({
                 method: 'post',
-                url: 'http://kanbaban.herokuapp.com/login',
+                url: 'https://kanbaban.herokuapp.com/login',
                 data: {
                     email: this.email,
                     password: this.password
