@@ -2,24 +2,26 @@
   <div>
     <login
       v-if="currentPage === 'login'"
-      @loggedIn="redirect"
+      @login="login"
       @to-register="redirect"
     ></login>
     <register
       v-else-if="currentPage === 'register'"
+      @register="register"
       @to-login="redirect"
     ></register>
-    <MainPage v-else @logout="logout" :tasks="tasks" @addtask='addtask'></MainPage>
-    <div class="custom">
-      <social-login v-if="currentPage !== 'MainPage'"></social-login>
-    </div>
+    <MainPage
+      v-else
+      @logout="logout"
+      :tasks="tasks"
+      @addtask="addtask"
+    ></MainPage>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Login from "./components/LoginPage";
-import SocialLogin from "./components/SocialLogin";
 import Register from "./components/RegisterPage";
 import MainPage from "./components/MainPage";
 
@@ -28,7 +30,7 @@ export default {
   data() {
     return {
       currentPage: "login",
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://frozen-basin-73535.herokuapp.com",
       tasks: {
         Backlog: [],
         Todo: [],
@@ -41,6 +43,37 @@ export default {
     redirect(page) {
       this.currentPage = page;
     },
+    register(page, input) {
+      axios({
+        method: "POST",
+        url: `${this.baseUrl}/register`,
+        data: input,
+      })
+        .then((response) => {
+          this.currentPage = page;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    login(page, input) {
+      axios({
+        method: "POST",
+        url: `${this.baseUrl}/login`,
+        data: input,
+      })
+        .then((response) => {
+
+          localStorage.setItem("access_token", response.data.access_token);
+          localStorage.setItem("name", response.data.name);
+          localStorage.setItem("department", response.data.Department);
+          this.getData();
+          this.currentPage = page;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     logout(page) {
       localStorage.clear();
       this.currentPage = page;
@@ -50,8 +83,7 @@ export default {
         method: "GET",
         url: `${this.baseUrl}/tasks`,
         headers: {
-          access_token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoic2VjdXJpdHRAbWFpbC5jb20iLCJuYW1lIjoiU2F0cGFtIEtvbXBsZWsiLCJEZXBhcnRtZW50SWQiOjEsImlhdCI6MTYwNjg3MjMwN30.WCkxuRdZBhNMlKrY3VFAw7HUOmHLUnhEgR3BKJ0n7Sc",
+          access_token: localStorage.getItem("access_token"),
         },
       })
         .then((response) => {
@@ -67,13 +99,32 @@ export default {
           console.log(err);
         });
     },
-    addtask(newTask){
-      console.log(newTask,'<--dari App')
-    }
+    addtask(newTask, page) {
+      axios({
+        method: "POST",
+        url: `${this.baseUrl}/tasks`,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        data: newTask,
+      })
+        .then((response) => {
+          (this.tasks = {
+            Backlog: [],
+            Todo: [],
+            Doing: [],
+            Done: [],
+          }),
+            this.getData();
+          this.currentPage = page;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   components: {
     Login,
-    SocialLogin,
     Register,
     MainPage,
   },

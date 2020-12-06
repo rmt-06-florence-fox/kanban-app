@@ -1,5 +1,6 @@
-button {
-  width: 49%;
+#loglogbutton,
+#logregbutton {
+  width: 200px !important;
 }
 button {
   width: 49%;
@@ -18,7 +19,7 @@ p {
   top: 45px;
   z-index: 5;
 }
-#card:hover{
+#card:hover {
   zoom: 105%;
 }
 #category-title {

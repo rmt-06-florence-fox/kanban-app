@@ -10,27 +10,34 @@
       />
       <br />
       <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-      <label for="email" class="sr-only">Email address</label>
+      <!-- <label for="email" class="sr-only">Email addresse</label> -->
       <input
         type="email"
-        v-model="email"
+        v-model="input.email"
         class="form-control"
         placeholder="Email address"
+        autocomplete="current-email"
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      <!-- <label for="password" class="sr-only">Password</label> -->
       <input
         type="password"
-        v-model="password"
+        v-model="input.password"
         class="form-control"
         placeholder="Password"
+        autocomplete="current-password"
         required
       />
-      <button class="btn btn-lg btn-success btn-inline" type="submit">
+      <button
+        id="loglogbutton"
+        class="btn btn-lg btn-success btn-inline"
+        type="submit"
+      >
         Login
       </button>
       <button
+        id="logregbutton"
         class="btn btn-lg btn-secondary btn-inline"
         type="button"
         @click="toRegister"
@@ -38,33 +45,42 @@
         Register
       </button>
     </form>
+    <div class="custom">
+      <social-login></social-login>
+    </div>
   </div>
 </template>
 
 <script>
+import SocialLogin from "./SocialLogin";
+
 export default {
   name: "Login",
   data() {
     return {
-      email: "",
-      password: "",
+      input: {
+        email: "",
+        password: "",
+      },
     };
+  },
+  components: {
+    SocialLogin,
   },
   methods: {
     toRegister() {
       this.$emit("to-register", "register");
     },
     login() {
-      console.log(this.email, "===", this.password);
-      localStorage.setItem("access_token", this.password);
-      this.$emit("loggedIn", "MainPage");
+      this.$emit("login", "MainPage", this.input);
     },
   },
 };
 </script>
 
 <style>
-button {
-  width: 49%;
+#loglogbutton,
+#logregbutton {
+  width: 200px !important;
 }
 </style>

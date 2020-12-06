@@ -13,25 +13,38 @@
       <label for="name" class="sr-only">Name</label>
       <input
         type="text"
-        v-model="name"
+        v-model="newUser.name"
         class="form-control"
         placeholder="Name"
         required
         autofocus
       />
-      <label for="email" class="sr-only">Email address</label>
+      <div
+        class="d-flex flex-row d-flex align-items-center justify-content-between"
+      >
+        <label class="text-muted pl-2">Department</label>
+        <select class="form-control col-sm-8" v-model="newUser.department">
+          <option selected disabled>--Select--</option>
+          <option>IT Security Dept.</option>
+          <option>Product Design Dept.</option>
+          <option>Software Engineer Dept.</option>
+          <option>R&D Dept.</option>
+          <option>General Service Dept.</option>
+        </select>
+      </div>
+      <label for="regEmail" class="sr-only">Email address</label>
       <input
         type="email"
-        v-model="regEmail"
+        v-model="newUser.email"
         class="form-control"
         placeholder="Email address"
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      <label for="regPassword" class="sr-only">Password</label>
       <input
         type="password"
-        v-model="regPassword"
+        v-model="newUser.password"
         class="form-control"
         placeholder="Password"
         required
@@ -49,16 +62,17 @@
     </form>
   </div>
 </template>
-
 <script>
-
 export default {
   name: "Register",
   data() {
     return {
-      name: "",
-      regEmail: "",
-      regPassword: "",
+      newUser: {
+        name: "",
+        email: "",
+        password: "",
+        department: "",
+      },
     };
   },
   methods: {
@@ -66,9 +80,7 @@ export default {
       this.$emit("to-login", "login");
     },
     register() {
-      console.log(this.name, "--", this.regEmail, "--", this.regPassword);
-      // Axios
-      this.toLogin();
+      this.$emit("register", "login", this.newUser);
     },
   },
 };

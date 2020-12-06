@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="d-flex flex-sm-row flex-column mr-4">
-      <a class="navbar-brand" href="#">Syihab Muchsin</a>
+      <a class="navbar-brand" href="#">{{ loggedIn.name }}</a>
       <a href="#" class="d-flex align-items-center text-muted"
-        >| IT Security Dept.</a
+        >| {{ loggedIn.department }}</a
       >
     </div>
     <button
@@ -17,26 +17,31 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
-
-        <form class="form-inline mr-auto">
-          <div class="input-group ">
-            <div class="input-group-prepend ">
-              <span class="input-group-text" id="basic-addon1"
-                ><i class="fa fa-search"></i
-              ></span>
-            </div >
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search . . ."
-              aria-label="Search"
-              aria-describedby="basic-addon1"
-            />
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <form class="form-inline mr-auto">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa fa-search"></i
+            ></span>
           </div>
-        </form>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search . . ."
+            aria-label="Search"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+      </form>
 
-      <button type="button" class="btn btn-outline-light d-flex align-items-center mt-lg-10 text-center"  @click="logout">Log Out</button>
+      <button
+        type="button"
+        class="btn btn-outline-light d-flex align-items-center mt-lg-10 text-center"
+        @click="logout"
+      >
+        Log Out
+      </button>
     </div>
     <!-- Navbar content -->
   </nav>
@@ -46,14 +51,18 @@
 export default {
   name: "Navbar",
   data() {
-    return {};
+    return {
+      loggedIn: {
+        name: localStorage.getItem("name"),
+        department: localStorage.getItem("department"),
+      },
+    };
   },
-  methods:{
-    logout(){
-      this.$emit('logout','login')
-      console.log('udah keluar')
-    }
-  }
+  methods: {
+    logout() {
+      this.$emit("logout", "login");
+    },
+  },
 };
 </script>
 

@@ -10668,231 +10668,7 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"src/components/LoginPage.vue":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = {
-  name: "Login",
-  data: function data() {
-    return {
-      email: "",
-      password: ""
-    };
-  },
-  methods: {
-    toRegister: function toRegister() {
-      this.$emit("to-register", "register");
-    },
-    login: function login() {
-      console.log(this.email, "===", this.password);
-      localStorage.setItem("access_token", this.password);
-      this.$emit("loggedIn", "MainPage");
-    }
-  }
-};
-exports.default = _default;
-        var $fd2596 = exports.default || module.exports;
-      
-      if (typeof $fd2596 === 'function') {
-        $fd2596 = $fd2596.options;
-      }
-    
-        /* template */
-        Object.assign($fd2596, (function () {
-          var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid text-center" }, [
-    _c(
-      "form",
-      {
-        staticClass: "form-signin",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.login($event)
-          }
-        }
-      },
-      [
-        _c("img", {
-          staticClass: "rounded-circle",
-          attrs: {
-            src:
-              "https://st2.depositphotos.com/1006318/5909/v/600/depositphotos_59095205-stock-illustration-businessman-profile-icon.jpg",
-            alt: "",
-            width: "100",
-            height: "100"
-          }
-        }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h1", { staticClass: "h3 mb-3 font-weight-normal" }, [
-          _vm._v("Login")
-        ]),
-        _vm._v(" "),
-        _c("label", { staticClass: "sr-only", attrs: { for: "email" } }, [
-          _vm._v("Email address")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.email,
-              expression: "email"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "email",
-            placeholder: "Email address",
-            required: "",
-            autofocus: ""
-          },
-          domProps: { value: _vm.email },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.email = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("label", { staticClass: "sr-only", attrs: { for: "password" } }, [
-          _vm._v("Password")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.password,
-              expression: "password"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "password", placeholder: "Password", required: "" },
-          domProps: { value: _vm.password },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.password = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-lg btn-success btn-inline",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("\n      Login\n    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-lg btn-secondary btn-inline",
-            attrs: { type: "button" },
-            on: { click: _vm.toRegister }
-          },
-          [_vm._v("\n      Register\n    ")]
-        )
-      ]
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-          return {
-            render: render,
-            staticRenderFns: staticRenderFns,
-            _compiled: true,
-            _scopeId: null,
-            functional: undefined
-          };
-        })());
-      
-    /* hot reload */
-    (function () {
-      if (module.hot) {
-        var api = require('vue-hot-reload-api');
-        api.install(require('vue'));
-        if (api.compatible) {
-          module.hot.accept();
-          if (!module.hot.data) {
-            api.createRecord('$fd2596', $fd2596);
-          } else {
-            api.reload('$fd2596', $fd2596);
-          }
-        }
-
-        
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-      }
-    })();
-},{"_css_loader":"../../../../../../../home/hab/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/SocialLogin.vue":[function(require,module,exports) {
+},{}],"src/components/SocialLogin.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10977,7 +10753,249 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../../home/hab/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/RegisterPage.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../home/hab/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/LoginPage.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _SocialLogin = _interopRequireDefault(require("./SocialLogin"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "Login",
+  data: function data() {
+    return {
+      input: {
+        email: "",
+        password: ""
+      }
+    };
+  },
+  components: {
+    SocialLogin: _SocialLogin.default
+  },
+  methods: {
+    toRegister: function toRegister() {
+      this.$emit("to-register", "register");
+    },
+    login: function login() {
+      this.$emit("login", "MainPage", this.input);
+    }
+  }
+};
+exports.default = _default;
+        var $fd2596 = exports.default || module.exports;
+      
+      if (typeof $fd2596 === 'function') {
+        $fd2596 = $fd2596.options;
+      }
+    
+        /* template */
+        Object.assign($fd2596, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid text-center" }, [
+    _c(
+      "form",
+      {
+        staticClass: "form-signin",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.login($event)
+          }
+        }
+      },
+      [
+        _c("img", {
+          staticClass: "rounded-circle",
+          attrs: {
+            src:
+              "https://st2.depositphotos.com/1006318/5909/v/600/depositphotos_59095205-stock-illustration-businessman-profile-icon.jpg",
+            alt: "",
+            width: "100",
+            height: "100"
+          }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("h1", { staticClass: "h3 mb-3 font-weight-normal" }, [
+          _vm._v("Login")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.input.email,
+              expression: "input.email"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "email",
+            placeholder: "Email address",
+            autocomplete: "current-email",
+            required: "",
+            autofocus: ""
+          },
+          domProps: { value: _vm.input.email },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.input, "email", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.input.password,
+              expression: "input.password"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "password",
+            placeholder: "Password",
+            autocomplete: "current-password",
+            required: ""
+          },
+          domProps: { value: _vm.input.password },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.input, "password", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-lg btn-success btn-inline",
+            attrs: { id: "loglogbutton", type: "submit" }
+          },
+          [_vm._v("\n      Login\n    ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-lg btn-secondary btn-inline",
+            attrs: { id: "logregbutton", type: "button" },
+            on: { click: _vm.toRegister }
+          },
+          [_vm._v("\n      Register\n    ")]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "custom" }, [_c("social-login")], 1)
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$fd2596', $fd2596);
+          } else {
+            api.reload('$fd2596', $fd2596);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"./SocialLogin":"src/components/SocialLogin.vue","_css_loader":"../../../../../../../home/hab/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/RegisterPage.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11036,13 +11054,28 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   name: "Register",
   data: function data() {
     return {
-      name: "",
-      regEmail: "",
-      regPassword: ""
+      newUser: {
+        name: "",
+        email: "",
+        password: "",
+        department: ""
+      }
     };
   },
   methods: {
@@ -11050,9 +11083,7 @@ var _default = {
       this.$emit("to-login", "login");
     },
     register: function register() {
-      console.log(this.name, "--", this.regEmail, "--", this.regPassword); // Axios
-
-      this.toLogin();
+      this.$emit("register", "login", this.newUser);
     }
   }
 };
@@ -11114,8 +11145,8 @@ exports.default = _default;
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.name,
-                expression: "name"
+                value: _vm.newUser.name,
+                expression: "newUser.name"
               }
             ],
             staticClass: "form-control",
@@ -11125,18 +11156,80 @@ exports.default = _default;
               required: "",
               autofocus: ""
             },
-            domProps: { value: _vm.name },
+            domProps: { value: _vm.newUser.name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.name = $event.target.value
+                _vm.$set(_vm.newUser, "name", $event.target.value)
               }
             }
           }),
           _vm._v(" "),
-          _c("label", { staticClass: "sr-only", attrs: { for: "email" } }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "d-flex flex-row d-flex align-items-center justify-content-between"
+            },
+            [
+              _c("label", { staticClass: "text-muted pl-2" }, [
+                _vm._v("Department")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.newUser.department,
+                      expression: "newUser.department"
+                    }
+                  ],
+                  staticClass: "form-control col-sm-8",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.newUser,
+                        "department",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "", disabled: "" } }, [
+                    _vm._v("--Select--")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("IT Security Dept.")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Product Design Dept.")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Software Engineer Dept.")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("R&D Dept.")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("General Service Dept.")])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("label", { staticClass: "sr-only", attrs: { for: "regEmail" } }, [
             _vm._v("Email address")
           ]),
           _vm._v(" "),
@@ -11145,8 +11238,8 @@ exports.default = _default;
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.regEmail,
-                expression: "regEmail"
+                value: _vm.newUser.email,
+                expression: "newUser.email"
               }
             ],
             staticClass: "form-control",
@@ -11156,39 +11249,41 @@ exports.default = _default;
               required: "",
               autofocus: ""
             },
-            domProps: { value: _vm.regEmail },
+            domProps: { value: _vm.newUser.email },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.regEmail = $event.target.value
+                _vm.$set(_vm.newUser, "email", $event.target.value)
               }
             }
           }),
           _vm._v(" "),
-          _c("label", { staticClass: "sr-only", attrs: { for: "password" } }, [
-            _vm._v("Password")
-          ]),
+          _c(
+            "label",
+            { staticClass: "sr-only", attrs: { for: "regPassword" } },
+            [_vm._v("Password")]
+          ),
           _vm._v(" "),
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.regPassword,
-                expression: "regPassword"
+                value: _vm.newUser.password,
+                expression: "newUser.password"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "password", placeholder: "Password", required: "" },
-            domProps: { value: _vm.regPassword },
+            domProps: { value: _vm.newUser.password },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.regPassword = $event.target.value
+                _vm.$set(_vm.newUser, "password", $event.target.value)
               }
             }
           }),
@@ -11300,15 +11395,24 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: "Navbar",
   data: function data() {
-    return {};
+    return {
+      loggedIn: {
+        name: localStorage.getItem("name"),
+        department: localStorage.getItem("department")
+      }
+    };
   },
   methods: {
     logout: function logout() {
-      this.$emit('logout', 'login');
-      console.log('udah keluar');
+      this.$emit("logout", "login");
     }
   }
 };
@@ -11329,18 +11433,31 @@ exports.default = _default;
     "nav",
     { staticClass: "navbar navbar-expand-md navbar-dark bg-dark" },
     [
-      _vm._m(0),
+      _c("div", { staticClass: "d-flex flex-sm-row flex-column mr-4" }, [
+        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+          _vm._v(_vm._s(_vm.loggedIn.name))
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "d-flex align-items-center text-muted",
+            attrs: { href: "#" }
+          },
+          [_vm._v("| " + _vm._s(_vm.loggedIn.department))]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "div",
         {
-          staticClass: "collapse navbar-collapse ",
+          staticClass: "collapse navbar-collapse",
           attrs: { id: "navbarTogglerDemo02" }
         },
         [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "button",
@@ -11350,7 +11467,7 @@ exports.default = _default;
               attrs: { type: "button" },
               on: { click: _vm.logout }
             },
-            [_vm._v("Log Out")]
+            [_vm._v("\n      Log Out\n    ")]
           )
         ]
       )
@@ -11358,25 +11475,6 @@ exports.default = _default;
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex flex-sm-row flex-column mr-4" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-        _vm._v("Syihab Muchsin")
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "d-flex align-items-center text-muted",
-          attrs: { href: "#" }
-        },
-        [_vm._v("| IT Security Dept.")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -11402,8 +11500,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("form", { staticClass: "form-inline mr-auto" }, [
-      _c("div", { staticClass: "input-group " }, [
-        _c("div", { staticClass: "input-group-prepend " }, [
+      _c("div", { staticClass: "input-group" }, [
+        _c("div", { staticClass: "input-group-prepend" }, [
           _c(
             "span",
             { staticClass: "input-group-text", attrs: { id: "basic-addon1" } },
@@ -11477,6 +11575,11 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   name: "TaskCard",
   props: ["task"]
@@ -11504,14 +11607,14 @@ exports.default = _default;
         ]),
         _vm._v(" "),
         _c("p", { staticClass: "card-text p-1 m-1" }, [
-          _vm._v("\n      Decription: \n      "),
+          _vm._v("\n      Decription:\n      "),
           _c("br"),
           _vm._v(_vm._s(_vm.task.description) + "\n    ")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-header text-left p-0" }, [
           _c("p", { staticClass: "p-1 m-0" }, [
-            _vm._v(_vm._s(_vm.task.User.name) + "  "),
+            _vm._v("\n        " + _vm._s(_vm.task.User.name) + "\n        "),
             _c("small", { staticClass: "text-muted font-italic" }, [
               _vm._v("- " + _vm._s(_vm.task.User.Department.name))
             ])
@@ -11630,8 +11733,7 @@ var _default = {
   },
   methods: {
     addtask: function addtask() {
-      console.log(this.newTask, '<<== dari Form');
-      this.$emit("addtask", this.newTask);
+      this.$emit("addtask", this.newTask, "MainPage");
     }
   }
 };
@@ -11672,19 +11774,19 @@ exports.default = _default;
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.title,
-                expression: "title"
+                value: _vm.newTask.title,
+                expression: "newTask.title"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text", placeholder: "Title" },
-            domProps: { value: _vm.title },
+            domProps: { value: _vm.newTask.title },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.title = $event.target.value
+                _vm.$set(_vm.newTask, "title", $event.target.value)
               }
             }
           })
@@ -11707,19 +11809,19 @@ exports.default = _default;
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.description,
-                expression: "description"
+                value: _vm.newTask.description,
+                expression: "newTask.description"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text", placeholder: "Description" },
-            domProps: { value: _vm.description },
+            domProps: { value: _vm.newTask.description },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.description = $event.target.value
+                _vm.$set(_vm.newTask, "description", $event.target.value)
               }
             }
           })
@@ -11742,19 +11844,19 @@ exports.default = _default;
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.deadline,
-                expression: "deadline"
+                value: _vm.newTask.deadline,
+                expression: "newTask.deadline"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "date" },
-            domProps: { value: _vm.deadline },
+            domProps: { value: _vm.newTask.deadline },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.deadline = $event.target.value
+                _vm.$set(_vm.newTask, "deadline", $event.target.value)
               }
             }
           })
@@ -11766,7 +11868,7 @@ exports.default = _default;
           "label",
           {
             staticClass: "col-sm-3 col-form-label mr-4",
-            attrs: { for: "category" }
+            attrs: { for: "newTask.category" }
           },
           [_vm._v("Category\n    ")]
         ),
@@ -11778,8 +11880,8 @@ exports.default = _default;
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.category,
-                expression: "category"
+                value: _vm.newTask.category,
+                expression: "newTask.category"
               }
             ],
             staticClass: "form-control col-sm-8",
@@ -11793,9 +11895,11 @@ exports.default = _default;
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.category = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
+                _vm.$set(
+                  _vm.newTask,
+                  "category",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
             }
           },
@@ -11832,13 +11936,13 @@ var staticRenderFns = [
             staticClass: "btn btn-secondary",
             attrs: { type: "button", "data-dismiss": "modal" }
           },
-          [_vm._v("\n        Cancel\n      ")]
+          [_vm._v("\n        Close\n      ")]
         ),
         _vm._v(" "),
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
+          [_vm._v("Add")]
         )
       ])
     ])
@@ -11942,16 +12046,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var _default = {
   name: "CategoryBoard",
-  props: ["tasks"],
-  daya: function daya() {
+  props: ["tasks", "category"],
+  data: function data() {
     return {};
   },
   components: {
@@ -11960,8 +12058,7 @@ var _default = {
   },
   methods: {
     addtask: function addtask(newTask) {
-      console.log(newTask, "<-- dari CategoryBoard");
-      this.$emit('addtask', newTask);
+      this.$emit("addtask", newTask);
     }
   }
 };
@@ -11984,10 +12081,10 @@ exports.default = _default;
       {
         staticClass: "modal fade pr-0",
         attrs: {
-          id: "exampleModalCenter",
+          id: "modal",
           tabindex: "-1",
           role: "dialog",
-          "aria-labelledby": "exampleModalCenterTitle",
+          "aria-labelledby": "modalTitle",
           "aria-hidden": "true"
         }
       },
@@ -12029,7 +12126,7 @@ exports.default = _default;
           },
           [
             _c("h5", { staticClass: "pl-2 m-0 d-flex flex-column" }, [
-              _vm._v(_vm._s(_vm.tasks[0].category))
+              _vm._v(_vm._s(_vm.category))
             ]),
             _vm._v(" "),
             _vm._m(1)
@@ -12059,11 +12156,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "exampleModalLongTitle" } },
-        [_vm._v("Add Task")]
-      ),
+      _c("h5", { staticClass: "modal-title", attrs: { id: "modalTitle" } }, [
+        _vm._v("Add Task")
+      ]),
       _vm._v(" "),
       _c(
         "button",
@@ -12087,11 +12182,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass: "add",
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#exampleModalCenter"
-        }
+        attrs: { href: "#", "data-toggle": "modal", "data-target": "#modal" }
       },
       [_c("i", { staticClass: "fas fa-plus" })]
     )
@@ -12164,21 +12255,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 var _default = {
   name: "MainPage",
   props: ["tasks"],
   data: function data() {
     return {
-      msg: "Ini Main Page"
+      cat: ""
     };
   },
   methods: {
     logout: function logout(page) {
-      this.$emit("logout");
+      this.$emit("logout", page);
     },
     addtask: function addtask(newTask) {
-      console.log(newTask, '<-- dari MainPage');
-      this.$emit('addtask', newTask);
+      this.$emit("addtask", newTask);
     }
   },
   components: {
@@ -12226,7 +12318,7 @@ exports.default = _default;
             _vm._l(_vm.tasks, function(category, i) {
               return _c("category-board", {
                 key: i,
-                attrs: { tasks: category },
+                attrs: { category: i, tasks: category },
                 on: { addtask: _vm.addtask }
               })
             }),
@@ -12283,8 +12375,6 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _LoginPage = _interopRequireDefault(require("./components/LoginPage"));
 
-var _SocialLogin = _interopRequireDefault(require("./components/SocialLogin"));
-
 var _RegisterPage = _interopRequireDefault(require("./components/RegisterPage"));
 
 var _MainPage = _interopRequireDefault(require("./components/MainPage"));
@@ -12309,12 +12399,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 var _default = {
   name: "App",
   data: function data() {
     return {
       currentPage: "login",
-      baseUrl: "http://localhost:3000",
+      baseUrl: "https://frozen-basin-73535.herokuapp.com",
       tasks: {
         Backlog: [],
         Todo: [],
@@ -12327,35 +12420,85 @@ var _default = {
     redirect: function redirect(page) {
       this.currentPage = page;
     },
+    register: function register(page, input) {
+      var _this = this;
+
+      (0, _axios.default)({
+        method: "POST",
+        url: "".concat(this.baseUrl, "/register"),
+        data: input
+      }).then(function (response) {
+        _this.currentPage = page;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    login: function login(page, input) {
+      var _this2 = this;
+
+      (0, _axios.default)({
+        method: "POST",
+        url: "".concat(this.baseUrl, "/login"),
+        data: input
+      }).then(function (response) {
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("name", response.data.name);
+        localStorage.setItem("department", response.data.Department);
+
+        _this2.getData();
+
+        _this2.currentPage = page;
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
     logout: function logout(page) {
       localStorage.clear();
       this.currentPage = page;
     },
     getData: function getData() {
-      var _this = this;
+      var _this3 = this;
 
       (0, _axios.default)({
         method: "GET",
         url: "".concat(this.baseUrl, "/tasks"),
         headers: {
-          access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoic2VjdXJpdHRAbWFpbC5jb20iLCJuYW1lIjoiU2F0cGFtIEtvbXBsZWsiLCJEZXBhcnRtZW50SWQiOjEsImlhdCI6MTYwNjg3MjMwN30.WCkxuRdZBhNMlKrY3VFAw7HUOmHLUnhEgR3BKJ0n7Sc"
+          access_token: localStorage.getItem("access_token")
         }
       }).then(function (response) {
         var tasks = response.data;
         tasks.forEach(function (task) {
-          if (task.category === "Backlog") _this.tasks.Backlog.push(task);else if (task.category === "Todo") _this.tasks.Todo.push(task);else if (task.category === "Doing") _this.tasks.Doing.push(task);else if (task.category === "Done") _this.tasks.Done.push(task);
+          if (task.category === "Backlog") _this3.tasks.Backlog.push(task);else if (task.category === "Todo") _this3.tasks.Todo.push(task);else if (task.category === "Doing") _this3.tasks.Doing.push(task);else if (task.category === "Done") _this3.tasks.Done.push(task);
         });
       }).catch(function (err) {
         console.log(err);
       });
     },
-    addtask: function addtask(newTask) {
-      console.log(newTask, '<--dari App');
+    addtask: function addtask(newTask, page) {
+      var _this4 = this;
+
+      (0, _axios.default)({
+        method: "POST",
+        url: "".concat(this.baseUrl, "/tasks"),
+        headers: {
+          access_token: localStorage.getItem("access_token")
+        },
+        data: newTask
+      }).then(function (response) {
+        _this4.tasks = {
+          Backlog: [],
+          Todo: [],
+          Doing: [],
+          Done: []
+        }, _this4.getData();
+        _this4.currentPage = page;
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
   },
   components: {
     Login: _LoginPage.default,
-    SocialLogin: _SocialLogin.default,
     Register: _RegisterPage.default,
     MainPage: _MainPage.default
   },
@@ -12385,22 +12528,15 @@ exports.default = _default;
     "div",
     [
       _vm.currentPage === "login"
-        ? _c("login", {
-            on: { loggedIn: _vm.redirect, "to-register": _vm.redirect }
-          })
+        ? _c("login", { on: { login: _vm.login, "to-register": _vm.redirect } })
         : _vm.currentPage === "register"
-        ? _c("register", { on: { "to-login": _vm.redirect } })
+        ? _c("register", {
+            on: { register: _vm.register, "to-login": _vm.redirect }
+          })
         : _c("MainPage", {
             attrs: { tasks: _vm.tasks },
             on: { logout: _vm.logout, addtask: _vm.addtask }
-          }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "custom" },
-        [_vm.currentPage !== "MainPage" ? _c("social-login") : _vm._e()],
-        1
-      )
+          })
     ],
     1
   )
@@ -12438,7 +12574,7 @@ render._withStripped = true
       
       }
     })();
-},{"axios":"node_modules/axios/index.js","./components/LoginPage":"src/components/LoginPage.vue","./components/SocialLogin":"src/components/SocialLogin.vue","./components/RegisterPage":"src/components/RegisterPage.vue","./components/MainPage":"src/components/MainPage.vue","_css_loader":"../../../../../../../home/hab/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./components/LoginPage":"src/components/LoginPage.vue","./components/RegisterPage":"src/components/RegisterPage.vue","./components/MainPage":"src/components/MainPage.vue","_css_loader":"../../../../../../../home/hab/.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -12480,7 +12616,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63468" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56031" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

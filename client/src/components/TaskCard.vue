@@ -1,13 +1,18 @@
 <template>
   <div id="card" class="card m-2 shadow-sm">
     <div class="card-body p-0 text-left">
-      <h6 class="card-title p-2 m-0">{{task.title}}</h6>
+      <h6 class="card-title p-2 m-0">{{ task.title }}</h6>
       <p class="card-text p-1 m-1">
-        Decription: 
-        <br>{{task.description}}
+        Decription:
+        <br />{{ task.description }}
       </p>
       <div class="card-header text-left p-0">
-        <p class="p-1 m-0">{{task.User.name}}  <small class="text-muted font-italic">- {{task.User.Department.name}}</small></p>
+        <p class="p-1 m-0">
+          {{ task.User.name }}
+          <small class="text-muted font-italic"
+            >- {{ task.User.Department.name }}</small
+          >
+        </p>
       </div>
     </div>
   </div>
@@ -15,7 +20,7 @@
 <script>
 export default {
   name: "TaskCard",
-  props:["task"],
+  props: ["task"],
 };
 </script>
 
@@ -31,7 +36,7 @@ p {
   top: 45px;
   z-index: 5;
 }
-#card:hover{
+#card:hover {
   zoom: 105%;
 }
 </style>

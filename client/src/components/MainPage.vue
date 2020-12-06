@@ -8,11 +8,13 @@
       ></div>
       <div id="board-area" class="d-flex flex-wrap">
         <category-board
-          v-for="(category,i) in tasks"
+          v-for="(category, i) in tasks"
           :key="i"
+          :category="i"
           :tasks="category"
-          @addtask='addtask'
-        > </category-board>
+          @addtask="addtask"
+        >
+        </category-board>
         <!-- Looping Category di sini -->
       </div>
     </div>
@@ -28,17 +30,16 @@ export default {
   props: ["tasks"],
   data() {
     return {
-      msg: "Ini Main Page",
+      cat: "",
     };
   },
   methods: {
     logout(page) {
-      this.$emit("logout");
+      this.$emit("logout", page);
     },
-    addtask(newTask){
-      console.log(newTask,'<-- dari MainPage')
-      this.$emit('addtask', newTask)
-    }
+    addtask(newTask) {
+      this.$emit("addtask", newTask);
+    },
   },
   components: {
     Navbar,
