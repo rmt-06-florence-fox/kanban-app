@@ -14,12 +14,14 @@ class Controller {
 
         User.create(obj)
         .then( data => {
-           res.status(201).json({id: data.id, email: data.email})
+        //    res.status(201).json({id: data.id, email: data.email})
            return User.findOne({where: {email: req.body.email}})
         })
         .then( user => {
+            // console.log(user.id, user.email);
             const access_token = jwt.sign({ id: user.id, email: user.email }, 'hiha');
             if(bcrypt.compareSync(req.body.password, user.password)) {
+                // console.log(access_token);
                 res.status(200).json({access_token})
             } else {
                 res.status(401).json('Can not find your account')
