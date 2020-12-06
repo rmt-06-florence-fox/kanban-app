@@ -47,7 +47,7 @@ export default {
                     }
             })
             .then(response => {
-                localStorage.setItem('access_token', this.password)
+                localStorage.setItem('access_token', tresponse.data.access_token)
                 this.$emit('changePage', 'home')
             })
             .catch(err => {
