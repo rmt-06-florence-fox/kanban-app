@@ -23,10 +23,10 @@
                     <input type="submit" value="Login" class="btn-submit font-weight-bolder" style="background-color: #fbf6f0;">
                 </div>
             </form>
-            <GoogleLogin 
+            <GoogleLogin
             :params="params"
             :renderParams="renderParams"  
-            :onSuccess="onSuccess" class=""></GoogleLogin>
+            :onSuccess="onSuccess" class="mt-3 max-auto"></GoogleLogin>
         </div>
     </div>
 </template>
@@ -49,8 +49,8 @@ export default {
                 client_id: "1050174954131-sd6q5cr08t0u1shaap0vd3msjmgka5kg.apps.googleusercontent.com"
             },
             renderParams: {
-                width: 250,
-                height: 50,
+                width: 300,
+                height: 70,
                 longtitle: true
             }
         }

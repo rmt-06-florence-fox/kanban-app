@@ -44,7 +44,7 @@ export default {
             this.page = "login"
         },
         changePage(pageName){
-            console.log('masuk changePage')
+            console.log('masuk changePage', pageName)
             this.page = pageName
         },
         fetch(){
@@ -150,15 +150,23 @@ export default {
 
     created () {
         if(localStorage.getItem('access_token')) {
-            this.page = "content"
             this.fetch()
+            this.page = "content"
+
          } else {
+
             this.page = "login" 
          }
     },
     watch : {
         refetch(){
-            this.fetch()
+            if(this.page === 'content') {
+                this.fetch()
+                this.changePage()
+
+            } else {
+                this.changePage()
+            }
         }
     },
     components : {

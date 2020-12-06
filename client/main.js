@@ -1,6 +1,7 @@
-const {Vue} = require('vue')
+import Vue from 'vue'
 import App from  "./components/App.vue"
-console.log(Vue)
+//console.log(Vue)
+
 new Vue({
     render : h => h(App)
 }).$mount("#app")
