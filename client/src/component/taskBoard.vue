@@ -6,7 +6,7 @@
                 <h5 class="text-center"> {{category.name}}</h5>
             </div>
             <div>
-                <taskItem v-for="data in filteredTask(category.name)" :key="data.id" :data="data" @deleteId='deleteData' @editId='editData'></taskItem>
+                <taskItem v-for="data in filteredTask(category.name)" :key="data.id" :data="data" @deleteId='deleteData' @editTask="editTask"></taskItem>
             </div>
             <div class="rounded task-bottom mb-2"  id="btn-add">
                 <a href="#" @click.prevent="showAdd(category.name)" class="btn btn-secondary">Add</a>
@@ -47,6 +47,10 @@ export default {
         deleteData(id) {
             console.log('di tasakboar');
             this.$emit('deleteId', id)
+        },
+        editTask(editedData, id) {
+            console.log(editedData, id, 'di taskboard'); 
+            this.$emit('editTask', editedData, id)
         }
     }
 }

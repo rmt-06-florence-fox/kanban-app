@@ -1,10 +1,10 @@
 <template>
    <div class="container p-5">
         <legend>Add Task</legend>
-        <form @submit.prevent="edit(id)">
+        <form @submit.prevent="edit(data.id)">
             <div class="form-group">
               <label for="exampleInputEmail1" style="color: black">Title</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="title" value="data.title" >
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="title" >
             </div>
             <div class="form-group">
               <label for="exampleInputEmail1" style="color: black">Description</label>
@@ -14,19 +14,16 @@
             <!-- <button type="button" @click.prevent="cancel" class="btn btn-danger">Cancel</button> -->
           </form>
     </div>
-</template>
+</template>cd 
 
 <script>
 export default {
-
-}
-</script>
     name: 'formEdit',
-    props: [data]
+    props: ["data", 'dataForEdit'],
     data() {
         return {
-            title = ''
-            description = ''
+            title : '',
+            description : ''
         }
     },
     methods: {
@@ -34,14 +31,17 @@ export default {
             const editedData = {
                 title: this.title,
                 description: this.description,
-                category: category
+                // category: category
             }
-            console.log(editedData);
-            this.$emit('editTask', editedData)
+            console.log(editedData, id);
+            this.$emit('editTask', editedData, id)
             this.title = ''
             this.description = ''
         }
     }
+}
+</script>
+
 <style>
 
 </style>

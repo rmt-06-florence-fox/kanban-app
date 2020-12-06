@@ -33,7 +33,6 @@ export default {
     },
     methods: {
         login() {
-            // localStorage.setItem('access_token', '12345')
             console.log(this.loginUser);
             this.$emit('dataLogin', this.loginUser)
         },

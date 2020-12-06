@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <div class="row">
             <!-- <h1>BoardList</h1> -->
-            <taskBoard v-for="category in categories" :key="category.id" :category="category" :dataTasks="dataTasks"  @createTask="createTask" @deleteId="deleteData"></taskBoard>
+            <taskBoard v-for="category in categories" :key="category.id" :category="category" :dataTasks="dataTasks"  @createTask="createTask"  @editTask="editTask" @deleteId="deleteData"></taskBoard>
         </div>
     </div>
 </template>
@@ -44,6 +44,10 @@ export default {
         deleteData(id) {
             console.log('board');
             this.$emit('deleteId', id)
+        },
+        editTask(editedData, id) {
+             console.log(editedData, id, 'di boardlist'); 
+            this.$emit('editTask', editedData, id)
         }
     }
 }
