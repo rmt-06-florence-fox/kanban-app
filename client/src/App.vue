@@ -83,7 +83,7 @@ export default {
     update(title, category, id) {
       axios({
           method: 'put',
-          url: 'https//kanbaban.herokuapp.com/tasks/' + id,
+          url: 'https://kanbaban.herokuapp.com/tasks/' + id,
           headers: {
             access_token: localStorage.getItem("access_token")
           },
