@@ -4,13 +4,13 @@ const { UserController, TaskController } = require('../controllers')
 const { Authentication, Authorization } = require('../middlewares')
 
 
-router.post('/register', UserController.register)
+// router.post('/register', UserController.register)
 router.post('/login', UserController.login)
 router.post('/google-login', UserController.googleLogin)
 // router.post('/', UserController.githubLogin)
 
 //Authentication Required
-// router.use(Authentication)
+router.use(Authentication)
 router.post('/tasks', TaskController.create)
 router.get('/tasks', TaskController.getAll)
 router.get('/tasks/:id', TaskController.getById);
