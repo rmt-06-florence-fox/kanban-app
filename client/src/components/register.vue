@@ -100,7 +100,7 @@ export default {
         register () {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/register',
+                url: 'https://kanban-app-wypratama.herokuapp.com/register',
                 data: {
                   username: this.registerForm.username,
                   email: this.registerForm.email,

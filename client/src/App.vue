@@ -82,7 +82,7 @@ export default {
             this.categories = []
             axios({
                 method: 'get',
-                url: 'http://localhost:3000/task',
+                url: 'https://kanban-app-wypratama.herokuapp.com/task',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 }
@@ -132,7 +132,7 @@ export default {
         postTask(title, des, catId, orgId) {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/task',
+                url: 'https://kanban-app-wypratama.herokuapp.com/task',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -177,7 +177,7 @@ export default {
             console.log(data)
              axios({
                 method: 'put',
-                url: `http://localhost:3000/task/${data.id}`,
+                url: `https://kanban-app-wypratama.herokuapp.com/task/${data.id}`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -220,7 +220,7 @@ export default {
         commitDeleteTask (taskId) {
                 axios({
                 method: 'delete',
-                url: `http://localhost:3000/task/${taskId}`,
+                url: `https://kanban-app-wypratama.herokuapp.com/task/${taskId}`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -258,7 +258,7 @@ export default {
         commitPatchTask (taskId, catId) {
             axios({
                 method: 'patch',
-                url: `http://localhost:3000/task/${taskId}`,
+                url: `https://kanban-app-wypratama.herokuapp.com/task/${taskId}`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -299,7 +299,7 @@ export default {
         getUser () {
             axios({
                 method: 'get',
-                url: `http://localhost:3000/user`,
+                url: `https://kanban-app-wypratama.herokuapp.com/user`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -349,7 +349,7 @@ export default {
             this.orgData = []
             axios({
                 method: 'get',
-                url: `http://localhost:3000/org`,
+                url: `https://kanban-app-wypratama.herokuapp.com/org`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -391,7 +391,7 @@ export default {
         chooseOrg (orgId) {
                 axios({
                 method: 'patch',
-                url: `http://localhost:3000/user/${this.activeUser.id}`,
+                url: `https://kanban-app-wypratama.herokuapp.com/user/${this.activeUser.id}`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -435,7 +435,7 @@ export default {
         choosePage () {
             axios({
                 method: 'get',
-                url: `http://localhost:3000/user`,
+                url: `https://kanban-app-wypratama.herokuapp.com/user`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -478,7 +478,7 @@ export default {
             
             axios({
                 method: 'post',
-                url:'http://localhost:3000/google-login',
+                url:'https://kanban-app-wypratama.herokuapp.com/google-login',
                 data: {
                     id_token: idToken
                 }
@@ -498,7 +498,7 @@ export default {
         addNewOrg (value) {
             axios({
                 method:'post',
-                url: 'http://localhost:3000/org/add',
+                url: 'https://kanban-app-wypratama.herokuapp.com/org/add',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -513,7 +513,7 @@ export default {
                 console.log(value.board)
                 return axios({
                     method:'post',
-                url: 'http://localhost:3000/categories/bulk',
+                url: 'https://kanban-app-wypratama.herokuapp.com/categories/bulk',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -533,7 +533,7 @@ export default {
         editBoardName (newName, id) {
             axios({
                 method: 'patch',
-                url: `http://localhost:3000/categories/${id}`,
+                url: `https://kanban-app-wypratama.herokuapp.com/categories/${id}`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -552,7 +552,7 @@ export default {
         addCat(val) {
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/categories',
+                url: 'https://kanban-app-wypratama.herokuapp.com/categories',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -573,7 +573,7 @@ export default {
         deleteCat(val) {
             axios({
                 method: 'delete',
-                url: `http://localhost:3000/categories/${val}`,
+                url: `https://kanban-app-wypratama.herokuapp.com/categories/${val}`,
                 headers: {
                      access_token: localStorage.getItem('access_token')
                 },
@@ -597,7 +597,7 @@ export default {
             console.log('sudah cek local storage')
              axios({
                 method: 'get',
-                url: `http://localhost:3000/user`,
+                url: `https://kanban-app-wypratama.herokuapp.com/user`,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
