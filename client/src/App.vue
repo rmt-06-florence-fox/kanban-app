@@ -32,7 +32,7 @@ export default {
             title: '',
             due_date: '',
             CategoryId: '',
-            clientId: '728111694045-mo542iaoe8n6fg0vfqmr6ou9ebsk6lfq.apps.googleusercontent.com'
+            clientId: '803372246826-2a7fsg8eddppiobivum22fu6mquu3u84.apps.googleusercontent.com'
         }
     },
     methods: {
