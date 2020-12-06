@@ -7,8 +7,18 @@
               <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="title" >
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1" style="color: black">Description</label>
+              <label for="" style="color: black">Description</label>
               <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="description" >
+            </div>
+            <div class="form-group">
+                <label for="inputState" style="color: black">Category</label>
+                <select v-model="category" class="form-control">
+                    <option selected disabled style="color: black">Category</option>
+                    <option style="color: black" value="backlog">backlog</option>
+                    <option style="color: black" value="todo">todo</option>
+                    <option style="color: black" value="doing">doing</option>
+                    <option style="color: black" value="done">done</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <!-- <button type="button" @click.prevent="cancel" class="btn btn-danger">Cancel</button> -->
@@ -23,7 +33,8 @@ export default {
     data() {
         return {
             title : '',
-            description : ''
+            description : '',
+            category: ''
         }
     },
     methods: {
@@ -31,7 +42,7 @@ export default {
             const editedData = {
                 title: this.title,
                 description: this.description,
-                // category: category
+                category: this.category
             }
             console.log(editedData, id);
             this.$emit('editTask', editedData, id)
