@@ -97,6 +97,7 @@ export default {
             })
         },
         login() {
+            console.log('login pak eko');
             axios({
                 method: 'post',
                 url: 'https://kanbaban.herokuapp.com/login',
