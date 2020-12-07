@@ -7,7 +7,7 @@
         <a href="#" @click="deleteTask" class="card-link">Delete</a>
       </div>
     </div>
-    <EditForm v-else-if="showEditForm" :data="taskData"></EditForm>
+    <EditForm v-else-if="showEditForm" :data="taskData" @toggleEditForm="toggleEditForm"></EditForm>
   </div>
 </template>
 

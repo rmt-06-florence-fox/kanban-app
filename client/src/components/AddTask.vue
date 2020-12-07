@@ -43,7 +43,6 @@ export default {
         },
       })
         .then(({data}) => {
-          //this.reloadTask();
           this.$emit("afterAdd", data.result)
           this.$emit("toggleAddForm");
         })

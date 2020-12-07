@@ -2,7 +2,7 @@
   <div>
     <div class="card mt-4 col-4" style="width: 18rem">
       <div class="card-body">
-        <form>
+        <form @submit.prevent="editTask">
           <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" v-model="title"/>
@@ -35,9 +35,14 @@ export default {
   },
   methods: {
     editTask() {
+      const payload = {
+        title: this.title,
+        category: this.category
+      }
+      const id = this.data.id;
       this.$api({
-        method: "POST",
-        url: "/tasks",
+        method: "PUT",
+        url: `/tasks/${id}`,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -46,7 +51,9 @@ export default {
           category: payload.category,
         },
       })
-        .then(({ data }) => {})
+        .then(({ data }) => {
+          this.$emit("toggleEditForm")
+        })
         .catch((error) => {
           console.log(error);
         });

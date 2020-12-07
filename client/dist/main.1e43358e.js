@@ -9033,7 +9033,6 @@ var _default = {
       }).then(function (_ref) {
         var data = _ref.data;
 
-        //this.reloadTask();
         _this.$emit("afterAdd", data.result);
 
         _this.$emit("toggleAddForm");
@@ -9213,9 +9212,16 @@ var _default = {
   },
   methods: {
     editTask: function editTask() {
+      var _this = this;
+
+      var payload = {
+        title: this.title,
+        category: this.category
+      };
+      var id = this.data.id;
       this.$api({
-        method: "POST",
-        url: "/tasks",
+        method: "PUT",
+        url: "/tasks/".concat(id),
         headers: {
           access_token: localStorage.getItem("access_token")
         },
@@ -9225,6 +9231,8 @@ var _default = {
         }
       }).then(function (_ref) {
         var data = _ref.data;
+
+        _this.$emit("toggleEditForm");
       }).catch(function (error) {
         console.log(error);
       });
@@ -9250,95 +9258,106 @@ exports.default = _default;
       { staticClass: "card mt-4 col-4", staticStyle: { width: "18rem" } },
       [
         _c("div", { staticClass: "card-body" }, [
-          _c("form", [
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.title,
-                    expression: "title"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.title },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.title = $event.target.value
-                  }
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.editTask($event)
                 }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group mb-3" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
+                _vm._v(" "),
+                _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.category,
-                      expression: "category"
+                      value: _vm.title,
+                      expression: "title"
                     }
                   ],
-                  staticClass: "custom-select",
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.title },
                   on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.category = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.title = $event.target.value
                     }
                   }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group mb-3" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.category,
+                        expression: "category"
+                      }
+                    ],
+                    staticClass: "custom-select",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.category = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "Backlog" } }, [
+                      _vm._v("Backlog")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "To-Do" } }, [
+                      _vm._v("To-Do")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "On-Going" } }, [
+                      _vm._v("On-Going")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Done" } }, [_vm._v("Done")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-sm",
+                  attrs: { type: "submit" }
                 },
-                [
-                  _c("option", { attrs: { value: "Backlog" } }, [
-                    _vm._v("Backlog")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "To-Do" } }, [
-                    _vm._v("To-Do")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "On-Going" } }, [
-                    _vm._v("On-Going")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Done" } }, [_vm._v("Done")])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary btn-sm",
-                attrs: { type: "submit" }
-              },
-              [_vm._v("Done")]
-            ),
-            _vm._v(" "),
-            _c("button", { staticClass: "btn btn-danger btn-sm" }, [
-              _vm._v("Cancel")
-            ])
-          ])
+                [_vm._v("Done")]
+              ),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn btn-danger btn-sm" }, [
+                _vm._v("Cancel")
+              ])
+            ]
+          )
         ])
       ]
     )
@@ -9497,7 +9516,10 @@ exports.default = _default;
             ]
           )
         : _vm.showEditForm
-        ? _c("EditForm", { attrs: { data: _vm.taskData } })
+        ? _c("EditForm", {
+            attrs: { data: _vm.taskData },
+            on: { toggleEditForm: _vm.toggleEditForm }
+          })
         : _vm._e()
     ],
     1
