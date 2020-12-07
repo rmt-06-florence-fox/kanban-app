@@ -233,9 +233,9 @@
 }
 ```
 **Success Response:**
-  * **Code:** 200 OK <br />
+  **Code:** 200 OK <br />
   **Content:** 
-  ```json
+  ```json ```
   {
     "id": 4,
     "title": "mandi",
@@ -246,7 +246,7 @@
     "createdAt": "2020-12-01T12:09:00.604Z"
 }
 **Error Response:**
-  * **Code:** 400 BAD REQUEST <br />
+   **Code:** 400 BAD REQUEST <br />
     **message** 
     ```json
       {
@@ -255,7 +255,7 @@
     ```
     
   **OR**
-  * **Code:** 401 UNAUTHORIZED<br />
+  **Code:** 401 UNAUTHORIZED<br />
   **OR**
   * **Code:** 500 INTERNAL SERVER ERROR<br />
 
@@ -264,16 +264,17 @@
 **Edit Task**
 ----
   Edit Task Title
-* **URL**
+**URL**
   `https://kanban-app-ym.herokuapp.com/tasks/:id`
-* **Method:**
-  
+
+**Method:**
   `PUT` 
 
 **Request :**
 
 **URL Params**
-  **Required :**
+
+**Required :**
   
   `id `
 **Header Params**
@@ -289,36 +290,37 @@
   }
 ```
 **Success Response:**
-  * **Code:** 200 OK <br />
+  **Code:** 200 OK <br />
 **Error Response:**
-  * **Code:** 400 BAD REQUEST <br />
-    **message** 
+  **Code:** 400 BAD REQUEST <br />
+  
     ```json
       {
-        "message" : "error message"
+        "message" : Error Message
       }
     ```
     
   **OR**
-  * **Code:** 401 UNAUTHORIZED<br />
-  ```json
+  **Code:** 401 UNAUTHORIZED<br />
+
+    ```json
       {
-        "message" :   "You Dont Have Permission to Do this Action"
+        "message" : "You Dont Have Permission to Do this Action"
       }
     ```
 
   **OR**
-  * **Code:** 500 INTERNAL SERVER ERROR<br />
+   **Code:** 500 INTERNAL SERVER ERROR<br />
 
 
   
 **Delete Task**
 ----
   Delete task by Id
-* **URL**
+ **URL**
   `https://kanban-app-ym.herokuapp.com/tasks/:id`
 
-* **Method:**
+ **Method:**
   `DELETE`
 
 **Request :**
@@ -391,6 +393,7 @@
 ```
 **Success Response:**
   * **Code:** 200 OK <br />
+
 **Error Response:**
   * **Code:** 400 BAD REQUEST <br />
     **message** 
@@ -401,6 +404,13 @@
     ```
     
   **OR**
+
   * **Code:** 401 UNAUTHORIZED<br />
+
+    ```json
+      {
+        "message" : Error message
+      }
+    ```
   **OR**
   * **Code:** 500 INTERNAL SERVER ERROR<br />
