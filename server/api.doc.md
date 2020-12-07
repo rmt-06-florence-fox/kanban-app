@@ -159,7 +159,7 @@
 ----
   Get all task data
 * **URL**
-  `/task`
+  `/tasks`
 * **Method:**
   
   `GET` 
@@ -203,11 +203,12 @@
   * **Code:** 401 UNAUTHORIZED<br />
   **OR**
   * **Code:** 500 INTERNAL SERVER ERROR<br />
+
 **Add New Task**
 ----
   Create new Task
 * **URL**
-  `/task`
+  `/tasks`
 * **Method:**
   
   `POST` 
@@ -256,11 +257,11 @@
 
 
 
-*EDIT TASK*
+**Edit Task**
 ----
   Edit Task Title
 * **URL**
-  `/task/:id`
+  `/tasks/:id`
 * **Method:**
   
   `PUT` 
@@ -268,7 +269,7 @@
 **URL Params**
   **Required :**
   
-  `id = [Integer]`
+  `id `
 **Header Params**
 ```json
   {
@@ -305,11 +306,11 @@
 
 
   
-*DELETE TASK*
+**Delete Task**
 ----
   Delete task by Id
 * **URL**
-  `/task/:id`
+  `/tasks/:id`
 * **Method:**
   
 
@@ -318,7 +319,7 @@
 **URL Params**
   **Required :**
   
-  `id = [Integer],access_token`
+  `id,access_token`
 **Header Params**
 ```json
   {
@@ -351,11 +352,13 @@
 
   **OR**
   * **Code:** 500 INTERNAL SERVER ERROR<br />
+
+
 **Change Task Category**
 ----
   Change task category
 * **URL**
-  `/task/:id`
+  `/tasks/:id`
 * **Method:**
   
   `PATCH` 

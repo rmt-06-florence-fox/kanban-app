@@ -51,7 +51,7 @@ export default {
       console.log(userData)
       axios({
          method: "POST",
-          url: `http://localhost:3000/register`,
+          url: `https://kanban-app-ym.herokuapp.com/register`,
           data:{
             name: userData.name,
             email: userData.email,
@@ -75,7 +75,7 @@ export default {
      console.log("diloginapp")
       axios({
         method: "POST",
-          url: "http://localhost:3000/login",
+          url: "https://kanban-app-ym.herokuapp.com/login",
           data:{
             email: userData.email,
             password: userData.password
@@ -105,7 +105,7 @@ export default {
       // console.log('Image URL: ' + profile.getImageUrl());
       // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       axios({
-          url: "http://localhost:3000/googleLogin",
+          url: "https://kanban-app-ym.herokuapp.com/googleLogin",
           method:"POST",
           data: { 
             googleToken
@@ -138,7 +138,7 @@ export default {
         const access_token = localStorage.getItem('access_token')
         axios({
           method: "GET",
-          url: "http://localhost:3000/tasks",
+          url: "https://kanban-app-ym.herokuapp.com/tasks",
           headers:{
             access_token
           }
@@ -158,7 +158,7 @@ export default {
       const access_token = localStorage.getItem('access_token')
       axios({
         method: "GET",
-        url: "http://localhost:3000/tasks/category",
+        url: "https://kanban-app-ym.herokuapp.com/tasks/category",
         headers:{
           access_token
         }
@@ -178,7 +178,7 @@ export default {
       const access_token = localStorage.getItem('access_token')
       axios({
         method: "DELETE",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://kanban-app-ym.herokuapp.com/tasks/${id}`,
         headers:{
           access_token
         }
@@ -197,7 +197,7 @@ export default {
       const access_token = localStorage.getItem('access_token')
       axios({
         method: "PUT",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://kanban-app-ym.herokuapp.com/tasks/${id}`,
         headers:{
           access_token
         },
@@ -226,7 +226,7 @@ export default {
       const access_token = localStorage.getItem('access_token')
       axios({
         method: "PATCH",
-        url: `http://localhost:3000/tasks/${id}`,
+        url: `https://kanban-app-ym.herokuapp.com/tasks/${id}`,
         headers:{
           access_token
         },
@@ -253,7 +253,7 @@ export default {
       const access_token = localStorage.getItem('access_token')
       axios({
         method: "POST",
-        url: `http://localhost:3000/tasks`,
+        url: `https://kanban-app-ym.herokuapp.com/tasks`,
         headers:{
           access_token
         },
