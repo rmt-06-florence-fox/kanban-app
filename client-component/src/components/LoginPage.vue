@@ -1,7 +1,9 @@
 <template>
   <div>
+    <div v-if="error">
+          <ErrorMessage :message="message" ref="error"></ErrorMessage>
+    </div>
     <div id="login-page">
-        <!-- <div v-if="isError"></div> -->
         <div class="register-login-content">
             <div class="login-image-container">
                 <img src="../assets/kanban-logo.svg" alt="kanban board" width="250">
@@ -33,7 +35,8 @@
 </template>
 <script>
 import axios from "axios";
-import GoogleLogin from 'vue-google-login'; 
+import GoogleLogin from 'vue-google-login';
+import ErrorMessage from "./ErrorMessage";
 export default {
   name: "LoginPage",
   data() {
@@ -42,6 +45,8 @@ export default {
         email: "",
         password: ""
       },
+      error: false,
+      message: "",
       params: {
           client_id: "861795519447-99qjkijf9agup0r284t2mp7g3g7uu4d0.apps.googleusercontent.com"
       },
@@ -72,6 +77,11 @@ export default {
       })
       .catch((err) => {
           console.log(err);
+          this.message = err.response.data.message;
+          this.error = true;
+          this.$nextTick(()=> {
+             this.$refs.error.$el.scrollIntoView();
+          });
       })
       .finally(() => {
           this.userLogin.email = "";
@@ -98,7 +108,9 @@ export default {
           this.changePage("main-page");
       })
       .catch((err) => {
-          console.log(err);
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
       })
     },
     changePage(pageName) {
@@ -106,7 +118,8 @@ export default {
     }
   },
   components: {
-    GoogleLogin
+    GoogleLogin,
+    ErrorMessage
   }
 }
 </script>
