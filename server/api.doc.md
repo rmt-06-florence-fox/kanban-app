@@ -159,11 +159,13 @@
 ----
   Get all task data
 * **URL**
-  `/tasks`
+  `https://kanban-app-ym.herokuapp.com/tasks`
 * **Method:**
   
   `GET` 
+
 **Request :**
+
 **Header Params**
 ```json
   {
@@ -191,7 +193,7 @@
   ]
   ```
 **Error Response:**
-  * **Code:** 400 BAD REQUEST <br />
+  **Code:** 400 BAD REQUEST <br />
     **message** 
     ```json
       {
@@ -212,7 +214,9 @@
 * **Method:**
   
   `POST` 
+
 **Request :**
+
 **Header Params**
 ```json
   {
@@ -261,11 +265,13 @@
 ----
   Edit Task Title
 * **URL**
-  `/tasks/:id`
+  `https://kanban-app-ym.herokuapp.com/tasks/:id`
 * **Method:**
   
   `PUT` 
+
 **Request :**
+
 **URL Params**
   **Required :**
   
@@ -310,14 +316,16 @@
 ----
   Delete task by Id
 * **URL**
-  `/tasks/:id`
-* **Method:**
-  
+  `https://kanban-app-ym.herokuapp.com/tasks/:id`
 
- *DELETE*
+* **Method:**
+  `DELETE`
+
 **Request :**
+
 **URL Params**
-  **Required :**
+
+**Required :**
   
   `id,access_token`
 **Header Params**
@@ -358,13 +366,15 @@
 ----
   Change task category
 * **URL**
-  `/tasks/:id`
+  `https://kanban-app-ym.herokuapp.com/tasks/:id`
 * **Method:**
-  
   `PATCH` 
+
 **Request :**
+
 **URL Params**
-  **Required :**
+
+**Required :**
   
   `id = [Integer]`
 **Header Params**
