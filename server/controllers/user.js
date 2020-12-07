@@ -29,8 +29,8 @@ class UserController{
                 }
             }
             else if(comparePassword(req.body.password, dataUser.password)){
-                const access_token = generateToken({id: dataUser.id, email: dataUser.id})
-                res.status(200).json({access_token})
+                const access_token = generateToken({id: dataUser.id, email: dataUser.email})
+                res.status(200).json({access_token: access_token, email: dataUser.email})
             }
             else{
                 throw{
@@ -44,8 +44,9 @@ class UserController{
     }
     static googleLogin (req, res, next) {
         let payload;
+        console.log(req.body) 
         client.verifyIdToken({
-            idToken: req.body.googleToken,
+            idToken: req.body.token,
             audience: process.env.GOOGLE_CLIENT_ID
         })
         .then(ticket => {
@@ -64,7 +65,9 @@ class UserController{
             res.status(200).json({access_token})
         })
         .catch(error => {
-            console.log(error)
+            
+            console.log(error.message)
+            console.log("masuk error bos")
             next(error)
         })
     }

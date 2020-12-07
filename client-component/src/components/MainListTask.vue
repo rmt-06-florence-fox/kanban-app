@@ -8,6 +8,7 @@
             :tasks="categories.Tasks"
             @emitMainListParent="emitMainPage"
             @emitEditValue="valueEdit"
+            @emitAddValue="valueAdd"
           ></MainBoard>
        
       </div>
@@ -34,6 +35,9 @@ export default {
         },
         valueEdit(value){
             this.$emit("emitEditValue", value)
+        },
+        valueAdd(value, id){
+            this.$emit("emitValueAdd", value, id)
         }
     }
 }

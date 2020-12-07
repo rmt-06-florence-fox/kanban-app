@@ -8,6 +8,7 @@
             :categoriesList="categories"
             @emitToMainPage="emitToApp"
             @emitEditValue="editValue"
+            @emitValueAdd="addValue"
         >
         </MainListTask>
            
@@ -41,6 +42,9 @@ export default {
         },
         logout(pageName){
             this.$emit("buttonLogout", pageName)
+        },
+        addValue(value, id){
+            this.$emit("emitValueAdd", value, id)
         }
     }
 }

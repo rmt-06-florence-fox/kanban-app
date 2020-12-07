@@ -14,8 +14,9 @@
                     <button type="submit" class="btn btn-primary btn-block mt-5 rounded-pill">Login</button>
                     <p class="text-muted text-center"> dont have account ? <a href="#" @click.prevent="toRegisterPage"> Register</a></p>
 
-                    <div class="g-signin2 googleLogin d-inline p-2" data-onsuccess="onSignIn"></div>
                     </form>
+                         <GoogleLogin class="g-signin2" :params="params" :onSuccess="onSuccess" :onFailure="onFailure">SIGN IN WITH GOOGLE</GoogleLogin>
+
                 </div>
             </div>
         </div>
@@ -23,13 +24,25 @@
 </template>
 
 <script>
+import GoogleLogin from 'vue-google-login'
 export default {
     name: "LoginPage",
     props: ["registerPage"],
+    components: {
+        GoogleLogin
+    },
     data () {
         return {
             email: '',
-            password: ''
+            password: '',
+            params: {
+                client_id: "830993365713-kbctbq255qvp0hm1c5gq4vp9igskv11d.apps.googleusercontent.com"
+            },
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
+            }
         }
     },
     methods: {
@@ -38,7 +51,18 @@ export default {
         },
         toRegisterPage(){
             this.$emit("changeRegisterPage", "register")
-        } 
+        },
+        onSuccess(googleUser){
+            console.log('masuk bosss')
+            console.log(googleUser, "dari login page")
+            const google_access_token =  googleUser.getAuthResponse().id_token
+            // console.log(google_acces_token)
+
+            this.$emit("emitGoogleLogin", google_access_token)
+        },
+        onFailure(){
+            console.log(error)
+        }
     }
 }
 </script>

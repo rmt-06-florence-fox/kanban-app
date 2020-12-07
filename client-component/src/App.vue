@@ -3,6 +3,7 @@
         <LoginPage 
             v-if="currentPage === 'Login Page'"
             @loginSubmit="login" 
+            @emitGoogleLogin="googleLogin"
             @changeRegisterPage="renderRegis"
         >
         </LoginPage>
@@ -10,6 +11,7 @@
             v-else-if="currentPage === 'Register Page'" 
             @registerSubmit="register"
             @toLoginPage="renderLogin"
+            
         
         >
         </RegisterPage>
@@ -20,6 +22,7 @@
             @getTaskById="getTaskId"
             @emitEditValue="editValue"
             @buttonLogout="logout"
+            @emitValueAdd="addValue"
         >
         </MainPage>
     </div>
@@ -36,7 +39,7 @@ export default {
         return {
             name: "Dayu",
             currentPage: "Login Page",
-            url: "https://kanban-app-florence.herokuapp.com",
+            url: "http://localhost:3000",
             categoryTask: [],
             requestTaskId: []
         }
@@ -50,6 +53,33 @@ export default {
         logout(pageName){
             localStorage.clear()
             this.currentPage = pageName
+            var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        },
+        googleLogin(token){
+            axios({
+                url: this.url + "/googleLogin",
+                method: "post",
+                data: {
+                    token
+                }
+
+            })
+                .then(response => {
+                    console.log(response, "<------- ini dari appp")
+                    localStorage.setItem("access_token", response.data.access_token)
+                    localStorage.setItem("name", response.data.data.email.split('@')[0])
+                    console.log(response)
+                    this.currentPage = "Main Page"
+                    this.fetchCategories()
+                    this.login()
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         },
         login(email, password){
             axios({
@@ -61,13 +91,14 @@ export default {
                 }
             })
                 .then(response => {
-                    // console.log(response.data.access_token)
                     localStorage.setItem("access_token", response.data.access_token)
-                    // localStorage.setItem("UserId", )
+                    localStorage.setItem("email", response.data.email)
+
                     console.log(response.data)
                     this.currentPage = "Main Page"
+                    this.addValue()
                     this.fetchCategories()
-                    // this.editValue()
+
 
                 })
                 .catch(error => {
@@ -158,7 +189,30 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        addValue(value, id){
+            const title = value
+            const CategoryId = id
+            axios({
+                url: this.url + "/tasks",
+                method: "post",
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                },
+                data: {
+                    title,
+                    CategoryId
+                }
+            })
+                .then(response => {
+                    console.log("berhasil")
+                    this.fetchCategories()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
         }
+
 
 
     },
