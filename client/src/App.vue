@@ -19,7 +19,7 @@
       @registerData="register"
     >
     </RegisterPage>
-    <TaskBoard 
+    <MainBoard 
     v-if="currentPage === 'Main Page'"
     :categories="categories"
     :tasks="tasks"
@@ -28,7 +28,7 @@
     @moveLeft="updateStatus"
     @moveRight="updateStatus"
     >
-    </TaskBoard>
+    </MainBoard>
     <AddTaskPage
       v-if="currentPage === 'Add Task Page'"
       @mainPage="changePage"
@@ -48,7 +48,7 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
-import TaskBoard from "./components/TaskBoard";
+import MainBoard from "./components/MainBoard";
 import AddTaskPage from "./components/AddTaskPage";
 import EditTaskPage from "./components/EditTaskPage";
 
@@ -433,7 +433,7 @@ export default {
     Navbar,
     RegisterPage,
     LoginPage,
-    TaskBoard,
+    MainBoard,
     AddTaskPage,
     EditTaskPage,
   },
