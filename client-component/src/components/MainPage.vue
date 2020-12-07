@@ -247,6 +247,9 @@ export default {
           $("#delete-task-confirm").modal("hide");
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
+          if (this.taskDetails === true) {
+            $('<div class="modal-backdrop fade show"></div>').appendTo(document.body);
+          }
         }
       })
     }

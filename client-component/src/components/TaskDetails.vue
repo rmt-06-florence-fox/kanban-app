@@ -2,7 +2,9 @@
   <div>
     <div class="modal fade" id="edit-task-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-  
+     <div v-if="error">
+        <ErrorMessage v-for="(message, index) in messages" :key="index" :message="message" ref="error"></ErrorMessage>
+      </div>
       <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content" style="background-color:transparent;border:none">
               <div class="add-edit-task-form-content">
@@ -34,6 +36,7 @@
 </template>
 <script>
 import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
 export default {
   name: "TaskDetails",
   props: ["TaskId", "taskEditData"],
@@ -43,7 +46,9 @@ export default {
         title: this.taskEditData.title,
         description: this.taskEditData.description,
         due_date: this.taskEditData.due_date
-      }
+      },
+      error: false,
+      messages: []
     }
   },
   methods: {
@@ -68,6 +73,16 @@ export default {
       })
       .catch((err) => {
           console.log(err);
+          if (err.response.data.message) {
+            this.messages.push(err.response.data.message);
+          } else {
+            this.messages = err.response.data.messages;
+          }
+          this.error = true;
+          this.$nextTick(()=> {
+            console.log(this.$refs.error)
+             this.$refs.error[0].$el.scrollIntoView();
+          });
       })
     },
     fetchCategories() {
@@ -80,6 +95,12 @@ export default {
       this.$emit("show-delete-task-confirmation");
       this.$emit("setTaskId", this.TaskId);
     }
+  },
+  mounted() {
+    this.error = false;
+  },
+  components: {
+    ErrorMessage
   }
 }
 </script>

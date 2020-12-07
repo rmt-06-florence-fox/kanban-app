@@ -2,7 +2,9 @@
   <div>
     <div class="modal fade" id="edit-category-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
-  
+      <div v-if="error">
+        <ErrorMessage v-for="(message, index) in messages" :key="index" :message="message" ref="error"></ErrorMessage>
+      </div>
       <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content" style="background-color:transparent;border:none">
               <div class="add-edit-category-form-content">
@@ -39,6 +41,7 @@
 </template>
 <script>
 import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
 export default {
   name: "EditCategoryForm",
   props: ["CategoryId", "categoryEditData"],
@@ -47,7 +50,9 @@ export default {
       category: {
         name: "",
         color: ""
-      }
+      },
+      error:false,
+      messages: []
     }
   },
   methods: {
@@ -72,8 +77,16 @@ export default {
       })
       .catch((err) => {
           console.log(err);
+          this.messages = err.response.data.messages;
+          this.error = true;
+          this.$nextTick(()=> {
+             this.$refs.error[0].$el.scrollIntoView();
+          });
       })
     }
+  },
+  components: {
+    ErrorMessage
   }
 }
 </script>

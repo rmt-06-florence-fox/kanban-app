@@ -2,7 +2,9 @@
   <div>
     <div class="modal fade" id="add-task-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-  
+      <div v-if="error">
+        <ErrorMessage v-for="(message, index) in messages" :key="index" :message="message" ref="error"></ErrorMessage>
+      </div>
       <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content" style="background-color:transparent;border:none">
               <div class="add-edit-task-form-content">
@@ -33,6 +35,7 @@
 </template>
 <script>
 import axios from "axios";
+import ErrorMessage from "./ErrorMessage";
 export default {
   name: "AddTaskForm",
   props: ["CategoryId"],
@@ -43,7 +46,9 @@ export default {
         description: "",
         due_date: "",
         CategoryId: 0
-      }
+      },
+      error: false,
+      messages: []
     }
   },
   methods: {
@@ -69,6 +74,12 @@ export default {
       })
       .catch((err) => {
           console.log(err);
+          this.messages = err.response.data.messages;
+          this.error = true;
+          this.$nextTick(()=> {
+            console.log(this.$refs.error)
+             this.$refs.error[0].$el.scrollIntoView();
+          });
       })
       .finally(() => {
           this.task.title = "";
@@ -76,6 +87,9 @@ export default {
           this.task.due_date = "";
       });
     }
+  },
+  components: {
+    ErrorMessage
   }
 }
 </script>

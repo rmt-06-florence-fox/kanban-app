@@ -26,6 +26,13 @@
   </div>
 </template>
 <script>
+import Vue from 'vue';
+import { LoaderPlugin } from 'vue-google-login';
+
+Vue.use(LoaderPlugin, {
+  client_id: "861795519447-99qjkijf9agup0r284t2mp7g3g7uu4d0.apps.googleusercontent.com"
+});
+
 export default {
   name: "NavBar",
   data() {
@@ -43,9 +50,11 @@ export default {
     logout() {
       this.changePage("login-page");
       localStorage.clear();
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function() {
-      console.log('User signed out.');
+
+      Vue.GoogleAuth.then(auth2 => {
+        auth2.signOut().then(function() {
+          console.log('User signed out.');
+        });
       });
     },
     search() {
