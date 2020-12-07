@@ -94,7 +94,7 @@ export default {
             axios({
                 method : 'get',
                 // url : 'http://localhost:3000/task/category',
-                url : 'https://kanban-server-p2.herokuapp.com/category',
+                url : 'https://kanban-server-p2.herokuapp.com/task/category',
                 headers : {
                     access_token  
                 }
