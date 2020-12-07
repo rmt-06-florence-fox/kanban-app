@@ -1,5 +1,8 @@
 # Kanban App
 
+DEMO
+[Kanban App](https://kanbanapp-24c17.web.app/)
+
 List of available endpoints:
 
 - `POST /register`
