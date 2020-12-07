@@ -29,7 +29,7 @@
       <div class="edit-task-page" v-if="pageEdit">
       <form action="" @submit.prevent='editTask(filteredTask)'>
         <textarea class ="edit-task" name="edit-task" v-model="editTitle" style="width:auto"></textarea>
-        <button type="submit" class="fas fa-check" style='font-size:15px;color:grey;border:0px'><label class="ml-2">Edit Task</label></button>
+        <button type="submit" class="fas fa-check" style='font-size:15px;color:grey;border:0px'  > <label class="ml-2">Edit Task</label></button>
         <button type="button" class="fas fa-times" style='font-size:15px;color:grey;border:0px' @click="cancel()"><label class="ml-2">Cancel</label></button>
       </form>
     </div>
