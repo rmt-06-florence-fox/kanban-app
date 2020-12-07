@@ -233,7 +233,9 @@
 }
 ```
 **Success Response:**
+
   **Code:** 200 OK <br />
+
   **Content:** 
   ```json ```
   {
@@ -245,6 +247,7 @@
     "updatedAt": "2020-12-01T12:09:00.604Z",
     "createdAt": "2020-12-01T12:09:00.604Z"
 }
+
 **Error Response:**
    **Code:** 400 BAD REQUEST <br />
     **message** 
