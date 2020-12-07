@@ -61,7 +61,7 @@ export default {
     },
     fetchEditData(CategoryId) {
       axios({
-          url: `http://localhost:3000/categories/${CategoryId}`,
+          url: `https://kanbanrud.herokuapp.com/categories/${CategoryId}`,
           method: "GET",
           headers: {
               access_token: localStorage.getItem("access_token")

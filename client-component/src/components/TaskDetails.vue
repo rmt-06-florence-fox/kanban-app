@@ -54,7 +54,7 @@ export default {
   methods: {
     editTask() {
       axios({
-          url: `http://localhost:3000/tasks/${this.TaskId}`,
+          url: `https://kanbanrud.herokuapp.com/tasks/${this.TaskId}`,
           method: "PUT",
           headers: {
               access_token: localStorage.getItem("access_token")

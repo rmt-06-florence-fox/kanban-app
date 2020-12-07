@@ -47,10 +47,6 @@ export default {
   props: ["CategoryId", "categoryEditData"],
   data() {
     return {
-      category: {
-        name: "",
-        color: ""
-      },
       error:false,
       messages: []
     }
@@ -58,7 +54,7 @@ export default {
   methods: {
     editCategory() {
       axios({
-          url: `http://localhost:3000/categories/${this.CategoryId}`,
+          url: `https://kanbanrud.herokuapp.com/categories/${this.CategoryId}`,
           method: "PUT",
           headers: {
               access_token: localStorage.getItem("access_token")
@@ -84,6 +80,15 @@ export default {
           });
       })
     }
+  },
+  computed: {
+    category() {
+      let obj = {
+        name: this.categoryEditData.name,
+        color: this.categoryEditData.color
+      }
+    return obj;
+    } 
   },
   components: {
     ErrorMessage
