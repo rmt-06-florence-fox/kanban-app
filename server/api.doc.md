@@ -320,11 +320,14 @@
 **Delete Task**
 ----
   Delete task by Id
+
  **URL**
   `https://kanban-app-ym.herokuapp.com/tasks/:id`
 
+
  **Method:**
   `DELETE`
+
 
 **Request :**
 
@@ -341,11 +344,13 @@
 ```
 **Success Response:**
   * **Code:** 200 OK <br />
+
 ```json
   {
     "message": "Task deleted"
   } 
 ```
+
 **Error Response:**
   * **Code:** 400 BAD REQUEST <br />
     **message** 
