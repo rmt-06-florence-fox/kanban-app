@@ -63,7 +63,7 @@ export default {
   methods: {
     register() {
       axios({
-        url: "http://localhost:3000/register",
+        url: "https://kanbanrud.herokuapp.com/register",
         method: "POST",
         data: this.userRegister
       })

@@ -117,7 +117,7 @@ export default {
     },
     fetchCategories() {
       axios({
-        url: `http://localhost:3000/categories`,
+        url: `https://kanbanrud.herokuapp.com/categories`,
         method: "GET",
         headers: {
             access_token: localStorage.getItem("access_token")
@@ -132,7 +132,7 @@ export default {
     },
     fetchTasks() {
       axios({
-          url: `http://localhost:3000/tasks`,
+          url: `https://kanbanrud.herokuapp.com/tasks`,
           method: "GET",
           headers: {
               access_token: localStorage.getItem("access_token")

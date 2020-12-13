@@ -40,7 +40,7 @@ export default {
   methods: {
     deleteTask() {
       axios({
-          url: `http://localhost:3000/tasks/${this.TaskId}`,
+          url: `https://kanbanrud.herokuapp.com/tasks/${this.TaskId}`,
           method: "DELETE",
           headers: {
               access_token: localStorage.getItem("access_token")
