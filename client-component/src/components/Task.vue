@@ -1,6 +1,6 @@
 <template>
   <div>                
-    <div class="task-header">{{task.User.first_name + task.User.last_name}}</div>
+    <div class="task-header">{{ task.User.first_name }} {{ task.User.last_name }}</div>
     <div class="task-title-container">
       <div class="task-title">{{task.title}}</div>
     </div>

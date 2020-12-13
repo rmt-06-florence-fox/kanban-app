@@ -9,15 +9,14 @@
         </button>
         <button @click="changePage('main-page')" type="button" class="btn btn-light home-btn">Home</button>
       </div>
-      <!-- <div class="form-group search-container">
-        <select v-model="key.by" class="form-control search-by" name="search-by">
-          <option selected>Name</option>
-          <option>Title</option>
-          <option>Due</option>
+      <div class="form-group search-container">
+        <select v-model="searchKey.by" class="form-control search-by" name="search-by">
+          <option value="name" selected>Name</option>
+          <option value="title">Title</option>
+          <option value="due">Due</option>
         </select>
-        <input v-model="key.words" class="form-control search border-light" type="text" placeholder="search ...">
-         <button type="button" class="btn-warning rounded" @click="search">GO</button>
-      </div> -->
+        <input v-model="searchKey.words" @keyup="filterSearch" class="form-control search border-light" type="text" placeholder="search ...">
+      </div>
       <div id="right-btn-container">
         <button @click="$emit('show-add-category-form')" type="button" class="btn btn-light ml-auto btn-add-category">Add Category</button>
         <button @click="logout" type="button" class="btn btn-light" id="btn-logout">Log out</button>
@@ -37,8 +36,8 @@ export default {
   name: "NavBar",
   data() {
     return {
-      key: {
-        by: "",
+      searchKey: {
+        by: "name",
         words: ""
       }
     }
@@ -57,9 +56,10 @@ export default {
         });
       });
     },
-    search() {
-      console.log(this.key);
-      this.$emit("setKey", this.key);
+    filterSearch() {
+      if (this.searchKey.words !== "") {
+         this.$emit("setSearchKey", this.searchKey);
+      }
     }
   }
 }

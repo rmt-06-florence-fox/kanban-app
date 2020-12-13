@@ -326,12 +326,12 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
 
 .add-task-icon {
    position: relative;
-   right: 2rem;
+   right: 2.3rem;
 }
 
 .delete-category-icon {
    position: relative;
-   left: 2rem;
+   left: 2.3rem;
 }
 
 .add-edit-form-content {

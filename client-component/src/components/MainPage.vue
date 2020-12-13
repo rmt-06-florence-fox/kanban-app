@@ -5,7 +5,7 @@
           <div class="row flex-nowrap" id="board-content">
             <NavBar
               @changePage="changePage"
-              @setKey="setKey"
+              @setSearchKey="setSearchKey"
               @show-add-category-form="addCategoryForm = true">
             </NavBar>
             <Category
@@ -15,6 +15,7 @@
               :category="item"
               :tasks="tasks"
               :chosenTaskData="chosenTaskData"
+              :searchKey="searchKey"
               @setChosenTaskData="setChosenTaskData"
               @setCategoryId="setCategoryId"
               @show-add-task-form="addTaskForm = true"
@@ -101,7 +102,7 @@ export default {
       CategoryId: 0,
       categories: [],
       tasks: [],
-      key: {},
+      searchKey: {},
       addTaskForm: false,
       addCategoryForm: false,
       taskDetails: false,
@@ -159,9 +160,9 @@ export default {
     setCategoryEditData(categoryEditData) {
       this.categoryEditData = categoryEditData;
     },
-    setKey(key) {
-      this.key = key
-      console.log(this.key);
+    setSearchKey(searchKey) {
+      console.log(searchKey)
+      this.searchKey = searchKey;
     },
     closeTaskDetails() {
       if (deleteTaskConfirmation) {
@@ -172,17 +173,6 @@ export default {
     },
     setChosenTaskData(chosenTaskData) {
       this.chosenTaskData= chosenTaskData;
-    }
-  },
-  computed: {
-    filteredTask: function () {
-        if (this.key.words && this.key.by) {
-          return this.tasks.filter(task => {
-            return task[this.key.by].toLowerCase().includes(this.key.words.toLowerCase());
-          })
-        } else {
-          return this.tasks;
-        }
     }
   },
   watch: {
