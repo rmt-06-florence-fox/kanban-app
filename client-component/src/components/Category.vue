@@ -12,11 +12,12 @@
       <draggable :id="category.id"
                 v-bind="{group:'tasks'}" @start="drag=true" 
                 @end="drag=false" @add="newTask">
-        <div class="no-task" v-if="!tasksLength"><h6>No Tasks ...</h6></div>
-        <div v-for="item in filteredTasks"
+        <div class="no-task" v-if="!filteredTasksLength"><h6>No Tasks ...</h6></div>
+        <div class="no-task" v-else-if="!filteredSearchLength"><h6>No results from your search ... </h6></div>
+        <div v-for="item in filteredSearch"
           :key="item.id">
           <draggable :id="item.id"
-            v-model="filteredTasks"
+            v-model="filteredSearch"
             v-bind="{group: { name:'tasks', pull:'clone', put:'false'}}"
             @start="drag=true"
             @end="drag=false"
@@ -41,7 +42,7 @@ import draggable from "vuedraggable";
 
 export default {
   name: "Category",
-  props: ["category", "tasks", "chosenTaskData"],
+  props: ["category", "tasks", "chosenTaskData", "searchKey"],
   data() {
     return {
       CategoryId: 0,
@@ -138,8 +139,29 @@ export default {
           return (task.CategoryId === this.category.id);
       })
     },
-    tasksLength() {
+    filteredTasksLength() {
       return this.filteredTasks.length;
+    },
+    filteredSearchLength() {
+      return this.filteredSearch.length;
+    },
+    filteredSearch: function () {
+      if (this.searchKey.words && this.searchKey.by && this.filteredTasks.length !== 0) {
+        return this.filteredTasks.filter((task) => {
+          if (this.searchKey.by === "name") {
+            const fullName = `${task.User.first_name} ${task.User.last_name}`
+            if (fullName.toLowerCase().includes(this.searchKey.words.toLowerCase())) {
+                return task;
+            }  
+          } else if (this.searchKey.by === "due") {
+              return task.due_date.includes(this.searchKey.words);
+          } else {
+              return task.title.toLowerCase().includes(this.searchKey.words.toLowerCase());
+          }
+        })
+      } else {
+        return this.filteredTasks;
+      }
     }
   },
   components: {
@@ -149,5 +171,5 @@ export default {
 }
 </script>
 <style>
-  
+
 </style>
