@@ -61,7 +61,7 @@ export default {
   methods: {
     login(){
       axios({
-        url: "https://kanbanrud.herokuapp.com/login",
+        url: "http://localhost:3000/login",
         method: "POST",
         data: this.userLogin
       })
@@ -91,7 +91,7 @@ export default {
     onSuccess(googleUser) {
       var googleToken = googleUser.getAuthResponse().id_token;
       axios({
-          url: "https://kanbanrud.herokuapp.com/googleLogin",
+          url: "http://localhost:3000/googleLogin",
           method: "POST",
           data: {
               googleToken

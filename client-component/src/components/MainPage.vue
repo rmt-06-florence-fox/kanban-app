@@ -10,10 +10,12 @@
             </NavBar>
             <Category
               v-for="item in categories"
-              :key="item.id" 
+              :key="item.id"
               v-bind:style="{ backgroundColor: item.color }"
               :category="item"
               :tasks="tasks"
+              :chosenTaskData="chosenTaskData"
+              @setChosenTaskData="setChosenTaskData"
               @setCategoryId="setCategoryId"
               @show-add-task-form="addTaskForm = true"
               @fetchCategories="fetchCategories"
@@ -24,7 +26,7 @@
               @show-edit-category-form="editCategoryForm = true"
               @setCategoryEditData="setCategoryEditData"
               @show-delete-category-confirmation="deleteCategoryConfirmation = true"
-              class="category-container col-2">
+              class="category-container">
             </Category>
             <AddCategoryForm
               v-if="addCategoryForm"
@@ -87,6 +89,8 @@ import TaskDetails from "./TaskDetails";
 import EditCategoryForm from "./EditCategoryForm";
 import DeleteCategoryConfirmation from "./DeleteCategoryConfirmation";
 import DeleteTaskConfirmation from "./DeleteTaskConfirmation";
+import draggable from "vuedraggable";
+
 export default {
   nama: "MainPage",
   data() {
@@ -103,7 +107,8 @@ export default {
       taskDetails: false,
       editCategoryForm: false,
       deleteCategoryConfirmation: false,
-      deleteTaskConfirmation: false
+      deleteTaskConfirmation: false,
+      chosenTaskData: {}
     }
   },
   methods: {
@@ -112,7 +117,7 @@ export default {
     },
     fetchCategories() {
       axios({
-        url: `https://kanbanrud.herokuapp.com/categories`,
+        url: `http://localhost:3000/categories`,
         method: "GET",
         headers: {
             access_token: localStorage.getItem("access_token")
@@ -127,7 +132,7 @@ export default {
     },
     fetchTasks() {
       axios({
-          url: `https://kanbanrud.herokuapp.com/tasks`,
+          url: `http://localhost:3000/tasks`,
           method: "GET",
           headers: {
               access_token: localStorage.getItem("access_token")
@@ -164,6 +169,9 @@ export default {
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
       }
+    },
+    setChosenTaskData(chosenTaskData) {
+      this.chosenTaskData= chosenTaskData;
     }
   },
   computed: {
@@ -262,7 +270,8 @@ export default {
     TaskDetails,
     EditCategoryForm,
     DeleteCategoryConfirmation,
-    DeleteTaskConfirmation
+    DeleteTaskConfirmation,
+    draggable
   },
   created() {
     this.fetchCategories();

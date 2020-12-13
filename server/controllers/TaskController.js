@@ -71,7 +71,7 @@ class TaskController {
         try {
             const id = Number(req.params.id);
             const obj = {
-                category: req.body.category
+                CategoryId: req.body.CategoryId
             }
             const result = await Task.update(obj, {
                 where: {

@@ -58,7 +58,7 @@ export default {
   methods: {
     addCategory() {
       axios({
-          url: "https://kanbanrud.herokuapp.com/categories",
+          url: "http://localhost:3000/categories",
           method: "POST",
           headers: {
               access_token: localStorage.getItem("access_token")
