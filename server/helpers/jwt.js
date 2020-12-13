@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 function sign(id, email) {
-    return jwt.sign({ id, email}, process.env.SECRET, { expiresIn: 60 * 60 });
+    return jwt.sign({ id, email}, process.env.SECRET);
 }
 
 function verifyToken(token) {
