@@ -58,6 +58,7 @@
 }
 
 label {
+   width:100%;
    text-align: left;
    font-weight: 700;
 }
@@ -141,6 +142,7 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
 
 .home-btn {
    border: solid black 0.1rem;
+
 }
 
 .btn-add-category {
@@ -263,7 +265,7 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
 .category-container {
     border: solid black 0.1rem;
     border-radius: 0.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
     padding-top: 1rem;
     height: auto;
     margin-top: 3rem;
@@ -271,7 +273,8 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
     /* margin-right: 0.5rem; */
  }
  
-#category-content {
+.category-content {
+   padding: 0rem 0.5rem;
    overflow-x: hidden;
    overflow-y: auto;
 }
@@ -323,13 +326,12 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
 
 .add-task-icon {
    position: relative;
-   right: 1.5rem;
+   right: 2rem;
 }
-
 
 .delete-category-icon {
    position: relative;
-   left: 1.5rem;
+   left: 2rem;
 }
 
 .add-edit-form-content {
@@ -377,6 +379,7 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
     font-size: 0.8rem;
     height: 7rem;
     margin-top: 0;
+    background-color: white;
 }
 .task-header {
     font-weight: 700;
@@ -420,4 +423,27 @@ input[type=text], input[type=email], input[type=password], input[type=date]  {
 
 .error {
    text-align: center;
+}
+
+.draggable-container {
+   min-height: 78vh;
+}
+
+.no-task {
+   display: flex;
+   flex-direction: column;
+   border: solid black 0.1rem;
+   border-radius: 0.3rem;
+   padding: 0.5rem;
+   font-size: 0.8rem;
+   height: 7rem;
+   margin-top: 0;
+   background-color: white;
+   justify-content: center;
+   align-items: center;
+}
+
+.navbar-left {
+   display: flex;
+   align-items: center;
 }

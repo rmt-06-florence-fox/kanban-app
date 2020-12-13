@@ -100,7 +100,7 @@ export default {
     },
     fetchEditData(TaskId) {
       axios({
-          url: `https://kanbanrud.herokuapp.com/tasks/${TaskId}`,
+          url: `http://localhost:3000/tasks/${TaskId}`,
           method: "GET",
           headers: {
               access_token: localStorage.getItem("access_token")

@@ -107,8 +107,9 @@ _Request Body_
 {
   "title": "<title to get insert into>",
   "description": "<description to get insert into>",
-  "category": "<category to get insert into>",
   "due_date": "<due_date to get insert into>",
+  "UserId": "<UserId to get insert into>",
+  "CategoryId": "<CategoryId to get insert into>"
 }
 ```
 _Response (201 - Created)_
@@ -117,9 +118,9 @@ _Response (201 - Created)_
   "id": <task id>,
   "title": "<task title>",
   "description": "<task description>",
-  "category": "<task category>",
   "due_date": "<task due_date>",
-  "UserId": <user id>,
+  "UserId": "<task UserId>",
+  "CategoryId": "<task CategoryId>",
   "updatedAt": "2020-11-28T09:57:17.359Z",
   "createdAt": "2020-11-28T09:57:17.359Z",
 }
@@ -167,9 +168,9 @@ _Response (200 - OK)_
     "id": "<task id>",
     "title": "<task title>",
     "description": "<task description>",
-    "category": "<task category>",
     "due_date": "<task due_date>",
-    "UserId": "<user id>,"
+    "UserId": "<task UserId>",
+    "CategoryId": "<task CategoryId>",
     "createdAt": "2020-11-25T00:09:34.514Z",
     "updatedAt": "2020-11-25T00:09:34.514Z"
   }
@@ -207,9 +208,9 @@ _Response (200 - OK)_
     "id": <task id by request>,
     "title": "<task title>",
     "description": "<task description>",
-    "category": "<task category>",
     "due_date": "<task due_date>",
-    "UserId": <user id>,
+    "UserId": "<task UserId>",
+    "CategoryId": "<task CategoryId>",
     "updatedAt": "2020-11-28T09:57:17.359Z",
     "createdAt": "2020-11-28T09:57:17.359Z",
   }
@@ -247,8 +248,9 @@ _Request Body_
 {
   "title": "<task previous title>",
   "description": "<task previous description>",
-  "category": "<task previous category>",
   "due_date": "<task previous due_date>",
+  "UserId": "<task UserId>",
+  "CategoryId": "<task CategoryId>"
 }
 ```
 _Response (200 - OK)_
@@ -257,9 +259,9 @@ _Response (200 - OK)_
   "id": <task id>,
   "title": "<task updated title>",
   "description": "<task updated description>",
-  "category": "<task category>",
   "due_date": "<task updated due_date>",
-  "UserId": <user id>,
+  "UserId": "<task UserId>",
+  "CategoryId": "<task CategoryId>",
   "updatedAt": "2020-11-28T09:57:17.359Z",
   "createdAt": "2020-11-28T09:57:17.359Z",
 }
@@ -311,7 +313,7 @@ _Request Header_
 _Request Body_
 ```
 {
-  "category": "<task previous category>"
+  "CategoryId": "<task previous CategoryId>"
 }
 ```
 _Response (200 - OK)_
@@ -320,9 +322,9 @@ _Response (200 - OK)_
   "id": <task id>,
   "title": "<task title>",
   "description": "<task description>",
-  "category": "<task updated category>",
   "due_date": "<task due_date>",
-  "UserId": <user id>,
+  "UserId": "<task UserId>",
+  "CategoryId": "<task updated CategoryId>"
   "updatedAt": "2020-11-28T09:57:17.359Z",
   "createdAt": "2020-11-28T09:57:17.359Z",
 }

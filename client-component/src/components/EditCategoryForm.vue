@@ -54,7 +54,7 @@ export default {
   methods: {
     editCategory() {
       axios({
-          url: `https://kanbanrud.herokuapp.com/categories/${this.CategoryId}`,
+          url: `http://localhost:3000/categories/${this.CategoryId}`,
           method: "PUT",
           headers: {
               access_token: localStorage.getItem("access_token")

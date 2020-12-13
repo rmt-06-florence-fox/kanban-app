@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-light bg-light fixed-top">
-      <div>
+      <div class="navbar-left">
         <button type="button" @click="changePage('main-page')" class="navbar-brand rounded">
             <img src="../assets/kanban-logo.svg" width="30" height="30" class="d-inline-block align-top" alt=""
                 loading="lazy">
