@@ -41,7 +41,7 @@ export default {
   methods: {
     deleteCategory() {
       axios({
-          url: `http://localhost:3000/categories/${this.CategoryId}`,
+          url: `https://kanbanrud.herokuapp.com/categories/${this.CategoryId}`,
           method: "DELETE",
           headers: {
               access_token: localStorage.getItem("access_token")

@@ -55,7 +55,7 @@ export default {
     addTask() {
       this.task.CategoryId = this.CategoryId;
       axios({
-          url: "http://localhost:3000/tasks",
+          url: "https://kanbanrud.herokuapp.com/tasks",
           method: "POST",
           headers: {
               access_token: localStorage.getItem("access_token")
