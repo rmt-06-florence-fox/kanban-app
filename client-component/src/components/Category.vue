@@ -76,7 +76,7 @@ export default {
     },
     fetchEditData(CategoryId) {
       axios({
-          url: `http://localhost:3000/categories/${CategoryId}`,
+          url: `https://kanbanrud.herokuapp.com/categories/${CategoryId}`,
           method: "GET",
           headers: {
               access_token: localStorage.getItem("access_token")
@@ -114,7 +114,7 @@ export default {
     newTask(event) {
       if (this.chosenTaskData.CategoryId !== Number(event.to.id)) {
         axios({
-          url: `http://localhost:3000/tasks/${this.chosenTaskData.id}`,
+          url: `https://kanbanrud.herokuapp.com/tasks/${this.chosenTaskData.id}`,
           method: "PATCH",
           headers: {
               access_token: localStorage.getItem("access_token")
