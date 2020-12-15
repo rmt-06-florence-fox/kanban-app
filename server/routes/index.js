@@ -13,10 +13,10 @@ router.post("/categories", Controller.newCategory)
 router.put("/categories/:id", Controller.updateCategoryName)
 
 router.get("/tasks", Controller.getAllTask)
-router.get("/tasksById", Controller.getTaskById)
 router.put("/tasks/:id", authorization, Controller.updateTask)
 router.patch("/tasks/:id", authorization, Controller.updateCategory)
 router.delete("/tasks/:id", authorization, Controller.deleteTask)
+router.delete("/categories/:id", Controller.deleteCategory)
 
 
 module.exports = router

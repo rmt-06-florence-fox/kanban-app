@@ -84,13 +84,16 @@ class Controller {
     }
     //==================================to table task
     static async addTask(req, res, next) { //create task - post
-        console.log("masuk controler", req.body);
-        
         try {
             const UserId = req.loggedInUser.id
-            const { title } = req.body
-            const input = { title, UserId }
-            const task = await Task.create(input, { returning: true })
+            const { title, CategoryId  } = req.body
+            const input = { title, UserId, CategoryId }
+            const task = await Task.create(input, { 
+                where: {
+                    CategoryId: CategoryId
+                },
+                returning: true 
+            })
             console.log("mdsfasdf", task);
             res.status(201).json(task)
         } catch (err) {
@@ -98,13 +101,7 @@ class Controller {
         }
     }
     static async getAllTask(req, res, next) { //show all task - post
-        // try {
-        //     const task = await Task.findAll({include: [User, Category]})
-        //     res.status(200).json(task)
-        // } catch (err) {
-        //     next(err)
-        // }
-        let dataTask
+        let dataTask;
         Task.findAll({include: [User, Category]})
         .then(task => {
             dataTask = task
@@ -132,8 +129,8 @@ class Controller {
     }
     static async updateTask(req, res, next) { // update task - put
         try {
-            const { title, CategoryId } = req.body
-            const input = { title, CategoryId }
+            const { title } = req.body
+            const input = { title }
             const task = await Task.update(input, { 
                 where: { 
                     id: req.params.id 
@@ -194,6 +191,18 @@ class Controller {
                 returning: true 
             })
             res.status(200).json(category[1][0])
+        } catch (err) {
+            next(err)
+        }
+    }
+    static async deleteCategory(req, res, next) { // delete task - delete
+        try {
+            const task = await Category.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).json({message: `Category with id: ${+req.params.id}, success to deleted`})
         } catch (err) {
             next(err)
         }

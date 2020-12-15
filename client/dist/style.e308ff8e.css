@@ -1,0 +1,78 @@
+.reg-log {
+    display: flex;
+    margin-top: 12%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+}
+
+
+.main {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.register {
+    padding: 10px;
+}
+
+.img-reg {
+    position: relative;
+    width: 600px;
+}
+
+#btn-signUp {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signUpG {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signIn {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signInG {
+    width: 90px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+#btn-signOut {
+    width: 70px;
+    font-size: smaller; 
+    padding: 1px;
+}
+
+
+
+#text-register {
+    text-decoration: underline;
+    text-align: center;
+    color: #05314e;
+}
+
+.form {
+    box-shadow: 0px 0px 5px #6C63FF;
+    border-radius: 20px
+}
+
+
+.google-signin-button {
+    color: white;
+    background-color: red;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px 20px 25px 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */

@@ -29,11 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER
   }, {
-    hooks: {
-      beforeCreate(instance, option) {
-        instance.CategoryId = 1
-      }
-    },
     sequelize,
     modelName: 'Task',
   });
