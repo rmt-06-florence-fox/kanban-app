@@ -7,36 +7,37 @@
         :tasks="tasks" 
         :categories="categories"
         @deleteTask="deleteTask"
-        ></Category>
-        <AddTask 
         @addTask="addTask"
-        ></AddTask>
+        @moveNext="moveNext"
+        ></Category>
     </div>
 </template>
 
 <script>
 import Navbar from './Navbar'
 import Category from './Category'
-import AddTask from './AddTask'
 
 export default {
     name: "Dashboard",
     props: ["tasks", "categories"],
     components: {
         Navbar,
-        Category,
-        AddTask
+        Category
     },
     methods: {
         logout() {
             this.$emit("logout");
         },
-        addTask(payload){
-            this.$emit("addTask",payload)
+        addTask(payload2){
+            console.log('masuk dash')
+            this.$emit("addTask",payload2)
         },
         deleteTask(id){
             this.$emit("deleteTask",id)
-        }
+        },
+        moveNext(data){
+            this.$emit("moveNext",data)
+        },
     }
 
 }

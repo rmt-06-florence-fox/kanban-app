@@ -17,6 +17,7 @@
             :categories="categories"
             v-else-if="currentPage == 'home-page'"
             @fetchTask="fetchTask"
+            @moveNext="moveNext"
             @logout="logout"
         ></Dashboard>
     </div>
@@ -112,13 +113,31 @@ export default {
                     console.log(err.response)
                 })
         },
-        addTask(payload) {
-            console.log('masuk add <<<<')
+        addTask(payload2) {
             const access_token = localStorage.getItem("access_token")
             axios ({
                 url: "https://kanban-app-deploy.herokuapp.com/tasks",
                 method: "POST",
-                data: payload,
+                data: payload2,
+                headers: {
+                    access_token
+                },
+            })
+                .then(() => {
+                    this.fetchTask();
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                })
+        },
+        moveNext(data) {
+            const access_token = localStorage.getItem("access_token")
+            axios ({
+                url: `https://kanban-app-deploy.herokuapp.com/tasks/${data.id}`,
+                method: "PATCH",
+                data: {
+                    category: data.category
+                },
                 headers: {
                     access_token
                 },
