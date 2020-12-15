@@ -11,8 +11,8 @@ G_PASS=bebasajalah
 # deploy site
 ```
 {
-    client: "https://kanban-sky.herokuapp.com",
-    server: "https://kanban-61d47.web.app"
+    client: "https://kanban-61d47.web.app",
+    server: "https://kanban-sky.herokuapp.com"
 }
 ```
 
