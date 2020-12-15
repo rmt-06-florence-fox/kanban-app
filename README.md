@@ -1,5 +1,22 @@
 # kanban-app
 
+
+# .env
+```
+SECRET=rahasiaumum
+GID=491928560190-5j444ikfnl28j4ksdan45bfvdaa5hvbd.apps.googleusercontent.com
+G_PASS=bebasajalah
+```
+
+# deploy site
+```
+{
+    client: "https://kanban-sky.herokuapp.com",
+    server: "https://kanban-61d47.web.app"
+}
+```
+
+
 ### POST /tasks
 > create task
 
@@ -185,7 +202,7 @@ no required
 _response (200)_
 ```
 {
-    "message": `task with id: ${+req.params.id}, success to deleted`}
+    "message": `task with id: ${+req.params.id}, success to deleted`
 }
 ```
 
