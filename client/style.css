@@ -1,0 +1,60 @@
+.front {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+.main {
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.register {
+    padding: 10px;
+}
+
+.form {
+    border-radius: 20px;
+    background-color: #f1f2f6;
+    padding: 30px
+}
+
+.front-img {
+    width: 400px;
+    position: relative;
+}
+
+.navbar {
+    background-color: #218c74;
+    color: whitesmoke;
+}
+
+.item {
+    padding: 15px;
+    color: whitesmoke;
+    width: 50px;
+}
+
+.card-header {
+    background-color: #218c74;
+    color: white;
+}
+
+.blue {
+    background-color: #00cec9;
+}
+
+.yellow {
+    background-color: #fdcb6e;
+}
+
+.red {
+    background-color: #00b894;
+}
+
+.samaritan {
+    background-color: #3c6382;
+}
