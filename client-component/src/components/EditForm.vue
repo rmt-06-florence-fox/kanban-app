@@ -1,7 +1,6 @@
 <template>
     <div>
         <form class="mt-1 " @submit.prevent="edit(task.id)">
-            <input type="text" :value="task.id">
             <h5 style="text-align: center;">Edit Task</h5>
             <div class="form-group">
                 <label for="">Title</label>
@@ -10,7 +9,6 @@
             <div class="form-group">
                 <label for="inputState">Category</label>
                 <select v-model="category" id="inputState" class="form-control">
-                    <option>Option</option>
                     <option>Backlog</option>
                     <option>Todo</option>
                     <option>Doing</option>
@@ -45,6 +43,10 @@ export default {
             }
             this.$emit("EditPage", "Main Page", payload, id)
         }
+    },
+    created () {
+        this.title = this.task.title
+        this.category = this.task.category
     }
 }
 </script>

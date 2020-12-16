@@ -8,10 +8,13 @@
             </div>
             <div class="col-auto my-1">
             <label class="sr-only" for="inlineFormCustomSelect">Preference</label>
-            <select v-model="categori" class="custom-select" id="inlineFormCustomSelect">
-                <option selected disabled>Choose</option>
-                <option :value="item" v-for="item in category" :key="item.id">{{item}}</option>
-            </select>
+            <div class="form-group">
+                <label for="inputState">Category</label>
+                <select v-model="categori" id="inputState" class="form-control">
+                    <option selected disabled>Choose</option>
+                    <option :value="item" v-for="item in category" :key="item.id">{{item}}</option>
+                </select>
+            </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <span @click="mainPage" class="btn btn-primary">Back</span>

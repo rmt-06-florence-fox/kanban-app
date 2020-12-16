@@ -48,7 +48,8 @@ export default {
     data() {
         return {
             pageName: "Login Page",
-            url: "https://arfafa-kanban.herokuapp.com/",
+            // url: "https://arfafa-kanban.herokuapp.com/",
+            url: "http://localhost:3000/",
             tasks: [],
             task: "",
             category: ['Backlog', 'Todo', 'Doing', 'Done']
