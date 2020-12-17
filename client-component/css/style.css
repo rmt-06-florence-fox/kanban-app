@@ -1,0 +1,19 @@
+body, html {
+    height: 100%;
+}
+
+.custom-bg {
+    background-image: url("https://miro.com/blog/wp-content/uploads/2019/12/kanaban-post-cover.svg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.custom-navbar {
+    background-color: aquamarine;
+    color: wheat;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
