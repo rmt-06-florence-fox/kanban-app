@@ -31,8 +31,8 @@ class Controller {
             const findUser = await User.findOne({where : {email : data.email}})
             if(!findUser){
                 throw {
-                    status : 404,
-                    message : 'data not found'
+                    status : 400,
+                    message : 'data invalid'
                 }
             } else {
                 if(checkPassword(data.password, findUser.password)){
