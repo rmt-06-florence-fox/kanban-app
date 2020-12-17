@@ -21,62 +21,44 @@
             </div>
         </nav>
         <div class="boards-container">
-            <div class="boards-container-board" style="background-color:coral;">
-                <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Back Log </h1></div>
-                <!-- <h2 v-text="text"></h2>
-                <div v-html="pesan"></div> -->
-                <Card v-for="task in filterBackLog" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
-                
-                </Card> 
-                
-            </div>
-            <div class="boards-container-board" style="background-color:chartreuse;">
-                <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Products </h1></div>
-                
-                <Card v-for="task in filterProducts" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
-                
-                </Card> 
-            </div>
-            <div class="boards-container-board" style="background-color:lightcyan;">
-                <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Development </h1></div>
-                
-                <Card v-for="task in filterDevelopment" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
-                
-                </Card> 
-            </div>
-            <div class="boards-container-board" style="background-color:violet;">
-                <div class="mx-auto" style="background: white; width: 100%; text-align:center;"><h1 >Done </h1></div>
-                
-                <Card v-for="task in filterDone" :key="task.id" :task=task class="mt-3" @destroy = 'destroy' @goToEdit = 'goToEdit'>
-                
-                </Card> 
-            </div>
-        </div>
+            <Category v-for="(category,index) in categories" :key="index" :category="category" :kanban="kanban"
+              @destroy='destroy'
+              @goToEdit='goToEdit'
+            >
+
+            </Category>
     </section>
 </template>
 
 <script>
+import Category from './Category'
 import Card from "./Card"
+
 export default {
     name: "HomePage",
     props: ["kanban"],
-    computed:{
-        filterBackLog(){
-            const list = this.kanban.filter(item => item.progress === "backlog")
+    data () {
+        return {
+            categories: ["backlog", "products", "development", "done"]
+        }
+    },
+    computed:{ // bikin filter jadi ada 1 aja 
+        filtered(payload){ // dibikin membawa parameter payload 
+            const list = this.kanban.filter(item => item.progress === payload) // lalu, item.progress === payload
             return list
-        },
-        filterProducts(){
-            const list = this.kanban.filter(item => item.progress === "products")
-            return list
-        },
-        filterDevelopment(){
-            const list = this.kanban.filter(item => item.progress === "development")
-            return list
-        },
-        filterDone(){
-            const list = this.kanban.filter(item => item.progress === "done")
-            return list
-        },
+        }
+        // filterProducts(){
+        //     const list = this.kanban.filter(item => item.progress === "products")
+        //     return list
+        // },
+        // filterDevelopment(){
+        //     const list = this.kanban.filter(item => item.progress === "development")
+        //     return list
+        // },
+        // filterDone(){
+        //     const list = this.kanban.filter(item => item.progress === "done")
+        //     return list
+        // }
     },
     methods: {
         signOut(){
@@ -85,7 +67,7 @@ export default {
         switchPage(pageName){
             this.$emit('switchPage', pageName)
         },
-        destroy(id) {
+        destroy (id) {
             console.log(id, "masuk ke homepage.vue")
             this.$emit('destroy', id)
         },
@@ -98,7 +80,8 @@ export default {
         // }
     },
     components: {
-        Card
+        Card,
+        Category
     }
 }
 </script>
