@@ -15,6 +15,7 @@
       @logoutKanban="logout"
       @fetchDataApp="fetchData"
       :dataCard="dataCard"
+      :dataCardById="dataCardById"
       @addData="addData"
       @deleteTask="deleteTask"
       @editTask="editTask"
@@ -35,6 +36,7 @@ export default {
     return {
       currentPage: "loginPage",
       dataCard: [],
+      dataCardById: {},
     };
   },
   components: {
@@ -46,7 +48,7 @@ export default {
     login(loginData) {
       axios({
         method: "POST",
-        url: "https://adhim1st-kanban-app.herokuapp.com/users/login",
+        url: "http://localhost:3000/users/login",
         data: {
           email: loginData.email,
           password: loginData.password,
@@ -66,7 +68,7 @@ export default {
     register(registerData) {
       axios({
         method: "POST",
-        url: "https://adhim1st-kanban-app.herokuapp.com/users/register",
+        url: "http://localhost:3000/users/register",
         data: {
           email: registerData.email,
           password: registerData.password,
@@ -83,7 +85,7 @@ export default {
     fetchData() {
       axios({
         method: "GET",
-        url: "https://adhim1st-kanban-app.herokuapp.com/tasks",
+        url: "http://localhost:3000/tasks",
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -100,7 +102,7 @@ export default {
       console.log(payload, "dari app");
       axios({
         method: "POST",
-        url: "https://adhim1st-kanban-app.herokuapp.com/tasks",
+        url: "http://localhost:3000/tasks",
         data: payload,
         headers: {
           access_token: localStorage.getItem("access_token"),
@@ -118,33 +120,54 @@ export default {
       console.log(payload, id, "dari app");
       axios({
         method: "PUT",
-        url: `https://adhim1st-kanban-app.herokuapp.com/tasks/${id}`,
-        data: payload,
+        url: `http://localhost:3000/tasks/${id}`,
+        data: { name: payload.name, description: payload.description },
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
-      }).then((response) => {
-        console.log("success edit");
-        this.fetchData();
-      });
+      })
+        .then((response) => {
+          console.log("success edit");
+          this.fetchData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     deleteTask(id) {
       console.log(id, "dari app");
       axios({
         method: "DELETE",
-        url: `https://adhim1st-kanban-app.herokuapp.com/tasks/${id}`,
+        url: `http://localhost:3000/tasks/${id}`,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
       })
         .then((response) => {
           console.log("success delete");
+          console.log(response);
           this.fetchData();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
     getTaskById(id) {
       console.log(id, "from apps");
+      axios({
+        method: "GET",
+        url: `http://localhost:3000/tasks/${id}`,
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          this.dataCardById = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     logout() {
       localStorage.clear();

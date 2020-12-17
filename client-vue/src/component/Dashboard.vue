@@ -6,6 +6,7 @@
         :key="index"
         :category="categoryList"
         :dataCard="dataCard"
+        :dataCardById="dataCardById"
         @addData="addData"
         @deleteTask="deleteTask"
         @editTask="editTask"
@@ -23,7 +24,7 @@ export default {
       categoryList: ["Backlog", "Product", "Development", "Done"],
     };
   },
-  props: ["dataCard"],
+  props: ["dataCard", "dataCardById"],
   components: {
     Category,
   },

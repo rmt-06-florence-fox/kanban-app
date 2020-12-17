@@ -14,6 +14,7 @@
       :taskContent="task"
       @deleteTask="deleteTask"
       :category="category"
+      :dataCardById="dataCardById"
       @editTask="editTask"
       @getTaskById="getTaskById"
     ></Card>
@@ -77,7 +78,7 @@ export default {
       },
     };
   },
-  props: ["category", "dataCard"],
+  props: ["category", "dataCard", "dataCardById"],
   components: {
     Card,
     AddTask,

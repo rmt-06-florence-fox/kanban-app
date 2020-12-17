@@ -4,6 +4,7 @@
     <Dashboard
       @fetchDataKanban="fetchDataApp"
       :dataCard="dataCard"
+      :dataCardById="dataCardById"
       @addData="addData"
       @deleteTask="deleteTask"
       @editTask="editTask"
@@ -20,7 +21,7 @@ export default {
     Navbar,
     Dashboard,
   },
-  props: ["dataCard"],
+  props: ["dataCard", "dataCardById"],
   methods: {
     logoutKanban() {
       this.$emit("logoutKanban");

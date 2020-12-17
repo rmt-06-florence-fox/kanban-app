@@ -28,7 +28,7 @@
                     :id="'edit-title-' + category"
                     type="text"
                     class="validate"
-                    v-model="editData.name"
+                    v-model="edit.name"
                   />
                   <label :for="'edit-title-' + category">Title</label>
                 </div>
@@ -38,7 +38,7 @@
                     :id="'edit-description-' + category"
                     type="text"
                     class="validate"
-                    v-model="editData.description"
+                    v-model="edit.description"
                   />
                   <label :for="'add-description-' + category"
                     >Description</label
@@ -68,7 +68,7 @@
 
 <script>
 export default {
-  props: ["category", "taskContent"],
+  props: ["category", "taskContent", "dataCardById"],
   data() {
     return {
       editData: {
@@ -82,21 +82,19 @@ export default {
       this.$emit("deleteTask", this.taskContent.id);
     },
     editTask() {
-      const payload = {
-        name: this.editData.name,
-        description: this.editData.description,
-      };
-      this.$emit("editTask", payload, this.taskContent.id);
+      this.$emit("editTask", this.edit, this.taskContent.id);
     },
     getTaskById() {
       this.$emit("getTaskById", this.taskContent.id);
     },
   },
+  computed: {
+    edit() {
+      return this.dataCardById;
+    },
+  },
   mounted() {
     $(".modal").modal();
-  },
-  computed: {
-    showCardData() {},
   },
 };
 </script>

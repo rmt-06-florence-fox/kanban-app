@@ -3,7 +3,7 @@ const { Task } = require("../models");
 class TaskController {
   static getTask(req, res, next) {
     console.log(req.userData.id);
-    Task.findAll()
+    Task.findAll({ where: { UserId: req.userData.id } })
       .then((data) => {
         res.status(200).json(data);
       })
@@ -33,7 +33,15 @@ class TaskController {
       });
   }
 
-  static getTaskById(req, res, next) {}
+  static getTaskById(req, res, next) {
+    Task.findOne({ where: { id: req.params.id } })
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
 
   static editTask(req, res, next) {
     Task.update(
