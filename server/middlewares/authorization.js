@@ -2,7 +2,7 @@ const { Task } = require('../models');
 
 module.exports = async (req,res,next) => {
     try {
-        const todo = await Task.findOne({
+        const task = await Task.findOne({
             where: {
                 id: req.params.id
             }

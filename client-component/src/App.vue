@@ -29,7 +29,7 @@
     name: "App",
     data() {
       return {
-        baseUrl: 'http://localhost:3000/',
+        baseUrl: 'https://dry-forest-72122.herokuapp.com/',
         message: 'Hello',
         pageName: 'Login Page',
         categories:[
@@ -146,7 +146,7 @@
             access_token: localStorage.getItem('access_token')
           }
         })
-        .then(response => this.fetchData())
+        .then(response => this.fetchTask())
         .catch(err => console.log(err.response.data))
       },
       patchTask(id) {
@@ -174,7 +174,7 @@
           },
           data: data
         })
-        .then(response => this.fetchData())
+        .then(response => this.fetchTask())
         .catch(err => console.log(err.response.data))
       }
     },

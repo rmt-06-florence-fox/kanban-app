@@ -52,7 +52,7 @@ export default {
             this.$emit('idEdit', id)
             this.edit = this.dataEdit.title
             this.pageEdit = true
-            this.pagePatch = true
+            this.pagePatch = false
         },
         deleteTask(id) {
             console.log(id);
@@ -60,7 +60,8 @@ export default {
         },
         patchTask(id) {
             console.log(id);
-            this.$emit('idPatch', id)
+            // this.$emit('idPatch', id)
+            this.pagePatch = !this.pagePatch
         },
         updateTask(id) {
         const newTask = {
