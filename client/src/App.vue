@@ -18,7 +18,7 @@
       :categories='categories'
       :tasks='tasks'
       @addTask="addTask"
-      @getCategoryId="getCategoryId"
+      @deleteTask="deleteTask"
     ></KanbanPage>
 
     <ErrorPage 
@@ -120,15 +120,23 @@ export default {
         }
       })
       .then((result) => {
-        // return newTask = result.data.task.title
         this.fetchTask()
-        this.fetchCategory()
       }).catch((err) => {
         console.log(err)
       });
     },
-    getCategoryId(payload) {
-      console.log(payload, 'from this'); //!
+    deleteTask(id) {
+      const token = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: '/tasks/'+ id,
+        headers: {access_token: token},
+      })
+      .then((result) => {
+        this.fetchTask()
+      }).catch((err) => {
+        console.log(err)
+      });
     }
   },
   created() {

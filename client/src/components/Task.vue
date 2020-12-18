@@ -53,12 +53,11 @@ export default {
     }
   },
   methods: {
-    editTask() {
-      console.log('enter in edit task');
+    editTask(id) {
+      this.getId = id
     },
     deleteTask(id) {
-      const payload = {id}
-      console.log(payload);
+      this.$emit('deleteTask', id)
     }
   }
 }

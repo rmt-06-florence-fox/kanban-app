@@ -45,6 +45,7 @@
               :tasks="tasks"
               @addTask="addTask"
               @getCategoryId="getCategoryId"
+              @deleteTask="deleteTask"
             ></Category>
           </div>
         </div>
@@ -73,6 +74,9 @@ export default {
     },
     getCategoryId(payload) {
       this.$emit('getCategoryId', payload)
+    },
+     deleteTask(id) {
+      this.$emit('deleteTask', id)
     }
   }
 }

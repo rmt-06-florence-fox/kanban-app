@@ -11,6 +11,7 @@
           v-for="task in filterCategory" 
           :key="task.id"
           :task="task"
+          @deleteTask="deleteTask"
         ></Task>
         
       </div>
@@ -71,6 +72,9 @@ export default {
         title: this.title
       }
       this.$emit('addTask', payload)
+    },
+    deleteTask(id) {
+      this.$emit('deleteTask', id)
     }
   },
   computed: {
