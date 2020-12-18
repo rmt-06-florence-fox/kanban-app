@@ -24,7 +24,7 @@ class CategoryController {
 
         try {
             const data = await Category.create(newCategory)
-            res.status(201).json({data})
+            res.status(201).json(data)
         } catch (error) {
             next(error)
         }

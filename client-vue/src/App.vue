@@ -1,7 +1,8 @@
 <template>
     <div>
-        <LoginPage v-if="currentPage === 'LoginPage'" @login="login" @googleToken="loginGoogle"></LoginPage>
+        <LoginPage v-if="currentPage === 'LoginPage'" @login="login" @googleToken="loginGoogle" @toRegister="toRegister"></LoginPage>
         <MainPage  v-else-if="currentPage === 'ContentPage'" @logout="logout" :categories="categories" :listCategories="listCategories" @deleteTask="deleteTask" @addnewTask="addnewTask" @addnewCategory="addnewCategory" @deleteCategory="deleteCategory" @editTask="editTask"></MainPage>
+        <RegisterPage v-else-if="currentPage === 'RegisterPage'" @register="register" @backToLogin="backToLogin"></RegisterPage>
     </div>
 </template>
 
@@ -9,6 +10,7 @@
 import axios from 'axios'
 import LoginPage from './components/LoginPage'
 import MainPage from './components/MainPage'
+import RegisterPage from './components/RegisterPage'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -148,6 +150,29 @@ export default {
                 console.log(err)
             })
         },
+        toRegister(){
+            this.currentPage = 'RegisterPage'
+        },
+        register(name, email, password){
+            axios({
+                method: 'POST',
+                url: 'http://localhost:3000/register',
+                data: {
+                    name: name,
+                    email: email,
+                    password: password
+                }
+            })
+            .then(response => {
+                this.currentPage = 'LoginPage'
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        backToLogin(){
+            this.currentPage = 'LoginPage'
+        },
         logout(){
             this.currentPage = 'LoginPage'
             localStorage.removeItem('access_token')
@@ -172,7 +197,8 @@ export default {
     },
     components: {
         LoginPage,
-        MainPage
+        MainPage,
+        RegisterPage
     },
     created(){
         if(localStorage.getItem('access_token')){

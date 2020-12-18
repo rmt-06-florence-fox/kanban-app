@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <h3 class="signin-text mb-3">Sign In</h3>
-                <form action="" id="login">
+                <form>
                     <div class="form-group">
                         <label for="">Email</label>
                         <input v-model="email" type="text" class="form-control">
@@ -17,7 +17,8 @@
                     </div>
                     <button @click.prevent="login" class="btn btn-primary">Login</button>
                 </form>
-               <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
+               <button class="btn btn-success mt-2" @click="toRegister">Register</button>
+               <button v-google-signin-button="clientId" class="btn btn-dark mt-2"> Continue with Google</button>
             </div>
         </div>
     </div>
@@ -34,9 +35,11 @@ export default {
         }
     },
     methods: {
-        login(){
-            console.log(this.email, this.password)
+        login () {
             this.$emit("login", this.email, this.password)
+        },
+        toRegister () {
+            this.$emit("toRegister")
         },
         OnGoogleAuthSuccess (idToken) {
             console.log(idToken)
