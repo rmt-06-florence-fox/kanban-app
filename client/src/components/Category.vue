@@ -12,6 +12,7 @@
           :key="task.id"
           :task="task"
           @deleteTask="deleteTask"
+          @editTask="editTask"
         ></Task>
         
       </div>
@@ -75,6 +76,9 @@ export default {
     },
     deleteTask(id) {
       this.$emit('deleteTask', id)
+    },
+    editTask(payload) {
+      this.$emit('editTask', payload)
     }
   },
   computed: {

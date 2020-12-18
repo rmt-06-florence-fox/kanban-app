@@ -19,6 +19,7 @@
       :tasks='tasks'
       @addTask="addTask"
       @deleteTask="deleteTask"
+      @editTask="editTask"
     ></KanbanPage>
 
     <ErrorPage 
@@ -131,6 +132,23 @@ export default {
         method: 'DELETE',
         url: '/tasks/'+ id,
         headers: {access_token: token},
+      })
+      .then((result) => {
+        this.fetchTask()
+      }).catch((err) => {
+        console.log(err)
+      });
+    },
+    editTask(payload) {
+      const token = localStorage.getItem('access_token')
+      axios({
+        method: 'PUT',
+        url: '/tasks/'+ payload.id,
+        headers: {access_token: token},
+        data: { 
+          title: payload.title,
+          id: payload.id
+        }
       })
       .then((result) => {
         this.fetchTask()

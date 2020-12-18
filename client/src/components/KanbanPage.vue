@@ -46,6 +46,7 @@
               @addTask="addTask"
               @getCategoryId="getCategoryId"
               @deleteTask="deleteTask"
+              @editTask="editTask"
             ></Category>
           </div>
         </div>
@@ -77,7 +78,10 @@ export default {
     },
      deleteTask(id) {
       this.$emit('deleteTask', id)
-    }
+    },
+     editTask(payload) {
+      this.$emit('editTask', payload)
+   }
   }
 }
 </script>
