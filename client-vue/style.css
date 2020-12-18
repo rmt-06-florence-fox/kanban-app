@@ -1,0 +1,27 @@
+body{
+  margin: 0;
+  padding: 0;
+  background-image: url("./assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+/* navbar section */
+.navbar-container{
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;
+  align-items: center;
+  padding: 5px;
+}
+
+.card-container{
+  height: 500px;
+  overflow: scroll;
+}
+
+.card-container .card {
+  margin: 5px 5px;
+}
+/* end nav-bar section */
+
