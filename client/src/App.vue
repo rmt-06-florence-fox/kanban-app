@@ -64,27 +64,32 @@ export default {
         console.log(err);
       })
     },
-    // googleToken(value) {
-    //   axios({
-    //     url: baseUrl + 'googleLogin',
-    //     method: 'POST',
-    //     data: value
-    //   })
-    //   .then(response =>{
-    //     localStorage.setItem('access_token', response.data.access_token)
-    //     localStorage.setItem('email', response.data.email)
-    //     localStorage.setItem('id', response.data.id)
-    //     this.pageName = 'boardList'
-    //     this.fetchData()
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
-    // },
+    googleToken(value) {
+      axios({
+        url: baseUrl + 'googleLogin',
+        method: 'POST',
+        data: value
+      })
+      .then(response =>{
+        console.log(response, ',,,,');
+        localStorage.setItem('access_token', response.data.access_token)
+        localStorage.setItem('email', response.data.email)
+        localStorage.setItem('id', response.data.id)
+        this.pageName = 'boardList'
+        this.fetchData()
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },
     logout() {
         localStorage.removeItem('access_token')
         localStorage.removeItem('email')
         localStorage.removeItem('id')
+        // var auth2 = gapi.auth2.getAuthInstance();
+        // auth2.signOut().then(function () {
+        //   console.log('User signed out.');
+        // });
         this.currentPage = 'loginPage'
     },
     fetchData() {

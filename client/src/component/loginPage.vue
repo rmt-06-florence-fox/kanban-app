@@ -18,12 +18,14 @@
             <a href="" @click.prevent='register'>Register Here!</a><br><br>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
-          <br><googleLogin @googleToken="googleToken"></googleLogin> 
+          <!-- <br><googleLogin @googleToken="googleToken"></googleLogin>  -->
+          <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
     </div>
 </template>
 
 <script>
-  import googleLogin from './loginGoogle'
+  import GoogleLogin from 'vue-google-login';
+  // import googleLogin from './loginGoogle'
 export default {
     name: 'loginPage',
     data() {
@@ -31,11 +33,19 @@ export default {
           loginUser: {
             email: '',
             password: ''
-          }
+          },
+          params: {
+              client_id: "319018481967-djr87oommhegmh2ksuqv4alnc80am47d.apps.googleusercontent.com"
+          },
+          renderParams: {
+              width: 250,
+              height: 50,
+              longtitle: true
+          },
         }
     },
     components: {
-      googleLogin
+      GoogleLogin
     },
     methods: {
         login() {
@@ -45,8 +55,12 @@ export default {
         register() {
           this.$emit('changePage', 'registerPage')
         },
-        googleToken(value) {
-          this.$emit('googleToken', value)
+        onSuccess(idToken) {
+            // console.log(idToken);
+            this.$emit('googleToken', idToken)
+        },
+        onFailure(err) {
+            console.log(err);
         }
     }
 }

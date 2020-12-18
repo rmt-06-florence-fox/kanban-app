@@ -38,7 +38,7 @@ class UserController {
         }
     }
 
-    static async googleLogin(req,res, next) {
+    static async googleLogin(req,res) {
         try {
             const ticket = await client.verifyIdToken({
                 idToken: req.body.googleToken,
@@ -61,7 +61,7 @@ class UserController {
             const access_token = generateToken({id: user.id, email:user.email})
             res.status(200).json({access_token})
         } catch (error) {
-            next(error)
+            res.status(500).json(error)
         }
     }
 }
