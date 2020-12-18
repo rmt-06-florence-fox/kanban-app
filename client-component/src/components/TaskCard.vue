@@ -43,9 +43,6 @@
 </template>
 
 <script>
-
-
-
 import Category from './Category.vue';
 export default {
   name: "TaskCard",

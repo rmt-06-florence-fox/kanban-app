@@ -7,8 +7,6 @@
           <option v-if="filteredTask.category !== 'Doing'" value="Doing"> Move To Doing</option>
           <option v-if="filteredTask.category !== 'Done'" value="Done"> Move To Done</option>
         </select>
-
-
 </div>
   
 </template>
