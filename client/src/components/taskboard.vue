@@ -4,7 +4,6 @@
             <h3> {{category}} </h3>
             <div v-for="task in tasks" :key="task.id">
                 <div v-if="task.category == category">
-                    <h1> {{task.category}} </h1>
                     <taskitem @movetomain="edit" :task="task" > </taskitem>
                 </div>
             </div>
