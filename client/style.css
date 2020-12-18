@@ -1,0 +1,44 @@
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: center;
+}
+
+#list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#main-page{
+    display: flex;
+    flex-direction: column;
+}
+
+button{
+    margin: 10px;
+}
+
+.container{
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: 500px;
+    background-color: white;
+    align-items: center;
+    margin: 10px;
+}
+
+.anomali{
+    width: 240px;
+    height: 200px;
+    background-color: white;
+    margin: 10px;
+}
