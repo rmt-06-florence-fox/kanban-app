@@ -1,10 +1,10 @@
 <template>
     <div id="main-page" >
-        <navbar @movetohome="changePage()" @movetoadd="changePage()" @movetomain="changePage('home page')"> </navbar>
+        <navbar @movetomain="movetomain" @movetoadd="movetoadd"> </navbar>
         
         <button class="btn btn-primary" @click="movetoadd"> Add Task </button>
         <div id="list" class="container">
-            <taskboard :categories="categories"> </taskboard>
+            <taskboard :categories="categories" :tasks="tasks" @movetomain="movetoedit"> </taskboard>
         </div>
 
     </div>
@@ -16,18 +16,23 @@ import Taskboard from './taskboard.vue'
 export default {
   components: { navbar, Taskboard },
     name : 'main',
-    props : ['categories'],
+    props : ['categories', 'tasks'],
     methods : {
         movetoadd(){
             this.$emit('movetoadd', 'add task page')
         },
-        changePage(page){
-            this.page_name = page
+        movetoedit(payload){
+            this.$emit('movetoedit', payload)
+        },
+        movetomain(){
+            this.$emit('movetomain', 'main page')
         }
     }
 }
 </script>
 
 <style>
-
+    button {
+        padding: 14px 40px;
+    }
 </style>

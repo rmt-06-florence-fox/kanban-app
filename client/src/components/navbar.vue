@@ -3,13 +3,13 @@
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="" @click="home"> Home </a>
+                <a class="nav-link" href="" @click.prevent="home"> Home </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" @click="add"> Add Task</a>
+                <a class="nav-link" href="" @click.prevent="add"> Add Task</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" @click="logout"> Log Out </a>
+                <a class="nav-link" href="" @click.prevent="logout" :params="params" :logoutButton=true> Log Out </a>
             </li>
         </ul>
     </nav>
@@ -23,10 +23,10 @@ export default {
     props : ['page_name'],
     methods : {
         home(){
-            this.$emit('movetohome')
+            this.$emit('movetomain', 'main page')
         },
         add(){
-            this.$emit('movetoadd')
+            this.$emit('movetoadd', 'add task page')
         },
         logout(){
             localStorage.removeItem('access_token')

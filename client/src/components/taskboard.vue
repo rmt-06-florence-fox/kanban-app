@@ -1,8 +1,13 @@
 <template>
     <div class="papan">
-        <div class="card" id="list-backlog" v-for="(category, index) in categories" :key="index">
+        <div class="card" id="list-backlog" v-for="(category, index) in categories" :key="index" >
             <h3> {{category}} </h3>
-            <taskitem @movetoedit="edit" :tasks="tasks" @movetomain="changepage" > </taskitem>
+            <div v-for="task in tasks" :key="task.id">
+                <div v-if="task.category == category">
+                    <h1> {{task.category}} </h1>
+                    <taskitem @movetomain="edit" :task="task" > </taskitem>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -13,34 +18,11 @@ import taskitem from './taskitem.vue'
 export default {
   components: { taskitem },
     name : 'taskboard',
-    data(){
-        return {
-            tasks : []
-        }
-    },
-    props : ['categories'],
+    props : ['categories', 'tasks'],
     methods : {
-        edit(){
-            
-        },
-        getData(){
-            axios({
-                method : 'get',
-                url : 'http://localhost:3000/task',
-                headers : {
-                    access_token : localStorage.getItem('access_token')
-                }
-            })
-            .then(data =>{
-                this.tasks = data.data
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        edit(payload){
+            this.$emit('movetomain', payload)
         }
-    },
-    created(){
-        this.getData()
     }
 }
 </script>

@@ -12,7 +12,6 @@
             </div>
             <button type="submit" class="btn btn-primary" >Sign Up</button>           
         </form>
-        
     </div>
 </template>
 
@@ -38,11 +37,12 @@ export default {
                     password : this.password
                 }
             })
-            .then(data => {
+            .then(({data}) => {
+                console.log(data)
                 this.$emit('movetomain', 'login page')
             })
-            .catch(err => {
-                console.log(err);
+            .catch(({err}) => {
+                console.log(err)
             })
         }
     }

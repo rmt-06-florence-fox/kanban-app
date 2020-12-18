@@ -1,5 +1,6 @@
 <template>
 <div id="add-task" class="container">
+    <navbar @movetomain="movetomain" @movetoadd="movetoadd"> </navbar>
     <h2> Add Task </h2>
     <form @submit.prevent="add">
         <div class="form-group">
@@ -9,10 +10,10 @@
         <div class="form-group">
             <label for="category" id="category">Category:</label>
             <select class="form-control" name="category" v-model="category">
-                <option value="backlog">Backlog</option>
-                <option value="todo">Todo</option>
-                <option value="doing">Doing</option>
-                <option value="done">Done</option>
+                <option value="Backlog">Backlog</option>
+                <option value="Todo">Todo</option>
+                <option value="Doing">Doing</option>
+                <option value="Done">Done</option>
             </select> 
         </div>
         <button type="submit" class="btn btn-primary"> Add Task </button>           
@@ -22,6 +23,7 @@
 
 <script>
 import axios from "axios"
+import navbar from './navbar.vue'
 export default {
     name : 'addTask',
     data(){
@@ -47,8 +49,14 @@ export default {
                 this.$emit('movetomain','main page')
             })
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
+        },
+        movetomain(){
+            this.$emit('movetomain', 'main page')
+        },
+        movetoadd(){
+            this.$emit('movetoadd', 'add task page')
         }
     }
 }

@@ -35,8 +35,8 @@ export default {
                     password : this.password
                 }
             })
-            .then(data => {
-                let access_token = localStorage.setItem('access_token', data.data)
+            .then(({data}) => {
+                let access_token = localStorage.setItem('access_token', data.access_token)
                 this.$emit('movetomain', 'main page')
             })
             .catch(err => {

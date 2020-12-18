@@ -20,18 +20,24 @@
 
         <mainpage 
         v-else-if="page_name == 'main page'"
-        @movetoadd="changePage" 
+        @movetoadd="changePage"
+        @movetoedit="getEdit"
+        @movetomain="changePage"
         :categories="categories"
+        :tasks="tasks"
         :page_name="page_name"> 
         </mainpage>
 
         <addtask 
         v-else-if="page_name == 'add task page'"
+        @movetoadd="changePage"
         @movetomain="changePage"> 
         </addtask>
 
         <editpage 
         v-else-if="page_name == 'edit task page'" 
+        :data="data"
+        @movetoadd="changePage"
         @movetomain="changePage"> 
         </editpage>
 
@@ -54,11 +60,47 @@ export default {
         return{
             page_name : 'main page',
             categories : ['Backlog', 'Todo', 'Doing', 'Done'],
+            data: {},
+            tasks: []
         }
     },
     methods : {
         changePage(page){
             this.page_name = page
+        },
+        getEdit(payload){
+            let {page_name, id} = payload
+            axios({
+                method : 'get',
+                url : `http://localhost:3000/task/` + id,
+                headers : {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+            .then(({data}) => {
+                this.data = data
+                this.changePage(page_name)
+            })
+            .catch(({err}) => {
+                console.log(err)
+            })
+        },
+        getData(){
+            axios({
+                method : 'get',
+                url : 'http://localhost:3000/task',
+                headers : {
+                    access_token : localStorage.getItem('access_token')
+                }
+            })
+            .then(({data}) =>{
+                console.log(data)
+                this.page_name = 'main page'
+                this.tasks = data
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
     },
     components : {
@@ -71,7 +113,7 @@ export default {
     },
     created(){
         if(localStorage.getItem('access_token')){
-            this.page_name = 'main page'
+            this.getData()
         } else {
             this.page_name = 'home page'
         }

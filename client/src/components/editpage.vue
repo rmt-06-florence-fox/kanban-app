@@ -1,5 +1,6 @@
 <template>
     <div id="edit-task">
+        <navbar @movetomain="movetomain" @movetoadd="movetoadd"> </navbar>
         <h2> Edit Task </h2>
         <form id="f-edit" @submit.prevent="edit">
             <div class="form-group">
@@ -9,10 +10,10 @@
             <div class="form-group">
                 <label for="category">Category:</label>
                 <select class="form-control" name="category" id="e-category" v-model="category">
-                    <option value="backlog">Backlog</option>
-                    <option value="todo">Todo</option>
-                    <option value="doing">Doing</option>
-                    <option value="done">Done</option>
+                    <option value="Backlog">Backlog</option>
+                    <option value="Todo">Todo</option>
+                    <option value="Doing">Doing</option>
+                    <option value="Done">Done</option>
                 </select> 
             </div>
             <button type="submit" class="btn btn-primary"> Edit Task </button>           
@@ -22,38 +23,48 @@
 
 <script>
 import axios from "axios"
+import navbar from './navbar.vue'
 export default {
     name : 'editPage',
+    props: ['data'],
     data(){
         return {
             title : '',
-            category : ''
-            }
+            category : '',
+            id: ''
+        }
     }, 
     methods : {
-        getEdit(id){
+        edit(){
             axios({
-                method : 'get',
-                url : `http://localhost:3000/task/` + id,
-            })
-        },
-        edit(id){
-            axios({
-                method : 'post',
-                url :`http://localhost:3000/task/` + id,
+                method : 'put',
+                url :`http://localhost:3000/task/` + this.id,
                 data : {
                     title : this.title,
                     category : this.category
+                },
+                headers : {
+                    access_token : localStorage.getItem('access_token')
                 }
             })
-            .then(data => {
-                console.log(data);
+            .then(({data}) => {
                 this.$emit('movetomain', 'main page')
             })
             .catch(err => {
                 console.log(err);
             })
+        },
+        movetomain(){
+            this.$emit('movetomain', 'main page')
+        },
+        movetoadd(){
+            this.$emit('movetoadd', 'add task page')
         }
+    },
+    created () {
+        this.title = this.data.title
+        this.category = this.data.category
+        this.id = this.data.id
     }
 }
 </script>
