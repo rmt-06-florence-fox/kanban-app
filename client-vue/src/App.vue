@@ -28,7 +28,7 @@ export default {
         fetchCategories (){
             axios({
                 method: 'GET',
-                url: 'http://localhost:3000/categories',
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/categories',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 }
@@ -48,7 +48,7 @@ export default {
         deleteTask(id){
             axios({
                 method: 'DELETE',
-                url: 'http://localhost:3000/tasks/'+id,
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/tasks/'+id,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 }
@@ -64,7 +64,7 @@ export default {
         addnewTask(categoryId, taskname){
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/tasks',
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/tasks',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -83,7 +83,7 @@ export default {
         editTask(editId,editName,editCategoryId){
             axios({
                 method: 'PUT',
-                url: 'http://localhost:3000/tasks/'+editId,
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/tasks/'+editId,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -102,7 +102,7 @@ export default {
         addnewCategory(name){
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/categories',
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/categories',
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 },
@@ -120,7 +120,7 @@ export default {
         deleteCategory(id){
             axios({
                 method: 'DELETE',
-                url: 'http://localhost:3000/categories/'+id,
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/categories/'+id,
                 headers: {
                     access_token: localStorage.getItem('access_token')
                 }
@@ -135,7 +135,7 @@ export default {
         login(email, password){
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/login',
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/login',
                 data: {
                     email: email,
                     password: password
@@ -156,7 +156,7 @@ export default {
         register(name, email, password){
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/register',
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/register',
                 data: {
                     name: name,
                     email: email,
@@ -180,7 +180,7 @@ export default {
         loginGoogle(idToken){
             axios({
                 method: 'POST',
-                url: 'http://localhost:3000/googlelogin',
+                url: 'https://kanban-server-h8rmt6.herokuapp.com/googlelogin',
                 data: {
                     googletoken: idToken
                 }
