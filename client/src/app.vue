@@ -72,7 +72,7 @@ export default {
             let {page_name, id} = payload
             axios({
                 method : 'get',
-                url : `http://localhost:3000/task/` + id,
+                url : `https://kanbanappmarcella.herokuapp.com/task/` + id,
                 headers : {
                     access_token : localStorage.getItem('access_token')
                 }
@@ -88,7 +88,7 @@ export default {
         getData(){
             axios({
                 method : 'get',
-                url : 'http://localhost:3000/task',
+                url : 'https://kanbanappmarcella.herokuapp.com/task',
                 headers : {
                     access_token : localStorage.getItem('access_token')
                 }

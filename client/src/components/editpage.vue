@@ -38,7 +38,7 @@ export default {
         edit(){
             axios({
                 method : 'put',
-                url :`http://localhost:3000/task/` + this.id,
+                url :`https://kanbanappmarcella.herokuapp.com/task/` + this.id,
                 data : {
                     title : this.title,
                     category : this.category

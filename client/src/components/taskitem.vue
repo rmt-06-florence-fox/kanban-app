@@ -28,7 +28,7 @@ export default {
         deleted(id){
             axios({
                 method : 'DELETE',
-                url : `http://localhost:3000/task/` + id,
+                url : `https://kanbanappmarcella.herokuapp.com/task/` + id,
                 headers : {
                     access_token : localStorage.getItem('access_token')
                 }
@@ -43,7 +43,7 @@ export default {
         getUser(){
             axios({
                 method : 'get',
-                url : `http://localhost:3000/task`,
+                url : `https://kanbanappmarcella.herokuapp.com/task`,
             })
             .then(function(data){
                 console.log(data);
