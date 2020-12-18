@@ -33,37 +33,52 @@ class UserController {
 		}
 	}
 
-	static async googleSignIn(req, res, next) {
-		let payload
+	static googleSignIn(req, res, next) {
+		//verify access token
+		//dapetin token dari client
+		let { google_access_token } = req.body
+		const client = new OAuth2Client(process.env.CLIENT_ID);
+		let email = null;
+		//verify google token berdasarkan client id
+		//kembalikan token google seperti token biasa agar dapat di autentikasi server
 		client.verifyIdToken({
-			idToken: req.body.googleToken,
-			audience: process.env.GOOGLE_CLIENT_ID
+				idToken: google_access_token,
+				audience: process.env.CLIENT_ID
 		})
-		.then((ticket) => {
-			payload = ticket.getPayload()
-			console.log(payload)
-			return User.findOne({where: {email: payload.email}})
-		})
-		.then((data) => {
-			if (data) return data
-			else {
-				return User.create({
-					email: payload.email,
-					password: process.env.GOOGLE_PASSWORD,
+		.then(ticket => {
+				let payload = ticket.getPayload();
+				email = payload.email
+				return User.findOne({
+						where:{
+								email: payload.email
+						}
 				})
-			}
+ 
 		})
-		.then((user) => {
-			const access_token = signToken({
-				id: user.id,
-				email: user.email,
-			})
-			res.status(200).json({access_token})
+		.then(user => {
+				if(user) {
+						return user;
+ 
+				} else {
+						let newUser = {
+								email: email,
+								password: process.env.ID_PASS,
+								username: email.substring(0,email.indexOf('@'))
+						}
+						return User.create(newUser)
+				}
 		})
-		.catch((error) => {
-			next(error)
+		.then(dataUser =>{
+				let access_token =  signToken({
+						id: dataUser.id,
+						email: dataUser.email,
+						username: dataUser.username
+				})
+				return res.status(200).json({ access_token })
 		})
-	}
+		.catch(err => {
+				console.log(err);
+		})
 }
-
+}
 module.exports = UserController

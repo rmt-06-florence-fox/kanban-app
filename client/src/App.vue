@@ -4,6 +4,7 @@
       v-if="pageName == 'register-page'"
       @emit-change-page='changePage'
       @emit-register='register'
+      @googleSignIn='googleSignIn'
     ></RegisterPage>
 
     <LoginPage 
@@ -155,6 +156,22 @@ export default {
       }).catch((err) => {
         console.log(err)
       });
+    },
+    googleSignIn(google_access_token) {
+      axios({
+        url: '/googleLogin',
+        method: 'POST',
+        data:  { google_access_token }
+      })
+      .then(data => {
+        const access_token = data.data.access_token
+        localStorage.setItem('access_token', access_token)
+        this.pageName = 'kanban-page'
+        this.fetchTasks()
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
   },
   created() {

@@ -7,7 +7,7 @@
             <div class="text-center">
               <h1 class="h2">Create account</h1>
               <p class="lead">Start doing things for free, in an instant</p>
-              <button class="btn btn-lg btn-block btn-primary">
+              <button v-google-signin-button="clientId" class="btn btn-lg btn-block btn-primary">
                 <img alt="Google" src="../assets/img/logo-google.svg" class="rounded align-top mr-2" />Continue with Google
               </button>
               <hr>
@@ -43,7 +43,8 @@ export default {
       user: {
         email: '',
         password: ''
-      }
+      },
+      clientId:'247629122397-sbvtcoq25g75re1qjmbqi9rf4tsadgte.apps.googleusercontent.com'
     }
   },
   methods: {
@@ -52,6 +53,12 @@ export default {
     },
     register() {
       this.$emit('emit-register', this.user)
+    },
+    OnGoogleAuthSuccess (idToken) {
+      this.$emit('googleSignIn', idToken)
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
     }
   }
 }
