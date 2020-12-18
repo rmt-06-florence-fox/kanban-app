@@ -11,8 +11,6 @@
             v-else-if="currentPage === 'Register Page'" 
             @registerSubmit="register"
             @toLoginPage="renderLogin"
-            
-        
         >
         </RegisterPage>
         <MainPage 
@@ -23,6 +21,9 @@
             @emitEditValue="editValue"
             @buttonLogout="logout"
             @emitValueAdd="addValue"
+            @emitDeleteToApp="deleteTodo"
+            @moveCategory="moveCategory"
+            @emitGoogleLogin="googleLogin"
         >
         </MainPage>
     </div>
@@ -39,7 +40,7 @@ export default {
         return {
             name: "Dayu",
             currentPage: "Login Page",
-            url: "https://kanban-app-florence.herokuapp.com/",
+            url: "http://localhost:3002",
             categoryTask: [],
             requestTaskId: []
         }
@@ -70,11 +71,9 @@ export default {
                 .then(response => {
                     console.log(response, "<------- ini dari appp")
                     localStorage.setItem("access_token", response.data.access_token)
-                    localStorage.setItem("name", response.data.data.email.split('@')[0])
                     console.log(response)
                     this.currentPage = "Main Page"
                     this.fetchCategories()
-                    this.login()
 
                 })
                 .catch(error => {
@@ -117,6 +116,7 @@ export default {
             })
                 .then(response => {
                     console.log(response.data)
+                    this.currentPage = "Login Page"
                 })
                 .catch(error => {
                     console.log("masuk error bos")
@@ -202,6 +202,42 @@ export default {
                 data: {
                     title,
                     CategoryId
+                }
+            })
+                .then(response => {
+                    console.log("berhasil")
+                    this.fetchCategories()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        deleteTodo (key) {
+            axios({
+                url: this.url + '/tasks/' + key,
+                method: "delete",
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            })
+                .then(response => {
+                    console.log('berhasil delete')
+                    this.fetchCategories()
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
+        },
+        moveCategory (value) {
+            console.log(value, "dari Appppp")
+            axios({
+                url: this.url + "/tasks/" + value,
+                method: "patch",
+                headers: {
+                    access_token: localStorage.getItem("access_token")
+                },
+                data: {
+                    CategoryId: value,
                 }
             })
                 .then(response => {

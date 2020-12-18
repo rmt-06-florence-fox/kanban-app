@@ -9,6 +9,8 @@
             @emitMainListParent="emitMainPage"
             @emitEditValue="valueEdit"
             @emitAddValue="valueAdd"
+            @emitDeleteMain="emitDelete"
+            @moveCategory="moveCategory"
           ></MainBoard>
        
       </div>
@@ -28,6 +30,9 @@ export default {
         MainBoard
     },
     methods: {
+        emitDelete (key) {
+            this.$emit("emitDeleteMain", key)
+        },
         emitMainPage(key){
             this.id = key
             console.log(key, "<---- di Main List")
@@ -38,6 +43,9 @@ export default {
         },
         valueAdd(value, id){
             this.$emit("emitValueAdd", value, id)
+        },
+        moveCategory (category) {
+            this.$emit("moveCategory", category)
         }
     }
 }

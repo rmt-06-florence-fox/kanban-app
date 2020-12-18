@@ -34,14 +34,11 @@ export default {
     methods: {
         register(){
             this.$emit('registerSubmit', this.email, this.password)
+            this.$emit('toLoginPage')
         },
         backToLogin(){
             this.$emit('toLoginPage')
-        } 
-
-        
-        
-        
+        }
     }
 
 }

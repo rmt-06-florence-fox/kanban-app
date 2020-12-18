@@ -15,8 +15,7 @@
                     <p class="text-muted text-center"> dont have account ? <a href="#" @click.prevent="toRegisterPage"> Register</a></p>
 
                     </form>
-                         <GoogleLogin class="g-signin2" :params="params" :onSuccess="onSuccess" :onFailure="onFailure">SIGN IN WITH GOOGLE</GoogleLogin>
-
+                    <GoogleLogin class="g-signin2" :params="params" :onSuccess="onSuccess" :onFailure="onFailure">SIGN IN WITH GOOGLE</GoogleLogin>
                 </div>
             </div>
         </div>
@@ -56,8 +55,6 @@ export default {
             console.log('masuk bosss')
             console.log(googleUser, "dari login page")
             const google_access_token =  googleUser.getAuthResponse().id_token
-            // console.log(google_acces_token)
-
             this.$emit("emitGoogleLogin", google_access_token)
         },
         onFailure(){

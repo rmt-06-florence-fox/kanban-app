@@ -9,6 +9,8 @@
             @emitToMainPage="emitToApp"
             @emitEditValue="editValue"
             @emitValueAdd="addValue"
+            @emitDeleteMain="emitDeleteApp"
+            @moveCategory="emitMoveCategory"
         >
         </MainListTask>
            
@@ -32,6 +34,9 @@ export default {
         MainListTask
     }, 
     methods: {
+        emitDeleteApp (key) {
+            this.$emit('emitDeleteToApp', key)
+        },
         emitToApp(key){
             this.id = key
             console.log(key, "<-- diMain PAGEW")
@@ -45,6 +50,9 @@ export default {
         },
         addValue(value, id){
             this.$emit("emitValueAdd", value, id)
+        },
+        emitMoveCategory (value) {
+            this.$emit("moveCategory", value)
         }
     }
 }

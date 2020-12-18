@@ -42,11 +42,9 @@ class TaskController{
         }
     }
     static async editCategory(req, res, next){
-        const category = {
-            category: req.body.category
-        }
         try {
-            const updateCategory = await Task.update(category, {where: {id: req.params.id}, returning: true})
+            console.log(req.body.CategoryId, "<<< Controller")
+            const updateCategory = await Task.update({CategoryId: req.body.CategoryId}, {where: {id: req.params.id}, returning: true})
             if(updateCategory){
                 res.status(200).json(updateCategory[1][0])
             }
@@ -56,6 +54,8 @@ class TaskController{
                 }
             }
         } catch (error) {
+            console.log(error)
+
             next(error)
         }
     }
@@ -68,6 +68,7 @@ class TaskController{
             const dataTask = await Task.update(payload, {where: {id: req.params.id}, returning: true})
             res.status(200).json(dataTask[1][0])
         } catch (error) {
+
             next(error)
         }
     }
