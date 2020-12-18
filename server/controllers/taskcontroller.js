@@ -29,7 +29,8 @@ class TaskController {
     try {
       const findId = req.params.id
       const editData = {
-        title: req.body.title
+        title: req.body.title,
+        category: req.body.category
       }
       const editedData = await Task.update(editData, { where: { id: findId }, returning: true })
       res.status(200).json(editedData[1][0])

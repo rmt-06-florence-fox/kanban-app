@@ -51,19 +51,19 @@
           })
           .catch(err => console.log(err))
       },
-      editTask(edited, id) {
+      editTask(payload) {
         this.$api({
           method: 'put',
-          url: `tasks/${id}`,
+          url: `tasks/${payload.id}`,
           headers: { access_token: localStorage.getItem('access_token') },
-          data: { title: edited }
+          data: { title: payload.title, category: payload.category }
         })
           .then(() => {
-            swal('Edited', {
-              icon: 'success',
-              buttons: false,
-              timer: 1000
-            })
+            // swal('Edited', {
+            //   icon: 'success',
+            //   buttons: false,
+            //   timer: 1000
+            // })
             this.fetchTasks()
           })
           // .then(() => )
