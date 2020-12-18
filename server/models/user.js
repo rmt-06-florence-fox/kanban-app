@@ -17,12 +17,22 @@ module.exports = (sequelize, DataTypes) => {
   };
   User.init({
     email: {
-      type : DataTypes.STRING,
-      notNull : true
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'Must be an email'
+        }
+      }
     },
     password: {
       type : DataTypes.STRING,
-      notNull : true
+      validate : {
+        len : {
+          args : [6],
+          msg : "Minimun 6 characters"
+        }
+      }
     }
   }, {
     hooks : {

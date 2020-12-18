@@ -49,7 +49,6 @@ class Controller {
                 }
             }
         } catch (err) {
-            console.log(err, '<<dari catch');
             next(err)
         }
     }
@@ -92,7 +91,6 @@ class Controller {
                 }
             } else {
                 const find = await Task.findByPk(id)
-                console.log(find, "<<find");
                 if(!find){
                     throw {
                         status : 404,
@@ -111,7 +109,6 @@ class Controller {
     static async deleteTask(req, res, next){
         try {
             let id = req.params.id
-            console.log(id, '<id');
             const data = await Task.destroy({where : {id}})
             res.status(200).json('Success to delete')
         } catch (err) {
