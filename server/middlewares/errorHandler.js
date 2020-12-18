@@ -1,6 +1,6 @@
 module.exports = function(err, req, res, next) {
 console.log("🚀 ~ file: errorHandler.js ~ line 2 ~ err", err)
-  let statusCode = 500
+  let statusCode = 500 || err.statusCode
   let message = "Internal Server Error!"
 
   switch(err.name) {

@@ -56,10 +56,8 @@ export default {
     editTask() {
       console.log('enter in edit task');
     },
-    deleteTask(task) {
-      const payload = {
-        title: task
-      }
+    deleteTask(id) {
+      const payload = {id}
       console.log(payload);
     }
   }

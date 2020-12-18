@@ -39,7 +39,9 @@ export default {
     return {
       pageName: 'login-page',
       tasks: [],
-      categories: []
+      categories: [],
+      CategoryId: 0,
+      newTask: ''
     }
   },
   components: {
@@ -112,18 +114,21 @@ export default {
         method: 'POST',
         url: '/tasks',
         headers: {access_token: token},
-        data: { title: payload.title}
+        data: { 
+          title: payload.title,
+          CategoryId: payload.id
+        }
       })
       .then((result) => {
-        console.log(result.data);
-        // this.fetchTask()
-        // this.fetchCategory()
+        // return newTask = result.data.task.title
+        this.fetchTask()
+        this.fetchCategory()
       }).catch((err) => {
         console.log(err)
       });
     },
     getCategoryId(payload) {
-      console.log(payload); //!
+      console.log(payload, 'from this'); //!
     }
   },
   created() {
@@ -134,6 +139,16 @@ export default {
       this.pageName = 'kanban-page'
     } else {
       this.pageName = 'login-page'
+    }
+  },
+  computed: {
+    addTaskPlus: {
+      get: function() {
+        return this.CategoryId
+      },
+      set: function() {
+        return this.categories
+      }
     }
   }
 }

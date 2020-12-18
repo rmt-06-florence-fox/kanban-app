@@ -15,9 +15,9 @@
         
       </div>
       <div class="card-list-footer">
-        <button @click.prevent="getCategoryId(category.id)" class="btn btn-link btn-sm text-small" data-toggle="modal" data-target="#task-add-modal">Add task</button>
+        <button @click="getCategoryId(category.id)" class="btn btn-link btn-sm text-small" data-toggle="modal" :data-target="'#taskAddModal-'+ category.id">Add task</button>
       </div>
-      <form @submit.prevent="addTask" class="modal fade" id="task-add-modal" tabindex="-1" aria-hidden="true">
+      <form @submit.prevent="addTask(category.id)" class="modal fade" :id="'taskAddModal-'+ category.id" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -58,15 +58,16 @@ export default {
   components: {Task},
   data() {
     return {
-      title: ''
+      title: '',
     }
   },
   methods: {
     getCategoryId(id) {
-      this.$emit('getCategoryId', id)
+      this.getId = id
     },
-    addTask() {
+    addTask(id) {
       const payload = {
+        id: id,
         title: this.title
       }
       this.$emit('addTask', payload)
