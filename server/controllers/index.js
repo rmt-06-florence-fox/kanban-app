@@ -102,7 +102,7 @@ class Controller{
       const user = await User.findOne({ where : {email : payload.email}})
 
       if(!user){
-        const newGoogleUser = User.create({ email : payload.email , password : process.env.GOOGLE_USER_PASS })
+        const newGoogleUser = await User.create({ email : payload.email , password : process.env.GOOGLE_USER_PASS })
         const access_token = jwtHelper.generateToken({ id : newGoogleUser.id , email : newGoogleUser.email})
 
         res.status(200).json({access_token})
