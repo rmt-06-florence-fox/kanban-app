@@ -25,8 +25,9 @@
     </div>
     <AddTask
       v-if="currentPage == 'addPage'"
-      @backHome="goHome"
+      @backHome="goHome2"
       @plusTask="addTask"
+      :category="category"
     ></AddTask>
     <UpdateTask v-if="currentPage == 'updatePage'" @backHome="goHome"></UpdateTask>
   </div>
@@ -72,6 +73,9 @@ export default {
         this.fetchTask();
       }
     },
+    goHome2() {
+      this.currentPage = "homePage"
+    },
     goRegist() {
       this.currentPage = "registerPage";
     },
@@ -90,24 +94,6 @@ export default {
     },
     goEdit() {
         this.currentPage = 'updatePage'
-    },
-
-    addTask() {
-      this.$api({
-        method: "POST",
-        url: "tasks",
-      })
-        .then((Response) => {
-          console.log(Response);
-          this.currentPage = "homePage";
-          this.fetchTask();
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          this.title = "";
-        });
     },
 
     fetchTask() {
@@ -145,6 +131,7 @@ export default {
     },
 
     googleLogin(idToken) {
+      console.log(idToken)
       this.$api({
         url: "googleLogin",
         method: "POST",

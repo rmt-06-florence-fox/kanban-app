@@ -14,12 +14,10 @@
         </div><br>
         <button type="submit" class="btn btn-primary">Login</button><br>
             <br><span>
-                <small> Don't have an account? </small>
-            </span>
-            <button class="btn btn-link" @click="regPage">Sign Up</button>
         </form>
-        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
-        <!-- <GoogleLogin :params="params" :renderParams="renderParams" :logoutButton=true>Logout</GoogleLogin> -->
+                <small> Don't have an account? </small>
+            <button class="btn btn-link" @click="regPage">Sign Up</button>
+          <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin> 
             </div>
             </div>
         </div>
@@ -51,7 +49,7 @@ export default {
         console.log(this.email, this.password);
         this.$api({
           method: 'POST',
-          url: 'login',
+          url: '/login',
           data: {
               email: this.email,
               password: this.password
@@ -74,14 +72,14 @@ export default {
     },
     regPage() {
         this.$emit("regPage")
-        }
-    },
+        },
 
     onSuccess(googleUser) {
         const user = googleUser.getBasicProfile()
         var google_token = googleUser.getAuthResponse().id_token
         this.$emit('loginGoogle', google_token)
     }
+  }
 };
 </script>
 

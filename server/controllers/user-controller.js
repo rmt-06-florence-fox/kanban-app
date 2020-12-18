@@ -69,13 +69,14 @@ class UserController {
             }
         })
         .then(user => {
-            const access_token = signToken({
+            const access_token = createToken({
                 email: user.email,
                 id: user.id
             })
             res.status(200).json({access_token})
         })
         .catch(error => {
+            console.log(error)
             next(error)
         })
     }

@@ -26,14 +26,14 @@ export default {
       this.$emit('editTask')
     },
     User(UserId) {
-      if(UserId == localStorage.getItem('id')) {
+      console.log(UserId)
+      if(data.UserId == localStorage.getItem('id')) {
         return true
       } else {
         return false
       }
     }
   }
-
 }
 </script>
 

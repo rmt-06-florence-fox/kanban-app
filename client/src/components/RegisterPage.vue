@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -34,7 +35,7 @@ export default {
             this.$emit('backLogin')
         },
         register() {
-            console.log(this.email, this.password);
+            console.log(this.$api);
             this.$api({
             method: 'POST',
             url: 'register',
