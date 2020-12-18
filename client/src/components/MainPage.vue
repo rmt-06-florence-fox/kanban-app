@@ -12,10 +12,10 @@
         :key="category.index"
         :category="category"
         :task="task"
-        @editTask="editTask"
         @deleteTask="deleteTask"
         @moveLeft="moveLeft"
         @moveRight="moveRight"
+        @getAllTask="getAllTask"
       >
       </TaskList>
 

@@ -3,7 +3,7 @@
     <!-- {{category}}
     {{task.category}} -->
     <div class="card">
-      <div class="card-body" v-show="!displayEdit">
+      <div class="card-body" v-if="!displayEdit">
         <h5 clss="card-title">{{task.title}}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ task.User.createdAt.slice(0, 10) }}</h6>
         <h6 class="card-subtitle text-muted">{{ task.User.name }}</h6>
@@ -24,7 +24,7 @@
       </div>
     </div>
     <EditTaskCard
-      v-show="displayEdit"
+      v-if="displayEdit"
       :category="category"
       :task="task"
       @toggleDisplayEdit="toggleDisplayEdit"
