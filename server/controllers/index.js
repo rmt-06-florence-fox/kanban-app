@@ -18,6 +18,7 @@ class Controller {
                 email : newUser.email
             })
         } catch (err) {
+            console.log(err, '<dari controller')
             next(err)
         }
     }

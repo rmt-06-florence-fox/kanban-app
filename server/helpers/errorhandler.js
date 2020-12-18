@@ -1,4 +1,5 @@
 module.exports = (err, req, res, next) => {
+    console.log(err.name)
     if(err.name == 'SequelizeValidationError'){
         let message = err.errors[0].message
         res.status(400).json({message})
