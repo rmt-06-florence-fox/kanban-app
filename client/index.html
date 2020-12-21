@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <nav>
+        <div class="nav-wrapper cyan darken-2">
+          <a href="#" class="brand-logo center">Kanban</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+              <a
+                class="waves-effect waves-light btn red lighten-1"
+                v-on:click="showLogin"
+                v-show="currentPage == 'kanban-page'"
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <section>
+        <div
+          id="login-page"
+          class="container z-depth-3 y-depth-3 x-depth-3"
+          v-show="currentPage == 'login-page'"
+        >
+          <div class="row">
+            <div class="col s12 center">
+              <h3>Login Form</h3>
+            </div>
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="login-email" type="email" class="validate" />
+                  <label for="login-email">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="login-password" type="password" class="validate" />
+                  <label for="login-password">Password</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <button
+                    type="submit"
+                    name="btn_login"
+                    class="col s12 btn btn-large waves-effect indigo"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </form>
+            <center>
+              <div>
+                <a href="#" v-on:click="showRegister">Create Account</a>
+              </div>
+            </center>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div
+          id="register-page"
+          class="container z-depth-3 y-depth-3 x-depth-3"
+          v-show="currentPage == 'register-page'"
+        >
+          <div class="row">
+            <div class="col s12 center">
+              <h3>Register Form</h3>
+            </div>
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="register-email" type="email" class="validate" />
+                  <label for="register-email">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input
+                    id="register-password"
+                    type="password"
+                    class="validate"
+                  />
+                  <label for="register-password">Password</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <button
+                    type="submit"
+                    name="btn_login"
+                    class="col s12 btn btn-large waves-effect indigo"
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
+            </form>
+            <center>
+              <div>
+                <a href="#" v-on:click="showLogin">Login</a>
+              </div>
+            </center>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div
+          class="container"
+          id="kanban-page"
+          v-show="currentPage == 'kanban-page'"
+        >
+          <div class="row">
+            <div class="col s12 m3">
+              <div class="light-blue category white-text">
+                <div>Backlog</div>
+                <div>
+                  <a href="#" onclick="modalAdd()"
+                    ><i class="material-icons white-text">add</i></a
+                  >
+                </div>
+              </div>
+              <div
+                class="card blue-grey lighten-1"
+                v-for="(backlog, index) in backlog"
+              >
+                <div class="card-content white-text">
+                  <span class="card-title">{{backlog.title}}</span>
+                  <p>{{backlog.description}}</p>
+                </div>
+                <div class="card-action white-text">
+                  <a href="#" onclick="modalEdit()">
+                    <i class="material-icons">edit</i></a
+                  >
+                  <a href="#"> <i class="material-icons">delete</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m3">
+              <div class="cyan category white-text">
+                <div>Product</div>
+                <div>
+                  <a href="#" onclick="modalAdd()"
+                    ><i class="material-icons white-text">add</i></a
+                  >
+                </div>
+              </div>
+              <div
+                class="card blue-grey lighten-1"
+                v-for="(product, index) in product"
+              >
+                <div class="card-content white-text">
+                  <span class="card-title">{{product.title}}</span>
+                  <p>{{product.description}}</p>
+                </div>
+                <div class="card-action white-text">
+                  <a href="#" onclick="modalEdit()">
+                    <i class="material-icons">edit</i></a
+                  >
+                  <a href="#"> <i class="material-icons">delete</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m3">
+              <div class="green category white-text">
+                <div>Development</div>
+                <div>
+                  <a href="#" onclick="modalAdd()"
+                    ><i class="material-icons white-text">add</i></a
+                  >
+                </div>
+              </div>
+              <div
+                class="card blue-grey lighten-1"
+                v-for="(development, index) in development"
+              >
+                <div class="card-content white-text">
+                  <span class="card-title">{{development.title}}</span>
+                  <p>{{development.description}}</p>
+                </div>
+                <div class="card-action white-text">
+                  <a href="#" onclick="modalEdit()">
+                    <i class="material-icons">edit</i></a
+                  >
+                  <a href="#"> <i class="material-icons">delete</i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m3">
+              <div class="lime darken-2 category white-text">
+                <div>Done</div>
+                <div>
+                  <a href="#" onclick="modalAdd()"
+                    ><i class="material-icons white-text">add</i></a
+                  >
+                </div>
+              </div>
+              <div
+                class="card blue-grey lighten-1"
+                v-for="(done, index) in done"
+              >
+                <div class="card-content white-text">
+                  <span class="card-title">{{done.title}}</span>
+                  <p>{{done.description}}</p>
+                </div>
+                <div class="card-action white-text">
+                  <a href="#" onclick="modalEdit()">
+                    <i class="material-icons">edit</i></a
+                  >
+                  <a href="#"> <i class="material-icons">delete</i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div id="modal-add" class="modal">
+          <div class="modal-content">
+            <div class="row">
+              <div class="col s12 center">
+                <h3>Add Todo</h3>
+              </div>
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input
+                      value=""
+                      id="add-title"
+                      type="text"
+                      class="validate"
+                    />
+                    <label for="add-title">Title</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input
+                      value=""
+                      id="add-description"
+                      type="text"
+                      class="validate"
+                    />
+                    <label for="add-description">Description</label>
+                  </div>
+                </div>
+                <button
+                  class="btn waves-effect waves-light"
+                  type="submit"
+                  name="action"
+                >
+                  Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="modal-close waves-effect btn-flat">Close</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div id="modal-edit" class="modal">
+          <div class="modal-content">
+            <div class="row">
+              <div class="col s12 center">
+                <h3>Edit Todo</h3>
+              </div>
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input
+                      value=""
+                      id="edit-title"
+                      type="text"
+                      class="validate"
+                    />
+                    <label for="edit-title">Title</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input
+                      value=""
+                      id="edit-description"
+                      type="text"
+                      class="validate"
+                    />
+                    <label for="edit-description">Description</label>
+                  </div>
+                </div>
+                <button
+                  class="btn waves-effect waves-light"
+                  type="submit"
+                  name="action"
+                >
+                  Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="modal-close waves-effect btn-flat">Close</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
