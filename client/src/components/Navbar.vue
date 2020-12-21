@@ -40,10 +40,25 @@
       cheerUp() {
         if (this.isLogin) {
           const name = localStorage.getItem('name')
-          swal(`Hi, ${name}. This is a beautiful day. I think I love it when you put a smile on that face. Cheer up 😊`, {
+          const quotes = [
+            `This is a beautiful day. I think I'm in love when you put a smile on that face`,
+            `Be yourself, everyone else is already taken`,
+            `You only live once, but if you do it right, once is enough`,
+            `Be the change that you wish to see in the world`,
+            `Life is what happens to us while we are making other plans`,
+            `That which does not kill us makes us stronger`,
+            `It is never too late to be what you might have been`,
+            `Everything you can imagine is real`,
+            `If you only read the books that everyone else is reading, you can only think what everyone else is thinking`,
+            `We don't see things as they are, we see them as we are`,
+            `Sometimes the questions are complicated and the answers are simple`
+          ]
+          let random = Math.floor(Math.random() * quotes.length)
+          let quote = quotes[random]
+          swal(`Hi, ${name}. ${quote}. Have a good day 😊`, {
             icon: 'info',
             buttons: false,
-            timer: 5000
+            timer: 7000
           })
         } else {
           swal('Hello, please sign in first 😊', {
