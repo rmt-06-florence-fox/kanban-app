@@ -59,11 +59,11 @@
           data: { title: payload.title, category: payload.category }
         })
           .then(() => {
-            // swal('Edited', {
-            //   icon: 'success',
-            //   buttons: false,
-            //   timer: 1000
-            // })
+            swal('Edited successfully!', {
+              icon: 'success',
+              buttons: false,
+              timer: 1000
+            })
             this.fetchTasks()
           })
           // .then(() => )

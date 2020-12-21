@@ -2,7 +2,7 @@
   <div>
     <nav class="custom-navbar">
       <div class="ml-4">
-        <img id="logo-kanban" src="../../assets/han-kanban-logo.png" alt="logo" type="submit" onclick="return confirm('Are you sure?')">
+        <img id="logo-kanban" src="../../assets/han-kanban-logo.png" alt="logo" type="submit" @click.prevent="cheerUp">
       </div>
       <div class="mr-4">
         <div class="right-navbar">
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+  import swal from 'sweetalert'
+
   export default {
     props: ['changeLogin', 'isLogin', 'signUpUser'],
     methods: {
@@ -34,6 +36,22 @@
       },
       doSignUp() {
         this.signUpUser(false)
+      },
+      cheerUp() {
+        if (this.isLogin) {
+          const name = localStorage.getItem('name')
+          swal(`Hi, ${name}. This is a beautiful day. I think I love it when you put a smile on that face. Cheer up 😊`, {
+            icon: 'info',
+            buttons: false,
+            timer: 5000
+          })
+        } else {
+          swal('Hello, please sign in first 😊', {
+            icon: 'info',
+            buttons: false,
+            timer: 3000
+          })
+        }
       }
     }
   }

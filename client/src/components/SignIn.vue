@@ -51,6 +51,7 @@
               else name += this.email[i]
             }
             localStorage.setItem('access_token', data.access_token)
+            localStorage.setItem('name', name)
             this.changeLogin(true)
             swal(`Welcome, ${name}`, {
               icon: 'success',
@@ -81,6 +82,7 @@
               else name += data.email[i]
             }
             localStorage.setItem('access_token', data.access_token)
+            localStorage.setItem('name', name)
             this.changeLogin(true)
             swal(`Welcome, ${name}`, {
               icon: 'success',
