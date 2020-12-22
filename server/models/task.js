@@ -8,17 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Task.belongsTo(models.User)
+      Task.belongsTo(models.Column)
     }
   };
   Task.init({
     title: DataTypes.STRING,
-    category: DataTypes.STRING,
-    UserId : DataTypes.INTEGER
-    
+    UserId: DataTypes.INTEGER,
+    ColumnId: DataTypes.INTEGER
   }, {
     hooks : {
       beforeCreate(task, option){
-        if(!task.category) task.category = 'Back Log'
+        if(!task.ColumnId) task.ColumnId = 1
       }
     },
     sequelize,

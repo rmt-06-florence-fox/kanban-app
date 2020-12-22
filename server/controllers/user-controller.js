@@ -12,10 +12,10 @@ class UserController {
 
             if (datum && Helper.checkPassword(password, datum.password)){
                 const access_token = Helper.tokenGenerator({
-                    id : datum.id,
-                    email,
+                    id: datum.id,
+                    email
                 })
-                res.status(200).json({access_token})
+                res.status(200).json({access_token, userName: datum.userName})
             
             } else {
                 throw ({
