@@ -1,5 +1,5 @@
 <template>
-  <b-navbar variant="dark" type="dark" toggleable="sm" sticky=true>
+  <b-navbar variant="dark" type="dark" toggleable="sm">
     <b-navbar-brand>Kanban</b-navbar-brand>
     <b-navbar-toggle target="collapseable-navs"></b-navbar-toggle>
     <b-collapse id="collapseable-navs" is-nav>
