@@ -1,0 +1,129 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: rgba(27,40,54,1.00);
+}
+
+nav {
+  max-height: 50px;
+}
+
+.cust-small-text {
+  color: black;
+}
+
+.cust-container {
+  background-color: #94b4a4;
+}
+
+.btn {
+  color: #94b4a4 !important;
+  width: 95px;
+}
+
+.btn-form {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-signin:hover {
+  color: rgba(27,40,54,1.00) !important;
+  background-color: #4BB543 !important;
+}
+
+.btn-signup:hover {
+  color: rgba(27,40,54,1.00) !important;
+  background-color: #45b3e0;
+}
+
+.btn-signout:hover {
+  color: rgba(27,40,54,1.00) !important;
+  background-color: #cd0a0a;
+}
+
+.cust-form-p {
+  padding-top: 20px !important;
+}
+
+.cust-btn-back {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-back {
+  width: 60px
+}
+
+@media(min-width: 500px) {
+  #logo-kanban {
+    width: 8% !important;
+  }
+}
+
+@media(min-width: 375px) {
+  #logo-kanban {
+    width: 15%;
+  }
+}
+
+@media(min-width: 300px) {
+  #logo-kanban {
+    max-width: 20%;
+  }
+}
+
+#logo-kanban {
+  max-width: 25%;
+}
+
+.custom-navbar {
+  background-color: #94b4a4;
+  color: black;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-color {
+  color: #94b4a4;
+}
+
+.right-navbar {
+  display: flex;
+  align-items: center;
+  height: 100%
+}
+
+.custom-li-bg {
+  background-color: #303030;
+}
+
+.btn-color {
+  align-items: flex-end;
+  background-color:  rgba(27,40,54,1.00);
+  border-style: none;
+}
+
+.btn-color-navbar {
+  background-color: rgba(27,40,54,1.00);
+  border-style: none;
+}
+
+.cust-add-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-gsign {
+  width: 130px !important;
+}
+
+.card {
+  border-style: none;
+}
+
+.custom-col {
+  max-height: 425px;
+}
