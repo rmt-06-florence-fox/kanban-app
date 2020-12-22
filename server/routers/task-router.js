@@ -8,6 +8,6 @@ router.post('/', TaskController.create)
 router.use('/:id', authorization)
 router.put('/:id', TaskController.update)
 router.delete('/:id', TaskController.delete)
-router.patch('/:id', TaskController.alterCategory)
+router.patch('/:id', TaskController.alterColumn)
 
 module.exports = router

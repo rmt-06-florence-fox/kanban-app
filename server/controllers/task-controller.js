@@ -2,19 +2,27 @@ const {Task, User, Column} = require('../models')
 
 class TaskController {
      
-     static async retrieve(req, res, next){
-         try{
-            let result = await Task.findAll({
-                include : [User, Column]
-            })
-            res.status(200).json(result)
-         
-         } catch (err){
-             next(err)
-         }
-     }
+    static async retrieve(req, res, next){
+      try{
+        let result = await Task.findAll({
+            include : [
+              { 
+                model: User,
+                attributes: ['userName']
+              }, {
+                model: Column,
+                attributes: ['colName']
+              }],
+          attributes: { exclude: ['createdAt', 'updatedAt'] }
+        })
+        res.status(200).json(result)
+      
+      } catch (err){
+          next(err)
+      }
+    }
 
-     static async create(req, res, next){
+    static async create(req, res, next){
         try {
           const UserId = +req.currentUser.id
           const {title} = req.body
@@ -25,13 +33,13 @@ class TaskController {
         } catch (err){
           next(err)
         }
-     }
+    }
 
     static async update(req, res, next){
       try {
         const UserId = +req.currentUser.id
         const id = +req.params.id
-        const {title, ColumnId} = req.body
+        const { title, ColumnId } = req.body
         const task = await Task.findByPk(id)
             
         if(task && task.UserId === UserId){
@@ -90,38 +98,38 @@ class TaskController {
       }
     }
 
-     static async alterCategory(req, res, next){
-        try{
-          const {category} = req.body 
-          const Userid = +req.currentUser.id
-          const id = +req.params.id
-          const task = await Task.findByPk(id)
-          
-          if(task){
-            if(task.UserId == Userid){
-              const result = await Task.update({category}, {where : {id},fields : ['category'], returning : true})
-              
-              if(result.length > 1){
-                res.status(200).json(result[1][0])
-              
-              } else {
-                throw {
-                  status : 500,
-                  message : 'fail to change category'
-                }
-              }
-
+    static async alterColumn(req, res, next){
+      try{
+        const { ColumnId } = req.body
+        const Userid = +req.currentUser.id
+        const id = +req.params.id
+        const task = await Task.findByPk(id)
+        
+        if(task){
+          if(task.UserId == Userid){
+            const result = await Task.update({ ColumnId }, {where: { id }, fields : ['ColumnId'], returning: true })
+            
+            if(result.length > 1){
+              res.status(200).json(result[1][0])
+            
             } else {
               throw {
-                message: 'you have no right to change category of this task',
-                status: 401
+                status : 500,
+                message : 'fail to change category'
               }
             }
+
+          } else {
+            throw {
+              message: 'you have no right to change category of this task',
+              status: 401
+            }
           }
-        }catch (err){
-            next(err)
         }
-     }
+      } catch (err){
+          next(err)
+      }
+    }
 }
 
 module.exports = TaskController
