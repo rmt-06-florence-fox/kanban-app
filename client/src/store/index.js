@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     errors: [],
     tasks: [],
-    columns: []
+    columns: [],
+    success: ''
   },
   mutations: {
     setErrors (state, array) {
@@ -20,6 +21,10 @@ export default new Vuex.Store({
     },
     setColumns (state, array) {
       state.columns = array
+    },
+    setSuccess (state, string) {
+      state.success = string
+      setTimeout(() => { state.success = '' }, 2000)
     }
   },
   actions: {
@@ -67,6 +72,48 @@ export default new Vuex.Store({
           headers: { access_token: localStorage.getItem('access_token') }
         })
         context.commit('setColumns', data)
+      } catch (error) {
+        if (error.response) {
+          context.commit('setErrors', error.response.data.messages)
+        } else {
+          console.log('Error', error.message, 'masuk else')
+          console.log(error.config)
+        }
+      }
+    },
+    async deleteTask (context, id) {
+      try {
+        await server({
+          url: '/tasks/' + id,
+          method: 'delete',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+        context.dispatch('fetchTasks')
+        setTimeout(() => {
+          context.commit('setSuccess', 'task has been deleted')
+        }, 1300)
+      } catch (error) {
+        if (error.response) {
+          context.commit('setErrors', error.response.data.messages)
+        } else {
+          console.log('Error', error.message, 'masuk else')
+          console.log(error.config)
+        }
+      }
+    },
+    async editTask (context, payload) {
+      try {
+        const { title, ColumnId } = payload
+        await server({
+          url: '/tasks/' + payload.id,
+          method: 'put',
+          data: { title, ColumnId },
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+        context.dispatch('fetchTasks')
+        setTimeout(() => {
+          context.commit('setSuccess', 'task has been edited')
+        }, 1300)
       } catch (error) {
         if (error.response) {
           context.commit('setErrors', error.response.data.messages)
