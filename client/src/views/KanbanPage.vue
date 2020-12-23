@@ -1,6 +1,8 @@
 <template>
   <div class="h-100 w-100">
     <TopBar />
+    <CreateTask />
+    <CreateColumn />
     <div id="group">
       <Column/>
       <Column/>
@@ -14,11 +16,16 @@
 <script>
 import TopBar from '../components/TopBar.vue'
 import Column from '../components/Column.vue'
+import CreateColumn from '../components/CreateColumn.vue'
+import CreateTask from '../components/CreateTask.vue'
 export default {
   name: 'KanbanPage',
   components: {
     TopBar,
-    Column
+    Column,
+    CreateColumn,
+    CreateTask
+
   }
 }
 </script>

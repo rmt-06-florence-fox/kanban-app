@@ -16,22 +16,14 @@
         v-b-modal.new-column-form
         >New Column</b-button>
         <b-button variant="danger" class="mx-2">Log Out</b-button>
-        <CreateTask />
-        <CreateColumn />
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </template>
 
 <script>
-import CreateTask from './CreateTask.vue'
-import CreateColumn from './CreateColumn.vue'
 export default {
-  name: 'TopBar',
-  components: {
-    CreateTask,
-    CreateColumn
-  }
+  name: 'TopBar'
 }
 </script>
 
