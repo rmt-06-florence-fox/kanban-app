@@ -4,11 +4,8 @@
     <CreateTask />
     <CreateColumn />
     <div id="group">
-      <Column/>
-      <Column/>
-      <Column/>
-      <Column/>
-      <Column/>
+      <Column v-for="column in columns" :key="column.id"
+      :column="column" />
     </div>
   </div>
 </template>
@@ -25,7 +22,15 @@ export default {
     Column,
     CreateColumn,
     CreateTask
-
+  },
+  computed: {
+    columns () {
+      return this.$store.state.columns
+    }
+  },
+  created () {
+    this.$store.dispatch('fetchColumns')
+    this.$store.dispatch('fetchTasks')
   }
 }
 </script>

@@ -1,20 +1,22 @@
 <template>
   <b-card
-    class="m-1 mb-3"
+    class="m-1 mb-3 text-wrap"
     no-body
   >
-    <b-card-body>
-      <h5>this is the title of the task</h5>
+    <b-card-body class="p-2">
+      <p>{{task.title}}</p>
+      <h5></h5>
     </b-card-body>
     <b-card-footer>
-      <p>this is the task of the footer</p>
+      <p>{{task.User.userName}}</p>
     </b-card-footer>
   </b-card>
 </template>
 
 <script>
 export default {
-  name: 'Task'
+  name: 'Task',
+  props: ['task']
 }
 </script>
 

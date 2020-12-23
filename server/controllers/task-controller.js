@@ -5,14 +5,10 @@ class TaskController {
     static async retrieve(req, res, next){
       try{
         let result = await Task.findAll({
-            include : [
-              { 
+            include : { 
                 model: User,
                 attributes: ['userName']
-              }, {
-                model: Column,
-                attributes: ['colName']
-              }],
+            },
           attributes: { exclude: ['createdAt', 'updatedAt'] }
         })
         res.status(200).json(result)

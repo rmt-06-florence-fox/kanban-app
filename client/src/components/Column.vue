@@ -1,15 +1,9 @@
 <template>
   <div class="column m-3 border rounded">
-    <div class="p-3 text-white title">
-      Column title here
+    <div class="p-3 text-white title text-center h4">
+      {{column.colName}}
     </div>
-    <Task />
-    <Task />
-    <Task />
-    <Task />
-    <Task />
-    <Task />
-    <Task />
+    <Task v-for="task in tasks" :key="task.id" :task="task"/>
   </div>
 </template>
 
@@ -19,6 +13,17 @@ export default {
   name: 'Column',
   components: {
     Task
+  },
+  props: ['column'],
+  computed: {
+    tasks () {
+      const tasks = this.$store.state.tasks
+      return tasks.filter(task => {
+        if (task.ColumnId === this.column.id) {
+          return task
+        }
+      })
+    }
   }
 }
 </script>

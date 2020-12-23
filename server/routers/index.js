@@ -10,6 +10,7 @@ router.post('/google-sign-in', UserController.googleSignIn)
 
 router.use(authentication)
 router.use('/tasks', taskRouter )
+router.get('/columns', ColumnController.get)
 router.post('/columns', ColumnController.create)
 
 module.exports = router
