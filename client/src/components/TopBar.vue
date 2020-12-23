@@ -4,17 +4,34 @@
     <b-navbar-toggle target="collapseable-navs"></b-navbar-toggle>
     <b-collapse id="collapseable-navs" is-nav>
       <b-navbar-nav class="ml-auto">
-        <b-button variant="success" class="mx-2">New Task</b-button>
-        <b-button variant="success" class="mx-2">New Column</b-button>
+        <b-button
+        variant="success"
+        class="mx-2"
+        v-b-modal.new-task-form
+        >New Task</b-button>
+
+        <b-button
+        variant="success"
+        class="mx-2"
+        v-b-modal.new-column-form
+        >New Column</b-button>
         <b-button variant="danger" class="mx-2">Log Out</b-button>
+        <CreateTask />
+        <CreateColumn />
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </template>
 
 <script>
+import CreateTask from './CreateTask.vue'
+import CreateColumn from './CreateColumn.vue'
 export default {
-
+  name: 'TopBar',
+  components: {
+    CreateTask,
+    CreateColumn
+  }
 }
 </script>
 
