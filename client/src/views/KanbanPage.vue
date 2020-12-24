@@ -5,7 +5,7 @@
     <CreateColumn />
     <div id="group">
       <Column v-for="column in columns" :key="column.id"
-      :column="column" />
+      :column="column" :tasks="$store.getters.classifiedTasks(column.id)" />
     </div>
   </div>
 </template>

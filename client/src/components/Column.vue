@@ -14,17 +14,7 @@ export default {
   components: {
     Task
   },
-  props: ['column'],
-  computed: {
-    tasks () {
-      const tasks = this.$store.state.tasks
-      return tasks.filter(task => {
-        if (task.ColumnId === this.column.id) {
-          return task
-        }
-      })
-    }
-  }
+  props: ['column', 'tasks']
 }
 </script>
 

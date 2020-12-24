@@ -17,9 +17,13 @@ module.exports = (sequelize, DataTypes) => {
   Column.init({
     colName: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
           msg: 'Column name cannot be empty'
+        },
+        notNull: {
+          msg: 'Column name cannot be null'
         }
       }
     }
