@@ -4,7 +4,6 @@ import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import KanbanPage from '../views/KanbanPage.vue'
 import _404Page from '../views/_404.vue'
-import Drag from '../views/Sandbox.vue'
 
 Vue.use(VueRouter)
 
@@ -28,11 +27,6 @@ const routes = [
     path: '*',
     name: '_404',
     component: _404Page
-  },
-  {
-    path: '/drag',
-    name: 'drag',
-    component: Drag
   }
 ]
 
@@ -40,6 +34,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('access_token')
+  if (to.name === 'kanban' && isAuthenticated) next()
+  else if (to.name === 'kanban' && !isAuthenticated) next('/login')
+  else if ((to.name === 'register' || to.name === 'login') && isAuthenticated) next('/')
+  else next()
 })
 
 export default router

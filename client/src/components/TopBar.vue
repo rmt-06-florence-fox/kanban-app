@@ -15,7 +15,7 @@
         class="mx-2"
         v-b-modal.new-column-form
         >New Column</b-button>
-        <b-button variant="danger" class="mx-2">Log Out</b-button>
+        <b-button variant="danger" class="mx-2" @click="logout">Log Out</b-button>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -23,7 +23,13 @@
 
 <script>
 export default {
-  name: 'TopBar'
+  name: 'TopBar',
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
