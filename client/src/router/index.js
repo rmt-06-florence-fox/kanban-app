@@ -4,6 +4,7 @@ import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import KanbanPage from '../views/KanbanPage.vue'
 import _404Page from '../views/_404.vue'
+import Drag from '../views/Sandbox.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '*',
     name: '_404',
     component: _404Page
+  },
+  {
+    path: '/drag',
+    name: 'drag',
+    component: Drag
   }
 ]
 

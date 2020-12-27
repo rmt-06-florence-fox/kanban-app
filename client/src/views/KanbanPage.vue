@@ -3,30 +3,24 @@
     <TopBar />
     <CreateTask />
     <CreateColumn />
-    <div id="group">
-      <Column v-for="column in columns" :key="column.id"
-      :column="column" :tasks="$store.getters.classifiedTasks(column.id)" />
-    </div>
+    <BoardList />
   </div>
 </template>
 
 <script>
 import TopBar from '../components/TopBar.vue'
-import Column from '../components/Column.vue'
 import CreateColumn from '../components/CreateColumn.vue'
 import CreateTask from '../components/CreateTask.vue'
+import BoardList from '../components/BoardList.vue'
+// import draggable from 'vuedraggable'
 export default {
   name: 'KanbanPage',
   components: {
     TopBar,
-    Column,
     CreateColumn,
-    CreateTask
-  },
-  computed: {
-    columns () {
-      return this.$store.state.columns
-    }
+    CreateTask,
+    BoardList
+    // draggable
   },
   created () {
     this.$store.dispatch('fetchColumns')

@@ -1,7 +1,8 @@
 <template>
   <b-card
-    class="m-1 mb-3 text-wrap"
+    class="m-1 mb-3 text-wrap item"
     no-body
+    :id="task.id"
   >
     <b-button-group>
       <DeleteConfirmation :task="task" />
