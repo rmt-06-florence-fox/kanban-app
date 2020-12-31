@@ -1,0 +1,120 @@
+
+html { 
+    font-family: 'Nunito'
+  }
+  
+  body{
+    background-color: #72c5b0;
+    color: white;
+  }
+  .navbar{
+    background-color: #edf4f2;
+  }
+
+  .navbar-item:hover{
+    color: #72c5b0;
+  }
+  .navbar-brand, .addTask{
+    color: #0b0c0c;
+  }
+  .navbar-brand:hover{
+    color: #72c5b0;
+  }
+  .addTask a:hover{
+    color: black;
+  }
+  .addTask{
+    text-decoration: none;  
+  }
+  .boards{
+    display: flex;    
+    margin-top: 32px;
+    height: 75vh;
+    position: relative;
+    overflow-y: scroll;
+    color: brown;  
+  }
+  #app{
+    justify-content: center;
+  }
+  .board{
+    width: 230vh;
+    background: #72c5b0;
+    border: 1px solid #FD951F11;
+    border-radius: 4px;
+    margin: 0 16px;
+    position: relative;
+    overflow-y: scroll;
+
+    /* float; */
+    /* display: ; */
+  }
+  .googleLogin{
+    float:right; 
+  }
+  
+  .board h3{
+    padding: 16px;
+    margin: 0;
+    color: #000000cc;
+    text-align: center;
+  }
+  
+  .dropzone{
+    padding: 16px;
+    min-width: 282px;
+    min-height: 75vh;
+  }
+  
+  .card {
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 0 2px 2px -1px #FD951Fcc;
+    background-color: #1A1A1C;
+    width: 290px;
+    margin-top: 150px 0;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 18px;
+    position: relative;
+    overflow-y: scroll;
+
+  }
+  
+  .editTask {
+    width: 20px;
+    height: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    float: right;
+    justify-content: right;
+  }
+  
+  .status.green{
+    background: #23d2ac;
+  }
+  
+  .status.blue{
+    background: #33adff;
+  }
+  
+  .status.red{
+    background: red;
+  }
+  
+  .highlight {
+    background-color: #FD951F08;
+  }
+  
+  .cards, .dropzone {
+    transition: 400ms;
+  }
+  
+  .is-dragging{
+    cursor: move; 
+    opacity: 0.3;
+  }
+  
+  .over {
+    background-color: #4CD13711;
+  } 
