@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <meta name="google-signin-client_id" content="879223745487-13ttaoug88fv6goh1k0q163jp1cq65ue.apps.googleusercontent.com">
+  </head>
+
+<body>
+
+<div id="app">
+  <button  id= "btn-logout" class="btn-logout" onclick="logout()">Logout</button>
+<!-- login -->
+<div id="login-page" class="form-content">
+  <form id="login-form">
+    <section id="landing">
+      <div class="d-flex justify-content-center align-items-center" style="height: 100vh;"  >
+        <div class="p-5 bg-light shadow" style="width: auto; height: auto; border-radius: 10px">
+              <form onsubmit="login(event)">
+                  <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" name="email" id="email" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" name="password" id="password" class="form-control">
+                  </div>
+                  <button type="submit " class="btn btn-primary">Login</button><br>
+              </form>
+              <button @click="changePage('register-page')" id= "btn-register" class="btn btn-danger">register</button> <br> <br>
+              <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+          </div>
+      </div>
+    </section>
+  </form>
+</div>
+
+
+<!-- register -->
+
+<div id="register-page" class="form-content" >
+  <form id="register-form">
+    <section id="landing" >
+      <div class="d-flex justify-content-center align-items-center" style="height: 100vh;"  >
+        <div class="p-5 bg-light shadow" style="width: auto; height: auto; border-radius: 10px">
+              <form onsubmit="login(event)" class="form">
+                <div class="form-group">
+                  <h3>Create new Account</h3>
+                  <label for="name">Name</label>
+                  <input type="name" name="name" id="regist-name" class="form-control">
+              </div>
+                  <div class="form-group">
+                      <label for="email">Email</label>
+                      <input  type="email" name="email" id="regist-email" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input  type="password" name="password" id="regist-password" class="form-control">
+                  </div>
+                  <button type="submit " class="btn btn-primary">Register</button>
+              </form>
+              <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+          </div>
+      </div>
+    </section>
+  </form>
+</div>
+
+
+<!-- edit -->
+
+<div id="edit">
+  <div class="d-flex justify-content-center align-items-center" style= "height: auto;"  >
+    <div class="p-5 bg-light shadow" style="width: auto; height: auto; border-radius: 10px">
+      <form>
+       <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title"><br>
+          <label for="category">Category</label>
+          <select class="form-control form-control-sm" style="width: auto;" >
+            <option>Backlog</option>
+            <option>Todo</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">edit</button>
+      </form>
+    </div>
+  </div>
+</div>
+  
+<!-- add -->
+<div  class="container mt-4 mr-auto">
+  <div id="add" class="d-flex justify-content-center align-items-center" style= "height: auto;"  >
+    <div class="p-5 bg-light shadow" style="width: auto; height: auto; border-radius: 10px">
+      <form>
+       <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title"><br>
+          <label for="category">Category</label>
+          <select id="category" class="form-control form-control-sm" style="width: auto; ">
+            <option>Backlog</option>
+            <option>Todo</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- main-page -->
+
+  <div id="list-kanban" class="container mt-4 mr-auto">
+    <div class="row"> 
+      <div class="col-md-3">
+        <div class="item backlog"> Backlog</div>
+        <div class="card text-center mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="item todo"> Todo </div>
+        <div class="card text-center mt-4">
+       
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="item doing"> Doing </div>
+        <div class="card text-center mt-4">
+          
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="item done"> Done </div>
+        <div class="card text-center mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+     
+      <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+      <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+      <script src="main.js">  </script>
+  
+</body>
+</html>
