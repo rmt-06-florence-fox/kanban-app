@@ -1,0 +1,13 @@
+***server*** :
+1. API documentation [x]
+2. routes REST API [x]
+3. CRUD [x]
+4. Register & login [x]
+5. Authentication & authorization [x]
+6. Social Login []
+7. Deploy server (heroku) []
+
+***Client*** :
+1. vue component [x]
+2. SPA [x]
+3. Deploy client (firebase) []
