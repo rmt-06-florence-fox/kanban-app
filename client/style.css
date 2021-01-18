@@ -1,0 +1,28 @@
+.mainBoard {
+    margin-top: 100px;
+}
+
+.edit:hover {
+    background-color: rgb(199, 235, 235);
+    cursor: pointer;
+}
+.destroy:hover {
+    background-color: rgb(235, 186, 177);
+    cursor: pointer;
+}
+
+.newTask:hover {
+    font-weight: bolder;
+    cursor: pointer;
+    color: rgb(59, 170, 124);
+}
+#logo {
+    max-height: 50px;
+
+}
+#img-left {
+    max-width: 400px;
+    padding-top: 300px;
+    margin-left: 70px;
+    /* align-self: flex-end; */
+}
