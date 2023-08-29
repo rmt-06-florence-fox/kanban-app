@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx parcel build index.html --public-url ./"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,10 @@
     "vue-sweetalert2": "^4.1.1"
   },
   "devDependencies": {
+    "@parcel/transformer-vue": "^2.9.3",
     "@vue/component-compiler-utils": "^3.2.0",
+    "parcel": "^1.12.3",
+    "process": "^0.11.10",
     "vue-template-compiler": "^2.6.12"
   }
 }
